@@ -10,6 +10,8 @@ import org.androidannotations.api.rest.RestErrorHandler;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 
+import com.special.ResideMenu.FontIconResideMenuItem;
+
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +32,7 @@ public class MainActivity extends BaseMainActivity {
 	@RestService
 	PetsApiHelper apiHelper;
 
-	private int currentFragmentId = -1;
+	private int currentFragmentIndex = -1;
 
 	@AfterViews
 	public void show() {
@@ -73,16 +75,18 @@ public class MainActivity extends BaseMainActivity {
 	@Override
 	public void onClick(View v) {
 
+		FontIconResideMenuItem clickView = (FontIconResideMenuItem) v;
+
 		if (resideMenu.isOpened()) {
 			resideMenu.closeMenu();
 		}
 
-		final int id = v.getId();
+		final int index = clickView.getItemIndex();
 
-		if (id == currentFragmentId) {
+		if (index == currentFragmentIndex) {
 			return;
 		} else {
-			currentFragmentId = id;
+			currentFragmentIndex = index;
 		}
 
 		Fragment fragment = null;

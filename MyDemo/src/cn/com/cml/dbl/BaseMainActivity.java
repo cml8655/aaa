@@ -49,17 +49,12 @@ public class BaseMainActivity extends FragmentActivity implements
 		// resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
 
 		// create menu items;
-		String titles[] = { "相机", "短信操作", "百度地图", "主页", "音量控制" };
-		int icon[] = { R.drawable.ic_launcher, R.drawable.ic_launcher,
-				R.drawable.ic_launcher, R.drawable.ic_launcher,
-				R.drawable.icon_gcoding };
+		String[] menus = getResources().getStringArray(R.array.left_menus);
+		String[] icons = getResources().getStringArray(R.array.left_menus_icon);
 
-		for (int i = 0; i < titles.length; i++) {
-			// ResideMenuItem item = new ResideMenuItem(this, icon[i],
-			// titles[i],
-			// itemIds[i]);
-			ResideMenuItem item = new FontIconResideMenuItem(this, titles[i],
-					titles[i], i);
+		for (int i = 0; i < menus.length; i++) {
+			ResideMenuItem item = new FontIconResideMenuItem(this, icons[i],
+					menus[i], i);
 			item.setOnClickListener(this);
 			resideMenu.addMenuItem(item, ResideMenu.DIRECTION_LEFT);
 		}
