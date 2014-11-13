@@ -14,7 +14,6 @@ public class PetApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.d("fff", "application create!!!");
 		ActiveAndroid.initialize(this, false);
 		SDKInitializer.initialize(this);
 	}
