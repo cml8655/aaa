@@ -1,6 +1,6 @@
-package cn.com.cml.pets.service;
+package cn.com.cml.dbl.service;
 
-import cn.com.cml.pets.model.SmsModel;
+import cn.com.cml.dbl.model.SmsModel;
 import android.content.ContentUris;
 import android.content.Context;
 import android.net.Uri;

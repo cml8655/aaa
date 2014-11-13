@@ -1,10 +1,10 @@
-package cn.com.cml.pets.view;
+package cn.com.cml.dbl.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import cn.com.cml.pets.util.CameraUtil;
+import cn.com.cml.dbl.util.CameraUtil;
 
 public class CameraScannerView extends SurfaceView implements
 		SurfaceHolder.Callback {

@@ -1,4 +1,4 @@
-package cn.com.cml.pets.model;
+package cn.com.cml.dbl.model;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

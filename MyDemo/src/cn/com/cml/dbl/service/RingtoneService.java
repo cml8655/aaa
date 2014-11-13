@@ -1,4 +1,4 @@
-package cn.com.cml.pets.service;
+package cn.com.cml.dbl.service;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
@@ -13,8 +13,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.Vibrator;
-import cn.com.cml.pets.util.PrefUtil_;
-import cn.com.cml.pets.util.VolumeUtil;
+import cn.com.cml.dbl.util.PrefUtil_;
+import cn.com.cml.dbl.util.VolumeUtil;
 
 /**
  * 震动，并且播放默认手机铃声提示

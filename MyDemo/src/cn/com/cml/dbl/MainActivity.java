@@ -10,19 +10,18 @@ import org.androidannotations.api.rest.RestErrorHandler;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import cn.com.cml.dbl.model.RequestModel;
+import cn.com.cml.dbl.net.PetsApiHelper;
+import cn.com.cml.dbl.view.BaiduApiFragment_;
+import cn.com.cml.dbl.view.CameraScanFragment_;
+import cn.com.cml.dbl.view.MessageFragment_;
+import cn.com.cml.dbl.view.UserInfoFragment_;
+import cn.com.cml.dbl.view.VolumeControlFragment_;
 import cn.com.cml.pets.R;
-import cn.com.cml.pets.model.RequestModel;
-import cn.com.cml.pets.net.PetsApiHelper;
-import cn.com.cml.pets.view.BaiduApiFragment_;
-import cn.com.cml.pets.view.CameraScanFragment_;
-import cn.com.cml.pets.view.MessageFragment_;
-import cn.com.cml.pets.view.UserInfoFragment_;
-import cn.com.cml.pets.view.VolumeControlFragment_;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)

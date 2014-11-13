@@ -1,4 +1,4 @@
-package cn.com.cml.pets.model;
+package cn.com.cml.dbl.model;
 
 public class RequestModel {
 	private String username;

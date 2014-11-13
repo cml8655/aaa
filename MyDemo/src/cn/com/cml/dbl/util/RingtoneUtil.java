@@ -1,4 +1,4 @@
-package cn.com.cml.pets.util;
+package cn.com.cml.dbl.util;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;

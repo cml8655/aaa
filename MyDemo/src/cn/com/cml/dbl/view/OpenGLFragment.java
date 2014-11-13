@@ -1,11 +1,11 @@
-package cn.com.cml.pets.view;
+package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import android.support.v4.app.Fragment;
+import cn.com.cml.dbl.ui.MyOpenGLSurfaceView;
 import cn.com.cml.pets.R;
-import cn.com.cml.pets.ui.MyOpenGLSurfaceView;
 
 @EFragment(R.layout.fragment_opengl)
 public class OpenGLFragment extends Fragment {

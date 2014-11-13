@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import cn.com.cml.dbl.view.UserInfoFragment;
+import cn.com.cml.dbl.view.UserInfoFragment_;
 import cn.com.cml.pets.R;
-import cn.com.cml.pets.view.UserInfoFragment;
-import cn.com.cml.pets.view.UserInfoFragment_;
 
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;

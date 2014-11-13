@@ -1,4 +1,4 @@
-package cn.com.cml.pets.service;
+package cn.com.cml.dbl.service;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import cn.com.cml.pets.model.SmsModel;
+import cn.com.cml.dbl.model.SmsModel;
 
 /**
  * 短信数据库变化监听

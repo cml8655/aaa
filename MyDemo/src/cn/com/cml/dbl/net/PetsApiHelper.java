@@ -1,4 +1,4 @@
-package cn.com.cml.pets.net;
+package cn.com.cml.dbl.net;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ import org.androidannotations.api.rest.RestClientSupport;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
 
-import cn.com.cml.pets.model.RequestModel;
+import cn.com.cml.dbl.model.RequestModel;
 
 @Rest(converters = { GsonHttpMessageConverter.class,
 		StringHttpMessageConverter.class }, interceptors = RequestInterceptor.class)

@@ -1,4 +1,4 @@
-package cn.com.cml.pets.view;
+package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -8,9 +8,9 @@ import org.androidannotations.annotations.ViewById;
 
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
+import cn.com.cml.dbl.service.RingtoneService_;
+import cn.com.cml.dbl.util.RingtoneUtil;
 import cn.com.cml.pets.R;
-import cn.com.cml.pets.service.RingtoneService_;
-import cn.com.cml.pets.util.RingtoneUtil;
 
 @EFragment(R.layout.media_volume_fragment)
 public class VolumeControlFragment extends Fragment {

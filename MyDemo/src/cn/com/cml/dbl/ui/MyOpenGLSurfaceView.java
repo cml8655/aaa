@@ -1,4 +1,4 @@
-package cn.com.cml.pets.ui;
+package cn.com.cml.dbl.ui;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

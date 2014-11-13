@@ -1,4 +1,4 @@
-package cn.com.cml.pets.view;
+package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -12,8 +12,8 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
+import cn.com.cml.dbl.util.DeviceUtil;
 import cn.com.cml.pets.R;
-import cn.com.cml.pets.util.DeviceUtil;
 
 @EFragment(R.layout.fragment_userinfo)
 public class UserInfoFragment extends Fragment {

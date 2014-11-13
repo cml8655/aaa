@@ -1,4 +1,4 @@
-package cn.com.cml.pets.view;
+package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -19,10 +19,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.com.cml.dbl.model.SmsModel;
+import cn.com.cml.dbl.service.SMSHandler;
+import cn.com.cml.dbl.service.SmsContentObserver;
 import cn.com.cml.pets.R;
-import cn.com.cml.pets.model.SmsModel;
-import cn.com.cml.pets.service.SMSHandler;
-import cn.com.cml.pets.service.SmsContentObserver;
 
 @EFragment(R.layout.fragment_msg)
 public class MessageFragment extends Fragment {
