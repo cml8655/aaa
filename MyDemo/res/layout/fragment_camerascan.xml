@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <cn.com.cml.pets.view.CameraScannerView
+    <cn.com.cml.dbl.view.CameraScannerView
         android:id="@+id/cameraView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

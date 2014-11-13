@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    tools:context="cn.com.cml.pets.MainActivity" >
+    tools:context="cn.com.cml.dbl.MainActivity" >
 
     <FrameLayout
         android:id="@+id/container"

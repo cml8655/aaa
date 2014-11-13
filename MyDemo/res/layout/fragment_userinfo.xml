@@ -9,6 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
+    <cn.com.cml.dbl.ui.FontIconTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/icon_spin5"
+        android:textSize="40sp" />
+
     <Button
         android:id="@+id/load_imei"
         android:layout_width="match_parent"
@@ -26,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="获取IMEI-MAc" />
+
     <Button
         android:id="@+id/toggle_gps"
         android:layout_width="match_parent"

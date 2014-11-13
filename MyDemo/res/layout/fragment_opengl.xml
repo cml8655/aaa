@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <cn.com.cml.pets.ui.MyOpenGLSurfaceView
+    <cn.com.cml.dbl.ui.MyOpenGLSurfaceView
         android:layout_width="match_parent"
         android:id="@+id/gl_surface"
         android:layout_height="match_parent" />
