@@ -2,10 +2,9 @@ package com.special.ResideMenu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class FontIconResideMenuItem extends LinearLayout {
+public class FontIconResideMenuItem extends ResideMenuItem {
 
 	/** menu item icon */
 	private FontIconTextView iconView;
@@ -24,10 +23,19 @@ public class FontIconResideMenuItem extends LinearLayout {
 		tv_title.setText(title);
 	}
 
+	public FontIconResideMenuItem(Context context, String icon, String title,
+			Integer itemIndex) {
+		super(context);
+		initViews(context);
+		this.itemIndex = itemIndex;
+		iconView.setText(icon);
+		tv_title.setText(title);
+	}
+
 	private void initViews(Context context) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.residemenu_item, this);
+		inflater.inflate(R.layout.residemenu_fonticon_item, this);
 		iconView = (FontIconTextView) findViewById(R.id.iv_icon);
 		tv_title = (TextView) findViewById(R.id.tv_title);
 	}

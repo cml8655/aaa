@@ -12,6 +12,7 @@ import cn.com.cml.dbl.view.UserInfoFragment;
 import cn.com.cml.dbl.view.UserInfoFragment_;
 import cn.com.cml.pets.R;
 
+import com.special.ResideMenu.FontIconResideMenuItem;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
@@ -54,8 +55,11 @@ public class BaseMainActivity extends FragmentActivity implements
 				R.drawable.icon_gcoding };
 
 		for (int i = 0; i < titles.length; i++) {
-			ResideMenuItem item = new ResideMenuItem(this, icon[i], titles[i],
-					itemIds[i]);
+			// ResideMenuItem item = new ResideMenuItem(this, icon[i],
+			// titles[i],
+			// itemIds[i]);
+			ResideMenuItem item = new FontIconResideMenuItem(this, titles[i],
+					titles[i], i);
 			item.setOnClickListener(this);
 			resideMenu.addMenuItem(item, ResideMenu.DIRECTION_LEFT);
 		}

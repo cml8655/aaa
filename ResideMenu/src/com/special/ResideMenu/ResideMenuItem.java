@@ -21,7 +21,6 @@ public class ResideMenuItem extends LinearLayout {
 
 	public ResideMenuItem(Context context) {
 		super(context);
-		initViews(context);
 	}
 
 	public ResideMenuItem(Context context, int icon, int title) {
