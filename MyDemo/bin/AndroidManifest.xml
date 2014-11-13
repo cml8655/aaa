@@ -46,7 +46,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
-        android:name="cn.com.cml.pets.PetApplication_"
+        android:name="cn.com.cml.dbl.PetApplication_"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -61,7 +61,7 @@
             android:value="1" />
 
         <activity
-            android:name="cn.com.cml.pets.MainActivity_"
+            android:name="cn.com.cml.dbl.MainActivity_"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
@@ -84,7 +84,7 @@
             -->
         </service>
         <service
-            android:name="cn.com.cml.pets.service.RingtoneService_"
+            android:name="cn.com.cml.dbl.service.RingtoneService_"
             android:exported="false" >
         </service>
 
