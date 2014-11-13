@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="baseUrl">sdfsdf</string>
     <string name="app_name">MyDemo</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="menus">
+        <item>相机</item>
+        <item>短信操作</item>
+    </string-array>
 
 </resources>
