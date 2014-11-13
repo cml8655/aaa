@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.com.cml.dbl.BaseMainActivity;
 import cn.com.cml.pets.R;
 
 import com.baidu.location.BDLocation;

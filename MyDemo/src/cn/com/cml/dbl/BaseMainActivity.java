@@ -1,13 +1,15 @@
-package cn.com.cml.pets;
+package cn.com.cml.dbl;
 
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import cn.com.cml.pets.R;
 import cn.com.cml.pets.view.UserInfoFragment;
 import cn.com.cml.pets.view.UserInfoFragment_;
 
@@ -19,7 +21,7 @@ public class BaseMainActivity extends FragmentActivity implements
 
 	protected ResideMenu resideMenu;
 
-	private int[] itemIds = new int[] { 0, 1, 2, 3 ,4};
+	private int[] itemIds = new int[] { 0, 1, 2, 3, 4 };
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -47,9 +49,10 @@ public class BaseMainActivity extends FragmentActivity implements
 		// resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
 
 		// create menu items;
-		String titles[] = { "相机", "短信操作", "百度地图", "主页","音量控制" };
+		String titles[] = { "相机", "短信操作", "百度地图", "主页", "音量控制" };
 		int icon[] = { R.drawable.ic_launcher, R.drawable.ic_launcher,
-				R.drawable.ic_launcher, R.drawable.ic_launcher,R.drawable.icon_gcoding };
+				R.drawable.ic_launcher, R.drawable.ic_launcher,
+				R.drawable.icon_gcoding };
 
 		for (int i = 0; i < titles.length; i++) {
 			ResideMenuItem item = new ResideMenuItem(this, icon[i], titles[i],
@@ -76,6 +79,7 @@ public class BaseMainActivity extends FragmentActivity implements
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
+
 		return resideMenu.dispatchTouchEvent(ev);
 	}
 

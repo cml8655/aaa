@@ -1,4 +1,4 @@
-package cn.com.cml.pets;
+package cn.com.cml.dbl;
 
 import org.androidannotations.annotations.EApplication;
 

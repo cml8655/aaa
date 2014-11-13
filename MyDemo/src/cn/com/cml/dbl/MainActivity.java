@@ -1,4 +1,4 @@
-package cn.com.cml.pets;
+package cn.com.cml.dbl;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+import cn.com.cml.pets.R;
 import cn.com.cml.pets.model.RequestModel;
 import cn.com.cml.pets.net.PetsApiHelper;
 import cn.com.cml.pets.view.BaiduApiFragment_;
