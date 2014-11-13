@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/msg_show"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center|center_vertical"
+        android:hint="媒体音量控制demo" />
+
+    <Button
+        android:id="@+id/media_volume_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="媒体音量" />
+
+    <Button
+        android:id="@+id/ring_volume_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="铃声音量" />
+
+    <Button
+        android:id="@+id/play_ringtone_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="play ringtone" />
+
+    <Button
+        android:id="@+id/stop_ringtone_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stop ringtone" />
+
+</LinearLayout>

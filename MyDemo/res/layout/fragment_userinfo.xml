@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/device_show_tv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <Button
+        android:id="@+id/load_imei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取IMEI" />
+
+    <Button
+        android:id="@+id/load_mac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取MAC" />
+
+    <Button
+        android:id="@+id/load_imei_mac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取IMEI-MAc" />
+    <Button
+        android:id="@+id/toggle_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="toggle GPS状态" />
+
+</LinearLayout>
