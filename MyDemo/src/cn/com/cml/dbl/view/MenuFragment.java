@@ -2,7 +2,6 @@ package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -46,6 +45,8 @@ public class MenuFragment extends Fragment {
 
 		FragmentTransaction transaction = getFragmentManager()
 				.beginTransaction();
+		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
+				R.anim.right_fadein, R.anim.left_fadeout);
 		transaction.replace(R.id.content_frame, fragment);
 		transaction.commit();
 
