@@ -7,9 +7,19 @@
     <!-- font icon -->
     <string name="icon_spin5">&#xe805;</string>
 
-    <string-array name="menus">
+    <string-array name="left_menus_icon">
+        <item>&#xe805;</item>
+        <item>&#xe805;</item>
+        <item>&#xe805;</item>
+        <item>&#xe805;</item>
+        <item>&#xe805;</item>
+    </string-array>
+    <string-array name="left_menus">
         <item>相机</item>
         <item>短信操作</item>
+        <item>百度地图</item>
+        <item>主页</item>
+        <item>音量控制</item>
     </string-array>
 
 </resources>

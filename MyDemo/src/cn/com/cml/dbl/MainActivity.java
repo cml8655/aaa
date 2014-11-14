@@ -5,38 +5,115 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.rest.RestService;
 import org.androidannotations.api.rest.RestErrorHandler;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 
-import com.special.ResideMenu.FontIconResideMenuItem;
-
-import android.support.v4.app.Fragment;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.FragmentManager.OnBackStackChangedListener;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.model.RequestModel;
 import cn.com.cml.dbl.net.PetsApiHelper;
-import cn.com.cml.dbl.view.BaiduApiFragment_;
-import cn.com.cml.dbl.view.CameraScanFragment_;
-import cn.com.cml.dbl.view.MessageFragment_;
-import cn.com.cml.dbl.view.UserInfoFragment_;
-import cn.com.cml.dbl.view.VolumeControlFragment_;
 import cn.com.cml.pets.R;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends BaseMainActivity {
+public class MainActivity extends Activity {
 
 	@RestService
 	PetsApiHelper apiHelper;
 
-	private int currentFragmentIndex = -1;
+	@ViewById(R.id.drawer_layout)
+	DrawerLayout mDrawerLayout;
+
+	@ViewById(R.id.left_drawer)
+	TextView mDrawerMenu;
+
+	private ActionBarDrawerToggle mDrawerToggle;
 
 	@AfterViews
-	public void show() {
-		// request();
+	protected void initLayouts() {
+
+		final ActionBar actionBar = getActionBar();
+
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.CYAN));
+		actionBar.setLogo(R.drawable.img_menu);
+		// bar.setBackgroundDrawable(new ColorDrawable(Color.CYAN));
+
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				android.R.color.transparent, R.string.app_name,
+				R.string.app_name) {
+			@Override
+			public void onDrawerOpened(View drawerView) {
+				super.onDrawerOpened(drawerView);
+				invalidateOptionsMenu();
+			}
+
+			@Override
+			public void onDrawerClosed(View drawerView) {
+				super.onDrawerClosed(drawerView);
+				invalidateOptionsMenu();
+			}
+		};
+		// mDrawerToggle.setDrawerIndicatorEnabled(true);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		getFragmentManager().addOnBackStackChangedListener(
+				new OnBackStackChangedListener() {
+
+					@Override
+					public void onBackStackChanged() {
+
+						boolean showIndicator = getFragmentManager()
+								.getBackStackEntryCount() > 0;
+
+						mDrawerToggle.setDrawerIndicatorEnabled(!showIndicator);
+					}
+				});
+
+		mDrawerMenu.setText("我是菜单栏");
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Pass the event to ActionBarDrawerToggle, if it returns
+		// true, then it has handled the app icon touch event
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Background
@@ -72,52 +149,52 @@ public class MainActivity extends BaseMainActivity {
 		Toast.makeText(this, "菜单。。。", Toast.LENGTH_LONG).show();
 	}
 
-	@Override
-	public void onClick(View v) {
-
-		FontIconResideMenuItem clickView = (FontIconResideMenuItem) v;
-
-		if (resideMenu.isOpened()) {
-			resideMenu.closeMenu();
-		}
-
-		final int index = clickView.getItemIndex();
-
-		if (index == currentFragmentIndex) {
-			return;
-		} else {
-			currentFragmentIndex = index;
-		}
-
-		Fragment fragment = null;
-
-		switch (v.getId()) {
-
-		case 0:
-			fragment = CameraScanFragment_.builder().build();
-			break;
-
-		case 1:
-			fragment = MessageFragment_.builder().build();
-			// fragment = OpenGLFragment_.builder().build();
-			break;
-
-		case 2:
-			fragment = BaiduApiFragment_.builder().build();
-			break;
-
-		case 3:
-			fragment = UserInfoFragment_.builder().build();
-
-		case 4:
-			fragment = VolumeControlFragment_.builder().build();
-
-			break;
-		}
-
-		if (null != fragment) {
-			super.replaceContainer(fragment);
-		}
-
-	}
+	// @Override
+	// public void onClick(View v) {
+	//
+	// FontIconResideMenuItem clickView = (FontIconResideMenuItem) v;
+	//
+	// if (resideMenu.isOpened()) {
+	// resideMenu.closeMenu();
+	// }
+	//
+	// final int index = clickView.getItemIndex();
+	//
+	// if (index == currentFragmentIndex) {
+	// return;
+	// } else {
+	// currentFragmentIndex = index;
+	// }
+	//
+	// Fragment fragment = null;
+	//
+	// switch (v.getId()) {
+	//
+	// case 0:
+	// fragment = CameraScanFragment_.builder().build();
+	// break;
+	//
+	// case 1:
+	// fragment = MessageFragment_.builder().build();
+	// // fragment = OpenGLFragment_.builder().build();
+	// break;
+	//
+	// case 2:
+	// fragment = BaiduApiFragment_.builder().build();
+	// break;
+	//
+	// case 3:
+	// fragment = UserInfoFragment_.builder().build();
+	//
+	// case 4:
+	// fragment = VolumeControlFragment_.builder().build();
+	//
+	// break;
+	// }
+	//
+	// if (null != fragment) {
+	// super.replaceContainer(fragment);
+	// }
+	//
+	// }
 }
