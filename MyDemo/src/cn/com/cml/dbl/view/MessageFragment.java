@@ -19,10 +19,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.model.SmsModel;
 import cn.com.cml.dbl.service.SMSHandler;
 import cn.com.cml.dbl.service.SmsContentObserver;
-import cn.com.cml.pets.R;
 
 @EFragment(R.layout.fragment_msg)
 public class MessageFragment extends Fragment {

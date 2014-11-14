@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <cn.com.cml.dbl.ui.FontIconTextView
+        android:id="@+id/menu_icon"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:gravity="center|center_vertical" />
+
+    <TextView
+        android:id="@+id/menu_txt"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical" />
+
+</merge>

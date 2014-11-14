@@ -13,7 +13,6 @@ import org.springframework.web.client.RestClientException;
 
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
 import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -27,12 +26,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.model.RequestModel;
 import cn.com.cml.dbl.net.PetsApiHelper;
 import cn.com.cml.dbl.view.MenuFragment_;
-import cn.com.cml.pets.R;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)

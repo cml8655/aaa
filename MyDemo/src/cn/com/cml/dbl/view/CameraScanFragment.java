@@ -6,8 +6,8 @@ import org.androidannotations.annotations.ViewById;
 
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
+import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.util.CameraUtil;
-import cn.com.cml.pets.R;
 
 @EFragment(R.layout.fragment_camerascan)
 public class CameraScanFragment extends Fragment {

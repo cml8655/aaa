@@ -5,15 +5,11 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.PendingIntent;
-import android.app.PendingIntent.CanceledException;
-import android.content.Intent;
-import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
+import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.util.DeviceUtil;
-import cn.com.cml.pets.R;
 
 @EFragment(R.layout.fragment_userinfo)
 public class UserInfoFragment extends Fragment {
