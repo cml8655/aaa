@@ -12,6 +12,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 
 import android.app.ActionBar;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.res.Configuration;
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -54,9 +56,18 @@ public class MainActivity extends Activity {
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.CYAN));
-		actionBar.setLogo(R.drawable.img_menu);
-		// bar.setBackgroundDrawable(new ColorDrawable(Color.CYAN));
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
+		actionBar.setLogo(R.drawable.ic_home);
+
+		View customView = getLayoutInflater().inflate(R.layout.view_actionbar,
+				null);
+
+		LayoutParams params = new LayoutParams(Gravity.CENTER
+				| Gravity.CENTER_VERTICAL);
+		params.width = LayoutParams.MATCH_PARENT;
+		params.height = LayoutParams.MATCH_PARENT;
+
+		actionBar.setCustomView(customView, params);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				android.R.color.transparent, R.string.app_name,
@@ -73,8 +84,8 @@ public class MainActivity extends Activity {
 				invalidateOptionsMenu();
 			}
 		};
-		// mDrawerToggle.setDrawerIndicatorEnabled(true);
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		mDrawerLayout.closeDrawers();
 
 		getFragmentManager().addOnBackStackChangedListener(
 				new OnBackStackChangedListener() {
