@@ -161,52 +161,7 @@ public class MainActivity extends FragmentActivity {
 		Toast.makeText(this, "菜单。。。", Toast.LENGTH_LONG).show();
 	}
 
-	// @Override
-	// public void onClick(View v) {
-	//
-	// FontIconResideMenuItem clickView = (FontIconResideMenuItem) v;
-	//
-	// if (resideMenu.isOpened()) {
-	// resideMenu.closeMenu();
-	// }
-	//
-	// final int index = clickView.getItemIndex();
-	//
-	// if (index == currentFragmentIndex) {
-	// return;
-	// } else {
-	// currentFragmentIndex = index;
-	// }
-	//
-	// Fragment fragment = null;
-	//
-	// switch (v.getId()) {
-	//
-	// case 0:
-	// fragment = CameraScanFragment_.builder().build();
-	// break;
-	//
-	// case 1:
-	// fragment = MessageFragment_.builder().build();
-	// // fragment = OpenGLFragment_.builder().build();
-	// break;
-	//
-	// case 2:
-	// fragment = BaiduApiFragment_.builder().build();
-	// break;
-	//
-	// case 3:
-	// fragment = UserInfoFragment_.builder().build();
-	//
-	// case 4:
-	// fragment = VolumeControlFragment_.builder().build();
-	//
-	// break;
-	// }
-	//
-	// if (null != fragment) {
-	// super.replaceContainer(fragment);
-	// }
-	//
-	// }
+	public void closeMenu() {
+		mDrawerLayout.closeDrawers();
+	}
 }

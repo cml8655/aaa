@@ -14,28 +14,51 @@
     <View style="@style/horizontalDivider" />
 
     <cn.com.cml.dbl.ui.MenuItemView_
+        android:id="@+id/menu_home"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         menu:icon="@string/icon_spin5"
-        menu:text="@string/action_settings" >
+        menu:text="@string/menu_home" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
     <View style="@style/horizontalDivider" />
 
     <cn.com.cml.dbl.ui.MenuItemView_
+        android:id="@+id/menu_photo"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         menu:icon="@string/icon_spin5"
-        menu:text="@string/action_settings" >
+        menu:text="@string/menu_photo" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
     <View style="@style/horizontalDivider" />
 
     <cn.com.cml.dbl.ui.MenuItemView_
+        android:id="@+id/menu_map"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         menu:icon="@string/icon_spin5"
-        menu:text="@string/action_settings" >
+        menu:text="@string/menu_map" >
+    </cn.com.cml.dbl.ui.MenuItemView_>
+
+    <View style="@style/horizontalDivider" />
+
+    <cn.com.cml.dbl.ui.MenuItemView_
+        android:id="@+id/menu_sms"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        menu:icon="@string/icon_spin5"
+        menu:text="@string/menu_sms" >
+    </cn.com.cml.dbl.ui.MenuItemView_>
+
+    <View style="@style/horizontalDivider" />
+
+    <cn.com.cml.dbl.ui.MenuItemView_
+        android:id="@+id/menu_volume"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        menu:icon="@string/icon_spin5"
+        menu:text="@string/menu_volume" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
     <View style="@style/horizontalDivider" />
