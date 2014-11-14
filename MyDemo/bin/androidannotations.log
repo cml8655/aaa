@@ -19739,3 +19739,206 @@ Element (TypeElementImpl): cn.com.cml.pets.net.PetsApiHelper
 11:58:40.147 [Worker-8] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.MainActivity_
 11:58:40.244 [Worker-8] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 153 ms], [Generate Sources = 102 ms], [Validate Annotations = 17 ms], [Extract Annotations = 10 ms], [Find R Classes = 8 ms], [Extract Manifest = 7 ms], [Process Annotations = 7 ms], 
 11:58:40.245 [Worker-8] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:08:04.819 [Worker-9] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:08:20.188 [Worker-8] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:08:39.460 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:09:12.95 [Worker-6] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:09:12.312 [Worker-6] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 10 annotations on 14 elements
+12:09:12.346 [Worker-6] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:09:12.351 [Worker-6] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:09:12.353 [Worker-6] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:09:12.356 [Worker-6] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:09:12.372 [Worker-6] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:09:12.374 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:09:12.376 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [cn.com.cml.dbl.view.UserInfoFragment, cn.com.cml.dbl.view.MessageFragment, cn.com.cml.dbl.view.VolumeControlFragment, cn.com.cml.dbl.view.OpenGLFragment, cn.com.cml.dbl.view.CameraScanFragment, cn.com.cml.dbl.view.BaiduApiFragment]
+12:09:12.386 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [mapView, cameraView, showMsg, mapMsgView, mDrawerLayout, msgShowView, surfaceView, mDrawerMenu, msgShowView]
+12:09:12.390 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with ClickHandler: [public void playRingtone() , public void sendMsg(android.view.View) , public void toggleGPS() , public void stopRingtone() , public void LoadImeiMAc() , public void loadMAC() , public void receiveMsg(android.view.View) , public void ringValumeControl() , public void mediaValumeControl() , public void loadImei() ]
+12:09:12.410 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsMenuHandler: [cn.com.cml.dbl.MainActivity]
+12:09:12.416 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsItemHandler: [protected void settingItemClick() ]
+12:09:12.417 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with RestServiceHandler: [apiHelper]
+12:09:12.419 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with BeanHandler: [ringtoneUtil, deviceUtil]
+12:09:12.421 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [public void initLocationComponent() , protected void initLayouts() , public void initConfig() , protected void initConfig() , protected void initConfig() ]
+12:09:12.422 [Worker-6] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [protected void request() ]
+12:09:12.423 [Worker-6] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:09:12.427 [Worker-6] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:09:12.431 [Worker-6] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EFragmentHandler: [cn.com.cml.dbl.view.UserInfoFragment, cn.com.cml.dbl.view.MessageFragment, cn.com.cml.dbl.view.VolumeControlFragment, cn.com.cml.dbl.view.OpenGLFragment, cn.com.cml.dbl.view.CameraScanFragment, cn.com.cml.dbl.view.BaiduApiFragment]
+12:09:12.434 [Worker-6] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:09:12.435 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with ViewByIdHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@6927c4b6, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@6f96ce45, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@18e2ff41, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@7589fb90, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@524eed94, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@2e0f5d64, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@45f14bad, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@5b62df4e, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@26005c8e]
+12:09:12.441 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with ClickHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@6be0dbc6, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@1e6a393c, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@389a4b13, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@5ff6c57f, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@7d11f86b, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@92d1977, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@184ef6e5, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@53edf22, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@16b663e9, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@7dad1502]
+12:09:12.446 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with OptionsMenuHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@1506a0c1]
+12:09:12.447 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with OptionsItemHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@2d0a3c35]
+12:09:12.449 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with RestServiceHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@d2a91fd]
+12:09:12.454 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with BeanHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@1c3d1855, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@1d36b17c]
+12:09:12.461 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with AfterViewsHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@30b960a, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@5a6c73df, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@4ceeac56, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@2339b121, org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@69cb0e51]
+12:09:12.470 [Worker-6] DEBUG o.a.p.ModelProcessor:116 - Processing enclosed elements with BackgroundHandler: [org.androidannotations.model.AnnotationElements$AnnotatedAndRootElements@4e5eb18a]
+12:09:12.472 [Worker-6] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 7
+12:09:12.473 [Worker-6] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:09:12.474 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.MainActivity_
+12:09:12.478 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.BaiduApiFragment_
+12:09:12.481 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.CameraScanFragment_
+12:09:12.498 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.MessageFragment_
+12:09:12.501 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.OpenGLFragment_
+12:09:12.503 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.UserInfoFragment_
+12:09:12.516 [Worker-6] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.VolumeControlFragment_
+12:09:12.519 [Worker-6] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 207 ms], [Validate Annotations = 51 ms], [Process Annotations = 49 ms], [Generate Sources = 47 ms], [Extract Annotations = 32 ms], [Find R Classes = 18 ms], [Extract Manifest = 5 ms], 
+12:09:12.520 [Worker-6] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:10:26.288 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:10:26.291 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 1 annotations on 1 elements
+12:10:26.302 [Worker-5] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:10:26.307 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:10:26.309 [Worker-5] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:10:26.311 [Worker-5] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:10:26.325 [Worker-5] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:10:26.326 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:10:26.329 [Worker-5] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:10:26.330 [Worker-5] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:10:26.331 [Worker-5] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:10:26.332 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:10:26.333 [Worker-5] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:10:26.335 [Worker-5] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.MenuFragment_
+12:10:26.349 [Worker-5] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 58 ms], [Find R Classes = 17 ms], [Generate Sources = 17 ms], [Extract Annotations = 10 ms], [Extract Manifest = 5 ms], [Process Annotations = 4 ms], [Validate Annotations = 3 ms], 
+12:10:26.350 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:11:33.148 [Worker-8] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:11:38.645 [Worker-2] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:11:47.456 [Worker-9] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:14:48.795 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:14:48.797 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 7 annotations on 1 elements
+12:14:48.810 [Worker-11] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:14:48.815 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:14:48.816 [Worker-11] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:14:48.819 [Worker-11] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:14:48.825 [Worker-11] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:14:48.826 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:14:48.827 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [mDrawerMenu, mDrawerLayout]
+12:14:48.829 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsMenuHandler: [cn.com.cml.dbl.MainActivity]
+12:14:48.830 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsItemHandler: [protected void settingItemClick() ]
+12:14:48.831 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with RestServiceHandler: [apiHelper]
+12:14:48.833 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [protected void initLayouts() ]
+12:14:48.834 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [protected void request() ]
+12:14:48.836 [Worker-11] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:14:48.836 [Worker-11] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:14:48.840 [Worker-11] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:14:48.842 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:14:48.843 [Worker-11] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:14:48.844 [Worker-11] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.MainActivity_
+12:14:48.869 [Worker-11] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 72 ms], [Generate Sources = 27 ms], [Extract Annotations = 13 ms], [Validate Annotations = 10 ms], [Find R Classes = 9 ms], [Process Annotations = 7 ms], [Extract Manifest = 5 ms], 
+12:14:48.871 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:15:45.866 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:15:45.870 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 7 annotations on 1 elements
+12:15:45.891 [Worker-12] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:15:45.895 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:15:45.896 [Worker-12] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:15:45.898 [Worker-12] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:15:45.907 [Worker-12] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:15:45.908 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:15:45.910 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [mDrawerLayout, mDrawerMenu]
+12:15:45.911 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsMenuHandler: [cn.com.cml.dbl.MainActivity]
+12:15:45.912 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsItemHandler: [protected void settingItemClick() ]
+12:15:45.914 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with RestServiceHandler: [apiHelper]
+12:15:45.915 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [protected void initLayouts() ]
+12:15:45.916 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [protected void request() ]
+12:15:45.916 [Worker-12] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:15:45.917 [Worker-12] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:15:45.921 [Worker-12] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:15:45.923 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:15:45.924 [Worker-12] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:15:45.925 [Worker-12] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.MainActivity_
+12:15:45.948 [Worker-12] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 78 ms], [Generate Sources = 25 ms], [Extract Annotations = 20 ms], [Find R Classes = 11 ms], [Validate Annotations = 9 ms], [Process Annotations = 7 ms], [Extract Manifest = 4 ms], 
+12:15:45.962 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:15:49.511 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:15:49.514 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 7 annotations on 1 elements
+12:15:49.528 [Worker-5] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:15:49.534 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:15:49.535 [Worker-5] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:15:49.538 [Worker-5] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:15:49.549 [Worker-5] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:15:49.550 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:15:49.551 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [mDrawerLayout, mDrawerMenu]
+12:15:49.553 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsMenuHandler: [cn.com.cml.dbl.MainActivity]
+12:15:49.555 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsItemHandler: [protected void settingItemClick() ]
+12:15:49.556 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with RestServiceHandler: [apiHelper]
+12:15:49.558 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [protected void initLayouts() ]
+12:15:49.559 [Worker-5] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [protected void request() ]
+12:15:49.563 [Worker-5] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:15:49.566 [Worker-5] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:15:49.570 [Worker-5] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:15:49.572 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:15:49.573 [Worker-5] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:15:49.575 [Worker-5] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.MainActivity_
+12:15:49.579 [Worker-5] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 65 ms], [Find R Classes = 14 ms], [Extract Annotations = 13 ms], [Validate Annotations = 13 ms], [Process Annotations = 10 ms], [Generate Sources = 7 ms], [Extract Manifest = 6 ms], 
+12:15:49.580 [Worker-5] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:16:20.867 [Worker-2] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:16:20.869 [Worker-2] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 7 annotations on 1 elements
+12:16:20.881 [Worker-2] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:16:20.885 [Worker-2] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:16:20.886 [Worker-2] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:16:20.888 [Worker-2] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:16:20.895 [Worker-2] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:16:20.896 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:16:20.898 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with ViewByIdHandler: [mDrawerLayout]
+12:16:20.899 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsMenuHandler: [cn.com.cml.dbl.MainActivity]
+12:16:20.900 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with OptionsItemHandler: [protected void settingItemClick() ]
+12:16:20.901 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with RestServiceHandler: [apiHelper]
+12:16:20.902 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [protected void initLayouts() ]
+12:16:20.903 [Worker-2] DEBUG o.a.p.ModelValidator:62 - Validating with BackgroundHandler: [protected void request() ]
+12:16:20.904 [Worker-2] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:16:20.905 [Worker-2] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EActivityHandler: [cn.com.cml.dbl.MainActivity]
+12:16:20.908 [Worker-2] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:16:20.910 [Worker-2] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:16:20.911 [Worker-2] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:16:20.912 [Worker-2] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.MainActivity_
+12:16:20.939 [Worker-2] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 70 ms], [Generate Sources = 29 ms], [Extract Annotations = 11 ms], [Find R Classes = 9 ms], [Validate Annotations = 9 ms], [Process Annotations = 6 ms], [Extract Manifest = 4 ms], 
+12:16:20.940 [Worker-2] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:17:03.700 [Worker-13] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:17:03.701 [Worker-13] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 2 annotations on 1 elements
+12:17:03.712 [Worker-13] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:17:03.716 [Worker-13] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:17:03.717 [Worker-13] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:17:03.720 [Worker-13] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:17:03.725 [Worker-13] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:17:03.726 [Worker-13] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:17:03.728 [Worker-13] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [public void initLayouts() ]
+12:17:03.729 [Worker-13] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:17:03.730 [Worker-13] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:17:03.732 [Worker-13] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:17:03.733 [Worker-13] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:17:03.734 [Worker-13] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:17:03.734 [Worker-13] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.MenuFragment_
+12:17:03.751 [Worker-13] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 50 ms], [Generate Sources = 18 ms], [Extract Annotations = 9 ms], [Find R Classes = 8 ms], [Extract Manifest = 5 ms], [Validate Annotations = 4 ms], [Process Annotations = 4 ms], 
+12:17:03.752 [Worker-13] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:17:33.332 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:17:33.335 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 2 annotations on 1 elements
+12:17:33.351 [Worker-11] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:17:33.355 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:17:33.356 [Worker-11] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:17:33.361 [Worker-11] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:17:33.368 [Worker-11] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:17:33.369 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:17:33.371 [Worker-11] ERROR o.a.h.AnnotationHelper:110 - @org.androidannotations.annotations.EFragment can only be used on an element that extends one of the following classes: [android.app.Fragment, android.support.v4.app.Fragment]
+12:17:33.372 [Worker-11] WARN  o.a.p.ModelValidator:69 - Element EFragmentHandler unvalidated by 
+12:17:33.372 [Worker-11] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [public void initLayouts() ]
+12:17:33.376 [Worker-11] WARN  o.a.p.ModelValidator:69 - Element AfterViewsHandler unvalidated by 
+12:17:33.376 [Worker-11] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:17:33.377 [Worker-11] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:17:33.378 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 0
+12:17:33.378 [Worker-11] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:17:33.379 [Worker-11] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 44 ms], [Extract Annotations = 14 ms], [Find R Classes = 12 ms], [Validate Annotations = 8 ms], [Extract Manifest = 4 ms], [Process Annotations = 2 ms], [Generate Sources = 1 ms], 
+12:17:33.380 [Worker-11] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:17:39.645 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}
+12:17:39.646 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:109 - Start processing for 2 annotations on 2 elements
+12:17:39.656 [Worker-12] DEBUG o.a.h.AndroidManifestFinder:137 - AndroidManifest.xml file found in parent folder E:\gitrepository\mydemo\MyDemo: E:\gitrepository\mydemo\MyDemo\AndroidManifest.xml
+12:17:39.665 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:172 - AndroidManifest.xml found: AndroidManifest [applicationPackage=cn.com.cml.pets, componentQualifiedNames=[cn.com.cml.dbl.MainActivity_, com.baidu.location.f, cn.com.cml.dbl.service.RingtoneService_], permissionQualifiedNames=[android.permission.READ_PHONE_STATE, android.permission.CAMERA, android.permission.INTERNET, android.permission.SEND_SMS, android.permission.RECEIVE_SMS, android.permission.READ_SMS, android.permission.WRITE_SMS, android.permission.ACCESS_COARSE_LOCATION, android.permission.ACCESS_FINE_LOCATION, android.permission.ACCESS_WIFI_STATE, android.permission.ACCESS_NETWORK_STATE, android.permission.CHANGE_WIFI_STATE, android.permission.READ_PHONE_STATE, android.permission.WRITE_EXTERNAL_STORAGE, android.permission.INTERNET, android.permission.MOUNT_UNMOUNT_FILESYSTEMS, android.permission.READ_LOGS, android.permission.VIBRATE, android.permission.WAKE_LOCK, android.permission.WRITE_SETTINGS], applicationClassName=cn.com.cml.dbl.PetApplication_, libraryProject=false, debugabble=false, minSdkVersion=14, maxSdkVersion=-1, targetSdkVersion=14]
+12:17:39.666 [Worker-12] INFO  o.a.r.ProjectRClassFinder:50 - Found project R class: cn.com.cml.pets.R
+12:17:39.667 [Worker-12] INFO  o.a.r.AndroidRClassFinder:44 - Found Android class: android.R
+12:17:39.687 [Worker-12] INFO  o.a.p.ModelValidator:42 - Validating elements
+12:17:39.688 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:17:39.690 [Worker-12] DEBUG o.a.p.ModelValidator:62 - Validating with AfterViewsHandler: [public void initLayouts() ]
+12:17:39.691 [Worker-12] INFO  o.a.p.ModelProcessor:73 - Processing root elements
+12:17:39.726 [Worker-12] DEBUG o.a.p.ModelProcessor:80 - Processing root elements EFragmentHandler: [cn.com.cml.dbl.view.MenuFragment]
+12:17:39.746 [Worker-12] INFO  o.a.p.ModelProcessor:104 - Processing enclosed elements
+12:17:39.747 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:251 - Number of files generated by AndroidAnnotations: 1
+12:17:39.748 [Worker-12] INFO  o.a.g.ApiCodeGenerator:52 - Writting following API classes in project: []
+12:17:39.749 [Worker-12] DEBUG o.a.g.SourceCodewriter:55 - Generating class: cn.com.cml.dbl.view.MenuFragment_
+12:17:39.786 [Worker-12] INFO  o.a.p.TimeStats:81 - Time measurements: [Whole Processing = 140 ms], [Process Annotations = 56 ms], [Generate Sources = 39 ms], [Find R Classes = 14 ms], [Extract Annotations = 9 ms], [Extract Manifest = 9 ms], [Validate Annotations = 4 ms], 
+12:17:39.788 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:123 - Finish processing
+12:18:42.793 [Worker-12] INFO  o.a.AndroidAnnotationProcessor:85 - Initialize AndroidAnnotations 3.0.1 with options {phase=BUILD}

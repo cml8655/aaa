@@ -20,6 +20,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,11 +31,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.model.RequestModel;
 import cn.com.cml.dbl.net.PetsApiHelper;
+import cn.com.cml.dbl.view.MenuFragment_;
 import cn.com.cml.pets.R;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
 	@RestService
 	PetsApiHelper apiHelper;
@@ -41,13 +44,15 @@ public class MainActivity extends Activity {
 	@ViewById(R.id.drawer_layout)
 	DrawerLayout mDrawerLayout;
 
-	@ViewById(R.id.left_drawer)
-	TextView mDrawerMenu;
-
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	@AfterViews
 	protected void initLayouts() {
+
+		FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+		transaction.replace(R.id.left_drawer, MenuFragment_.builder().build());
+		transaction.commit();
 
 		final ActionBar actionBar = getActionBar();
 
@@ -100,7 +105,6 @@ public class MainActivity extends Activity {
 					}
 				});
 
-		mDrawerMenu.setText("我是菜单栏");
 	}
 
 	@Override
