@@ -11,7 +11,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.app.Fragment;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
@@ -26,6 +29,11 @@ import cn.com.cml.dbl.service.SmsContentObserver;
 
 @EFragment(R.layout.fragment_msg)
 public class MessageFragment extends Fragment {
+
+	private final String SMS_URI_ALL = "content://sms/";
+	private final String SMS_URI_INBOX = "content://sms/inbox";
+	private final String SMS_URI_SEND = "content://sms/sent";
+	private final String SMS_URI_DRAFT = "content://sms/draft";
 
 	@ViewById(R.id.show_msg)
 	TextView showMsg;
@@ -96,7 +104,26 @@ public class MessageFragment extends Fragment {
 
 	@Click(R.id.receive_msg)
 	public void receiveMsg(View v) {
-		showMsg.setText("receiveMsg");
+
+		Cursor cursor = getActivity().getContentResolver().query(
+				Uri.parse(SMS_URI_INBOX),
+				new String[] { BaseColumns._ID, SmsModel.BODY }, null, null,
+				null);
+		String str = "";
+
+		while (cursor.moveToNext()) {
+
+			String id = cursor
+					.getString(cursor.getColumnIndex(BaseColumns._ID));
+			String body = cursor
+					.getString(cursor.getColumnIndex(SmsModel.BODY));
+
+			str += id + "," + body;
+
+		}
+
+		showMsg.setText(str);
+		cursor.close();
 	}
 
 	class SmsReciver extends BroadcastReceiver {
@@ -122,7 +149,7 @@ public class MessageFragment extends Fragment {
 						String msg = message.getMessageBody();
 						String to = message.getOriginatingAddress();
 
-						Toast.makeText(context, "接收到短信：" + msg + ",to:" + to,
+						Toast.makeText(context, "接收到短信：" + msg + ",to:" + to, 
 								Toast.LENGTH_LONG).show();
 
 						// if (msg.toLowerCase().startsWith(queryString))

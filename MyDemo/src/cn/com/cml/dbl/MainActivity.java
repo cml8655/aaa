@@ -11,12 +11,16 @@ import org.androidannotations.api.rest.RestErrorHandler;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 
+import android.Manifest.permission;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.FragmentManager.OnBackStackChangedListener;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
