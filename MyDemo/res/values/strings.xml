@@ -8,12 +8,19 @@
     <string name="icon_spin5">&#xe805;</string>
 
     <!-- left menu -->
+    <string name="menu_alarm">闹钟设置</string>
+    <string name="menu_monitor">追踪定位</string>
+    <string name="menu_command">指令管理</string>
+    <string name="menu_sim_change">换卡设置</string>
+    <string name="menu_etc">其他配置</string>
+    <string name="menu_suggest">意见反馈</string>
+    <!-- dummy -->
     <string name="menu_photo">相机</string>
     <string name="menu_sms">短信操作</string>
     <string name="menu_map">百度地图</string>
     <string name="menu_home">主页</string>
     <string name="menu_volume">音量控制</string>
-    
+
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>
         <item>&#xe805;</item>
