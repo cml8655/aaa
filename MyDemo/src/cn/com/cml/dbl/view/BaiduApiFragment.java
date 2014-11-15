@@ -84,18 +84,16 @@ public class BaiduApiFragment extends Fragment {
 			}
 		});
 
-		boolean offineSH = offlinMap.start(289);
+		// boolean offineSH = offlinMap.start(289);
 
-		int imoprtMaps = offlinMap.importOfflineData(false);
+		// int imoprtMaps = offlinMap.importOfflineData(false);
 
-		Log.d("===", "下载上海：" + offineSH + ",导入包的个数：" + imoprtMaps);
-
-		ArrayList<MKOLSearchRecord> records = offlinMap.getHotCityList();
-
-		for (MKOLSearchRecord record : records) {
-			Log.d("===", record.cityName + ":" + record.cityID + ","
-					+ record.size);
-		}
+		// ArrayList<MKOLSearchRecord> records = offlinMap.getHotCityList();
+		//
+		// for (MKOLSearchRecord record : records) {
+		// Log.d("===", record.cityName + ":" + record.cityID + ","
+		// + record.size);
+		// }
 
 		// 百度地图初始化
 		map = mapView.getMap();
@@ -114,16 +112,16 @@ public class BaiduApiFragment extends Fragment {
 		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为1000ms
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
-		option.setAddrType("detail");
-		option.setServiceName("myserver");
+		// option.setAddrType("detail");
+		// option.setServiceName("myserver");
 		option.setPriority(LocationClientOption.GpsFirst);
 		Log.d("===", "	option.getAddrType():detail:" + option.getAddrType());
 		// option.setIsNeedAddress(true);
 
-		baiduClient.setForBaiduMap(true);
+		// baiduClient.setForBaiduMap(true);
 		baiduClient.setLocOption(option);
 		baiduClient.registerLocationListener(new BaiDuLocationListener());
-		baiduClient.start();
+		// baiduClient.start();
 
 	}
 
@@ -174,25 +172,25 @@ public class BaiduApiFragment extends Fragment {
 
 	@Override
 	public void onResume() {
-
+		super.onResume();
 		if (null != baiduClient && !baiduClient.isStarted()) {
 			baiduClient.start();
 		}
 		mapView.onResume();
 
-		super.onResume();
 	}
 
 	@Override
 	public void onPause() {
+		super.onPause();
 
+		Toast.makeText(getActivity(), "pause baidu pai", Toast.LENGTH_LONG)
+				.show();
 		if (null != baiduClient) {
 			baiduClient.stop();
 		}
 
 		mapView.onPause();
-
-		super.onPause();
 	}
 
 	@Override
@@ -215,7 +213,7 @@ public class BaiduApiFragment extends Fragment {
 			// 设置定位数据
 			map.setMyLocationData(locData);
 			// map.setBaiduHeatMapEnabled(true);
-			map.setTrafficEnabled(true);
+			// map.setTrafficEnabled(true);
 
 			// 最大放大倍数
 			MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
@@ -229,7 +227,7 @@ public class BaiduApiFragment extends Fragment {
 					LocationMode.FOLLOWING, true, mCurrentMarker);
 			// map.setMyLocationConfiguration();
 			// 当不需要定位图层时关闭定位图层
-			map.setMyLocationEnabled(true);
+			// map.setMyLocationEnabled(true);
 			map.setMyLocationConfigeration(config);
 
 			// Receive Location

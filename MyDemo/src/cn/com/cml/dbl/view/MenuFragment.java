@@ -96,7 +96,7 @@ public class MenuFragment extends Fragment {
 			break;
 		}
 
-		transaction.addToBackStack(null);
+		// transaction.addToBackStack(null);
 
 		if (selectedId != -1) {
 			transaction.hide(menus.get(selectedId));
