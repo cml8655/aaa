@@ -111,7 +111,7 @@ public class BaiduApiFragment extends Fragment {
 
 		LocationClientOption option = new LocationClientOption();
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(30000);// 设置发起定位请求的间隔时间为1000ms
+		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为1000ms
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		option.setAddrType("detail");
@@ -206,12 +206,6 @@ public class BaiduApiFragment extends Fragment {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 
-			// CoordinateConverter converter = new CoordinateConverter();
-			// LatLng lat = converter
-			// .from(CoordType.COMMON)
-			// .coord(new LatLng(location.getLatitude(), location
-			// .getLongitude())).convert();
-
 			// 构造定位数据
 			MyLocationData locData = new MyLocationData.Builder()
 					.accuracy(location.getRadius())
@@ -289,7 +283,7 @@ public class BaiduApiFragment extends Fragment {
 					Toast.makeText(getActivity(),
 							"详细地址：" + result.getAddress(), Toast.LENGTH_SHORT)
 							.show();
-					baiduClient.stop();
+					// baiduClient.stop();
 				}
 
 				@Override
@@ -307,7 +301,10 @@ public class BaiduApiFragment extends Fragment {
 		}
 
 		@Override
-		public void onReceivePoi(BDLocation arg0) {
+		public void onReceivePoi(BDLocation location) {
+			Toast.makeText(getActivity(),
+					"onReceivePoi：" + location.getAddrStr(), Toast.LENGTH_SHORT)
+					.show();
 
 		}
 	}

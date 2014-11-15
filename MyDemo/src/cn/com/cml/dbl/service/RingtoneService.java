@@ -20,7 +20,7 @@ import cn.com.cml.dbl.util.VolumeUtil;
  * 震动，并且播放默认手机铃声提示
  * 
  * @author 陈孟琳
- *
+ * 
  *         2014年11月13日
  */
 @EService
@@ -28,7 +28,7 @@ public class RingtoneService extends Service {
 
 	public static final String ACTION_NOISY = "cn.com.cml.pets.service.RingtoneService.noisy";
 
-	private long[] vibratorPattern = { 1000, 2000, 4000, 1000, 1000 };
+	private long[] vibratorPattern = { 1000, 2000, 1000, 1000, 1000 };
 
 	private boolean isVirbrating;
 	private boolean isRinging;
@@ -66,7 +66,7 @@ public class RingtoneService extends Service {
 
 		// 播放铃声
 		if (null != mRingtone && !mRingtone.isPlaying()) {
-			// mRingtone.play();
+			mRingtone.play();
 			isRinging = true;
 		}
 
