@@ -54,6 +54,19 @@ public class BaiduApiFragment extends Fragment {
 
 	private BaiduMap map;
 
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		Toast.makeText(getActivity(), "hidden", Toast.LENGTH_LONG).show();
+		if (baiduClient != null) {
+			if (hidden) {
+				baiduClient.stop();
+			} else {
+				baiduClient.start();
+			}
+		}
+	}
+
 	@AfterViews
 	public void initLocationComponent() {
 
@@ -172,11 +185,15 @@ public class BaiduApiFragment extends Fragment {
 
 	@Override
 	public void onResume() {
-		super.onResume();
+
+		Toast.makeText(getActivity(), "resume", Toast.LENGTH_LONG).show();
+
 		if (null != baiduClient && !baiduClient.isStarted()) {
 			baiduClient.start();
 		}
 		mapView.onResume();
+
+		super.onResume();
 
 	}
 
@@ -184,8 +201,6 @@ public class BaiduApiFragment extends Fragment {
 	public void onPause() {
 		super.onPause();
 
-		Toast.makeText(getActivity(), "pause baidu pai", Toast.LENGTH_LONG)
-				.show();
 		if (null != baiduClient) {
 			baiduClient.stop();
 		}
