@@ -1,8 +1,10 @@
-package cn.com.cml.dbl.receiver;
+package cn.com.cml.dbl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 /**
@@ -14,6 +16,8 @@ import android.widget.Toast;
  */
 public class HeadsetReceiver extends BroadcastReceiver {
 
+	private static final String TAG = HeadsetReceiver.class.getSimpleName();
+
 	/**
 	 * The intent will have the following extra values:
 	 * 
@@ -22,8 +26,17 @@ public class HeadsetReceiver extends BroadcastReceiver {
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Toast.makeText(context, "插入耳机:" + intent.getAction(), Toast.LENGTH_LONG)
-				.show();
+
+		// 获得KeyEvent对象
+		KeyEvent keyEvent = (KeyEvent) intent
+				.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
+
+		Log.d(TAG, "keyEvent:" + keyEvent);
+		Log.d(TAG, "action:" + intent.getAction());
+		Log.d(TAG,
+				"button:"
+						+ intent.getAction().equals(Intent.ACTION_MEDIA_BUTTON));
+
 	}
 
 }

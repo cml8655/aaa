@@ -82,13 +82,26 @@
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter>
+            </intent-filter>
             -->
         </service>
         <service
             android:name="cn.com.cml.dbl.service.RingtoneService_"
             android:exported="false" >
         </service>
+        <service android:name="cn.com.cml.dbl.HeadsetService_" >
+        </service>
+
+        <receiver
+            android:name="cn.com.cml.dbl.HeadsetReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter android:priority="999" >
+                <action android:name="android.intent.action.MEDIA_BUTTON" >
+                </action>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
 
         <!-- meta-data需要写在application中 -->
         <meta-data
