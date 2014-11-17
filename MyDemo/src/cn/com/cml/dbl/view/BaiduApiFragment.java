@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
@@ -11,9 +13,11 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.util.PopupWindowUtil;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -59,6 +63,12 @@ public class BaiduApiFragment extends Fragment {
 
 	@ViewById(R.id.mapView)
 	MapView mapView;
+
+	@Bean
+	PopupWindowUtil windowUtil;
+
+	@ViewById(R.id.map_view_container)
+	RelativeLayout mapViewContainer;
 
 	private BaiduMap map;
 
@@ -231,6 +241,11 @@ public class BaiduApiFragment extends Fragment {
 	public void onDestroy() {
 		mapView.onDestroy();
 		super.onDestroy();
+	}
+
+	@Click(R.id.map_search_btn)
+	public void onSearchClick() {
+		windowUtil.toggleRouteSelectWindow(mapViewContainer);
 	}
 
 	class BaiDuLocationListener implements BDLocationListener {

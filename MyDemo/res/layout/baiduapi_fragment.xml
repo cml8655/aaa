@@ -15,15 +15,22 @@
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/map_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="查询" />
     </LinearLayout>
 
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/mapView"
+    <RelativeLayout
+        android:id="@+id/map_view_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true" />
+        android:layout_height="match_parent" >
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true" />
+    </RelativeLayout>
 
 </LinearLayout>
