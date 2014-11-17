@@ -1,14 +1,11 @@
 package cn.com.cml.dbl.net;
 
-import org.androidannotations.annotations.EBean;
-
 import cn.com.cml.dbl.model.BaseModel;
 import cn.com.cml.dbl.model.LocationModel;
 
-@EBean
 public class DummyApi {
 
-	public LocationModel mobileLocation(double latitude, double longitude) {
+	public static LocationModel mobileLocation(double latitude, double longitude) {
 
 		LocationModel model = new LocationModel();
 

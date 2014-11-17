@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.BroadcastReceiver;
@@ -21,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.model.LocationModel;
+import cn.com.cml.dbl.net.DummyApi;
 import cn.com.cml.dbl.util.PopupWindowUtil;
 
 import com.baidu.location.BDLocation;
@@ -75,8 +79,6 @@ public class BaiduApiFragment extends Fragment {
 	@ViewById(R.id.map_view_container)
 	RelativeLayout mapViewContainer;
 
-	private MobileLocationChangeListener mobileLocationChangeListener;
-
 	private BaiduMap map;
 
 	private GeoCoder coorSearch = GeoCoder.newInstance();
@@ -85,8 +87,6 @@ public class BaiduApiFragment extends Fragment {
 
 	@AfterViews
 	public void initLocationComponent() {
-
-		mobileLocationChangeListener = new MobileLocationChangeListener();
 
 		// 设置反地理编码监听器
 		coorSearch.setOnGetGeoCodeResultListener(new GeoGetResultListener());
@@ -225,17 +225,8 @@ public class BaiduApiFragment extends Fragment {
 
 		mapView.onResume();
 
-		registerMobileLocationListener();
-
 		super.onResume();
 
-	}
-
-	private void registerMobileLocationListener() {
-		getActivity().registerReceiver(
-				mobileLocationChangeListener,
-				new IntentFilter(
-						MobileLocationChangeListener.ACTION_LOCATION_CHANGE));
 	}
 
 	/**
@@ -246,20 +237,35 @@ public class BaiduApiFragment extends Fragment {
 		super.onHiddenChanged(hidden);
 
 		if (baiduClient != null) {
-			
+
 			if (hidden) {// 不在最前端界面显示
-				
+
 				baiduClient.stop();
 				mapView.onPause();
-				getActivity().unregisterReceiver(mobileLocationChangeListener);
-				
 			} else {// 重新显示到最前端中
-				
+
 				mapView.onResume();
 				baiduClient.start();
-				registerMobileLocationListener();
 			}
 		}
+	}
+
+	@Background
+	protected void loadMobileLocation() {
+		LocationModel location = DummyApi.mobileLocation(31.255336, 121.591384);
+		resultMobileLocation(location);
+	}
+
+	@UiThread
+	protected void resultMobileLocation(LocationModel location) {
+		
+		LatLng lat = new LatLng(location.getLatitude(), location.getLongitude());
+		BitmapDescriptor icon = BitmapDescriptorFactory
+				.fromResource(R.drawable.icon_marka);
+		// 添加手机位置
+		// .position(result.getLocation())
+		map.addOverlay(new MarkerOptions().position(lat).icon(icon));
+
 	}
 
 	@Override
@@ -306,24 +312,6 @@ public class BaiduApiFragment extends Fragment {
 		}
 	}
 
-	/**
-	 * 手机定位广播接收器
-	 * 
-	 * @author 陈孟琳
-	 *
-	 *         2014年11月17日
-	 */
-	class MobileLocationChangeListener extends BroadcastReceiver {
-
-		public static final String ACTION_LOCATION_CHANGE = "cn.com.cml.dbl.view.MobileLocationChangeListener.location.change";
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-		}
-
-	}
-
 	class GeoGetResultListener implements OnGetGeoCoderResultListener {
 
 		@Override
@@ -341,13 +329,6 @@ public class BaiduApiFragment extends Fragment {
 					.color(Color.BLUE).points(points);
 
 			map.addOverlay(ooPolyline);
-
-			// 添加手机位置
-			map.addOverlay(new MarkerOptions()
-			// .position(result.getLocation())
-					.position(new LatLng(31.255336, 121.591384)).icon(
-							BitmapDescriptorFactory
-									.fromResource(R.drawable.icon_marka)));
 
 			map.setMapStatus(MapStatusUpdateFactory.newLatLng(result
 					.getLocation()));
