@@ -9,6 +9,10 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -71,6 +75,8 @@ public class BaiduApiFragment extends Fragment {
 	@ViewById(R.id.map_view_container)
 	RelativeLayout mapViewContainer;
 
+	private MobileLocationChangeListener mobileLocationChangeListener;
+
 	private BaiduMap map;
 
 	private GeoCoder coorSearch = GeoCoder.newInstance();
@@ -79,6 +85,8 @@ public class BaiduApiFragment extends Fragment {
 
 	@AfterViews
 	public void initLocationComponent() {
+
+		mobileLocationChangeListener = new MobileLocationChangeListener();
 
 		// 设置反地理编码监听器
 		coorSearch.setOnGetGeoCodeResultListener(new GeoGetResultListener());
@@ -217,8 +225,17 @@ public class BaiduApiFragment extends Fragment {
 
 		mapView.onResume();
 
+		registerMobileLocationListener();
+
 		super.onResume();
 
+	}
+
+	private void registerMobileLocationListener() {
+		getActivity().registerReceiver(
+				mobileLocationChangeListener,
+				new IntentFilter(
+						MobileLocationChangeListener.ACTION_LOCATION_CHANGE));
 	}
 
 	/**
@@ -227,13 +244,20 @@ public class BaiduApiFragment extends Fragment {
 	@Override
 	public void onHiddenChanged(boolean hidden) {
 		super.onHiddenChanged(hidden);
+
 		if (baiduClient != null) {
-			if (hidden) {
+			
+			if (hidden) {// 不在最前端界面显示
+				
 				baiduClient.stop();
 				mapView.onPause();
-			} else {
+				getActivity().unregisterReceiver(mobileLocationChangeListener);
+				
+			} else {// 重新显示到最前端中
+				
 				mapView.onResume();
 				baiduClient.start();
+				registerMobileLocationListener();
 			}
 		}
 	}
@@ -280,6 +304,24 @@ public class BaiduApiFragment extends Fragment {
 					.show();
 
 		}
+	}
+
+	/**
+	 * 手机定位广播接收器
+	 * 
+	 * @author 陈孟琳
+	 *
+	 *         2014年11月17日
+	 */
+	class MobileLocationChangeListener extends BroadcastReceiver {
+
+		public static final String ACTION_LOCATION_CHANGE = "cn.com.cml.dbl.view.MobileLocationChangeListener.location.change";
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+		}
+
 	}
 
 	class GeoGetResultListener implements OnGetGeoCoderResultListener {
