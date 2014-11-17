@@ -50,6 +50,7 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.baidu.mapapi.utils.DistanceUtil;
 
 @EFragment(R.layout.baiduapi_fragment)
 public class BaiduApiFragment extends Fragment {
@@ -58,8 +59,8 @@ public class BaiduApiFragment extends Fragment {
 
 	private LocationClient baiduClient;
 
-	@ViewById(R.id.mapTip)
-	TextView mapMsgView;
+	@ViewById(R.id.mylocation)
+	TextView myLocationView;
 
 	@ViewById(R.id.mapView)
 	MapView mapView;
@@ -204,7 +205,7 @@ public class BaiduApiFragment extends Fragment {
 		MapStatus ms = map.getMapStatus();
 		String state = String.format("zoom=%.1f rotate=%d overlook=%d",
 				ms.zoom, (int) ms.rotate, (int) ms.overlook);
-		mapMsgView.setText(state);
+		// myLocationView.setText(state);
 	}
 
 	@Override
@@ -253,6 +254,8 @@ public class BaiduApiFragment extends Fragment {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 
+			map.clear();
+
 			// 构造定位数据
 			MyLocationData locData = new MyLocationData.Builder()
 					.accuracy(location.getRadius())
@@ -263,40 +266,6 @@ public class BaiduApiFragment extends Fragment {
 			// 设置定位数据
 			map.setMyLocationData(locData);
 
-			// Receive Location
-			StringBuffer sb = new StringBuffer(256);
-			sb.append("time : ");
-			sb.append(location.getTime());
-			sb.append("\nerror code : ");
-			sb.append(location.getLocType());
-			sb.append("\nlatitude : ");
-			sb.append(location.getLatitude());
-			sb.append("\nlontitude : ");
-			sb.append(location.getLongitude());
-			sb.append("\nradius : ");
-			sb.append(location.getRadius());
-			if (location.getLocType() == BDLocation.TypeGpsLocation) {
-				sb.append("\nspeed : ");
-				sb.append(location.getSpeed());
-				sb.append("\nsatellite : ");
-				sb.append(location.getSatelliteNumber());
-				sb.append("\ndirection : ");
-				sb.append("\naddr : ");
-				sb.append(location.getAddrStr());
-				// sb.append(location.getDirection());
-			} else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
-				sb.append("\naddr : ");
-				sb.append(location.getAddrStr());
-				// 运营商信息
-				sb.append("\noperationers : ");
-				// sb.append(location.getOperators());
-			}
-
-			sb.append(",location.mAddr:" + location.mAddr + "="
-					+ location.mServerString);
-
-			Log.i(TAG, sb.toString() + ",,,to:" + location.toJsonString()
-					+ ",,," + location.getCity());
 			mobileRadius = location.getRadius();
 			coorSearch.reverseGeoCode(new ReverseGeoCodeOption()
 					.location(new LatLng(location.getLatitude(), location
@@ -351,15 +320,14 @@ public class BaiduApiFragment extends Fragment {
 			// 创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
 			InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
 
+			int distance = (int) DistanceUtil.getDistance(new LatLng(31.255336,
+					121.591384), result.getLocation());
+
 			// 显示InfoWindow
 			map.showInfoWindow(mInfoWindow);
 
-			Toast.makeText(
-					getActivity(),
-					"详细地址1：" + result.getAddress() + ","
-							+ result.getLocation().latitude + ","
-							+ result.getLocation().longitude,
-					Toast.LENGTH_SHORT).show();
+			myLocationView.setText("我的位置：" + result.getAddress() + ",距离约："
+					+ distance + "米");
 		}
 
 		@Override
