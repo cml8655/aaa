@@ -12,6 +12,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
@@ -20,12 +22,14 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.model.SmsModel;
 import cn.com.cml.dbl.service.SMSHandler;
 import cn.com.cml.dbl.service.SmsContentObserver;
+import cn.com.cml.dbl.util.ImageUtil;
 
 @EFragment(R.layout.fragment_msg)
 public class MessageFragment extends Fragment {
@@ -38,6 +42,9 @@ public class MessageFragment extends Fragment {
 	@ViewById(R.id.show_msg)
 	TextView showMsg;
 
+	@ViewById(R.id.img)
+	ImageView img;
+
 	private SmsManager smsManager;
 
 	private SmsReciver smsReceiver;
@@ -46,6 +53,11 @@ public class MessageFragment extends Fragment {
 	@AfterViews
 	protected void initConfig() {
 		smsManager = SmsManager.getDefault();
+
+		Bitmap source = BitmapFactory.decodeResource(getResources(),
+				R.drawable.ic_launcher);
+
+		img.setImageBitmap(ImageUtil.roundCorner(source, 5));
 	}
 
 	@Override
@@ -149,7 +161,7 @@ public class MessageFragment extends Fragment {
 						String msg = message.getMessageBody();
 						String to = message.getOriginatingAddress();
 
-						Toast.makeText(context, "接收到短信：" + msg + ",to:" + to, 
+						Toast.makeText(context, "接收到短信：" + msg + ",to:" + to,
 								Toast.LENGTH_LONG).show();
 
 						// if (msg.toLowerCase().startsWith(queryString))

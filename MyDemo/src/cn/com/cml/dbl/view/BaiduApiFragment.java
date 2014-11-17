@@ -1,7 +1,5 @@
 package cn.com.cml.dbl.view;
 
-import java.util.ArrayList;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
@@ -31,7 +29,6 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.offline.MKOLSearchRecord;
 import com.baidu.mapapi.map.offline.MKOfflineMap;
 import com.baidu.mapapi.map.offline.MKOfflineMapListener;
 import com.baidu.mapapi.model.LatLng;
@@ -44,6 +41,8 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 @EFragment(R.layout.baiduapi_fragment)
 public class BaiduApiFragment extends Fragment {
 
+	private static final String TAG = "BaiduApiFragment";
+
 	private LocationClient baiduClient;
 
 	@ViewById(R.id.mapView)
@@ -54,21 +53,13 @@ public class BaiduApiFragment extends Fragment {
 
 	private BaiduMap map;
 
-	@Override
-	public void onHiddenChanged(boolean hidden) {
-		super.onHiddenChanged(hidden);
-		Toast.makeText(getActivity(), "hidden", Toast.LENGTH_LONG).show();
-		if (baiduClient != null) {
-			if (hidden) {
-				baiduClient.stop();
-			} else {
-				baiduClient.start();
-			}
-		}
-	}
+	private GeoCoder coorSearch = GeoCoder.newInstance();
 
 	@AfterViews
 	public void initLocationComponent() {
+
+		// 设置反地理编码监听器
+		coorSearch.setOnGetGeoCodeResultListener(new GeoGetResultListener());
 
 		// 开始下载百度地图，上海地区：
 		MKOfflineMap offlinMap = new MKOfflineMap();
@@ -93,7 +84,7 @@ public class BaiduApiFragment extends Fragment {
 					str = "未解释：" + type + ":" + state;
 				}
 
-				Log.d("===", "onGetOfflineMapState:" + str);
+				Log.d(TAG, "onGetOfflineMapState:" + str);
 			}
 		});
 
@@ -122,13 +113,13 @@ public class BaiduApiFragment extends Fragment {
 
 		LocationClientOption option = new LocationClientOption();
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为1000ms
+		option.setScanSpan(30000);// 设置发起定位请求的间隔时间为1000ms
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		// option.setAddrType("detail");
 		// option.setServiceName("myserver");
 		option.setPriority(LocationClientOption.GpsFirst);
-		Log.d("===", "	option.getAddrType():detail:" + option.getAddrType());
+		Log.d(TAG, "	option.getAddrType():detail:" + option.getAddrType());
 		// option.setIsNeedAddress(true);
 
 		// baiduClient.setForBaiduMap(true);
@@ -186,26 +177,31 @@ public class BaiduApiFragment extends Fragment {
 	@Override
 	public void onResume() {
 
-		Toast.makeText(getActivity(), "resume", Toast.LENGTH_LONG).show();
-
 		if (null != baiduClient && !baiduClient.isStarted()) {
 			baiduClient.start();
 		}
+
 		mapView.onResume();
 
 		super.onResume();
 
 	}
 
+	/**
+	 * 当调用show/hide时，fragment生命周期不继续走动了
+	 */
 	@Override
-	public void onPause() {
-		super.onPause();
-
-		if (null != baiduClient) {
-			baiduClient.stop();
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		if (baiduClient != null) {
+			if (hidden) {
+				baiduClient.stop();
+				mapView.onPause();
+			} else {
+				mapView.onResume();
+				baiduClient.start();
+			}
 		}
-
-		mapView.onPause();
 	}
 
 	@Override
@@ -276,40 +272,12 @@ public class BaiduApiFragment extends Fragment {
 			sb.append(",location.mAddr:" + location.mAddr + "="
 					+ location.mServerString);
 
-			Log.i("BaiduLocationApiDem",
-					sb.toString() + ",,,to:" + location.toJsonString() + ",,,"
-							+ location.getCity());
+			Log.i(TAG, sb.toString() + ",,,to:" + location.toJsonString()
+					+ ",,," + location.getCity());
 
-			GeoCoder coder = GeoCoder.newInstance();
-
-			ReverseGeoCodeOption reverseCode = new ReverseGeoCodeOption();
-			ReverseGeoCodeOption result = reverseCode.location(new LatLng(
-					location.getLatitude(), location.getLongitude()));
-			coder.reverseGeoCode(result);
-			coder.setOnGetGeoCodeResultListener(new OnGetGeoCoderResultListener() {
-
-				@Override
-				public void onGetReverseGeoCodeResult(
-						ReverseGeoCodeResult result) {
-					Log.i("===",
-							"onGetReverseGeoCodeResult:" + result.getAddress());
-					Toast.makeText(getActivity(),
-							"详细地址：" + result.getAddress(), Toast.LENGTH_SHORT)
-							.show();
-					// baiduClient.stop();
-				}
-
-				@Override
-				public void onGetGeoCodeResult(GeoCodeResult result) {
-					Log.i("===", "onGetGeoCodeResult:" + result.getAddress());
-
-				}
-			});
-
-			if (getActivity() != null) {
-				Toast.makeText(getActivity(), "定位到了：" + sb.toString(),
-						Toast.LENGTH_SHORT).show();
-			}
+			coorSearch.reverseGeoCode(new ReverseGeoCodeOption()
+					.location(new LatLng(location.getLatitude(), location
+							.getLongitude())));
 
 		}
 
@@ -318,6 +286,27 @@ public class BaiduApiFragment extends Fragment {
 			Toast.makeText(getActivity(),
 					"onReceivePoi：" + location.getAddrStr(), Toast.LENGTH_SHORT)
 					.show();
+
+		}
+	}
+
+	class GeoGetResultListener implements OnGetGeoCoderResultListener {
+
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+			Toast.makeText(getActivity(), result.getAddress(),
+					Toast.LENGTH_LONG).show();
+
+			Log.i(TAG, "onGetReverseGeoCodeResult:" + result.getAddress());
+
+			Toast.makeText(getActivity(), "详细地址：" + result.getAddress(),
+					Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult result) {
+			Log.i(TAG, "onGetGeoCodeResult:" + result.getAddress());
 
 		}
 	}
