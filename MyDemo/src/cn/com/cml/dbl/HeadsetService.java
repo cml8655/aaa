@@ -31,12 +31,12 @@ public class HeadsetService extends Service {
 
 		Log.d("HeadsetReceiver", "注册监听");
 
-//		headsetReceiver = new HeadsetReceiver();
-//
-//		IntentFilter filter = new IntentFilter();
-//		filter.addAction(Intent.ACTION_HEADSET_PLUG);
-//
-//		registerReceiver(headsetReceiver, filter);
+		headsetReceiver = new HeadsetReceiver();
+
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Intent.ACTION_HEADSET_PLUG);
+
+		registerReceiver(headsetReceiver, filter);
 
 		audioManager.registerMediaButtonEventReceiver(new ComponentName(
 				getPackageName(), HeadsetReceiver.class.getName()));
