@@ -1,11 +1,16 @@
 package cn.com.cml.dbl.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
@@ -21,14 +26,18 @@ import com.baidu.mapapi.map.BaiduMap.OnMapLongClickListener;
 import com.baidu.mapapi.map.BaiduMap.OnMapStatusChangeListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.offline.MKOfflineMap;
 import com.baidu.mapapi.map.offline.MKOfflineMapListener;
 import com.baidu.mapapi.model.LatLng;
@@ -45,15 +54,17 @@ public class BaiduApiFragment extends Fragment {
 
 	private LocationClient baiduClient;
 
+	@ViewById(R.id.mapTip)
+	TextView mapMsgView;
+
 	@ViewById(R.id.mapView)
 	MapView mapView;
-
-	@ViewById(R.id.map_msg)
-	TextView mapMsgView;
 
 	private BaiduMap map;
 
 	private GeoCoder coorSearch = GeoCoder.newInstance();
+
+	private float mobileRadius = -1;
 
 	@AfterViews
 	public void initLocationComponent() {
@@ -105,6 +116,18 @@ public class BaiduApiFragment extends Fragment {
 		map.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 		map.setTrafficEnabled(true);
 		map.setMyLocationEnabled(true);
+		// 最大放大倍数
+		MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
+		map.setMapStatus(u);
+
+		BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
+				.fromResource(R.drawable.icon_gcoding);
+
+		// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
+		MyLocationConfiguration config = new MyLocationConfiguration(
+				LocationMode.FOLLOWING, true, mCurrentMarker);
+
+		map.setMyLocationConfigeration(config);
 
 		initListener();
 
@@ -221,25 +244,9 @@ public class BaiduApiFragment extends Fragment {
 					// 此处设置开发者获取到的方向信息，顺时针0-360
 					.direction(0).latitude(location.getLatitude())
 					.longitude(location.getLongitude()).build();
+
 			// 设置定位数据
 			map.setMyLocationData(locData);
-			// map.setBaiduHeatMapEnabled(true);
-			// map.setTrafficEnabled(true);
-
-			// 最大放大倍数
-			MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
-
-			map.setMapStatus(u);
-
-			// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
-			BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_gcoding);
-			MyLocationConfiguration config = new MyLocationConfiguration(
-					LocationMode.FOLLOWING, true, mCurrentMarker);
-			// map.setMyLocationConfiguration();
-			// 当不需要定位图层时关闭定位图层
-			// map.setMyLocationEnabled(true);
-			map.setMyLocationConfigeration(config);
 
 			// Receive Location
 			StringBuffer sb = new StringBuffer(256);
@@ -269,12 +276,13 @@ public class BaiduApiFragment extends Fragment {
 				sb.append("\noperationers : ");
 				// sb.append(location.getOperators());
 			}
+
 			sb.append(",location.mAddr:" + location.mAddr + "="
 					+ location.mServerString);
 
 			Log.i(TAG, sb.toString() + ",,,to:" + location.toJsonString()
 					+ ",,," + location.getCity());
-
+			mobileRadius = location.getRadius();
 			coorSearch.reverseGeoCode(new ReverseGeoCodeOption()
 					.location(new LatLng(location.getLatitude(), location
 							.getLongitude())));
@@ -295,19 +303,52 @@ public class BaiduApiFragment extends Fragment {
 		@Override
 		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 
-			Toast.makeText(getActivity(), result.getAddress(),
-					Toast.LENGTH_LONG).show();
-
 			Log.i(TAG, "onGetReverseGeoCodeResult:" + result.getAddress());
 
-			Toast.makeText(getActivity(), "详细地址：" + result.getAddress(),
+			// 添加定位线
+			List<LatLng> points = new ArrayList<LatLng>();
+
+			points.add(result.getLocation());
+			points.add(new LatLng(31.255336, 121.591384));
+
+			OverlayOptions ooPolyline = new PolylineOptions().width(5)
+					.color(Color.BLUE).points(points);
+
+			map.addOverlay(ooPolyline);
+
+			// 添加手机位置
+			map.addOverlay(new MarkerOptions()
+			// .position(result.getLocation())
+					.position(new LatLng(31.255336, 121.591384)).icon(
+							BitmapDescriptorFactory
+									.fromResource(R.drawable.icon_marka)));
+
+			map.setMapStatus(MapStatusUpdateFactory.newLatLng(result
+					.getLocation()));
+
+			Button button = new Button(getActivity());
+			button.setBackgroundColor(Color.GREEN);
+			button.setText("手机位置："
+					+ (mobileRadius == -1 ? "" : "精确度：" + mobileRadius + "米"));
+
+			// 定义用于显示该InfoWindow的坐标点
+			LatLng pt = new LatLng(31.255336, 121.591384);
+			// 创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+			InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
+
+			// 显示InfoWindow
+			map.showInfoWindow(mInfoWindow);
+
+			Toast.makeText(
+					getActivity(),
+					"详细地址1：" + result.getAddress() + ","
+							+ result.getLocation().latitude + ","
+							+ result.getLocation().longitude,
 					Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
 		public void onGetGeoCodeResult(GeoCodeResult result) {
-			Log.i(TAG, "onGetGeoCodeResult:" + result.getAddress());
-
 		}
 	}
 }
