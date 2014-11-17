@@ -11,16 +11,15 @@ import org.androidannotations.api.rest.RestErrorHandler;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestClientException;
 
-import android.Manifest.permission;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.FragmentManager.OnBackStackChangedListener;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -33,6 +32,7 @@ import android.view.View;
 import android.widget.Toast;
 import cn.com.cml.dbl.model.RequestModel;
 import cn.com.cml.dbl.net.PetsApiHelper;
+import cn.com.cml.dbl.receiver.HeadsetReceiver;
 import cn.com.cml.dbl.view.MenuFragment_;
 
 @EActivity(R.layout.activity_main)
@@ -44,6 +44,8 @@ public class MainActivity extends FragmentActivity {
 
 	@ViewById(R.id.drawer_layout)
 	DrawerLayout mDrawerLayout;
+
+	private BroadcastReceiver headsetReceiver;
 
 	private ActionBarDrawerToggle mDrawerToggle;
 
@@ -106,6 +108,26 @@ public class MainActivity extends FragmentActivity {
 					}
 				});
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (null == headsetReceiver) {
+			headsetReceiver = new HeadsetReceiver();
+		}
+
+		registerReceiver(headsetReceiver, new IntentFilter(
+				Intent.ACTION_HEADSET_PLUG));
+	}
+
+	@Override
+	protected void onPause() {
+		if(null!=headsetReceiver){
+			unregisterReceiver(headsetReceiver);
+		}
+		super.onPause();
 	}
 
 	@Override
