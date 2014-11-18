@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cc3458"
+    android:orientation="horizontal" >
+
+    <cn.com.cml.dbl.ui.FontIconTextView
+        android:id="@+id/maptip_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center|center_vertical" />
+
+    <TextView
+        android:id="@+id/maptip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center|center_vertical" />
+
+</LinearLayout>

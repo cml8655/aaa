@@ -4,7 +4,7 @@ public class LocationModel extends BaseModel {
 
 	private double latitude;
 	private double longitude;
-	private double radius;
+	private float radius;
 	private String address;
 	private String getTime;
 	private String userCode;
@@ -28,11 +28,11 @@ public class LocationModel extends BaseModel {
 		this.longitude = longitude;
 	}
 
-	public double getRadius() {
+	public float getRadius() {
 		return radius;
 	}
 
-	public void setRadius(double radius) {
+	public void setRadius(float radius) {
 		this.radius = radius;
 	}
 

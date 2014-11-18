@@ -19,6 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="查询" />
+        <Button
+            android:id="@+id/dumy_search_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查询手机数据" />
     </LinearLayout>
 
     <RelativeLayout

@@ -11,20 +11,16 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.net.DummyApi;
+import cn.com.cml.dbl.ui.MapviewTipView;
+import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.PopupWindowUtil;
 
 import com.baidu.location.BDLocation;
@@ -56,7 +52,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.utils.DistanceUtil;
 
@@ -83,7 +78,7 @@ public class BaiduApiFragment extends Fragment {
 
 	private GeoCoder coorSearch = GeoCoder.newInstance();
 
-	private float mobileRadius = -1;
+	private LocationModel mobileLocation;// 手机所在位置
 
 	@AfterViews
 	public void initLocationComponent() {
@@ -140,7 +135,7 @@ public class BaiduApiFragment extends Fragment {
 		map.setMapStatus(u);
 
 		BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_gcoding);
+				.fromResource(R.drawable.icon_marka);
 
 		// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
 		MyLocationConfiguration config = new MyLocationConfiguration(
@@ -155,7 +150,7 @@ public class BaiduApiFragment extends Fragment {
 
 		LocationClientOption option = new LocationClientOption();
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(30000);// 设置发起定位请求的间隔时间为1000ms
+		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为1000ms
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		// option.setAddrType("detail");
@@ -210,9 +205,9 @@ public class BaiduApiFragment extends Fragment {
 	 * 更新地图状态显示面板
 	 */
 	private void updateMapState() {
-		MapStatus ms = map.getMapStatus();
-		String state = String.format("zoom=%.1f rotate=%d overlook=%d",
-				ms.zoom, (int) ms.rotate, (int) ms.overlook);
+		// MapStatus ms = map.getMapStatus();
+		// String state = String.format("zoom=%.1f rotate=%d overlook=%d",
+		// ms.zoom, (int) ms.rotate, (int) ms.overlook);
 		// myLocationView.setText(state);
 	}
 
@@ -252,26 +247,85 @@ public class BaiduApiFragment extends Fragment {
 
 	@Background
 	protected void loadMobileLocation() {
-		LocationModel location = DummyApi.mobileLocation(31.255336, 121.591384);
-		resultMobileLocation(location);
+
+		LocationModel location = DummyApi.mobileLocation(31.245951, 121.51377);
+		this.mobileLocation = location;
+		repaintMap(location, baiduClient.getLastKnownLocation());
 	}
 
 	@UiThread
-	protected void resultMobileLocation(LocationModel location) {
-		
-		LatLng lat = new LatLng(location.getLatitude(), location.getLongitude());
-		BitmapDescriptor icon = BitmapDescriptorFactory
-				.fromResource(R.drawable.icon_marka);
-		// 添加手机位置
-		// .position(result.getLocation())
-		map.addOverlay(new MarkerOptions().position(lat).icon(icon));
+	protected void repaintMap(LocationModel mobileLocation,
+			BDLocation userLocation) {
 
+		map.clear();
+
+		// 添加 坐标提示信息
+		String tip = getActivity().getString(R.string.maptip_none);
+
+		// 添加用户位置
+		if (userLocation != null) {
+			// 添加用户信息
+			LatLng lat = new LatLng(userLocation.getLatitude(),
+					userLocation.getLongitude());
+
+			BitmapDescriptor icon = BitmapDescriptorFactory
+					.fromResource(R.drawable.icon_marka);
+			map.addOverlay(new MarkerOptions().position(lat).icon(icon));
+			
+		}
+
+		if (userLocation != null && mobileLocation != null) {
+
+			int distance = cn.com.cml.dbl.util.DistanceUtil.calculateDistance(
+					userLocation, mobileLocation);
+
+			tip = getActivity().getString(R.string.maptip, distance);
+
+		}
+
+		if (mobileLocation != null) {
+			// 构造定位数据,设置手机定位数据
+			MyLocationData locData = new MyLocationData.Builder()
+					.accuracy(mobileLocation.getRadius())
+					.direction(0).latitude(mobileLocation.getLatitude())
+					.longitude(mobileLocation.getLongitude()).build();
+
+			// 设置定位数据
+			map.setMyLocationData(locData);
+
+			// 添加提示信息
+			addMapInfo(mobileLocation.getLatitude(),
+					mobileLocation.getLongitude(), R.string.icon_spin5, tip);
+		}
+
+	}
+
+	private void addMapInfo(double latitude, double longitude, int icon,
+			String text) {
+
+		// 设置提示
+		MapviewTipView tip = MapviewTipView_.build(getActivity());
+
+		tip.bind(icon, text);
+
+		// 定义用于显示该InfoWindow的坐标点
+		LatLng pt = new LatLng(latitude, longitude);
+		// 创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+		InfoWindow mInfoWindow = new InfoWindow(tip, pt, -47);
+
+		// 显示InfoWindow
+		map.showInfoWindow(mInfoWindow);
 	}
 
 	@Override
 	public void onDestroy() {
 		mapView.onDestroy();
 		super.onDestroy();
+	}
+
+	@Click(R.id.dumy_search_btn)
+	public void onDumyClick() {
+		loadMobileLocation();
 	}
 
 	@Click(R.id.map_search_btn)
@@ -284,31 +338,27 @@ public class BaiduApiFragment extends Fragment {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 
-			map.clear();
+			repaintMap(mobileLocation, location);
+			// mobileRadius = location.getRadius();
+			// coorSearch.reverseGeoCode(new ReverseGeoCodeOption()
+			// .location(new LatLng(location.getLatitude(), location
+			// .getLongitude())));
 
-			// 构造定位数据
-			MyLocationData locData = new MyLocationData.Builder()
-					.accuracy(location.getRadius())
-					// 此处设置开发者获取到的方向信息，顺时针0-360
-					.direction(0).latitude(location.getLatitude())
-					.longitude(location.getLongitude()).build();
+			// 定位我的位置
+			// LatLng lat = new LatLng(location.getLatitude(),
+			// location.getLongitude());
+			//
+			// BitmapDescriptor icon = BitmapDescriptorFactory
+			// .fromResource(R.drawable.icon_marka);
+			// map.addOverlay(new MarkerOptions().position(lat).icon(icon));
 
-			// 设置定位数据
-			map.setMyLocationData(locData);
-
-			mobileRadius = location.getRadius();
-			coorSearch.reverseGeoCode(new ReverseGeoCodeOption()
-					.location(new LatLng(location.getLatitude(), location
-							.getLongitude())));
-
+			// MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(lat);
+			// map.animateMapStatus(update);
+			// 移动地图位置到我的位置中
 		}
 
 		@Override
 		public void onReceivePoi(BDLocation location) {
-			Toast.makeText(getActivity(),
-					"onReceivePoi：" + location.getAddrStr(), Toast.LENGTH_SHORT)
-					.show();
-
 		}
 	}
 
@@ -333,21 +383,8 @@ public class BaiduApiFragment extends Fragment {
 			map.setMapStatus(MapStatusUpdateFactory.newLatLng(result
 					.getLocation()));
 
-			Button button = new Button(getActivity());
-			button.setBackgroundColor(Color.GREEN);
-			button.setText("手机位置："
-					+ (mobileRadius == -1 ? "" : "精确度：" + mobileRadius + "米"));
-
-			// 定义用于显示该InfoWindow的坐标点
-			LatLng pt = new LatLng(31.255336, 121.591384);
-			// 创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
-			InfoWindow mInfoWindow = new InfoWindow(button, pt, -47);
-
 			int distance = (int) DistanceUtil.getDistance(new LatLng(31.255336,
 					121.591384), result.getLocation());
-
-			// 显示InfoWindow
-			map.showInfoWindow(mInfoWindow);
 
 			myLocationView.setText("我的位置：" + result.getAddress() + ",距离约："
 					+ distance + "米");
