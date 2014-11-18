@@ -1,12 +1,13 @@
 package cn.com.cml.dbl.ui;
 
 import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
 
-import cn.com.cml.dbl.R;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import cn.com.cml.dbl.R;
 
 /**
  * 手机定位追踪查询结果返回选择
@@ -17,6 +18,18 @@ import android.widget.LinearLayout;
  */
 @EViewGroup(R.layout.view_mobile_monitor_select)
 public class MobileMonitorSelectView extends LinearLayout {
+
+	@ViewById(R.id.first_tv)
+	TextView firstView;
+
+	@ViewById(R.id.second_tv)
+	TextView secondView;
+
+	@ViewById(R.id.third_tv)
+	TextView thirdView;
+
+	@ViewById(R.id.forth_tv)
+	TextView forthView;
 
 	public MobileMonitorSelectView(Context context) {
 		super(context);
@@ -34,7 +47,27 @@ public class MobileMonitorSelectView extends LinearLayout {
 		setOrientation(VERTICAL);
 	}
 
-	public void bindClickListener(OnClickListener listener) {
+	public void bindData(String first, String second, String third,
+			String cancel, OnClickListener listener) {
+
+		firstView.setText(first);
+		secondView.setText(second);
+		thirdView.setText(third);
+		forthView.setText(cancel);
+
+		firstView.setOnClickListener(listener);
+		secondView.setOnClickListener(listener);
+		thirdView.setOnClickListener(listener);
+		forthView.setOnClickListener(listener);
+	}
+
+	public void bindData(int firstRes, int secondRes, int thirdRes,
+			int cancelRes, OnClickListener listener) {
+
+		this.bindData(getContext().getString(firstRes),
+				getContext().getString(secondRes),
+				getContext().getString(thirdRes),
+				getContext().getString(cancelRes), listener);
 
 	}
 

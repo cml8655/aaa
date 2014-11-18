@@ -5,23 +5,32 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/first_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="111111" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center|center_vertical" />
 
     <TextView
+        android:id="@+id/second_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="111111" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center|center_vertical" />
 
     <TextView
+        android:id="@+id/third_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="111111" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center|center_vertical" />
 
     <TextView
+        android:id="@+id/forth_tv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="111111" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F00"
+        android:gravity="center|center_vertical" />
 
 </merge>
