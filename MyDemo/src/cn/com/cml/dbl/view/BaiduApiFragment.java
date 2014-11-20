@@ -12,6 +12,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -30,26 +31,17 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BaiduMap.OnMapClickListener;
-import com.baidu.mapapi.map.BaiduMap.OnMapDoubleClickListener;
-import com.baidu.mapapi.map.BaiduMap.OnMapLongClickListener;
-import com.baidu.mapapi.map.BaiduMap.OnMapStatusChangeListener;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.CircleOptions;
+import com.baidu.mapapi.map.GroundOverlayOptions;
 import com.baidu.mapapi.map.InfoWindow;
-import com.baidu.mapapi.map.MapPoi;
-import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.PolygonOptions;
 import com.baidu.mapapi.map.PolylineOptions;
-import com.baidu.mapapi.map.Stroke;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.map.offline.MKOfflineMap;
 import com.baidu.mapapi.map.offline.MKOfflineMapListener;
 import com.baidu.mapapi.model.LatLng;
@@ -142,10 +134,18 @@ public class BaiduApiFragment extends Fragment {
 		map.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 		map.setTrafficEnabled(true);
 		map.setMyLocationEnabled(true);
+		mapView.setScrollbarFadingEnabled(true);
+		mapView.showScaleControl(true);
+		mapView.showZoomControls(true);
+
+		UiSettings setting = map.getUiSettings();
+		setting.setAllGesturesEnabled(true);
+
 		// 最大放大倍数
 		MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
 		map.setMapStatus(u);
 
+		map.setBuildingsEnabled(true);
 		// BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
 		// .fromResource(R.drawable.icon_marka);
 		//
@@ -322,11 +322,22 @@ public class BaiduApiFragment extends Fragment {
 	private void showLocationRadius(double latitude, double longitude,
 			int radius) {
 
-		OverlayOptions circle = new CircleOptions()
-				.center(new LatLng(latitude, longitude)).radius(radius)
-				.fillColor(Color.GREEN);
+		// OverlayOptions circle = new CircleOptions()
+		// .center(new LatLng(latitude, longitude)).radius(radius)
+		// .stroke(new Stroke(5, Color.RED)).fillColor(Color.GREEN);
 
-		map.addOverlay(circle);
+		OverlayOptions groundOverlay = new GroundOverlayOptions()
+				.dimensions(radius)
+				// 设置 ground 覆盖物的宽度，单位：米， 高度按图片宽高比例
+				.position(new LatLng(latitude, longitude))
+				.transparency(0.3f)
+				.image(BitmapDescriptorFactory
+						.fromResource(R.drawable.icon_geo));
+
+		// OverlayOptions dotOverlay = new DotOptions()
+		// .center(new LatLng(latitude, longitude)).color(Color.GREEN)
+		// .radius(radius);
+		map.addOverlay(groundOverlay);
 	}
 
 	private void addMapInfo(double latitude, double longitude, int icon,

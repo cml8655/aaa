@@ -3,6 +3,9 @@ package cn.com.cml.dbl.view;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
+import com.baidu.mapapi.map.MapFragment;
+import com.baidu.mapapi.map.SupportMapFragment;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.SparseArray;
@@ -17,8 +20,8 @@ public class MenuFragment extends Fragment {
 
 	private int selectedId = -1;
 
-	@Click(value = { R.id.menu_home, R.id.menu_photo,
-			R.id.menu_sms, R.id.menu_volume ,R.id.menu_monitor})
+	@Click(value = { R.id.menu_home, R.id.menu_photo, R.id.menu_sms,
+			R.id.menu_volume, R.id.menu_monitor })
 	public void click(View clickView) {
 
 		final int id = clickView.getId();
@@ -74,14 +77,33 @@ public class MenuFragment extends Fragment {
 
 			break;
 
-		case R.id.menu_home:
-			if (menus.get(R.id.menu_home) == null) {
-				fragment = UserInfoFragment_.builder().build();
+		case R.id.menu_command:
+
+			if (menus.get(R.id.menu_command) == null) {
+				fragment = SupportMapFragment.newInstance();
 				transaction.add(R.id.content_frame, fragment);
 				menus.append(id, fragment);
 			} else {
-				fragment = menus.get(R.id.menu_home);
+				fragment = menus.get(R.id.menu_command);
 			}
+			break;
+
+		case R.id.menu_home:// 暂时替代为百度地图
+			if (menus.get(R.id.menu_command) == null) {
+				fragment = MobileMonitorFragment.newInstance();
+				transaction.add(R.id.content_frame, fragment);
+				menus.append(id, fragment);
+			} else {
+				fragment = menus.get(R.id.menu_command);
+			}
+			// break;
+			// if (menus.get(R.id.menu_home) == null) {
+			// fragment = UserInfoFragment_.builder().build();
+			// transaction.add(R.id.content_frame, fragment);
+			// menus.append(id, fragment);
+			// } else {
+			// fragment = menus.get(R.id.menu_home);
+			// }
 			break;
 
 		case R.id.menu_volume:
