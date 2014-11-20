@@ -28,6 +28,8 @@
     <string name="cancel_text">取消</string>
     <string name="maptip">离我约%1$s米</string>
     <string name="maptip_none">正在计算...</string>
+    <string name="locate_user">正在获取我的位置...</string>
+    <string name="locate_mobile">正在获取手机位置...</string>
 
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>
