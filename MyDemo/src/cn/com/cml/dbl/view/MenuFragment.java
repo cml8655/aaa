@@ -90,7 +90,7 @@ public class MenuFragment extends Fragment {
 
 		case R.id.menu_home:// 暂时替代为百度地图
 			if (menus.get(R.id.menu_command) == null) {
-				fragment = MobileMonitorFragment.newInstance();
+				fragment = MobileMonitorFragment_.builder().build();
 				transaction.add(R.id.content_frame, fragment);
 				menus.append(id, fragment);
 			} else {

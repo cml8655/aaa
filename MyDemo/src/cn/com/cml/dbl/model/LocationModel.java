@@ -9,8 +9,17 @@ public class LocationModel extends BaseModel {
 	private String getTime;
 	private String userCode;
 	private String imei;
+	private int locType;
 	/** 0:imei,1:组合编号 */
 	private int imeiType;
+
+	public int getLocType() {
+		return locType;
+	}
+
+	public void setLocType(int locType) {
+		this.locType = locType;
+	}
 
 	public double getLatitude() {
 		return latitude;

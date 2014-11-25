@@ -17,22 +17,17 @@ public class UserInfoFragment extends Fragment {
 	@ViewById(R.id.device_show_tv)
 	TextView msgShowView;
 
-	@Bean
-	DeviceUtil deviceUtil;
 
 	@Click(R.id.load_imei)
 	public void loadImei() {
-		msgShowView.setText(deviceUtil.deviceImei());
 	}
 
 	@Click(R.id.load_mac)
 	public void loadMAC() {
-		msgShowView.setText(deviceUtil.devideMac());
 	}
 
 	@Click(R.id.load_imei_mac)
 	public void LoadImeiMAc() {
-		msgShowView.setText("imei-mac" + deviceUtil.phoneNumber());
 	}
 
 	@Click(R.id.toggle_gps)

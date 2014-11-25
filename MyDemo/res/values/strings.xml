@@ -6,6 +6,8 @@
 
     <!-- font icon -->
     <string name="icon_spin5">&#xe805;</string>
+    <string name="icon_user">&#xe80b;</string>
+    <string name="icon_setting">&#xe821;</string>
 
     <!-- left menu -->
     <string name="menu_alarm">闹钟设置</string>

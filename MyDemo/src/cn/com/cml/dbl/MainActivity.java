@@ -106,6 +106,24 @@ public class MainActivity extends FragmentActivity {
 
 	}
 
+	public void setActionbarView(View v) {
+
+		final ActionBar actionBar = getActionBar();
+
+		LayoutParams params = new LayoutParams(Gravity.CENTER
+				| Gravity.CENTER_VERTICAL);
+		params.width = LayoutParams.MATCH_PARENT;
+		params.height = LayoutParams.MATCH_PARENT;
+
+		actionBar.setCustomView(v, params);
+	}
+
+	public void setDefaultActionbarView() {
+		View customView = getLayoutInflater().inflate(R.layout.view_actionbar,
+				null);
+		this.setActionbarView(customView);
+	}
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

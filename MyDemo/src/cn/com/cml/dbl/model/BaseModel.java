@@ -1,6 +1,8 @@
 package cn.com.cml.dbl.model;
 
-public class BaseModel {
+import cn.bmob.v3.BmobObject;
+
+public class BaseModel extends BmobObject {
 
 	public static interface State {
 		int OK = 0;

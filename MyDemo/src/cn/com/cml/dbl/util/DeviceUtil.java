@@ -1,26 +1,22 @@
 package cn.com.cml.dbl.util;
 
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.SystemService;
-
+import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-@EBean
 public class DeviceUtil {
 
-	@SystemService
-	TelephonyManager phoneManager;
+	public static String deviceImei(Context context) {
 
-	public String deviceImei() {
-		return phoneManager.getDeviceId();
+		TelephonyManager phoneManager = (TelephonyManager) context
+				.getSystemService(Context.TELEPHONY_SERVICE);
+
+		String imei = phoneManager.getDeviceId();
+
+		return null == imei ? devideMac() : imei;
 	}
 
-	public String phoneNumber() {
-		return phoneManager.getLine1Number();
-	}
-
-	public String devideMac() {
+	public static String devideMac() {
 		// we make this look like a valid IMEI
 		return "35" + Build.BOARD.length() % 10 + Build.BRAND.length() % 10
 				+ Build.CPU_ABI.length() % 10 + Build.DEVICE.length() % 10

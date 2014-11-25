@@ -142,7 +142,7 @@ public class BaiduApiFragment extends Fragment {
 		setting.setAllGesturesEnabled(true);
 
 		// 最大放大倍数
-		MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(15);
+		MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(18);
 		map.setMapStatus(u);
 
 		map.setBuildingsEnabled(true);
