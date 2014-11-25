@@ -1,7 +1,6 @@
 package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
 
@@ -12,7 +11,6 @@ import cn.com.cml.dbl.PetApplication;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.ui.MobileMonitorToolsView_;
-import cn.com.cml.dbl.util.DeviceUtil;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -41,10 +39,6 @@ public class MobileMonitorFragment extends Fragment implements
 
 	@AfterViews
 	public void initConfig() {
-
-		MainActivity activity = (MainActivity) getActivity();
-		activity.setActionbarView(MobileMonitorToolsView_.build(activity));
-
 		// 百度地图初始化
 		map = mapFragment.getBaiduMap();
 		map.setMapType(BaiduMap.MAP_TYPE_NORMAL);

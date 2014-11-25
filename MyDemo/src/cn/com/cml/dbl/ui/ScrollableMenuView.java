@@ -5,6 +5,7 @@ import org.androidannotations.annotations.EViewGroup;
 import android.content.Context;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -17,18 +18,24 @@ public class ScrollableMenuView extends LinearLayout implements OnTouchListener 
 
 	public ScrollableMenuView(Context context) {
 		super(context);
+		this.setOnTouchListener(this);
 	}
 
 	public ScrollableMenuView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		this.setOnTouchListener(this);
 	}
 
 	public ScrollableMenuView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.setOnTouchListener(this);
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+
+		Log.d("ScrollableMenuView",
+				"scroll:" + event.getX() + "." + event.getY());
 
 		final int action = event.getAction();
 
