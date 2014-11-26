@@ -9,54 +9,57 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 @EViewGroup
 public class ScrollableMenuView extends LinearLayout implements OnTouchListener {
 
-	private Point mPoint;
+	private Point figureDownPoint = new Point();
 
 	public ScrollableMenuView(Context context) {
 		super(context);
-		this.setOnTouchListener(this);
+		setOnTouchListener(this);
 	}
 
 	public ScrollableMenuView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		this.setOnTouchListener(this);
+		setOnTouchListener(this);
 	}
 
 	public ScrollableMenuView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		this.setOnTouchListener(this);
+		setOnTouchListener(this);
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
-		Log.d("ScrollableMenuView",
-				"scroll:" + event.getX() + "." + event.getY());
+		Log.d("ScrollableMenuView", "x:" + event.getX() + ",y:" + event.getY()
+				+ ":" + (event.getAction() == MotionEvent.ACTION_MOVE));
 
-		final int action = event.getAction();
+		FrameLayout.LayoutParams param = (android.widget.FrameLayout.LayoutParams) v
+				.getLayoutParams();
 
-		switch (action) {
+		switch (event.getAction()) {
 
 		case MotionEvent.ACTION_DOWN:
+
+			figureDownPoint.x = (int) (event.getX() - param.leftMargin);// 距离view左边的数据
+			figureDownPoint.y = (int) (event.getY() - param.topMargin);// 距离view上边缘的数据
+
 			break;
 
 		case MotionEvent.ACTION_MOVE:
-
-			this.setX(event.getX());
-			this.setY(event.getY());
-
-			break;
-
 		case MotionEvent.ACTION_UP:
+
+			param.leftMargin = (int) (event.getX() - figureDownPoint.x);
+			param.topMargin = (int) (event.getY() - figureDownPoint.y);
+
+			v.setLayoutParams(param);
+
 			break;
-
 		}
-
 		return true;
 	}
-
 }
