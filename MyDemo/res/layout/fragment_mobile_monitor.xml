@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -7,36 +7,48 @@
     <fragment
         android:id="@+id/map_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/map_menu_bar_layout"
+        android:layout_alignParentTop="true"
         class="com.baidu.mapapi.map.SupportMapFragment" />
 
-    <cn.com.cml.dbl.ui.ScrollableMenuView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/map_menu_bar_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|left"
+        android:background="@android:color/white"
+        android:gravity="center|center_vertical"
         android:orientation="horizontal" >
 
         <cn.com.cml.dbl.ui.FontIconTextView
-            android:layout_width="wrap_content"
+            android:id="@+id/map_menu_setting"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:text="@string/icon_setting"
-            android:textSize="25sp" />
+            android:textColor="#F00"
+            android:textSize="30sp" />
 
         <cn.com.cml.dbl.ui.FontIconTextView
-            android:layout_width="wrap_content"
+            android:id="@+id/map_menu_mobile"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:text="@string/icon_spin5"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <cn.com.cml.dbl.ui.FontIconTextView
-            android:layout_width="wrap_content"
+            android:id="@+id/map_menu_user"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:layout_weight="1"
             android:text="@string/icon_user"
-            android:textSize="25sp" />
-    </cn.com.cml.dbl.ui.ScrollableMenuView>
+            android:textSize="30sp" />
+    </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>
