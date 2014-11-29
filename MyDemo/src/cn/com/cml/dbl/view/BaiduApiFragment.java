@@ -12,7 +12,6 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.graphics.Color;
-import android.graphics.Point;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.model.LocationModel;
-import cn.com.cml.dbl.net.DummyApi;
 import cn.com.cml.dbl.ui.MapviewTipView;
 import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.DialogUtil;
@@ -212,7 +210,10 @@ public class BaiduApiFragment extends Fragment {
 
 	@Background
 	protected void loadMobileLocation() {
-		LocationModel location = DummyApi.mobileLocation(31.245951, 121.51377);
+		LocationModel location = new LocationModel();
+		location.setLatitude(31.245951);
+		location.setLongitude(121.51377);
+
 		this.mobileLocation = location;
 		repaintMap(location, baiduClient.getLastKnownLocation());
 

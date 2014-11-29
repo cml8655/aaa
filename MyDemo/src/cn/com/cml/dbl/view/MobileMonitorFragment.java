@@ -13,13 +13,11 @@ import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import cn.com.cml.dbl.PetApplication;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.helper.MapMenuHelper;
 import cn.com.cml.dbl.helper.MapMenuHelper.MenuType;
 import cn.com.cml.dbl.helper.MapMenuHelper.OnMenuClickListener;
 import cn.com.cml.dbl.model.LocationModel;
-import cn.com.cml.dbl.net.DummyApi;
 import cn.com.cml.dbl.ui.MapviewTipView;
 import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.DialogUtil;
@@ -38,14 +36,11 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
-import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
-import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.MyLocationOverlay;
 
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends Fragment implements
@@ -208,8 +203,7 @@ public class MobileMonitorFragment extends Fragment implements
 
 			BitmapDescriptor icon = BitmapDescriptorFactory
 					.fromResource(R.drawable.icon_marka);
-			
-			
+
 			map.addOverlay(new MarkerOptions().position(lat).icon(icon));
 
 			// 显示大概范围
@@ -328,8 +322,11 @@ public class MobileMonitorFragment extends Fragment implements
 			isFirst = true;
 			dialog.dismiss();
 		}
-		LocationModel mobileLocation = DummyApi.mobileLocation(31.245951,
-				121.51377);
+		LocationModel mobileLocation = new LocationModel();
+
+		mobileLocation.setLatitude(31.245951);
+		mobileLocation.setLongitude(121.51377);
+
 		repaintMap(mobileLocation, location);
 
 		myLocation = location;
