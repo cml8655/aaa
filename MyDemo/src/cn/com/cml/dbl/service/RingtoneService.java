@@ -28,7 +28,7 @@ public class RingtoneService extends Service {
 
 	public static final String ACTION_NOISY = "cn.com.cml.pets.service.RingtoneService.noisy";
 
-	private long[] vibratorPattern = { 1000, 2000, 1000, 1000, 1000 };
+	private long[] vibratorPattern = { 1000, 3000, 1000, 3000, 1000 };
 
 	private boolean isVirbrating;
 	private boolean isRinging;
@@ -75,7 +75,7 @@ public class RingtoneService extends Service {
 			vibrator.vibrate(vibratorPattern, 0);
 			isVirbrating = true;
 		}
-
+		
 		return super.onStartCommand(intent, flags, startId);
 	}
 

@@ -3,7 +3,11 @@ package cn.com.cml.dbl;
 import org.androidannotations.annotations.EApplication;
 
 import android.app.Application;
+import android.widget.Toast;
 import cn.bmob.v3.Bmob;
+import cn.com.cml.dbl.model.SmsModel;
+import cn.com.cml.dbl.service.SMSHandler;
+import cn.com.cml.dbl.service.SmsContentObserver;
 import cn.com.cml.dbl.util.DeviceUtil;
 
 import com.activeandroid.ActiveAndroid;
@@ -22,6 +26,9 @@ public class PetApplication extends Application {
 		SDKInitializer.initialize(this);
 
 		deviceId = DeviceUtil.deviceImei(this);
+
+		getContentResolver().registerContentObserver(SmsModel.SMS_CONTENT_URI,
+				true, new SmsContentObserver(this, new SMSHandler(this)));
 	}
 
 }

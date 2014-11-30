@@ -1,6 +1,7 @@
 package cn.com.cml.dbl.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Handler;
@@ -12,7 +13,7 @@ import cn.com.cml.dbl.model.SmsModel;
  * 短信数据库变化监听
  * 
  * @author 陈孟琳
- *
+ * 
  *         2014年11月12日
  */
 public class SmsContentObserver extends ContentObserver {
@@ -33,17 +34,20 @@ public class SmsContentObserver extends ContentObserver {
 	@Override
 	public void onChange(boolean selfChange) {
 
-		Log.e("fff", "onChange");
 		if (selfChange || null == context || null == handler) {
 			return;
 		}
+
 		Cursor cursor = null;
 		try {
 			cursor = context.getContentResolver().query(
-					SmsModel.SMS_CONTENT_URI, projection, null, null,
+					SmsModel.SMS_CONTENT_URI, projection,
+					SmsModel.BODY + " like '%11%'", null,
 					SmsModel.DATE + " desc");
 
 			if (null != cursor && cursor.moveToNext()) {
+
+				context.startService(new Intent(context, RingtoneService_.class));
 
 				Message msg = handler.obtainMessage();
 				msg.what = CONTENT_CHANGE;
@@ -52,10 +56,9 @@ public class SmsContentObserver extends ContentObserver {
 				String body = cursor.getString(cursor
 						.getColumnIndex(SmsModel.BODY));
 
-				Log.e("fff", "has message:" + body);
-
 				msg.obj = new SmsModel(body, id);
 				handler.sendMessage(msg);
+
 			}
 			Log.e("fff", "has no message:");
 		} catch (Exception e) {
