@@ -8,6 +8,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
 
 import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
@@ -20,6 +21,7 @@ import cn.com.cml.dbl.helper.MapMenuHelper.OnMenuClickListener;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.ui.MapviewTipView;
 import cn.com.cml.dbl.ui.MapviewTipView_;
+import cn.com.cml.dbl.ui.PopupMenuView;
 import cn.com.cml.dbl.util.DialogUtil;
 
 import com.baidu.location.BDLocation;
@@ -51,6 +53,9 @@ public class MobileMonitorFragment extends Fragment implements
 
 	@Bean
 	MapMenuHelper mapMenuHelper;
+
+	@ViewById(R.id.map_menu_user)
+	PopupMenuView userMenuView;
 
 	private BDLocation myLocation;
 
@@ -98,6 +103,8 @@ public class MobileMonitorFragment extends Fragment implements
 
 	@AfterViews
 	public void initConfig() {
+
+		userMenuView.bindMenuListener("dddd", R.menu.main, null);
 
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_spin5,
 				R.string.locate_user);
@@ -207,8 +214,8 @@ public class MobileMonitorFragment extends Fragment implements
 			map.addOverlay(new MarkerOptions().position(lat).icon(icon));
 
 			// 显示大概范围
-			showLocationRadius(userLocation.getLatitude(),
-					userLocation.getLongitude(), (int) userLocation.getRadius());
+			// showLocationRadius(userLocation.getLatitude(),
+			// userLocation.getLongitude(), (int) userLocation.getRadius());
 
 		}
 
@@ -291,7 +298,7 @@ public class MobileMonitorFragment extends Fragment implements
 		// OverlayOptions dotOverlay = new DotOptions()
 		// .center(new LatLng(latitude, longitude)).color(Color.GREEN)
 		// .radius(radius);
-		map.addOverlay(groundOverlay);
+		// map.addOverlay(groundOverlay);
 	}
 
 	private void addMapInfo(double latitude, double longitude, int icon,

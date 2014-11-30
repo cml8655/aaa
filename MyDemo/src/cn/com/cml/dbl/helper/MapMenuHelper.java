@@ -33,14 +33,14 @@ public class MapMenuHelper {
 
 	}
 
-	@Click(R.id.map_menu_user)
-	public void userClick(View v) {
-
-		if (null != clickListener) {
-			clickListener.onClick(v, MenuType.TYPE_USER);
-		}
-
-	}
+//	@Click(R.id.map_menu_user)
+//	public void userClick(View v) {
+//
+//		if (null != clickListener) {
+//			clickListener.onClick(v, MenuType.TYPE_USER);
+//		}
+//
+//	}
 
 	@Click(R.id.map_menu_mobile)
 	public void mobileClick(View v) {
