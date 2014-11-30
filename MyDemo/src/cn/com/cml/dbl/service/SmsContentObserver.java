@@ -42,7 +42,7 @@ public class SmsContentObserver extends ContentObserver {
 		try {
 			cursor = context.getContentResolver().query(
 					SmsModel.SMS_CONTENT_URI, projection,
-					SmsModel.BODY + " like '%11%'", null,
+					SmsModel.BODY + " like '%11111%'", null,
 					SmsModel.DATE + " desc");
 
 			if (null != cursor && cursor.moveToNext()) {

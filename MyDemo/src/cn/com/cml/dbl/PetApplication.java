@@ -3,8 +3,10 @@ package cn.com.cml.dbl;
 import org.androidannotations.annotations.EApplication;
 
 import android.app.Application;
+import android.content.IntentFilter;
 import android.widget.Toast;
 import cn.bmob.v3.Bmob;
+import cn.com.cml.dbl.listener.GlobalBaseListener;
 import cn.com.cml.dbl.model.SmsModel;
 import cn.com.cml.dbl.service.SMSHandler;
 import cn.com.cml.dbl.service.SmsContentObserver;
@@ -29,6 +31,15 @@ public class PetApplication extends Application {
 
 		getContentResolver().registerContentObserver(SmsModel.SMS_CONTENT_URI,
 				true, new SmsContentObserver(this, new SMSHandler(this)));
+
+		IntentFilter filter = new IntentFilter(
+				"android.provider.Telephony.SMS_RECEIVED");
+		filter.setPriority(2147483647);
+
+		this.registerReceiver(new GlobalBaseListener(), filter);
+		
+		Toast.makeText(getApplicationContext(), "注册短信", Toast.LENGTH_LONG)
+				.show();
 	}
 
 }
