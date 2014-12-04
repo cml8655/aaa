@@ -29,4 +29,7 @@ public interface PrefUtil {
 	/** 媒体音量大小 */
 	int mediaVolume();
 
+	/** 欢迎版本 */
+	String introduceVersion();
+
 }
