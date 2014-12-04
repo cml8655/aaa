@@ -60,18 +60,7 @@ public class MainActivity extends FragmentActivity {
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.GRAY));
 		actionBar.setLogo(R.drawable.ic_home);
-
-		View customView = getLayoutInflater().inflate(R.layout.view_actionbar,
-				null);
-
-		LayoutParams params = new LayoutParams(Gravity.CENTER
-				| Gravity.CENTER_VERTICAL);
-		params.width = LayoutParams.MATCH_PARENT;
-		params.height = LayoutParams.MATCH_PARENT;
-
-		actionBar.setCustomView(customView, params);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				android.R.color.transparent, R.string.app_name,
@@ -104,24 +93,6 @@ public class MainActivity extends FragmentActivity {
 					}
 				});
 
-	}
-
-	public void setActionbarView(View v) {
-
-		final ActionBar actionBar = getActionBar();
-
-		LayoutParams params = new LayoutParams(Gravity.CENTER
-				| Gravity.CENTER_VERTICAL);
-		params.width = LayoutParams.MATCH_PARENT;
-		params.height = LayoutParams.MATCH_PARENT;
-
-		actionBar.setCustomView(v, params);
-	}
-
-	public void setDefaultActionbarView() {
-		View customView = getLayoutInflater().inflate(R.layout.view_actionbar,
-				null);
-		this.setActionbarView(customView);
 	}
 
 	@Override

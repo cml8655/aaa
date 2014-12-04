@@ -22,6 +22,8 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <!-- 耳机监听 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
     </uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
@@ -63,7 +65,14 @@
         <activity
             android:name="cn.com.cml.dbl.MainActivity_"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="cn.com.cml.dbl.SplashActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,18 +89,37 @@
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter>
+            </intent-filter>
             -->
         </service>
         <service
             android:name="cn.com.cml.dbl.service.RingtoneService_"
             android:exported="false" >
         </service>
+        <service android:name="cn.com.cml.dbl.HeadsetService_" >
+        </service>
+
+        <!-- 短信监听 -->
+        <receiver android:name="cn.com.cml.dbl.listener.GlobalBaseListener_" >
+            <intent-filter android:priority="999" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="cn.com.cml.dbl.HeadsetReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter android:priority="999" >
+                <action android:name="android.intent.action.MEDIA_BUTTON" >
+                </action>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </receiver>
 
         <!-- meta-data需要写在application中 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="TGGsMwZsA5kdtI8uG8PLZjsn" />
+            android:value="NKwPZQ4lCLM8GIs3kfGdgYG0" />
     </application>
 
 </manifest>
