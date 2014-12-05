@@ -2,44 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/default_margin"
-    android:gravity="bottom"
     android:orientation="vertical" >
-
-    <EditText
-        style="@style/editStyle"
-        android:hint="@string/login_username_tip" />
-
-    <EditText
-        style="@style/editStyle"
-        android:hint="@string/login_password_tip" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/holo_orange_light"
-        android:gravity="center"
-        android:text="登录"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_height="wrap_content" >
+        android:layout_height="150dp"
+        android:background="@android:color/holo_blue_light" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/launcher" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical" >
+
+        <EditText
+            style="@style/editStyle"
+            android:hint="@string/login_username_tip" />
+
+        <EditText
+            style="@style/editStyle"
+            android:hint="@string/login_password_tip" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:textColor="#123567"
-            android:text="注册" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
             android:text="忘记密码" />
-    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:gravity="bottom" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@android:color/holo_blue_light"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:text="登录"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>
