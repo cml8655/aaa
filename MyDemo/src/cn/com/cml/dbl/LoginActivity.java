@@ -6,16 +6,15 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 
-import android.app.Activity;
 import android.widget.Toast;
 
 @EActivity(R.layout.activity_login)
 @OptionsMenu(R.menu.login)
-public class LoginActivity extends Activity {
+public class LoginActivity extends BaseActivity {
 
 	@AfterViews
 	protected void initConfig() {
-
+		setCustomTitle(R.string.login_title);
 	}
 
 	@OptionsItem(R.id.menu_register)

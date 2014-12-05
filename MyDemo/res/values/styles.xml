@@ -1,10 +1,20 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/actionBar</item>
-        <item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
+        <!--
+		设置menu背景颜色
+  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
+        -->
+        <!-- 菜单栏颜色 -->
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:actionMenuTextAppearance">@style/menuTextAppearance</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <!-- menu字体 -->
+    <style name="menuTextAppearance">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <!-- Application theme. -->
@@ -14,7 +24,7 @@
 
     <style name="actionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:background">@android:color/holo_green_light</item>
+        <item name="android:background">@android:color/holo_blue_dark</item>
         <item name="android:titleTextStyle">@style/TitleTextStyle</item>
     </style>
 

@@ -41,6 +41,11 @@
     <string name="login_forget_pass"><u>忘记密码</u></string>
     <string name="login_username_tip">请输入用户名</string>
     <string name="login_password_tip">请输入密码</string>
+    
+    <!-- 注册界面 -->
+	<string name="register_repasswrod">确认密码</string>
+	<string name="register_email">请输入邮箱地址</string>
+	<string name="register_register">马上注册</string>
 
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>
