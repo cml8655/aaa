@@ -1,12 +1,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="baseTextStyle" parent="@android:style/TextAppearance">
-        <item name="android:textSize">20sp</item>
-    </style>
 
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/actionBar</item>
         <item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <!-- Application theme. -->
@@ -25,7 +23,9 @@
     </style>
 
     <style name="TitleTextStyle">
+        <item name="android:popupBackground">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="horizontalDivider">
