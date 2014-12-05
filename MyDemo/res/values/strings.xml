@@ -36,7 +36,7 @@
     <!-- 登录界面 -->
     <string name="login_title">登录</string>
     <string name="login_register">注册</string>
-    <string name="login_forget_pass">找回密码</string>
+    <string name="login_forget_pass"><u>忘记密码</u></string>
     <string name="login_username_tip">请输入用户名</string>
     <string name="login_password_tip">请输入密码</string>
 

@@ -4,14 +4,28 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <item name="android:background">@android:color/holo_green_dark</item>
-        <item name="android:textAppearance">@style/baseTextStyle</item>
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/actionBar</item>
+        <item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="actionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:background">@android:color/holo_green_light</item>
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+    </style>
+
+    <style name="TitleBgStyle">
+        <item name="android:background">@android:color/holo_green_light</item>
+    </style>
+
+    <style name="TitleTextStyle">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="horizontalDivider">
