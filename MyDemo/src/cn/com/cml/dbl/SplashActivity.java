@@ -41,7 +41,7 @@ public class SplashActivity extends Activity {
 
 		// TODO 跳到登录界面
 
-		// closeActivity();
+		 closeActivity();
 	}
 
 	@UiThread(delay = 300)
