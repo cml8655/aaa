@@ -9,7 +9,6 @@
         <!-- 菜单栏颜色 -->
         <item name="android:actionMenuTextColor">@android:color/white</item>
         <item name="android:actionMenuTextAppearance">@style/menuTextAppearance</item>
-        <item name="android:textColor">@android:color/white</item>
     </style>
     
     <!-- menu字体 -->

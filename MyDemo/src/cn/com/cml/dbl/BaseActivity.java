@@ -1,5 +1,6 @@
 package cn.com.cml.dbl;
 
+import cn.bmob.v3.listener.SaveListener;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -9,7 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends Activity implements SaveListener{
 
 	public static final String TAG = "BaseActivity";
 
@@ -53,5 +54,15 @@ public class BaseActivity extends Activity {
 
 	protected void setCustomTitle(int titleId) {
 		setCustomTitle(getString(titleId));
+	}
+
+	@Override
+	public void onFailure(int arg0, String arg1) {
+		
+	}
+
+	@Override
+	public void onSuccess() {
+		
 	}
 }

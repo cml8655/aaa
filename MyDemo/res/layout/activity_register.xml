@@ -24,25 +24,28 @@
         android:orientation="vertical" >
 
         <EditText
+            android:id="@+id/input_username"
             style="@style/editStyle"
-            android:hint="@string/login_username_tip" />
+            android:hint="@string/login_username_tip"
+            android:inputType="textEmailAddress" />
 
         <EditText
+            android:id="@+id/input_password"
             style="@style/editStyle"
-            android:hint="@string/login_password_tip" />
+            android:hint="@string/login_password_tip"
+            android:inputType="textPassword" />
 
         <EditText
+            android:id="@+id/input_repassword"
             style="@style/editStyle"
-            android:hint="@string/register_repasswrod" />
-
-        <EditText
-            style="@style/editStyle"
-            android:hint="@string/register_email" />
+            android:hint="@string/register_repasswrod"
+            android:inputType="textPassword" />
 
         <Button
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/default_margin"
             android:layout_height="40dp"
+            android:layout_marginTop="@dimen/default_margin"
             android:background="@android:color/holo_blue_light"
             android:gravity="center"
             android:text="@string/register_register"

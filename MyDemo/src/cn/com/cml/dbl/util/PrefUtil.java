@@ -32,4 +32,8 @@ public interface PrefUtil {
 	/** 欢迎版本 */
 	String introduceVersion();
 
+	String username();
+
+	String nickName();
+
 }
