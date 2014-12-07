@@ -1,18 +1,24 @@
 package cn.com.cml.dbl;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
+import android.text.TextUtils;
 import android.widget.EditText;
-import android.widget.Toast;
-import cn.com.cml.dbl.mode.api.User;
-import cn.com.cml.dbl.util.CommonUtils;
+import cn.bmob.v3.listener.SaveListener;
+import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.util.ValidationUtil;
 
 @EActivity(R.layout.activity_register)
 public class RegisterActivity extends BaseActivity {
+
+	@Bean
+	ApiRequestServiceClient apiClient;
 
 	@ViewById(R.id.input_username)
 	EditText usernameView;
@@ -25,25 +31,90 @@ public class RegisterActivity extends BaseActivity {
 
 	@AfterViews
 	protected void initConfig() {
+
+		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
+				R.string.register_tip);
+		dialog.setCancelable(false);
+
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+
+		// usernameView.setText("865517964@qq.com");
+		// passwordView.setText("123456");
 
 		setCustomTitle(R.string.login_register);
 	}
 
 	@Click(R.id.btn_register)
 	void registerClick() {
-		// TODO 进行校验
+
 		String username = usernameView.getText().toString();
 		String password = passwordView.getText().toString();
+		String repassword = repasswordView.getText().toString();
 
-		User user = new User();
+		StringBuffer error = inputRegularCheck(username, password, repassword);
 
-		user.setUsername(username);
-		user.setEmail(username);
-		user.setPassword(CommonUtils.encodeSHA1(password));
+		if (error.length() > 0) {
 
-		user.signUp(this, this);
+			DialogUtil.showTip(this, error.toString());
+
+			return;
+		}
+
+		dialog.show(getSupportFragmentManager(), "register");
+
+		apiClient.signUp(username, password, new SaveListener() {
+
+			@Override
+			public void onSuccess() {
+				dialog.dismiss();
+			}
+
+			@Override
+			public void onFailure(int errorCode, String msg) {
+
+				dialog.dismiss();
+
+				if (errorCode == 202) {
+					DialogUtil.showTip(getApplicationContext(),
+							getString(R.string.register_user_repeat));
+				} else {
+					DialogUtil.showTip(getApplicationContext(), msg);
+				}
+
+			}
+		});
+
+	}
+
+	@Override
+	protected void onDestroy() {
+
+		if (null != dialog && dialog.isVisible()) {
+
+			dialog.dismissAllowingStateLoss();
+		}
+		super.onDestroy();
+	}
+
+	private StringBuffer inputRegularCheck(String username, String password,
+			String repassword) {
+		StringBuffer error = new StringBuffer();
+
+		if (TextUtils.isEmpty(username)) {
+			error.append(getString(R.string.empty_username)).append("\n");
+		} else if (!ValidationUtil.isEmail(username)) {
+			error.append(getString(R.string.email_incorrect)).append("\n");
+		}
+
+		if (TextUtils.isEmpty(password)) {
+			error.append(getString(R.string.empty_password)).append("\n");
+		}
+
+		if (!ValidationUtil.equals(password, repassword)) {
+			error.append(getString(R.string.password_not_equals));
+		}
+		return error;
 	}
 
 	@OptionsItem(android.R.id.home)
@@ -51,13 +122,4 @@ public class RegisterActivity extends BaseActivity {
 		onBackPressed();
 	}
 
-	@Override
-	public void onFailure(int arg0, String arg1) {
-		Toast.makeText(this, "注册失败" + arg1, Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	public void onSuccess() {
-		Toast.makeText(this, "注册成共", Toast.LENGTH_LONG).show();
-	}
 }

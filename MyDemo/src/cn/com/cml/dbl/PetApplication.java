@@ -4,18 +4,13 @@ import org.androidannotations.annotations.EApplication;
 
 import android.app.Application;
 import android.content.IntentFilter;
-import android.widget.Toast;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobInstallation;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.listener.GlobalBaseListener;
 import cn.com.cml.dbl.model.SmsModel;
 import cn.com.cml.dbl.service.SMSHandler;
 import cn.com.cml.dbl.service.SmsContentObserver;
 import cn.com.cml.dbl.util.DeviceUtil;
 
-import com.activeandroid.ActiveAndroid;
 import com.baidu.mapapi.SDKInitializer;
 
 @EApplication
@@ -28,9 +23,9 @@ public class PetApplication extends Application {
 
 		super.onCreate();
 
-		Bmob.initialize(this, "8edefd1dfad9502b4a3be158d357ca30");
+		Bmob.initialize(this, "26068ea20379de265c19f7ff8e8f9f99");
 		// 初始化版本信息
-//		BmobUpdateAgent.initAppVersion(getApplicationContext());
+		// BmobUpdateAgent.initAppVersion(getApplicationContext());
 
 		// ActiveAndroid.initialize(this, false);
 

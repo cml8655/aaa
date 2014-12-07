@@ -3,7 +3,6 @@
 
     <string name="app_name">MyDemo</string>
     <string name="action_settings">Settings</string>
-    
     <string name="back">返回</string>
 
     <!-- font icon -->
@@ -39,13 +38,29 @@
     <string name="login_title">登录</string>
     <string name="login_register">注册</string>
     <string name="login_forget_pass"><u>忘记密码</u></string>
-    <string name="login_username_tip">请输入用户名</string>
+    <string name="login_username_tip">请输入邮箱地址:example@xx.com</string>
     <string name="login_password_tip">请输入密码</string>
-    
+    <string name="empty_username">用户名不能为空</string>
+    <string name="empty_password">密码不能为空</string>
+    <string name="password_not_equals">两次输入密码不同</string>
+    <string name="email_incorrect">请输入正确的邮箱地址</string>
+    <string name="login_fail">用户名或密码错误</string>
+    <string name="login_request">正在校验，请稍后...</string>
+
     <!-- 注册界面 -->
-	<string name="register_repasswrod">确认密码</string>
-	<string name="register_email">请输入邮箱地址</string>
-	<string name="register_register">马上注册</string>
+    <string name="register_repasswrod">确认密码</string>
+    <string name="register_email">请输入邮箱地址</string>
+    <string name="register_register">马上注册</string>
+    <string name="register_tip">正在注册，请稍等...</string>
+    <string name="register_user_repeat">该地址已经被注册</string>
+
+    <!-- 密码重置 -->
+    <string name="reset_pass_title">密码重置</string>
+    <string name="reset_pass_send">发送</string>
+    <string name="email_send_success">邮件发送成功</string>
+    <string name="email_send_fail">邮件发送失败，请重试</string>
+    <string name="user_not_found">未找到该用户</string>
+    <string name="reset_retry_countdown">%1$s秒后重试</string>
 
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>

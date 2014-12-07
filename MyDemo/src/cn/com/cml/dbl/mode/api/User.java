@@ -1,14 +1,26 @@
 package cn.com.cml.dbl.mode.api;
 
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
+import java.io.Serializable;
 
-public class User extends BmobUser {
+import cn.bmob.v3.BmobUser;
+
+public class User extends BmobUser implements Serializable {
+
+	private static final long serialVersionUID = -8836844838034995863L;
 
 	private String nickName;
-	private BmobFile headImg;
-	private Long lastLogin;
-	private Long lastChecking;
+	private String lastLogin;
+	private String lastChecking;
+
+	private Integer score;
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
 
 	public String getNickName() {
 		return nickName;
@@ -18,28 +30,27 @@ public class User extends BmobUser {
 		this.nickName = nickName;
 	}
 
-	public BmobFile getHeadImg() {
-		return headImg;
-	}
-
-	public void setHeadImg(BmobFile headImg) {
-		this.headImg = headImg;
-	}
-
-	public Long getLastLogin() {
+	public String getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(Long lastLogin) {
+	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 
-	public Long getLastChecking() {
+	public String getLastChecking() {
 		return lastChecking;
 	}
 
-	public void setLastChecking(Long lastChecking) {
+	public void setLastChecking(String lastChecking) {
 		this.lastChecking = lastChecking;
+	}
+
+	@Override
+	public String toString() {
+		return "username:" + getUsername() + "User [nickName=" + nickName
+				+ ", lastLogin=" + lastLogin + ", lastChecking=" + lastChecking
+				+ "]";
 	}
 
 }

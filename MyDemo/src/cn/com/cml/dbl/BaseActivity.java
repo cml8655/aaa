@@ -1,26 +1,32 @@
 package cn.com.cml.dbl;
 
-import cn.bmob.v3.listener.SaveListener;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.listener.SaveListener;
 
-public class BaseActivity extends Activity implements SaveListener{
+public class BaseActivity extends FragmentActivity {
 
 	public static final String TAG = "BaseActivity";
 
 	protected TextView titleView;
 	protected ActionBar actionBar;
+	protected DialogFragment dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setupActionBar();
+		// Bmob.initialize(this, "8edefd1dfad9502b4a3be158d357ca30");
+	
 		Log.d(TAG, "BaseActivity-->onCreate");
 	}
 
@@ -56,13 +62,4 @@ public class BaseActivity extends Activity implements SaveListener{
 		setCustomTitle(getString(titleId));
 	}
 
-	@Override
-	public void onFailure(int arg0, String arg1) {
-		
-	}
-
-	@Override
-	public void onSuccess() {
-		
-	}
 }

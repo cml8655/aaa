@@ -33,9 +33,11 @@
         <EditText
             android:id="@+id/input_password"
             style="@style/editStyle"
-            android:hint="@string/login_password_tip" />
+            android:hint="@string/login_password_tip"
+            android:inputType="textPassword" />
 
         <TextView
+            android:id="@+id/tv_findpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
