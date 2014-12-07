@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical" >
+
+    <Button
+        style="@style/buttonStyle"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:background="@android:color/holo_orange_light"
+        android:text="@string/system_bind_device" />
+
+    <Button
+        style="@style/buttonStyle"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:background="@android:color/holo_orange_light"
+        android:text="@string/system_monitor_device" />
+
+    <Button
+        style="@style/buttonStyle"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:background="@android:color/holo_orange_light"
+        android:text="@string/system_tip" />
+
+    <Button
+        style="@style/buttonStyle"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:background="@android:color/darker_gray"
+        android:text="@string/system_ignore" />
+
+</LinearLayout>

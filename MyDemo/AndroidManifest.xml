@@ -91,6 +91,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="cn.com.cml.dbl.ImportanceActivity_"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="cn.com.cml.dbl.LoginActivity_"
             android:label="@string/login_title"
             android:screenOrientation="portrait"

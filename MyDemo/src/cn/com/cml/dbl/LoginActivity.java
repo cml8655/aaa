@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivity {
 		}
 
 		Log.d(TAG, "validate:" + error.toString());
-		
+
 		dialog.show(getSupportFragmentManager(), "login");
 
 		apiClient.login(username, password, new SaveListener() {
@@ -86,9 +86,11 @@ public class LoginActivity extends BaseActivity {
 				prefUtil.edit().username().put(user.getUsername()).apply();
 
 				apiClient.modifyLastLoginTime();
+				//
+				// MainActivity_.intent(getApplicationContext())
+				// .flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
 
-				MainActivity_.intent(getApplicationContext())
-						.flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+				ImportanceActivity_.intent(LoginActivity.this).start();
 
 				finish();
 			}
