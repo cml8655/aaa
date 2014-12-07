@@ -65,6 +65,7 @@
 
     <!-- 系统通知 -->
     <string name="system_tip">系统提示</string>
+    <string name="system_tip2">系统提示2222</string>
     <string name="system_bind_device">绑定手机</string>
     <string name="system_monitor_device">追踪手机</string>
     <string name="system_ignore"><![CDATA[ <<跳过>> ]]></string>
