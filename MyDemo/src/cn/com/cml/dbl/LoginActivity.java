@@ -96,6 +96,8 @@ public class LoginActivity extends BaseActivity {
 				mobileBindQuery.addWhereEqualTo("user", user).addWhereEqualTo(
 						"bindType", MobileBind.TYPE_BIND);
 
+				mobileBindQuery.setLimit(1);
+
 				mobileBindQuery.findObjects(LoginActivity.this,
 						new FindListener<MobileBind>() {
 
@@ -111,8 +113,9 @@ public class LoginActivity extends BaseActivity {
 								Log.d(TAG, "查找手机绑定" + result);
 
 								boolean isCurrentDevice = false;
+								boolean hasBindDevice = false;
 
-								if (result.size() > 0) {
+								if (result.size() == 1) {
 
 									MobileBind mobileBind = result.get(0);
 
@@ -120,13 +123,18 @@ public class LoginActivity extends BaseActivity {
 											getApplicationContext()).equals(
 											mobileBind.getImei());
 
+									hasBindDevice = isCurrentDevice ? false
+											: true;
+
 								}
+
 								// 当前手机绑定账号登录
 								if (isCurrentDevice) {
 									startMainActivity();
+									return;
 								}
 
-								startImportanceActivity(isCurrentDevice);
+								startImportanceActivity(hasBindDevice);
 							}
 						});
 

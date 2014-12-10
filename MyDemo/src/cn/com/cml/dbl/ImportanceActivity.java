@@ -6,6 +6,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
 import android.widget.Button;
 import cn.bmob.v3.BmobUser;
@@ -21,7 +23,7 @@ import cn.com.cml.dbl.util.DialogUtil;
  * 
  */
 @EActivity(R.layout.activity_importance)
-public class ImportanceActivity extends BaseActivity {
+public class ImportanceActivity extends BaseActivity implements OnClickListener {
 
 	@Extra
 	boolean hasBindDevice;
@@ -42,35 +44,49 @@ public class ImportanceActivity extends BaseActivity {
 	@Click(R.id.btn_bind_device)
 	protected void bindDeviceClick() {
 
-		dialog.show(getSupportFragmentManager(), "bind");
-
 		// 提示用户会先解绑其他手机
 		if (hasBindDevice) {
 
-			DialogUtil.toast(getApplicationContext(),
-					R.string.system_bind_device_confirm);
+			DialogUtil.defaultDialog(R.string.system_bind_device_confirm, this)
+					.show(getSupportFragmentManager(), "confirm_bind");
 
 		} else {
-
-			MobileBind bind = new MobileBind();
-
-			bind.setBindPassword("1234");// TODO 设置
-			bind.setBindType(MobileBind.TYPE_BIND);
-			bind.setImei(DeviceUtil.deviceImei(this));
-			bind.setUser(BmobUser.getCurrentUser(this));
-
-			bind.save(this, new BaseSaveListener(this, dialog) {
-				@Override
-				public void onSuccess() {
-
-					Log.d(TAG, "手机信息绑定成功!");
-					bindDeviceBtn.setClickable(false);
-					bindDeviceBtn
-							.setText(getString(R.string.system_bind_device_success));
-					super.onSuccess();
-				}
-			});
+			bindDevice();
 		}
 
+	}
+
+	@Override
+	public void onClick(DialogInterface clickDialog, int which) {
+
+		if (which == DialogInterface.BUTTON_POSITIVE) {
+
+			bindDevice();
+		}
+
+	}
+
+	private void bindDevice() {
+		// TODO 弹出密码输入提示
+		dialog.show(getSupportFragmentManager(), "bind");
+
+		MobileBind bind = new MobileBind();
+
+		bind.setBindPassword("1234");// TODO 设置
+		bind.setBindType(MobileBind.TYPE_BIND);
+		bind.setImei(DeviceUtil.deviceImei(this));
+		bind.setUser(BmobUser.getCurrentUser(this));
+
+		bind.save(this, new BaseSaveListener(getApplicationContext(), dialog) {
+			@Override
+			public void onSuccess() {
+
+				Log.d(TAG, "手机信息绑定成功!");
+				bindDeviceBtn.setClickable(false);
+				bindDeviceBtn
+						.setText(getString(R.string.system_bind_device_success));
+				super.onSuccess();
+			}
+		});
 	}
 }
