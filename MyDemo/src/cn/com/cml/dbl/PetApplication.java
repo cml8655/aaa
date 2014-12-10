@@ -4,6 +4,7 @@ import org.androidannotations.annotations.EApplication;
 
 import android.app.Application;
 import android.content.IntentFilter;
+import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobInstallation;
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -27,6 +28,7 @@ public class PetApplication extends Application {
 
 		Bmob.initialize(this, "26068ea20379de265c19f7ff8e8f9f99");
 		BmobInstallation.getCurrentInstallation(this).save();
+		BmobPush.startWork(getApplicationContext(), "26068ea20379de265c19f7ff8e8f9f99");
 		// 初始化版本信息
 		BmobUpdateAgent.initAppVersion(getApplicationContext());
 
