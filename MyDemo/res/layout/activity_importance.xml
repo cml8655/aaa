@@ -7,6 +7,7 @@
 
     <Button
         style="@style/buttonStyle"
+        android:id="@+id/btn_bind_device"
         android:layout_marginBottom="@dimen/default_margin"
         android:background="@android:color/holo_orange_light"
         android:text="@string/system_bind_device" />

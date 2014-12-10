@@ -1,20 +1,34 @@
 package cn.com.cml.dbl.listener;
 
 import android.content.Context;
+import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
 import cn.bmob.v3.listener.SaveListener;
 
 public abstract class BaseSaveListener extends SaveListener {
 
 	private Context context;
+	private DialogFragment dialog;
 
 	public BaseSaveListener(Context context) {
 		super();
 		this.context = context;
 	}
 
+	public BaseSaveListener(Context context, DialogFragment dialog) {
+		super();
+		this.context = context;
+		this.dialog = dialog;
+	}
+
+
+
 	@Override
 	public void onFailure(int errorCode, String msg) {
+		
+		if(null!=dialog){
+			dialog.dismissAllowingStateLoss();
+		}
 
 		switch (errorCode) {
 
@@ -52,7 +66,9 @@ public abstract class BaseSaveListener extends SaveListener {
 
 	@Override
 	public void onSuccess() {
-
+		if(null!=dialog){
+			dialog.dismissAllowingStateLoss();
+		}
 	}
 
 }

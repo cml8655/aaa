@@ -70,6 +70,8 @@
     <string name="system_bind_device">绑定手机</string>
     <string name="system_monitor_device">追踪手机</string>
     <string name="system_ignore"><![CDATA[ <<跳过>> ]]></string>
+    <string name="system_bind_device_success">成功绑定</string>
+    <string name="system_bind_device_confirm">绑定此手机会将之前绑定的手机解绑，确定继续？</string>
 
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>

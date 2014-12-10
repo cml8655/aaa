@@ -1,12 +1,15 @@
 package cn.com.cml.dbl.mode.api;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobUser;
 
 public class MobileBind extends BmobObject {
 
-	private User user;
+	public static final int TYPE_BIND = 0;
+	public static final int TYPE_UNBIND = 1;
+
+	private BmobUser user;
 	private String imei;
-	private Long bindTime;
 	/**
 	 * 手机绑定密码
 	 */
@@ -16,11 +19,11 @@ public class MobileBind extends BmobObject {
 	 */
 	private int bindType;
 
-	public User getUser() {
+	public BmobUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(BmobUser user) {
 		this.user = user;
 	}
 
@@ -30,14 +33,6 @@ public class MobileBind extends BmobObject {
 
 	public void setImei(String imei) {
 		this.imei = imei;
-	}
-
-	public Long getBindTime() {
-		return bindTime;
-	}
-
-	public void setBindTime(Long bindTime) {
-		this.bindTime = bindTime;
 	}
 
 	public String getBindPassword() {
