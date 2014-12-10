@@ -68,6 +68,8 @@ public class RegisterActivity extends BaseActivity {
 			@Override
 			public void onSuccess() {
 				dialog.dismiss();
+				DialogUtil.toast(getApplicationContext(), R.string.register_success);
+				finish();
 			}
 
 			@Override

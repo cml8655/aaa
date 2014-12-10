@@ -54,6 +54,7 @@
     <string name="register_register">马上注册</string>
     <string name="register_tip">正在注册，请稍等...</string>
     <string name="register_user_repeat">该地址已经被注册</string>
+    <string name="register_success">注册成功，请登录</string>
 
     <!-- 密码重置 -->
     <string name="reset_pass_title">密码重置</string>
