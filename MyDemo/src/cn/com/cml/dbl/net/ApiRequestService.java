@@ -1,7 +1,7 @@
 package cn.com.cml.dbl.net;
 
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.com.cml.dbl.mode.api.User;
 
 public interface ApiRequestService {
 
@@ -10,5 +10,16 @@ public interface ApiRequestService {
 	void signUp(String username, String password, SaveListener listener);
 
 	void modifyLastLoginTime();
+
+	void bindDevice(final String pass, final SaveListener listener);
+
+	void bindDeviceQuery(FindListener listener);
+
+	/**
+	 * 查找是否绑定此手机
+	 * 
+	 * @param listener
+	 */
+	void bindCurrentDeviceQuery(FindListener listener);
 
 }

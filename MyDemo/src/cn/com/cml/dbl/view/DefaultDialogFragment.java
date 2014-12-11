@@ -6,13 +6,19 @@ import org.androidannotations.annotations.FragmentArg;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
 @EFragment
-public class DefaultDialogFragment extends DialogFragment {
+public class DefaultDialogFragment extends DialogFragment implements
+		OnClickListener {
+
+	public static interface OnItemClickListener {
+		public void onClick(DialogInterface dialog, int id, int requestId);
+	}
 
 	@FragmentArg
 	Integer positiveBtnText;
@@ -26,28 +32,31 @@ public class DefaultDialogFragment extends DialogFragment {
 	@FragmentArg
 	Integer text;
 
+	@FragmentArg
+	int requestId;
+
+	private OnItemClickListener listener;
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-		OnClickListener listener = null;
 
 		Fragment target = getTargetFragment();
 		Activity activity = getActivity();
 
-		if (target instanceof OnClickListener) {
-			listener = (OnClickListener) target;
-		} else if (activity instanceof OnClickListener) {
-			listener = (OnClickListener) activity;
+		if (target instanceof OnItemClickListener) {
+			listener = (OnItemClickListener) target;
+		} else if (activity instanceof OnItemClickListener) {
+			listener = (OnItemClickListener) activity;
 		}
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 		if (null != positiveBtnText) {
-			builder.setPositiveButton(positiveBtnText, listener);
+			builder.setPositiveButton(positiveBtnText, this);
 		}
 
 		if (null != negativeBtnText) {
-			builder.setNegativeButton(negativeBtnText, listener);
+			builder.setNegativeButton(negativeBtnText, this);
 		}
 
 		if (null != title) {
@@ -57,6 +66,14 @@ public class DefaultDialogFragment extends DialogFragment {
 		builder.setMessage(text);
 
 		return builder.create();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, int which) {
+
+		if (null != listener) {
+			listener.onClick(dialog, which, requestId);
+		}
 	}
 
 }

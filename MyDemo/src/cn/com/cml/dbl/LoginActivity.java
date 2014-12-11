@@ -91,53 +91,26 @@ public class LoginActivity extends BaseActivity {
 
 				apiClient.modifyLastLoginTime();
 
-				BmobQuery<MobileBind> mobileBindQuery = new BmobQuery<MobileBind>();
-
-				mobileBindQuery.addWhereEqualTo("user", user).addWhereEqualTo(
-						"bindType", MobileBind.TYPE_BIND);
-
-				mobileBindQuery.setLimit(1);
-
-				mobileBindQuery.findObjects(LoginActivity.this,
-						new FindListener<MobileBind>() {
+				apiClient
+						.bindCurrentDeviceQuery(new FindListener<MobileBind>() {
 
 							@Override
-							public void onError(int errorCode, String errorMsg) {
-
+							public void onError(int arg0, String errorMsg) {
 								Log.d(TAG, "绑定手机查询错误：" + errorMsg);
 								startMainActivity();
 							}
 
 							@Override
 							public void onSuccess(List<MobileBind> result) {
-								Log.d(TAG, "查找手机绑定" + result);
-
-								boolean isCurrentDevice = false;
-								boolean hasBindDevice = false;
-
-								if (result.size() == 1) {
-
-									MobileBind mobileBind = result.get(0);
-
-									isCurrentDevice = DeviceUtil.deviceImei(
-											getApplicationContext()).equals(
-											mobileBind.getImei());
-
-									hasBindDevice = isCurrentDevice ? false
-											: true;
-
-								}
-
-								// 当前手机绑定账号登录
-								if (isCurrentDevice) {
+								// 未绑定此手机，提示绑定
+								if (result.size() == 0) {
+									startImportanceActivity();
+								} else {
 									startMainActivity();
-									return;
 								}
 
-								startImportanceActivity(hasBindDevice);
 							}
 						});
-
 			}
 
 			@Override
@@ -163,12 +136,11 @@ public class LoginActivity extends BaseActivity {
 		finish();
 	}
 
-	private void startImportanceActivity(boolean hasBindDevice) {
+	private void startImportanceActivity() {
 
 		dialog.dismiss();
 
-		ImportanceActivity_.intent(LoginActivity.this)
-				.hasBindDevice(hasBindDevice).start();
+		ImportanceActivity_.intent(LoginActivity.this).start();
 
 		finish();
 	}

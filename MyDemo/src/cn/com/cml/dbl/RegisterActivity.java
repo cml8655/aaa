@@ -38,7 +38,7 @@ public class RegisterActivity extends BaseActivity {
 
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
-int a=android.R.color.holo_blue_light;
+		
 		// usernameView.setText("865517964@qq.com");
 		// passwordView.setText("123456");
 

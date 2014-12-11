@@ -25,9 +25,6 @@ import cn.com.cml.dbl.util.DialogUtil;
 @EActivity(R.layout.activity_importance)
 public class ImportanceActivity extends BaseActivity implements OnClickListener {
 
-	@Extra
-	boolean hasBindDevice;
-
 	@ViewById(R.id.btn_bind_device)
 	Button bindDeviceBtn;
 
@@ -35,7 +32,7 @@ public class ImportanceActivity extends BaseActivity implements OnClickListener 
 	protected void initConfig() {
 
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-				R.string.login_request);
+				R.string.data_requesting);
 		dialog.setCancelable(false);
 
 		setCustomTitle(R.string.system_tip);
@@ -43,50 +40,21 @@ public class ImportanceActivity extends BaseActivity implements OnClickListener 
 
 	@Click(R.id.btn_bind_device)
 	protected void bindDeviceClick() {
+		startDeviceBindActivity();
+	}
 
-		// 提示用户会先解绑其他手机
-		if (hasBindDevice) {
-
-			DialogUtil.defaultDialog(R.string.system_bind_device_confirm, this)
-					.show(getSupportFragmentManager(), "confirm_bind");
-
-		} else {
-			bindDevice();
-		}
-
+	private void startDeviceBindActivity() {
+		DeviceBindActivity_.intent(this).start();
 	}
 
 	@Override
 	public void onClick(DialogInterface clickDialog, int which) {
 
 		if (which == DialogInterface.BUTTON_POSITIVE) {
-
-			bindDevice();
+			startDeviceBindActivity();
+			// bindDevice();
 		}
 
 	}
 
-	private void bindDevice() {
-		// TODO 弹出密码输入提示
-		dialog.show(getSupportFragmentManager(), "bind");
-
-		MobileBind bind = new MobileBind();
-
-		bind.setBindPassword("1234");// TODO 设置
-		bind.setBindType(MobileBind.TYPE_BIND);
-		bind.setImei(DeviceUtil.deviceImei(this));
-		bind.setUser(BmobUser.getCurrentUser(this));
-
-		bind.save(this, new BaseSaveListener(getApplicationContext(), dialog) {
-			@Override
-			public void onSuccess() {
-
-				Log.d(TAG, "手机信息绑定成功!");
-				bindDeviceBtn.setClickable(false);
-				bindDeviceBtn
-						.setText(getString(R.string.system_bind_device_success));
-				super.onSuccess();
-			}
-		});
-	}
 }

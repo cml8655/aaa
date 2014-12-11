@@ -33,20 +33,22 @@ public class DialogUtil {
 				.show();
 	}
 
-	public static DialogFragment defaultDialog(Integer text, Activity activity) {
+	public static DialogFragment defaultDialog(Integer text, int requestId,
+			Activity activity) {
 
 		if (activity instanceof OnClickListener) {
 			return DefaultDialogFragment_.builder()
 					.negativeBtnText(R.string.system_btn_cancel)
 					.positiveBtnText(R.string.system_btn_ensure)
-					.title(R.string.system_tip).text(text).build();
+					.requestId(requestId).title(R.string.system_tip).text(text)
+					.build();
 		}
 
 		throw new IllegalArgumentException(
 				"activity must extends OnClickListener");
 	}
 
-	public static DialogFragment defaultDialog(Integer text,
+	public static DialogFragment defaultDialog(Integer text, int requestId,
 			Fragment targetFragment) {
 
 		if (targetFragment instanceof OnClickListener) {
@@ -54,7 +56,8 @@ public class DialogUtil {
 			DialogFragment dialog = DefaultDialogFragment_.builder()
 					.negativeBtnText(R.string.system_btn_cancel)
 					.positiveBtnText(R.string.system_btn_ensure)
-					.title(R.string.system_tip).text(text).build();
+					.requestId(requestId).title(R.string.system_tip).text(text)
+					.build();
 
 			dialog.setTargetFragment(targetFragment, 1);
 
