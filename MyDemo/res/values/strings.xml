@@ -48,6 +48,7 @@
     <string name="email_incorrect">请输入正确的邮箱地址</string>
     <string name="login_fail">用户名或密码错误</string>
     <string name="login_request">正在校验，请稍后...</string>
+    <string name="login_exchange">切换账号</string>
 
     <!-- 注册界面 -->
     <string name="register_repasswrod">确认密码</string>

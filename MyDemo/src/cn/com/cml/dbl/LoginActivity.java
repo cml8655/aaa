@@ -12,9 +12,13 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.content.Intent;
+import android.opengl.Visibility;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
@@ -37,11 +41,20 @@ public class LoginActivity extends BaseActivity {
 	@Pref
 	PrefUtil_ prefUtil;
 
+	@ViewById(R.id.tv_last_username)
+	TextView lastUsernameView;
+
+	@ViewById(R.id.last_username_contanier)
+	LinearLayout lastUsernameContainer;
+
 	@ViewById(R.id.input_username)
 	EditText usernameView;
 
 	@ViewById(R.id.input_password)
 	EditText passwordView;
+
+	@ViewById(R.id.tv_exchange)
+	TextView accountExchangeView;
 
 	@AfterViews
 	protected void initConfig() {
@@ -55,9 +68,25 @@ public class LoginActivity extends BaseActivity {
 		String username = prefUtil.username().get();
 
 		if (null != username) {
+			
+			lastUsernameView.setText(username);
 			usernameView.setText(username);
+			usernameView.setVisibility(View.GONE);
+		} else {
+			
+			lastUsernameContainer.setVisibility(View.GONE);
+			accountExchangeView.setVisibility(View.GONE);
 		}
 
+	}
+	
+	@Click(R.id.tv_exchange)
+	void exchangeAccountClicked(){
+		usernameView.setText(null);
+		usernameView.setVisibility(View.VISIBLE);
+		usernameView.requestFocus();
+		lastUsernameContainer.setVisibility(View.GONE);
+		accountExchangeView.setVisibility(View.GONE);
 	}
 
 	@Click(R.id.btn_login)

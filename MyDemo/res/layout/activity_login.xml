@@ -4,25 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!--
-         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@android:color/holo_blue_light" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/launcher" />
-    -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/default_margin"
         android:orientation="vertical" >
+
+        <!-- 已经登录用户头像以及用户名 -->
+
+        <LinearLayout
+            android:id="@+id/last_username_contanier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <cn.com.cml.dbl.ui.FontIconTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/icon_user"
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/tv_last_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_orange_light"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/input_username"
@@ -36,14 +47,29 @@
             android:hint="@string/login_password_tip"
             android:inputType="textPassword" />
 
-        <TextView
-            android:id="@+id/tv_findpass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:autoLink="web"
-            android:text="@string/login_forget_pass"
-            android:textColor="@android:color/holo_blue_light" />
+        <!-- 切换账号和忘记密码功能 -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tv_exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/login_exchange"
+                android:textColor="@color/default_color" />
+
+            <TextView
+                android:id="@+id/tv_findpass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:autoLink="web"
+                android:text="@string/login_forget_pass"
+                android:textColor="@color/default_color" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

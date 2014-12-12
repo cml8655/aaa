@@ -60,15 +60,18 @@ public class DeviceBindActivity extends BaseActivity {
 		}
 
 		dialog.show(getSupportFragmentManager(), "bind_device");
+		
 		apiClient.bindDevice(repass, new BaseSaveListener(
 				getApplicationContext(), dialog) {
+
 			@Override
 			public void onSuccess() {
-				Log.d(TAG, "手机信息绑定成功!");
+				
 				super.onSuccess();
 				DialogUtil.toast(getApplicationContext(),
 						R.string.bind_device_success);
 				MainActivity_.intent(DeviceBindActivity.this).start();
+				finish();
 			}
 		});
 
