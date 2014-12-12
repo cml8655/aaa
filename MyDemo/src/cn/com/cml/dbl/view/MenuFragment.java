@@ -80,6 +80,7 @@ public class MenuFragment extends Fragment {
 
 		// 点击当前菜单
 		if (id == selectedId) {
+			
 			closeMenu();
 			return;
 		}
