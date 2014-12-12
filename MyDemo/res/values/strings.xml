@@ -7,6 +7,9 @@
     <string name="click_exit">再按一次退出</string>
     <string name="data_requesting">正在请求数据，请稍候...</string>
 
+    <!-- 主页 -->
+    <string name="home">主页</string>
+
     <!-- font icon -->
     <string name="icon_spin5">&#xe805;</string>
     <string name="icon_user">&#xe80b;</string>
@@ -76,15 +79,14 @@
     <string name="system_bind_device_confirm">绑定此手机会将之前绑定的手机解绑，确定继续？</string>
     <string name="system_btn_ensure">确定</string>
     <string name="system_btn_cancel">取消</string>
-    
+
     <!-- 绑定界面 -->
-	<string name="bind_password">请输入远程密码</string>
-	<string name="bind_repassword">请确认远程密码</string>
-	<string name="bind_tip_title">远程密码设置</string>
-	<string name="bind_btn_content">绑定</string>
-	<string name="bind_device_success">绑定成功</string>
-	<string name="bind_tip_content">远程密码是绑定手机的重要数据，手机找回时需要。\n如发送短信：\n远程密码#jb，会马上响起手机警报</string>
-	
+    <string name="bind_password">请输入远程密码</string>
+    <string name="bind_repassword">请确认远程密码</string>
+    <string name="bind_tip_title">远程密码设置</string>
+    <string name="bind_btn_content">绑定</string>
+    <string name="bind_device_success">绑定成功</string>
+    <string name="bind_tip_content">远程密码是绑定手机的重要数据，手机找回时需要。\n如发送短信：\n远程密码#jb，会马上响起手机警报</string>
 
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>

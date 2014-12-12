@@ -1,10 +1,8 @@
 package cn.com.cml.dbl.view;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-
-import com.baidu.mapapi.map.MapFragment;
-import com.baidu.mapapi.map.SupportMapFragment;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,12 +11,18 @@ import android.view.View;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 
+import com.baidu.mapapi.map.SupportMapFragment;
+
 @EFragment(R.layout.fragment_menu)
 public class MenuFragment extends Fragment {
 
 	private SparseArray<Fragment> menus = new SparseArray<Fragment>(5);
 
 	private int selectedId = -1;
+
+	@AfterViews
+	public void initConfig() {
+	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_photo, R.id.menu_sms,
 			R.id.menu_volume, R.id.menu_monitor })
