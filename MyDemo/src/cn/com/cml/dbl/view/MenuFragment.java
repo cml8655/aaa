@@ -3,9 +3,11 @@ package cn.com.cml.dbl.view;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import cn.com.cml.dbl.MainActivity;
@@ -16,12 +18,58 @@ import com.baidu.mapapi.map.SupportMapFragment;
 @EFragment(R.layout.fragment_menu)
 public class MenuFragment extends Fragment {
 
+	private static final String TAG = "MenuFragment";
+
+	public static enum MenuItems {
+
+		HOME(R.id.menu_home, HomeFragment_.class);
+
+		private int id;
+		private Class<? extends Fragment> clazz;
+
+		private MenuItems(int id, Class<? extends Fragment> clazz) {
+			this.id = id;
+			this.clazz = clazz;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public Class<? extends Fragment> getClazz() {
+			return clazz;
+		}
+
+	}
+
 	private SparseArray<Fragment> menus = new SparseArray<Fragment>(5);
 
 	private int selectedId = -1;
 
+	@FragmentArg
+	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
+
 	@AfterViews
 	public void initConfig() {
+
+		final int id = initMenuItem.getId();
+
+		Fragment initFragment = null;
+
+		try {
+			initFragment = initMenuItem.getClazz().newInstance();
+		} catch (Exception e) {
+			Log.e(TAG, "initClass error", e);
+			initFragment = HomeFragment_.builder().build();
+		}
+
+		menus.put(id, initFragment);
+
+		FragmentTransaction transaction = getFragmentManager()
+				.beginTransaction();
+		transaction.add(R.id.content_frame, initFragment);
+		transaction.commit();
+
 	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_photo, R.id.menu_sms,

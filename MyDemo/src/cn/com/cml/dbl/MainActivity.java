@@ -16,76 +16,47 @@ import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import cn.com.cml.dbl.model.RequestModel;
 import cn.com.cml.dbl.net.PetsApiHelper;
+import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 import cn.com.cml.dbl.view.MenuFragment_;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
 public class MainActivity extends BaseActivity {
 
-	public static enum MenuItems {
-
-		MOBILE_MONITOR(0), SMS_ALARM(1), COMMAND_DESC(2), SETTING(3);
-
-		private int id;
-
-		private MenuItems(int id) {
-			this.id = id;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-	}
-
 	@RestService
 	PetsApiHelper apiHelper;
 
 	@Extra
-	MenuItems initMenuItem;// 初始化时默认的菜单
+	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
 
 	@ViewById(R.id.drawer_layout)
 	DrawerLayout mDrawerLayout;
 
 	private ActionBarDrawerToggle mDrawerToggle;
 
-	// 菜单栏
-	private SparseArray<Fragment> menuItems;
-
 	@AfterViews
 	protected void initLayouts() {
 
 		// 耳机口监听
 		// HeadsetService_.intent(this).start();
-
-		menuItems = new SparseArray<Fragment>(5);
-
-		// 设置初始化主界面
-		if (null == initMenuItem) {
-			initMenuItem = MenuItems.COMMAND_DESC;
-		}
-
-		this.changeContentView(initMenuItem);
-
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
-		transaction.replace(R.id.left_drawer, MenuFragment_.builder().build());
+		transaction.replace(R.id.left_drawer, MenuFragment_.builder()
+				.initMenuItem(initMenuItem).build());
 		transaction.commit();
 
+		actionBar.setDisplayShowHomeEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
-		actionBar.setDisplayShowCustomEnabled(true);
-		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setLogo(R.drawable.ic_home);
 		setCustomTitle(R.string.home);
 
@@ -119,18 +90,6 @@ public class MainActivity extends BaseActivity {
 						mDrawerToggle.setDrawerIndicatorEnabled(!showIndicator);
 					}
 				});
-
-	}
-
-	/**
-	 * 切换主界面信息
-	 * 
-	 * @param id
-	 *            界面信息id
-	 */
-	public void changeContentView(MenuItems items) {
-
-		Fragment fragment = menuItems.get(items.getId());
 
 	}
 

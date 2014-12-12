@@ -1,6 +1,5 @@
 package cn.com.cml.dbl;
 
-import cn.com.cml.dbl.util.DialogUtil;
 import android.app.ActionBar;
 import android.app.ActionBar.LayoutParams;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
