@@ -4,24 +4,24 @@ import java.util.List;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.json.JSONArray;
+
+import com.google.gson.Gson;
 
 import android.content.Context;
 import android.util.Log;
-import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.BmobPushManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.PushListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
-import cn.bmob.v3.update.BmobUpdateAgent;
-import cn.com.cml.dbl.LoginActivity;
 import cn.com.cml.dbl.PetApplication;
+import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.mode.api.InstallationModel;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.User;
+import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.util.CommonUtils;
-import cn.com.cml.dbl.util.DeviceUtil;
 
 @EBean
 public class ApiRequestServiceClient implements ApiRequestService {
@@ -61,14 +61,6 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		user.setScore(0);
 
 		user.signUp(context, listener);
-	}
-
-	@Override
-	public void modifyLastLoginTime() {
-
-		User user = BmobUser.getCurrentUser(context, User.class);
-		user.setLastLogin(String.valueOf(System.currentTimeMillis()));
-		user.update(context);
 	}
 
 	@Override
@@ -135,6 +127,29 @@ public class ApiRequestServiceClient implements ApiRequestService {
 
 		mobileBindQuery.findObjects(context, listener);
 
+	}
+
+	@Override
+	public void sendPushCommand(Constant.Command command, String imei,
+			PushListener listener) {
+
+		PushModel model = new PushModel();
+
+		model.setCommand(command.getCommand());
+		model.setEndTime(System.currentTimeMillis() + command.getEndTime());
+		model.setFromUserName(BmobUser.getCurrentUser(context).getUsername());
+
+		BmobPushManager<InstallationModel> pushManager = new BmobPushManager<InstallationModel>(
+				context);
+
+		Gson gson = new Gson();
+
+		BmobQuery<InstallationModel> deviceQuery = new BmobQuery<InstallationModel>();
+		deviceQuery.addWhereEqualTo("imei", imei);
+
+		pushManager.setQuery(deviceQuery);
+
+		pushManager.pushMessage(gson.toJson(model), listener);
 	}
 
 }

@@ -6,8 +6,6 @@ import android.app.Application;
 import android.content.IntentFilter;
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
-import cn.bmob.v3.BmobInstallation;
-import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.listener.GlobalBaseListener;
 import cn.com.cml.dbl.mode.api.InstallationModel;

@@ -11,22 +11,18 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.content.Intent;
-import android.opengl.Visibility;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
-import cn.com.cml.dbl.util.DeviceUtil;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.ValidationUtil;
@@ -117,8 +113,6 @@ public class LoginActivity extends BaseActivity {
 						User.class);
 
 				prefUtil.edit().username().put(user.getUsername()).apply();
-
-				apiClient.modifyLastLoginTime();
 
 				apiClient
 						.bindCurrentDeviceQuery(new FindListener<MobileBind>() {
