@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="command_desc">
+                    短信指令:\n
+        1、警报：发送短信\"远程密码#jb\"到手机上\n
+        2、停止警报：发送短信\"远程密码#jbtz\"到手机上\n
+    </string>
+
+</resources>

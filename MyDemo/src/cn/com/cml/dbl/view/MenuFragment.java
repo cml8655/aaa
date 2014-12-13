@@ -5,6 +5,11 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -13,23 +18,46 @@ import android.view.View;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 
-import com.baidu.mapapi.map.SupportMapFragment;
-
 @EFragment(R.layout.fragment_menu)
 public class MenuFragment extends Fragment {
 
 	private static final String TAG = "MenuFragment";
 
+	public static final String ACTION_MENU_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_MENU_CHANGE";
+	public static final String EXTRA_MENUITEM = "cn.com.cml.dbl.view.MenuFragment.EXTRA_MENUITEM";
+
 	public static enum MenuItems {
 
-		HOME(R.id.menu_home, HomeFragment_.class);
+		HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), MAP(
+				R.id.menu_monitor, MobileMonitorFragment_.class,
+				R.string.menu_monitor), ALARM(R.id.menu_alarm,
+				AlarmFragment_.class, R.string.menu_alarm);
 
 		private int id;
 		private Class<? extends Fragment> clazz;
+		private int title;
 
-		private MenuItems(int id, Class<? extends Fragment> clazz) {
+		public static MenuItems getById(int id) {
+
+			MenuItems[] values = MenuItems.values();
+
+			for (MenuItems value : values) {
+				if (value.getId() == id) {
+					return value;
+				}
+			}
+
+			return null;
+		}
+
+		private MenuItems(int id, Class<? extends Fragment> clazz, int title) {
 			this.id = id;
 			this.clazz = clazz;
+			this.title = title;
+		}
+
+		public int getTitle() {
+			return title;
 		}
 
 		public int getId() {
@@ -49,6 +77,34 @@ public class MenuFragment extends Fragment {
 	@FragmentArg
 	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
 
+	private BroadcastReceiver itemChangeReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			if (intent.hasExtra(EXTRA_MENUITEM)) {
+				Activity activity = getActivity();
+				if (null != activity && !activity.isFinishing()) {
+
+					int menuId = intent.getIntExtra(EXTRA_MENUITEM, -1);
+					toggleMenu(menuId, false);
+				}
+			}
+		}
+	};
+
+	public void onCreate(android.os.Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		IntentFilter filter = new IntentFilter(ACTION_MENU_CHANGE);
+		getActivity().registerReceiver(itemChangeReceiver, filter);
+	}
+
+	@Override
+	public void onDestroy() {
+		getActivity().unregisterReceiver(itemChangeReceiver);
+		super.onDestroy();
+	}
+
 	@AfterViews
 	public void initConfig() {
 
@@ -63,6 +119,7 @@ public class MenuFragment extends Fragment {
 			initFragment = HomeFragment_.builder().build();
 		}
 
+		selectedId = id;
 		menus.put(id, initFragment);
 
 		FragmentTransaction transaction = getFragmentManager()
@@ -73,15 +130,23 @@ public class MenuFragment extends Fragment {
 	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_photo, R.id.menu_sms,
-			R.id.menu_volume, R.id.menu_monitor })
+			R.id.menu_alarm, R.id.menu_volume, R.id.menu_monitor })
 	public void click(View clickView) {
 
 		final int id = clickView.getId();
 
+		toggleMenu(id, true);
+	}
+
+	private void toggleMenu(int id, boolean leftMenuShow) {
+
 		// 点击当前菜单
 		if (id == selectedId) {
-			
-			closeMenu();
+
+			if (leftMenuShow) {
+				closeMenu();
+			}
+
 			return;
 		}
 
@@ -91,86 +156,29 @@ public class MenuFragment extends Fragment {
 		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
 				R.anim.right_fadein, R.anim.left_fadeout);
 
-		Fragment fragment = null;
+		MenuItems menu = MenuItems.getById(id);
 
-		switch (id) {
-
-		case R.id.menu_photo:
-
-			if (menus.get(R.id.menu_photo) == null) {
-				fragment = CameraScanFragment_.builder().build();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-			} else {
-				fragment = menus.get(R.id.menu_photo);
-			}
-
-			break;
-
-		case R.id.menu_sms:
-
-			if (menus.get(R.id.menu_sms) == null) {
-				fragment = MessageFragment_.builder().build();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-			} else {
-				fragment = menus.get(R.id.menu_sms);
-			}
-
-			break;
-
-		case R.id.menu_monitor:
-			if (menus.get(R.id.menu_monitor) == null) {
-				fragment = BaiduApiFragment_.builder().build();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-			} else {
-				fragment = menus.get(R.id.menu_monitor);
-			}
-
-			break;
-
-		case R.id.menu_command:
-
-			if (menus.get(R.id.menu_command) == null) {
-				fragment = SupportMapFragment.newInstance();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-			} else {
-				fragment = menus.get(R.id.menu_command);
-			}
-			break;
-
-		case R.id.menu_home:// 暂时替代为百度地图
-			if (menus.get(R.id.menu_command) == null) {
-				fragment = MobileMonitorFragment_.builder().build();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-			} else {
-				fragment = menus.get(R.id.menu_command);
-			}
-			// break;
-			// if (menus.get(R.id.menu_home) == null) {
-			// fragment = UserInfoFragment_.builder().build();
-			// transaction.add(R.id.content_frame, fragment);
-			// menus.append(id, fragment);
-			// } else {
-			// fragment = menus.get(R.id.menu_home);
-			// }
-			break;
-
-		case R.id.menu_volume:
-			if (menus.get(R.id.menu_volume) == null) {
-				fragment = VolumeControlFragment_.builder().build();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-			} else {
-				fragment = menus.get(R.id.menu_volume);
-			}
-			break;
+		if (null == menu) {
+			return;
 		}
 
-		// transaction.addToBackStack(null);
+		Fragment fragment = menus.get(R.id.menu_photo);
+
+		if (null == fragment) {
+
+			try {
+
+				fragment = menu.getClazz().newInstance();
+				transaction.add(R.id.content_frame, fragment);
+				menus.append(id, fragment);
+
+			} catch (Exception e) {
+
+				Log.e(TAG, "实例化菜单失败");
+				return;
+			}
+
+		}
 
 		if (selectedId != -1) {
 			transaction.hide(menus.get(selectedId));
@@ -180,10 +188,13 @@ public class MenuFragment extends Fragment {
 
 		transaction.commit();
 
+		((MainActivity) getActivity()).setCustomTitle(menu.getTitle());
+
 		selectedId = id;
 
-		closeMenu();
-
+		if (leftMenuShow) {
+			closeMenu();
+		}
 	}
 
 	private void closeMenu() {

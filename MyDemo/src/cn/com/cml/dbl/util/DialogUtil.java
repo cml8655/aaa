@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 import cn.com.cml.dbl.view.DefaultDialogFragment_;
 import cn.com.cml.dbl.view.NotifyDialogFragment;
 import cn.com.cml.dbl.view.NotifyDialogFragment_;
@@ -36,7 +37,7 @@ public class DialogUtil {
 	public static DialogFragment defaultDialog(Integer text, int requestId,
 			Activity activity) {
 
-		if (activity instanceof OnClickListener) {
+		if (activity instanceof OnItemClickListener) {
 			return DefaultDialogFragment_.builder()
 					.negativeBtnText(R.string.system_btn_cancel)
 					.positiveBtnText(R.string.system_btn_ensure)
@@ -45,13 +46,13 @@ public class DialogUtil {
 		}
 
 		throw new IllegalArgumentException(
-				"activity must extends OnClickListener");
+				"activity must extends OnItemClickListener");
 	}
 
 	public static DialogFragment defaultDialog(Integer text, int requestId,
 			Fragment targetFragment) {
 
-		if (targetFragment instanceof OnClickListener) {
+		if (targetFragment instanceof OnItemClickListener) {
 
 			DialogFragment dialog = DefaultDialogFragment_.builder()
 					.negativeBtnText(R.string.system_btn_cancel)
@@ -65,7 +66,19 @@ public class DialogUtil {
 		}
 
 		throw new IllegalArgumentException(
-				"activity must extends OnClickListener");
+				"fragment must extends OnItemClickListener");
+	}
+
+	public static DialogFragment defaultSingleSelectDialog(Integer items,
+			Integer title, int requestId, Fragment targetFragment) {
+
+		DialogFragment dialog = DefaultDialogFragment_.builder()
+				.requestId(requestId).title(title).singleChoiceItems(items)
+				.build();
+
+		dialog.setTargetFragment(targetFragment, 1);
+
+		return dialog;
 	}
 
 	public static DialogFragment notifyDialogBuild(int icon, int msg) {

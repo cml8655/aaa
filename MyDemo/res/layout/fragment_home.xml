@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/default_color"
+    android:layout_margin="@dimen/default_margin"
     android:orientation="vertical" >
-    
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/command_desc"
+        android:textSize="14sp" />
+
+    <Button
+        style="@style/buttonStyle"
+        android:id="@+id/home_mobile_monitor"
+        android:layout_alignParentBottom="true"
+        android:text="@string/home_mobile_monitor" />
+
+</RelativeLayout>

@@ -13,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.helper.MapMenuHelper;
@@ -47,6 +48,8 @@ import com.baidu.mapapi.model.LatLng;
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends Fragment implements
 		BDLocationListener {
+
+	private static final String TAG = "MobileMonitorFragment";
 
 	@FragmentById(R.id.map_fragment)
 	SupportMapFragment mapFragment;
@@ -103,6 +106,8 @@ public class MobileMonitorFragment extends Fragment implements
 
 	@AfterViews
 	public void initConfig() {
+		
+		Log.d(TAG, "MobileMonitorFragment==》initConfig");
 
 		userMenuView.bindMenuListener("dddd", R.menu.main, null);
 
@@ -163,7 +168,7 @@ public class MobileMonitorFragment extends Fragment implements
 	@Override
 	public void onPause() {
 
-		if (null != baiduClient && !baiduClient.isStarted()) {
+		if (null != baiduClient && baiduClient.isStarted()) {
 			baiduClient.stop();
 		}
 		super.onPause();
@@ -177,11 +182,16 @@ public class MobileMonitorFragment extends Fragment implements
 		super.onHiddenChanged(hidden);
 
 		if (baiduClient != null) {
-
 			if (hidden) {// 不在最前端界面显示
-				baiduClient.stop();
+				if (null != baiduClient && baiduClient.isStarted()) {
+					mapView.onPause();
+					baiduClient.stop();
+				}
 			} else {// 重新显示到最前端中
-				baiduClient.start();
+				if (null != baiduClient && !baiduClient.isStarted()) {
+					mapView.onResume();
+					baiduClient.start();
+				}
 			}
 		}
 	}

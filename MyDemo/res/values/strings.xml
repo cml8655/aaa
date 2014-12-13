@@ -9,6 +9,8 @@
 
     <!-- 主页 -->
     <string name="home">主页</string>
+    <string name="daily_sign">签到</string>
+    <string name="home_mobile_monitor">手机找回</string>
 
     <!-- font icon -->
     <string name="icon_spin5">&#xe805;</string>
@@ -16,7 +18,7 @@
     <string name="icon_setting">&#xe821;</string>
 
     <!-- left menu -->
-    <string name="menu_alarm">闹钟设置</string>
+    <string name="menu_alarm">警报追踪</string>
     <string name="menu_monitor">追踪定位</string>
     <string name="menu_command">指令管理</string>
     <string name="menu_sim_change">换卡设置</string>
@@ -88,6 +90,18 @@
     <string name="bind_device_success">绑定成功</string>
     <string name="bind_tip_content">远程密码是绑定手机的重要数据，手机找回时需要。\n如发送短信：\n远程密码#jb，会马上响起手机警报</string>
 
+    <!-- 手机找回弹出按钮 -->
+    <string name="monitor_select_list_title">请选择找回方式！</string>
+
+    <!-- 警报追踪 -->
+    <string name="alarm_send">发送警报</string>
+    <string name="alarm_cancel">取消警报</string>
+    <string name="alarm_sending">正在发送...</string>
+
+    <string-array name="monitor_select_list">
+        <item>地图定位</item>
+        <item>手机警报</item>
+    </string-array>
     <string-array name="left_menus_icon">
         <item>&#xe805;</item>
         <item>&#xe805;</item>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/default_margin"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/bind_pass_input"
+        style="@style/editStyle"
+        android:hint="@string/bind_password" />
+
+    <Button
+        android:id="@+id/alarm_send_btn"
+        style="@style/buttonStyle"
+        android:text="@string/alarm_send" />
+
+</LinearLayout>

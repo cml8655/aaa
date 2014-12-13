@@ -6,11 +6,12 @@
 
     <fragment
         android:id="@+id/map_fragment"
+        android:name="com.baidu.mapapi.map.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/map_menu_bar_layout"
         android:layout_alignParentTop="true"
-        class="com.baidu.mapapi.map.SupportMapFragment" />
+        android:tag="xxdd" />
 
     <LinearLayout
         android:id="@+id/map_menu_bar_layout"
@@ -49,7 +50,6 @@
             android:layout_weight="1"
             android:text="@string/icon_user"
             android:textSize="30sp" >
-            
         </cn.com.cml.dbl.ui.PopupMenuView_>
     </LinearLayout>
 

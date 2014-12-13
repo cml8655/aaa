@@ -11,13 +11,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 
 @EFragment
 public class DefaultDialogFragment extends DialogFragment implements
-		OnClickListener {
+		OnClickListener, android.widget.AdapterView.OnItemClickListener {
 
 	public static interface OnItemClickListener {
-		public void onClick(DialogInterface dialog, int id, int requestId);
+		public void onClick(DialogInterface dialog, long id, int requestId);
 	}
 
 	@FragmentArg
@@ -34,6 +36,9 @@ public class DefaultDialogFragment extends DialogFragment implements
 
 	@FragmentArg
 	int requestId;
+
+	@FragmentArg
+	Integer singleChoiceItems;
 
 	private OnItemClickListener listener;
 
@@ -63,7 +68,13 @@ public class DefaultDialogFragment extends DialogFragment implements
 			builder.setTitle(title);
 		}
 
-		builder.setMessage(text);
+		if (null != singleChoiceItems) {
+			builder.setSingleChoiceItems(singleChoiceItems, -1, this);
+		}
+
+		if (null != text) {
+			builder.setMessage(text);
+		}
 
 		return builder.create();
 	}
@@ -74,6 +85,16 @@ public class DefaultDialogFragment extends DialogFragment implements
 		if (null != listener) {
 			listener.onClick(dialog, which, requestId);
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+
+		if (null != listener) {
+			listener.onClick(null, id, requestId);
+		}
+
 	}
 
 }

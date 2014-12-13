@@ -57,7 +57,7 @@ public class BaseActivity extends FragmentActivity {
 		}
 	}
 
-	protected void setCustomTitle(int titleId) {
+	public void setCustomTitle(int titleId) {
 		setCustomTitle(getString(titleId));
 	}
 

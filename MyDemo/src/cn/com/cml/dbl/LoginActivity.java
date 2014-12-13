@@ -67,21 +67,21 @@ public class LoginActivity extends BaseActivity {
 
 		String username = prefUtil.username().get();
 
-		if (null != username) {
-			
+		if (!TextUtils.isEmpty(username)) {
+
 			lastUsernameView.setText(username);
 			usernameView.setText(username);
 			usernameView.setVisibility(View.GONE);
 		} else {
-			
+
 			lastUsernameContainer.setVisibility(View.GONE);
 			accountExchangeView.setVisibility(View.GONE);
 		}
 
 	}
-	
+
 	@Click(R.id.tv_exchange)
-	void exchangeAccountClicked(){
+	void exchangeAccountClicked() {
 		usernameView.setText(null);
 		usernameView.setVisibility(View.VISIBLE);
 		usernameView.requestFocus();
