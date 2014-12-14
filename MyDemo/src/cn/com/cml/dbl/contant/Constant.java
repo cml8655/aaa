@@ -24,10 +24,19 @@ public interface Constant {
 
 		private String command;
 		private long endTime;
+		private String bindPass;
 
 		private Command(String command, long endTime) {
 			this.command = command;
 			this.endTime = endTime;
+		}
+
+		public String getBindPass() {
+			return bindPass;
+		}
+
+		public void setBindPass(String bindPass) {
+			this.bindPass = bindPass;
 		}
 
 		public String getCommand() {

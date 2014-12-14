@@ -138,13 +138,17 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		model.setCommand(command.getCommand());
 		model.setEndTime(System.currentTimeMillis() + command.getEndTime());
 		model.setFromUserName(BmobUser.getCurrentUser(context).getUsername());
+		model.setBindPass(command.getBindPass());
 
 		BmobPushManager<InstallationModel> pushManager = new BmobPushManager<InstallationModel>(
 				context);
 
 		Gson gson = new Gson();
 
-		BmobQuery<InstallationModel> deviceQuery = new BmobQuery<InstallationModel>();
+		BmobQuery<InstallationModel> deviceQuery = InstallationModel.getQuery();
+
+		// BmobQuery<InstallationModel> deviceQuery = new
+		// BmobQuery<InstallationModel>();
 		deviceQuery.addWhereEqualTo("imei", imei);
 
 		pushManager.setQuery(deviceQuery);

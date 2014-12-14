@@ -5,9 +5,18 @@ import java.io.Serializable;
 public class PushModel implements Serializable {
 
 	private String fromUserName;
+	private String bindPass;
 	private String toUserName;
 	private String command;
 	private long endTime;// 有效的截止时间
+
+	public String getBindPass() {
+		return bindPass;
+	}
+
+	public void setBindPass(String bindPass) {
+		this.bindPass = bindPass;
+	}
 
 	public long getEndTime() {
 		return endTime;

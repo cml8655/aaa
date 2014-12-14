@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import cn.bmob.push.PushConstants;
 import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.service.RingtoneService_;
 
@@ -56,11 +57,11 @@ public class PushReceiver extends BroadcastReceiver {
 
 						if (JINBAO.equals(model.getCommand())) {
 
-							RingtoneService_.intent(context).start();
+							onJingBao(model, context);
 
 						} else if (JINGBAO_STOP.equals(model.getCommand())) {
 
-							RingtoneService_.intent(context).stop();
+							onJingBaoStop(model, context);
 
 						} else if (DINGWEI.endsWith(model.getCommand())) {
 							// TODO 定位功能启动
@@ -75,6 +76,32 @@ public class PushReceiver extends BroadcastReceiver {
 			}
 
 		}
+	}
+
+	private void onJingBao(PushModel model, Context context) {
+
+		boolean exist = BindMessageModel.checkExists(model.getFromUserName(),
+				model.getBindPass());
+
+		Log.d(TAG, "onJingBao,localExists:" + exist);
+
+		if (exist) {
+			RingtoneService_.intent(context).start();
+		}
+
+	}
+
+	private void onJingBaoStop(PushModel model, Context context) {
+
+		boolean exist = BindMessageModel.checkExists(model.getFromUserName(),
+				model.getBindPass());
+
+		Log.d(TAG, "onJingBao,localExists:" + exist);
+
+		if (exist) {
+			RingtoneService_.intent(context).stop();
+		}
+
 	}
 
 }

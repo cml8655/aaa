@@ -10,8 +10,10 @@ import org.androidannotations.annotations.ViewById;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
+import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.listener.BaseSaveListener;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.service.LocalStorageService_;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.ValidationUtil;
 
@@ -43,8 +45,8 @@ public class DeviceBindActivity extends BaseActivity {
 	@Click(R.id.btn_bind)
 	protected void bindClicked() {
 
-		String pass = passView.getText().toString();
-		String repass = repassView.getText().toString();
+		final String pass = passView.getText().toString();
+		final String repass = repassView.getText().toString();
 
 		StringBuffer error = new StringBuffer();
 
@@ -60,17 +62,28 @@ public class DeviceBindActivity extends BaseActivity {
 		}
 
 		dialog.show(getSupportFragmentManager(), "bind_device");
-		
+
 		apiClient.bindDevice(repass, new BaseSaveListener(
 				getApplicationContext(), dialog) {
 
 			@Override
 			public void onSuccess() {
-				
+
 				super.onSuccess();
+
 				DialogUtil.toast(getApplicationContext(),
 						R.string.bind_device_success);
+
+				// save data to local
+				String username = BmobUser.getCurrentUser(
+						DeviceBindActivity.this).getUsername();
+
+				LocalStorageService_.intent(DeviceBindActivity.this)
+						.saveBindPass(username, pass).start();
+
+				// 保存信息到本地
 				MainActivity_.intent(DeviceBindActivity.this).start();
+
 				finish();
 			}
 		});

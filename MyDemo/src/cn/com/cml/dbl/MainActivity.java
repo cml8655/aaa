@@ -117,34 +117,6 @@ public class MainActivity extends BaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@Background
-	protected void request() {
-		try {
-			apiHelper.getRestTemplate().setRequestFactory(
-					new HttpComponentsClientHttpRequestFactory());
-
-			apiHelper.setRestErrorHandler(new RestErrorHandler() {
-
-				@Override
-				public void onRestClientExceptionThrown(RestClientException e) {
-					Log.e("TAG", "RestClientException", e);
-					e.printStackTrace();
-				}
-			});
-			Log.d("TAG", "执行请求");
-			// String request = apiHelper.index();
-			// Map<String, String> params = new HashMap<String, String>();
-			// params.put("11", "v11");
-			// params.put("22", "v22");
-			RequestModel model = new RequestModel();
-			model.setUsername("111");
-			model.setPasswrod("pp");
-			Log.d("TAG", "请求返回" + apiHelper.indexWithModel(model));
-		} catch (Exception e) {
-			Log.e("TAG", "", e);
-		}
-	}
-
 	@OptionsItem(R.id.action_settings)
 	protected void settingItemClick() {
 		Toast.makeText(this, "菜单。。。", Toast.LENGTH_LONG).show();
