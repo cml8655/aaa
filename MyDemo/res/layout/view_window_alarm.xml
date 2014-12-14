@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ddffaa"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="50dp" >
+
+    <TextView
+        android:id="@+id/input_tip_tv"
+        android:textColor="#F00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/pass_input"
+        style="@style/editStyle"
+        android:hint="@string/alarm_pass_cancel"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/send_btn"
+        style="@style/buttonStyle"
+        android:text="@string/send" />
+
+</LinearLayout>
