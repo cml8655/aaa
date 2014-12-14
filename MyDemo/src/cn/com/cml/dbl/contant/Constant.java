@@ -2,6 +2,8 @@ package cn.com.cml.dbl.contant;
 
 public interface Constant {
 
+	String COMMAND_SPERATOR = "#";
+
 	String JINBAO = "jb";
 	/**
 	 * 30s内有效
@@ -29,6 +31,19 @@ public interface Constant {
 		private Command(String command, long endTime) {
 			this.command = command;
 			this.endTime = endTime;
+		}
+
+		public static Command getByCommand(String command) {
+
+			Command[] values = Command.values();
+
+			for (Command value : values) {
+				if (value.getCommand().equals(command)) {
+					return value;
+				}
+			}
+
+			return null;
 		}
 
 		public String getBindPass() {

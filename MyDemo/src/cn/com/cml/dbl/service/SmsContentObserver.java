@@ -1,12 +1,14 @@
 package cn.com.cml.dbl.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
+import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.SmsModel;
 
 /**
@@ -17,6 +19,8 @@ import cn.com.cml.dbl.model.SmsModel;
  *         2014年11月12日
  */
 public class SmsContentObserver extends ContentObserver {
+
+	private static final String TAG = "SmsContentObserver";
 
 	public static final int CONTENT_CHANGE = 1002;
 
@@ -34,6 +38,8 @@ public class SmsContentObserver extends ContentObserver {
 	@Override
 	public void onChange(boolean selfChange) {
 
+		Log.d(TAG, "收到新短信");
+
 		if (selfChange || null == context || null == handler) {
 			return;
 		}
@@ -41,23 +47,53 @@ public class SmsContentObserver extends ContentObserver {
 		Cursor cursor = null;
 		try {
 			cursor = context.getContentResolver().query(
-					SmsModel.SMS_CONTENT_URI, projection,
-					SmsModel.BODY + " like '%11111%'", null,
+					SmsModel.SMS_CONTENT_URI, projection, null, null,
 					SmsModel.DATE + " desc");
 
 			if (null != cursor && cursor.moveToNext()) {
-
-				context.startService(new Intent(context, RingtoneService_.class));
-
-				Message msg = handler.obtainMessage();
-				msg.what = CONTENT_CHANGE;
 
 				int id = cursor.getInt(cursor.getColumnIndex(SmsModel._ID));
 				String body = cursor.getString(cursor
 						.getColumnIndex(SmsModel.BODY));
 
-				msg.obj = new SmsModel(body, id);
-				handler.sendMessage(msg);
+				Log.d(TAG, "收到新短信,内容：" + body);
+
+				Constant.Command command = isCommand(body);
+
+				Log.d(TAG, "收到新短信,指令：" + command.getCommand());
+
+				if (null != command) {
+
+					switch (command) {
+
+					case JINGBAO_ENUM:
+						// 启动警报
+						// RingtoneService_.intent(context).start();
+						// // 启动桌面密码输入
+						// WindowAlarmService_.intent(context).start();
+
+						AlarmServiceQuene_.intent(context).start();
+
+						Message msg = handler.obtainMessage();
+
+						msg.what = CONTENT_CHANGE;
+						msg.obj = new SmsModel(body, id);
+
+						handler.sendMessage(msg);
+
+						break;
+					case JINGBAO_STOP_ENUM:
+
+						RingtoneService_.intent(context).stop();
+						// 启动桌面密码输入
+						WindowAlarmService_.intent(context).stop();
+						break;
+
+					default:
+						break;
+					}
+
+				}
 
 			}
 			Log.e("fff", "has no message:");
@@ -70,4 +106,27 @@ public class SmsContentObserver extends ContentObserver {
 		}
 	}
 
+	private Constant.Command isCommand(String body) {
+
+		if (TextUtils.isEmpty(body) || body.endsWith(Constant.COMMAND_SPERATOR)) {
+			return null;
+		}
+
+		int commandSpeatorIndex = body.indexOf(Constant.COMMAND_SPERATOR);
+
+		if (commandSpeatorIndex == -1) {
+			return null;
+		}
+
+		String pass = body.substring(0, commandSpeatorIndex);
+		String commandStr = body.substring(commandSpeatorIndex + 1);
+
+		Constant.Command command = Constant.Command.getByCommand(commandStr);
+
+		if (null == command) {
+			return null;
+		}
+
+		return BindMessageModel.checkExists(pass) ? command : null;
+	}
 }

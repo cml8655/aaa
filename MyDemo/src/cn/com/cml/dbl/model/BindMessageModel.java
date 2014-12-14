@@ -19,6 +19,13 @@ public class BindMessageModel extends Model {
 	@Column
 	public Long bindTime;
 
+	public static boolean checkExists(String bindPass) {
+
+		return new Select().from(BindMessageModel.class)
+				.where(" bindPass=?", bindPass).exists();
+
+	}
+
 	public static boolean checkExists(String username, String bindPass) {
 
 		return new Select().from(BindMessageModel.class)

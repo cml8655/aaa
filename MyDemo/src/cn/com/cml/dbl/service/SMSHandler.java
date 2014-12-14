@@ -9,8 +9,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
-public class SMSHandler extends Handler
-{
+public class SMSHandler extends Handler {
 
 	public static final String TAG = "SMSHandler";
 

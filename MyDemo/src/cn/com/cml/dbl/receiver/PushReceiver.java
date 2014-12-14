@@ -16,6 +16,7 @@ import android.util.Log;
 import cn.bmob.push.PushConstants;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
+import cn.com.cml.dbl.service.AlarmServiceQuene_;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.PrefUtil_;
@@ -96,9 +97,9 @@ public class PushReceiver extends BroadcastReceiver {
 		Log.d(TAG, "onJingBao,localExists:" + exist);
 
 		if (exist) {
-			RingtoneService_.intent(context).start();
-			WindowAlarmService_.intent(context).start();
-
+			// RingtoneService_.intent(context).start();
+			// WindowAlarmService_.intent(context).start();
+			AlarmServiceQuene_.intent(context).start();
 		}
 
 	}
@@ -111,6 +112,7 @@ public class PushReceiver extends BroadcastReceiver {
 		Log.d(TAG, "onJingBao,localExists:" + exist);
 
 		if (exist) {
+			AlarmServiceQuene_.intent(context).stop();
 			WindowAlarmService_.intent(context).stop();
 			RingtoneService_.intent(context).stop();
 		}

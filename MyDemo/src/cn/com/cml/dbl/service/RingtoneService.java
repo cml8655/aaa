@@ -11,8 +11,10 @@ import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.util.Log;
 import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.VolumeUtil;
 
@@ -43,7 +45,7 @@ public class RingtoneService extends Service {
 	PrefUtil_ prefUtil;
 
 	private Ringtone mRingtone;
-
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -57,6 +59,8 @@ public class RingtoneService extends Service {
 		if (isRinging || isVirbrating) {
 			return super.onStartCommand(intent, flags, startId);
 		}
+
+		Log.d("RingtoneService", "ringtoneService 播放了！");
 
 		// 存储原有音量大小
 		backupVolume();
@@ -75,12 +79,14 @@ public class RingtoneService extends Service {
 			vibrator.vibrate(vibratorPattern, 0);
 			isVirbrating = true;
 		}
-		
+
 		return super.onStartCommand(intent, flags, startId);
 	}
 
 	@Override
 	public void onDestroy() {
+
+		Log.d("RingtoneService", "ringtoneService 销毁了！");
 
 		// 还原手机音量大小
 		restoreVolume();
