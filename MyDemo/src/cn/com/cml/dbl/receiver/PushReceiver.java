@@ -1,9 +1,11 @@
 package cn.com.cml.dbl.receiver;
 
+import static cn.com.cml.dbl.contant.Constant.DINGWEI;
 import static cn.com.cml.dbl.contant.Constant.JINBAO;
 import static cn.com.cml.dbl.contant.Constant.JINGBAO_STOP;
-import static cn.com.cml.dbl.contant.Constant.DINGWEI;
 
+import org.androidannotations.annotations.EReceiver;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.json.JSONObject;
 
 import android.content.BroadcastReceiver;
@@ -12,17 +14,22 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import cn.bmob.push.PushConstants;
-import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.service.RingtoneService_;
+import cn.com.cml.dbl.service.WindowAlarmService_;
+import cn.com.cml.dbl.util.PrefUtil_;
 
 import com.google.gson.Gson;
 
+@EReceiver
 public class PushReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "PushReceiver";
 	private static final String PUSH_ROOT = "alert";
+
+	@Pref
+	PrefUtil_ pref;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -54,6 +61,9 @@ public class PushReceiver extends BroadcastReceiver {
 						if (!isAvaiable) {
 							return;
 						}
+
+						pref.edit().commandFromUsername()
+								.put(model.getFromUserName()).apply();
 
 						if (JINBAO.equals(model.getCommand())) {
 
@@ -87,6 +97,8 @@ public class PushReceiver extends BroadcastReceiver {
 
 		if (exist) {
 			RingtoneService_.intent(context).start();
+			WindowAlarmService_.intent(context).start();
+
 		}
 
 	}
@@ -99,6 +111,7 @@ public class PushReceiver extends BroadcastReceiver {
 		Log.d(TAG, "onJingBao,localExists:" + exist);
 
 		if (exist) {
+			WindowAlarmService_.intent(context).stop();
 			RingtoneService_.intent(context).stop();
 		}
 

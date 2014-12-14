@@ -156,4 +156,22 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		pushManager.pushMessage(gson.toJson(model), listener);
 	}
 
+	@Override
+	public void bindPassQuery(String username, String bindPass,
+			FindListener<MobileBind> listener) {
+
+		BmobQuery<MobileBind> bindQuery = new BmobQuery<MobileBind>();
+
+		BmobQuery<BmobUser> userQuery = new BmobQuery<BmobUser>();
+		userQuery.addWhereEqualTo("username", username);
+		userQuery.setLimit(1);
+
+		bindQuery.addWhereMatchesQuery("user", BmobUser.class.getSimpleName(),
+				userQuery);
+
+		bindQuery.addWhereEqualTo("bindType", MobileBind.TYPE_BIND);
+		bindQuery.addWhereEqualTo("bindPassword", bindPass);
+
+		bindQuery.findObjects(context, listener);
+	}
 }

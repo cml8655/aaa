@@ -4,6 +4,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.PushListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.mode.api.MobileBind;
 
 public interface ApiRequestService {
 
@@ -14,6 +15,9 @@ public interface ApiRequestService {
 	void bindDevice(final String pass, final SaveListener listener);
 
 	void bindDeviceQuery(FindListener listener);
+
+	void bindPassQuery(String username, String bindPass,
+			FindListener<MobileBind> listener);
 
 	/**
 	 * 查找是否绑定此手机

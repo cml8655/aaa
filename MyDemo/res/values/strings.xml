@@ -4,8 +4,11 @@
     <string name="app_name">MyDemo</string>
     <string name="action_settings">Settings</string>
     <string name="back">返回</string>
+    <string name="send">发送</string>
     <string name="click_exit">再按一次退出</string>
     <string name="data_requesting">正在请求数据，请稍候...</string>
+    <string name="network_error">请求数据失败，请检查网络...</string>
+    <string name="password_error">密码错误</string>
 
     <!-- 主页 -->
     <string name="home">主页</string>
@@ -97,6 +100,7 @@
     <string name="alarm_send">发送警报</string>
     <string name="alarm_cancel">取消警报</string>
     <string name="alarm_sending">正在发送...</string>
+    <string name="alarm_pass_cancel">请输入密码解除警报</string>
 
     <string-array name="monitor_select_list">
         <item>地图定位</item>

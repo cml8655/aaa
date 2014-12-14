@@ -153,7 +153,6 @@ public class AlarmFragment extends Fragment {
 									// TODO 提示发送失败
 								}
 							});
-
 				}
 
 			}

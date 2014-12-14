@@ -3,9 +3,26 @@ package cn.com.cml.dbl.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 public class CommonUtils {
 
 	private static final String SHA1 = "SHA-1";
+
+	public static boolean isNetworkConnected(Context context) {
+
+		ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+
+		if (mNetworkInfo != null) {
+			return mNetworkInfo.isAvailable() && mNetworkInfo.isConnected();
+		}
+		return false;
+	}
 
 	/**
 	 * sha1散列加密

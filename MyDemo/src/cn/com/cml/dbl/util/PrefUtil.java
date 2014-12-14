@@ -35,5 +35,7 @@ public interface PrefUtil {
 	String username();
 
 	String nickName();
+	
+	String commandFromUsername();
 
 }
