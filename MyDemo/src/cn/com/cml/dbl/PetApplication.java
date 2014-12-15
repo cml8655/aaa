@@ -3,17 +3,12 @@ package cn.com.cml.dbl;
 import org.androidannotations.annotations.EApplication;
 
 import android.app.Application;
-import android.content.IntentFilter;
+import android.content.Intent;
 import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.update.BmobUpdateAgent;
-import cn.com.cml.dbl.listener.GlobalBaseListener;
-import cn.com.cml.dbl.listener.GlobalBaseListener_;
 import cn.com.cml.dbl.mode.api.InstallationModel;
-import cn.com.cml.dbl.model.SmsModel;
-import cn.com.cml.dbl.service.GlobalService_;
-import cn.com.cml.dbl.service.SMSHandler;
-import cn.com.cml.dbl.service.SmsContentObserver;
+import cn.com.cml.dbl.service.GlobalService;
 import cn.com.cml.dbl.util.DeviceUtil;
 
 import com.activeandroid.ActiveAndroid;
@@ -48,8 +43,9 @@ public class PetApplication extends Application {
 		// 百度地图
 		SDKInitializer.initialize(this);
 
-		// 启动全局设置
-		GlobalService_.intent(getApplicationContext()).start();
+		// 启动服务
+		Intent intent = new Intent(getApplicationContext(), GlobalService.class);
+		startService(intent);
 
 	}
 

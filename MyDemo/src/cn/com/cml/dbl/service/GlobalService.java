@@ -1,14 +1,11 @@
 package cn.com.cml.dbl.service;
 
-import org.androidannotations.annotations.EService;
-
-import cn.com.cml.dbl.listener.GlobalBaseListener;
-import cn.com.cml.dbl.model.SmsModel;
-
 import android.app.Service;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
+import cn.com.cml.dbl.model.SmsModel;
+import cn.com.cml.dbl.util.AppUtil;
 
 /**
  * app全局后台服务，用于启动短信的监听功能
@@ -17,7 +14,6 @@ import android.os.IBinder;
  * 
  *         2014年11月13日
  */
-@EService
 public class GlobalService extends Service {
 
 	@Override
@@ -28,12 +24,24 @@ public class GlobalService extends Service {
 		getContentResolver().registerContentObserver(SmsModel.SMS_CONTENT_URI,
 				true, new SmsContentObserver(this, new SMSHandler(this)));
 
-		// IntentFilter filter = new IntentFilter(
-		// "android.provider.Telephony.SMS_RECEIVED");
+	}
 
-		// filter.setPriority(2147483647);
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
 
-		// registerReceiver(new GlobalBaseListener(), filter);
+		if (!AppUtil.serviceRunning(GlobalServiceHolder.class,
+				getApplicationContext())) {
+			Log.d("Service", "GlobalService.onStartCommand,启动holder");
+			startHolderService();
+		}
+
+		return super.onStartCommand(intent, START_STICKY, startId);
+	}
+
+	private void startHolderService() {
+		Intent intent = new Intent(getApplicationContext(),
+				GlobalServiceHolder.class);
+		startService(intent);
 	}
 
 	@Override
@@ -44,7 +52,7 @@ public class GlobalService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		GlobalService_.intent(getApplicationContext()).start();
+		startHolderService();
 	}
 
 }
