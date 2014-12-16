@@ -38,7 +38,7 @@ public class WindowAlarmService extends Service {
 			
 			WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
 			// wmParams.type = LayoutParams.TYPE_SYSTEM_ALERT; // 设置window type
-			wmParams.type = LayoutParams.TYPE_PHONE; // 设置window type
+			wmParams.type = LayoutParams.TYPE_SYSTEM_ERROR; // 设置window type
 			wmParams.format = PixelFormat.RGBA_8888; // 设置图片格式，效果为背景透明
 			wmParams.gravity = Gravity.CENTER; // 调整悬浮窗口至右侧中间
 			wmParams.width = WindowManager.LayoutParams.MATCH_PARENT;

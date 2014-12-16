@@ -24,7 +24,6 @@ public class LocalStorageService extends IntentService {
 
 		model.username = username;
 		model.bindPass = bindPass;
-		model.bindTime = System.currentTimeMillis();
 
 		model.save();
 	}

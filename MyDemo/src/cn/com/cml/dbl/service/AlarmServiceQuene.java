@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 @EService
 public class AlarmServiceQuene extends Service {
@@ -16,6 +17,12 @@ public class AlarmServiceQuene extends Service {
 	}
 
 	private static Handler handler = new Handler();
+	
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		Log.d("PushReceiver", "onCreate启动警报服务。。。");
+	}
 
 	private Runnable alaramTask = new Runnable() {
 
@@ -29,6 +36,8 @@ public class AlarmServiceQuene extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		
+		Log.d("PushReceiver", "启动警报服务。。。");
 
 		handler.post(alaramTask);
 

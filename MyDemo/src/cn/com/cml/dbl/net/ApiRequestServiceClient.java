@@ -117,13 +117,11 @@ public class ApiRequestServiceClient implements ApiRequestService {
 	@Override
 	public void bindCurrentDeviceQuery(FindListener listener) {
 
-		User user = BmobUser.getCurrentUser(context, User.class);
-
 		BmobQuery<MobileBind> mobileBindQuery = new BmobQuery<MobileBind>();
 
-		mobileBindQuery.addWhereEqualTo("user", user)
-				.addWhereEqualTo("bindType", MobileBind.TYPE_BIND)
-				.addWhereEqualTo("imei", PetApplication.deviceId);
+		mobileBindQuery.addWhereEqualTo("bindType", MobileBind.TYPE_BIND)
+				.addWhereEqualTo("imei", PetApplication.deviceId)
+				.include("user");
 
 		mobileBindQuery.findObjects(context, listener);
 
@@ -174,4 +172,5 @@ public class ApiRequestServiceClient implements ApiRequestService {
 
 		bindQuery.findObjects(context, listener);
 	}
+
 }

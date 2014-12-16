@@ -5,6 +5,7 @@ import android.util.Log;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 @Table(name = "t_mobile_bind")
@@ -16,9 +17,10 @@ public class BindMessageModel extends Model {
 	@Column
 	public String bindPass;
 
-	@Column
-	public Long bindTime;
-
+	public static void clear() {
+		new Delete().from(BindMessageModel.class).execute();
+	}
+	
 	public static boolean checkExists(String bindPass) {
 
 		return new Select().from(BindMessageModel.class)
@@ -32,12 +34,6 @@ public class BindMessageModel extends Model {
 				.where("username=? and bindPass=?", username, bindPass)
 				.exists();
 
-	}
-
-	@Override
-	public String toString() {
-		return "BindMessageModel [username=" + username + ", bindPass="
-				+ bindPass + ", bindTime=" + bindTime + "]";
 	}
 
 }
