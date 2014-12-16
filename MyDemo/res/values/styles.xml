@@ -4,7 +4,7 @@
         <item name="android:actionBarStyle">@style/actionBar</item>
         <!--
 		设置menu背景颜色
-  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
+  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
         -->
         <!-- 菜单栏颜色 -->
         <item name="android:actionMenuTextColor">@android:color/white</item>
@@ -19,6 +19,14 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="ModalTheme" parent="@android:style/Animation.Activity">
+        <item name="android:windowNoTitle">true</item>  
+        <item name="android:activityOpenEnterAnimation">@anim/fall</item>
+        <item name="android:activityOpenExitAnimation">@anim/upgrade</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fall</item>
+        <item name="android:activityCloseExitAnimation">@anim/upgrade</item>
     </style>
 
     <style name="actionBar" parent="@android:style/Widget.Holo.Light.ActionBar">

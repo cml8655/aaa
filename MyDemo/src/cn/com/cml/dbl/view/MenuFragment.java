@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.MainActivity;
+import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.mode.api.User;
 
@@ -99,8 +100,8 @@ public class MenuFragment extends Fragment {
 		public void onReceive(Context context, Intent intent) {
 
 			final String action = intent.getAction();
-			
-			Log.d(TAG, "收到广播:"+action);
+
+			Log.d(TAG, "收到广播:" + action);
 
 			if (ACTION_USERINFO_CHANGE.equals(action)) {
 
@@ -179,6 +180,11 @@ public class MenuFragment extends Fragment {
 		final int id = clickView.getId();
 
 		toggleMenu(id, true);
+	}
+
+	@Click(R.id.menu_setting)
+	public void settingClicked() {
+		ModalActivity_.intent(getActivity()).start();
 	}
 
 	private void toggleMenu(int id, boolean leftMenuShow) {

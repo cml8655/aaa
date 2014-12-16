@@ -28,7 +28,7 @@
     <string name="menu_monitor">追踪定位</string>
     <string name="menu_command">指令管理</string>
     <string name="menu_sim_change">换卡设置</string>
-    <string name="menu_etc">其他配置</string>
+    <string name="menu_setting">设置</string>
     <string name="menu_suggest">意见反馈</string>
     <string name="menu_score_text">积分：%1$s</string>
     <string name="menu_rank_text">等级：%1$s</string>

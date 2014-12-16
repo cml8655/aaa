@@ -95,11 +95,11 @@
         <View style="@style/horizontalDivider" />
 
         <cn.com.cml.dbl.ui.MenuItemView_
-            android:id="@+id/menu_etc"
+            android:id="@+id/menu_setting"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             menu:icon="@string/icon_spin5"
-            menu:text="@string/menu_etc" >
+            menu:text="@string/menu_setting" >
         </cn.com.cml.dbl.ui.MenuItemView_>
 
         <View style="@style/horizontalDivider" />
