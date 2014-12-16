@@ -4,6 +4,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.PushListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 
 public interface ApiRequestService {
@@ -33,5 +34,7 @@ public interface ApiRequestService {
 	 */
 	void sendPushCommand(Constant.Command command, String deviceImei,
 			PushListener listener);
+
+	void dailyChecking(CheckingListener listener);
 
 }

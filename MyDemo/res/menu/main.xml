@@ -3,7 +3,7 @@
     tools:context="com.cml.mydemo.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/menu_checking"
         android:showAsAction="always"
         android:title="@string/daily_sign"/>
 

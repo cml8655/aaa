@@ -1,16 +1,16 @@
 package cn.com.cml.dbl;
 
+import java.util.Date;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.rest.RestService;
-import org.androidannotations.api.rest.RestErrorHandler;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestClientException;
 
 import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.res.Configuration;
@@ -18,12 +18,20 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-import cn.com.cml.dbl.model.RequestModel;
-import cn.com.cml.dbl.net.PetsApiHelper;
+import android.widget.RelativeLayout;
+import cn.bmob.v3.BmobUser;
+import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.listener.BaseSaveListener;
+import cn.com.cml.dbl.listener.CheckingListener;
+import cn.com.cml.dbl.mode.api.ScoreHistory;
+import cn.com.cml.dbl.model.UserLocalModel;
+import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.util.AnimUtils;
+import cn.com.cml.dbl.util.CommonUtils;
+import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 import cn.com.cml.dbl.view.MenuFragment_;
 
@@ -31,8 +39,8 @@ import cn.com.cml.dbl.view.MenuFragment_;
 @OptionsMenu(R.menu.main)
 public class MainActivity extends BaseActivity {
 
-	@RestService
-	PetsApiHelper apiHelper;
+	@Bean
+	ApiRequestServiceClient apiClient;
 
 	@Extra
 	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
@@ -40,10 +48,18 @@ public class MainActivity extends BaseActivity {
 	@ViewById(R.id.drawer_layout)
 	DrawerLayout mDrawerLayout;
 
+	@ViewById(R.id.over_view_container)
+	RelativeLayout overViewLayout;
+
 	private ActionBarDrawerToggle mDrawerToggle;
+
+	private boolean todayChecking = true;
 
 	@AfterViews
 	protected void initLayouts() {
+
+		// 检查是否已经签到
+		todayCheckingCheck();
 
 		// 耳机口监听
 		// HeadsetService_.intent(this).start();
@@ -93,6 +109,23 @@ public class MainActivity extends BaseActivity {
 
 	}
 
+	@Background
+	void todayCheckingCheck() {
+
+		boolean check = UserLocalModel.todayChecking(BmobUser.getCurrentUser(
+				getApplicationContext()).getUsername());
+		todayCheckingResult(check);
+
+	}
+
+	@UiThread
+	void todayCheckingResult(boolean check) {
+		if (!check) {
+			todayChecking = false;
+			invalidateOptionsMenu();
+		}
+	}
+
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
@@ -117,9 +150,70 @@ public class MainActivity extends BaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	@OptionsItem(R.id.action_settings)
+	@OptionsItem(R.id.menu_checking)
 	protected void settingItemClick() {
-		Toast.makeText(this, "菜单。。。", Toast.LENGTH_LONG).show();
+
+		if (todayChecking) {
+			return;
+		}
+
+		if (!CommonUtils.isNetworkConnected(getApplicationContext())) {
+
+			DialogUtil.showTip(getApplicationContext(),
+					getString(R.string.network_error));
+			return;
+		}
+
+		// 今日未签到
+		AnimUtils.checkingAnim(overViewLayout);
+
+		apiClient.dailyChecking(new CheckingListener() {
+
+			@Override
+			public void onSuccess(int series) {
+
+				String checkingTip = "";
+				// 第一次签到
+				if (series == 0) {
+					checkingTip = getString(R.string.checking_start);
+				} else {
+					checkingTip = getString(R.string.checking_series, series,
+							Constant.Checking.BASE_SCORE + series);
+				}
+
+				DialogUtil.showTip(getApplicationContext(), checkingTip);
+
+				UserLocalModel model = new UserLocalModel();
+
+				model.username = BmobUser.getCurrentUser(
+						getApplicationContext()).getUsername();
+				model.lastChecking = CommonUtils.formatDate(new Date(),
+						CommonUtils.FORMAT_YMD);
+
+				// 保存信息到本地
+				UserLocalModel.insertOrUpdate(model);
+
+				todayChecking = true;
+				invalidateOptionsMenu();
+			}
+
+			@Override
+			public void onFail() {
+				DialogUtil.showTip(getApplicationContext(),
+						getString(R.string.checking_fail));
+			}
+		});
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		if (todayChecking) {
+			return false;
+		}
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	public void closeMenu() {

@@ -10,6 +10,11 @@ import cn.bmob.v3.BmobObject;
  */
 public class ScoreHistory extends BmobObject {
 
+	public static final int TYPE_CHECKING = 0;
+	public static final int TYPE_RECOMMEND = 1;
+	public static final int TYPE_DOWNLOAD = 2;
+	public static final int TYPE_OTHER = 3;
+
 	private User user;
 	/**
 	 * 0:签到。1：推荐 ，2：下载 ，3：其他
@@ -17,6 +22,16 @@ public class ScoreHistory extends BmobObject {
 	private int scoreType;
 	private int score;
 	private String scoreDescribe;
+	private int series;// 连续号，start with 0
+
+
+	public int getSeries() {
+		return series;
+	}
+
+	public void setSeries(int series) {
+		this.series = series;
+	}
 
 	public User getUser() {
 		return user;

@@ -2,14 +2,60 @@ package cn.com.cml.dbl.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.renderscript.Program.TextureType;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class CommonUtils {
 
 	private static final String SHA1 = "SHA-1";
+
+	public static final String FORMAT_YMD = "yyyyMMdd";
+	public static final String FORMAT_YMDHMS = "yyyy-MM-dd HH:mm:ss";
+
+	public static String formatDate(Date date, String format) {
+
+		SimpleDateFormat formater = new SimpleDateFormat(format);
+
+		return formater.format(date);
+	}
+
+	public static Date parseDate(String date, String format, Date defaultDate) {
+
+		if (TextUtils.isEmpty(date)) {
+			return defaultDate;
+		}
+
+		try {
+
+			SimpleDateFormat formater = new SimpleDateFormat(format);
+
+			return formater.parse(date);
+		} catch (ParseException e) {
+			Log.e("CommonUtils.parseDate", "ParseException", e);
+		}
+
+		return defaultDate;
+
+	}
+
+	public static boolean isDateBefore(Date date, int before) {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date(System.currentTimeMillis()));
+		calendar.add(Calendar.DAY_OF_MONTH, -before);
+
+		return date.compareTo(calendar.getTime()) == 0;
+
+	}
 
 	public static boolean isNetworkConnected(Context context) {
 

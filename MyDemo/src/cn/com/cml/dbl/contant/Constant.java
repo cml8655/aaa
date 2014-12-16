@@ -64,4 +64,11 @@ public interface Constant {
 
 	}
 
+	interface Checking {
+		int CHECKING_ERROR = -123456;
+		int BASE_SCORE = 1;
+		int BASE_SERIES = 0;
+		int MAX_SERIES = 4;
+		int YESTERDAY=1;
+	}
 }

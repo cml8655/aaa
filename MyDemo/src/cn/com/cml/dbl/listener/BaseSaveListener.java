@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.widget.Toast;
 import cn.bmob.v3.listener.SaveListener;
+import cn.com.cml.dbl.contant.Constant;
 
 public abstract class BaseSaveListener extends SaveListener {
 
@@ -21,12 +22,10 @@ public abstract class BaseSaveListener extends SaveListener {
 		this.dialog = dialog;
 	}
 
-
-
 	@Override
 	public void onFailure(int errorCode, String msg) {
-		
-		if(null!=dialog){
+
+		if (null != dialog) {
 			dialog.dismissAllowingStateLoss();
 		}
 
@@ -54,6 +53,9 @@ public abstract class BaseSaveListener extends SaveListener {
 		case 9016:
 			showError("无网络连接，请检查您的手机网络");
 			break;
+		case Constant.Checking.CHECKING_ERROR:
+			showError("签到失败，请重试");
+			break;
 
 		default:
 			showError(msg);
@@ -66,7 +68,7 @@ public abstract class BaseSaveListener extends SaveListener {
 
 	@Override
 	public void onSuccess() {
-		if(null!=dialog){
+		if (null != dialog) {
 			dialog.dismissAllowingStateLoss();
 		}
 	}

@@ -1,27 +1,33 @@
 package cn.com.cml.dbl.net;
 
+import java.util.Date;
 import java.util.List;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-
-import com.google.gson.Gson;
+import org.json.JSONArray;
 
 import android.content.Context;
-import android.util.Log;
 import cn.bmob.v3.BmobPushManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindCallback;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.PushListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.com.cml.dbl.PetApplication;
+import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.InstallationModel;
 import cn.com.cml.dbl.mode.api.MobileBind;
+import cn.com.cml.dbl.mode.api.ScoreHistory;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.util.CommonUtils;
+
+import com.google.gson.Gson;
 
 @EBean
 public class ApiRequestServiceClient implements ApiRequestService {
@@ -173,4 +179,107 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		bindQuery.findObjects(context, listener);
 	}
 
+	@Override
+	// TODO 后台api使用事务
+	public void dailyChecking(final CheckingListener listener) {
+
+		final User user = BmobUser.getCurrentUser(context, User.class);
+
+		String lastChecking = user.getLastChecking();
+
+		boolean serialChecking = CommonUtils.isDateBefore(CommonUtils
+				.parseDate(lastChecking, CommonUtils.FORMAT_YMD, new Date()),
+				Constant.Checking.YESTERDAY);
+
+		// 第一次签到
+		if (null == lastChecking || !serialChecking) {
+
+			ScoreHistory scoreHistory = new ScoreHistory();
+
+			scoreHistory.setUser(user);
+			scoreHistory.setScoreDescribe(context
+					.getString(R.string.daily_sign));
+			scoreHistory.setScoreType(ScoreHistory.TYPE_CHECKING);
+			scoreHistory.setScore(Constant.Checking.BASE_SCORE);
+			scoreHistory.setSeries(Constant.Checking.BASE_SERIES);
+
+			scoreHistory.save(context);
+			checkingResult(listener, user, scoreHistory);
+
+			return;
+		}
+
+		// 查询连续几天签到
+		BmobQuery<ScoreHistory> checkingHistoryQuery = new BmobQuery<ScoreHistory>();
+
+		checkingHistoryQuery.addWhereEqualTo("user", user).addWhereEqualTo(
+				"scoreType", ScoreHistory.TYPE_CHECKING);
+		checkingHistoryQuery.order("-createdAt").setLimit(1);
+
+		// 查询最后一次签到获得的积分
+		checkingHistoryQuery.findObjects(context,
+				new FindListener<ScoreHistory>() {
+
+					@Override
+					public void onError(int errorCode, String msg) {
+						if (null != listener) {
+							listener.onFail();
+						}
+					}
+
+					@Override
+					public void onSuccess(List<ScoreHistory> result) {
+
+						ScoreHistory lastHistory = result.get(0);
+
+						int series = lastHistory.getSeries();
+						int gainScore = lastHistory.getScore() + 1;
+
+						// 连续签到上限
+						if (series >= Constant.Checking.MAX_SERIES) {
+							gainScore = Constant.Checking.MAX_SERIES
+									+ Constant.Checking.BASE_SCORE;
+						}
+
+						ScoreHistory scoreHistory = new ScoreHistory();
+						scoreHistory.setUser(user);
+						scoreHistory.setScoreDescribe(context
+								.getString(R.string.daily_sign));
+						scoreHistory.setScoreType(ScoreHistory.TYPE_CHECKING);
+						scoreHistory.setScore(gainScore);
+						scoreHistory.setSeries(++series);
+
+						scoreHistory.save(context);
+						checkingResult(listener, user, scoreHistory);
+					}
+				});
+
+	}
+
+	private void checkingResult(final CheckingListener listener, User user,
+			final ScoreHistory scoreHistory) {
+
+		// 更新用户信息
+		user.setLastChecking(CommonUtils.formatDate(new Date(),
+				CommonUtils.FORMAT_YMD));
+		user.increment("score", scoreHistory.getScore());
+
+		user.update(context, new UpdateListener() {
+
+			@Override
+			public void onSuccess() {
+				if (null != listener) {
+					listener.onSuccess(scoreHistory.getSeries());
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				if (null != listener) {
+					listener.onFail();
+				}
+			}
+		});
+
+	}
 }

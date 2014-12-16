@@ -9,6 +9,9 @@
     <string name="data_requesting">正在请求数据，请稍候...</string>
     <string name="network_error">请求数据失败，请检查网络...</string>
     <string name="password_error">密码错误</string>
+    <string name="checking_series">连续签到%1$s天 +%2$s</string>
+    <string name="checking_start">签到成功 +1</string>
+    <string name="checking_fail">签到失败，请稍候重试</string>
 
     <!-- 主页 -->
     <string name="home">主页</string>
