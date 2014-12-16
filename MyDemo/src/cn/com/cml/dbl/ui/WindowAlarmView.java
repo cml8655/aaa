@@ -22,6 +22,7 @@ import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.service.AlarmServiceQuene_;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.CommonUtils;
@@ -106,6 +107,7 @@ public class WindowAlarmView extends LinearLayout implements OnClickListener {
 	private void stopAlarm() {
 		RingtoneService_.intent(getContext()).stop();
 		WindowAlarmService_.intent(getContext()).stop();
+		AlarmServiceQuene_.intent(getContext()).stop();
 	}
 
 	private void checkLocalStorage(String username, String pass) {

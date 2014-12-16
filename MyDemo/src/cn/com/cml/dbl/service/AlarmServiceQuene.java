@@ -48,6 +48,8 @@ public class AlarmServiceQuene extends Service {
 	public void onDestroy() {
 		handler.removeCallbacks(alaramTask);
 		handler = null;
+		RingtoneService_.intent(getApplicationContext()).stop();
+		WindowAlarmService_.intent(getApplicationContext()).stop();
 		super.onDestroy();
 	}
 
