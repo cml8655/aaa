@@ -81,6 +81,16 @@ public class DialogUtil {
 		return dialog;
 	}
 
+	public static DialogFragment defaultSingleSelectDialog(Integer items,
+			Integer title, int requestId) {
+
+		DialogFragment dialog = DefaultDialogFragment_.builder()
+				.requestId(requestId).title(title).singleChoiceItems(items)
+				.build();
+
+		return dialog;
+	}
+
 	public static DialogFragment notifyDialogBuild(int icon, int msg) {
 
 		NotifyDialogFragment dialog = NotifyDialogFragment_.builder()

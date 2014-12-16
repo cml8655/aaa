@@ -3,18 +3,17 @@ package cn.com.cml.dbl;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.util.Log;
+import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.widget.Button;
-import cn.bmob.v3.BmobUser;
-import cn.com.cml.dbl.listener.BaseSaveListener;
-import cn.com.cml.dbl.mode.api.MobileBind;
-import cn.com.cml.dbl.util.DeviceUtil;
 import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
+import cn.com.cml.dbl.view.MenuFragment;
+import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 
 /**
  * 通知信息
@@ -23,10 +22,18 @@ import cn.com.cml.dbl.util.DialogUtil;
  * 
  */
 @EActivity(R.layout.activity_importance)
-public class ImportanceActivity extends BaseActivity implements OnClickListener {
+public class ImportanceActivity extends BaseActivity implements
+		OnClickListener, OnItemClickListener {
+
+	private static final int REQUEST_MONITER_SELECT = 20;
+
+	private static final int MONITOR_MAP = 0;
+	private static final int MONITOR_ALARM = 1;
 
 	@ViewById(R.id.btn_bind_device)
 	Button bindDeviceBtn;
+
+	private DialogFragment monitorSelectDialog;
 
 	@AfterViews
 	protected void initConfig() {
@@ -43,6 +50,16 @@ public class ImportanceActivity extends BaseActivity implements OnClickListener 
 		startDeviceBindActivity();
 	}
 
+	@Click(R.id.btn_monitor_device)
+	protected void monitorDevice() {
+
+		if (null == monitorSelectDialog) {
+			monitorSelectDialog = DialogUtil.defaultSingleSelectDialog(
+					R.array.monitor_select_list, null, REQUEST_MONITER_SELECT);
+		}
+		monitorSelectDialog.show(getSupportFragmentManager(), "monitor_select");
+	}
+
 	private void startDeviceBindActivity() {
 		DeviceBindActivity_.intent(this).start();
 	}
@@ -54,6 +71,32 @@ public class ImportanceActivity extends BaseActivity implements OnClickListener 
 			startDeviceBindActivity();
 			// bindDevice();
 		}
+
+	}
+
+	@Override
+	public void onClick(DialogInterface nullDialog, long id, int requestId) {
+
+		monitorSelectDialog.dismiss();
+
+		if (requestId != REQUEST_MONITER_SELECT) {
+			return;
+		}
+
+		// 地图定位
+		if (id == MONITOR_MAP) {
+			startMain(MenuItems.MAP);
+		} else if (id == MONITOR_ALARM) {
+			startMain(MenuItems.ALARM);
+		}
+
+	}
+
+	private void startMain(MenuItems initMenu) {
+
+		MainActivity_.intent(this).initMenuItem(initMenu).start();
+
+		finish();
 
 	}
 
