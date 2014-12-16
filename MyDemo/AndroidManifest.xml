@@ -52,6 +52,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- bmob 推送 -->
     <permission
@@ -140,7 +141,7 @@
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter>
+            </intent-filter>
             -->
         </service>
         <service
@@ -149,6 +150,10 @@
         </service>
         <service android:name="cn.com.cml.dbl.HeadsetService_" >
         </service>
+        
+        <service android:name="cn.com.cml.dbl.service.WindowAlarmService_"></service>
+        
+        <service android:name="cn.com.cml.dbl.service.AlarmServiceQuene_"></service>
 
         <!-- bmob push service -->
         <service
@@ -174,7 +179,7 @@
             </intent-filter>
         </receiver>
         
-        <receiver android:name="cn.com.cml.dbl.receiver.PushReceiver" android:exported="false">
+        <receiver android:name="cn.com.cml.dbl.receiver.PushReceiver_" android:exported="false">
             <intent-filter>
                 <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
