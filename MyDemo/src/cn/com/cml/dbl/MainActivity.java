@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.listener.BaseSaveListener;
 import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.ScoreHistory;
+import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.model.UserLocalModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.AnimUtils;
@@ -61,8 +63,6 @@ public class MainActivity extends BaseActivity {
 		// 检查是否已经签到
 		todayCheckingCheck();
 
-		// 耳机口监听
-		// HeadsetService_.intent(this).start();
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
 		transaction.replace(R.id.left_drawer, MenuFragment_.builder()
@@ -112,9 +112,21 @@ public class MainActivity extends BaseActivity {
 	@Background
 	void todayCheckingCheck() {
 
-		boolean check = UserLocalModel.todayChecking(BmobUser.getCurrentUser(
-				getApplicationContext()).getUsername());
-		todayCheckingResult(check);
+		User user = BmobUser
+				.getCurrentUser(getApplicationContext(), User.class);
+
+		String lastCheckingDateStr = user.getLastChecking();
+
+		// 没有签到记录
+		if (null == lastCheckingDateStr) {
+			todayCheckingResult(false);
+			return;
+		}
+
+		Date lastCheckingDate = CommonUtils.parseDate(lastCheckingDateStr,
+				CommonUtils.FORMAT_YMD, new Date());
+
+		todayCheckingResult(CommonUtils.isDateBefore(lastCheckingDate, 0));
 
 	}
 
@@ -183,15 +195,15 @@ public class MainActivity extends BaseActivity {
 
 				DialogUtil.showTip(getApplicationContext(), checkingTip);
 
-				UserLocalModel model = new UserLocalModel();
-
-				model.username = BmobUser.getCurrentUser(
-						getApplicationContext()).getUsername();
-				model.lastChecking = CommonUtils.formatDate(new Date(),
-						CommonUtils.FORMAT_YMD);
-
-				// 保存信息到本地
-				UserLocalModel.insertOrUpdate(model);
+				// UserLocalModel model = new UserLocalModel();
+				//
+				// model.username = BmobUser.getCurrentUser(
+				// getApplicationContext()).getUsername();
+				// model.lastChecking = CommonUtils.formatDate(new Date(),
+				// CommonUtils.FORMAT_YMD);
+				//
+				// // 保存信息到本地
+				// UserLocalModel.insertOrUpdate(model);
 
 				todayChecking = true;
 				invalidateOptionsMenu();

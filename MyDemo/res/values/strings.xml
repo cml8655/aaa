@@ -30,6 +30,8 @@
     <string name="menu_sim_change">换卡设置</string>
     <string name="menu_etc">其他配置</string>
     <string name="menu_suggest">意见反馈</string>
+    <string name="menu_score_text">积分：%1$s</string>
+    <string name="menu_rank_text">等级：%1$s</string>
     <!-- dummy -->
     <string name="menu_photo">相机</string>
     <string name="menu_sms">短信操作</string>

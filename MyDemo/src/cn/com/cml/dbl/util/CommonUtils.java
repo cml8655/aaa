@@ -53,7 +53,10 @@ public class CommonUtils {
 		calendar.setTime(new Date(System.currentTimeMillis()));
 		calendar.add(Calendar.DAY_OF_MONTH, -before);
 
-		return date.compareTo(calendar.getTime()) == 0;
+		String targetTime = formatDate(calendar.getTime(), FORMAT_YMD);
+		String currentDate = formatDate(date, FORMAT_YMD);
+
+		return targetTime.equals(currentDate);
 
 	}
 

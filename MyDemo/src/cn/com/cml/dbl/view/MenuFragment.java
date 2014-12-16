@@ -4,6 +4,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
+import org.androidannotations.annotations.ViewById;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -15,8 +16,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.TextView;
+import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.mode.api.User;
 
 @EFragment(R.layout.fragment_menu)
 public class MenuFragment extends Fragment {
@@ -77,6 +81,15 @@ public class MenuFragment extends Fragment {
 	@FragmentArg
 	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
 
+	@ViewById(R.id.menu_username)
+	TextView usernameView;
+
+	@ViewById(R.id.menu_score)
+	TextView scoreView;
+
+	@ViewById(R.id.menu_rank)
+	TextView rankView;
+
 	private BroadcastReceiver itemChangeReceiver = new BroadcastReceiver() {
 
 		@Override
@@ -127,6 +140,18 @@ public class MenuFragment extends Fragment {
 		transaction.add(R.id.content_frame, initFragment);
 		transaction.commit();
 
+		initUserMessage();
+
+	}
+
+	private void initUserMessage() {
+
+		User user = BmobUser.getCurrentUser(getActivity(), User.class);
+
+		usernameView.setText(user.getUsername());
+		scoreView.setText(getString(R.string.menu_score_text, user.getScore()));
+		//TODO 获取级别
+		rankView.setText(getString(R.string.menu_rank_text, "一级"));
 	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_photo, R.id.menu_sms,
