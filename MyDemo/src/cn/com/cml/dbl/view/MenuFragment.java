@@ -28,7 +28,10 @@ public class MenuFragment extends Fragment {
 	private static final String TAG = "MenuFragment";
 
 	public static final String ACTION_MENU_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_MENU_CHANGE";
+	public static final String ACTION_USERINFO_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_USERINFO_CHANGE";
+
 	public static final String EXTRA_MENUITEM = "cn.com.cml.dbl.view.MenuFragment.EXTRA_MENUITEM";
+	public static final String EXTRA_SCORE = "cn.com.cml.dbl.view.MenuFragment.EXTRA_SCORE";
 
 	public static enum MenuItems {
 
@@ -95,7 +98,21 @@ public class MenuFragment extends Fragment {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
-			if (intent.hasExtra(EXTRA_MENUITEM)) {
+			final String action = intent.getAction();
+			
+			Log.d(TAG, "收到广播:"+action);
+
+			if (ACTION_USERINFO_CHANGE.equals(action)) {
+
+				scoreView.setText(getString(R.string.menu_score_text,
+						intent.getIntExtra(EXTRA_SCORE, 0)));
+
+				return;
+			}
+
+			if (ACTION_MENU_CHANGE.equals(action)
+					&& intent.hasExtra(EXTRA_MENUITEM)) {
+
 				Activity activity = getActivity();
 				if (null != activity && !activity.isFinishing()) {
 
@@ -109,6 +126,7 @@ public class MenuFragment extends Fragment {
 	public void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		IntentFilter filter = new IntentFilter(ACTION_MENU_CHANGE);
+		filter.addAction(ACTION_USERINFO_CHANGE);
 		getActivity().registerReceiver(itemChangeReceiver, filter);
 	}
 
@@ -150,7 +168,7 @@ public class MenuFragment extends Fragment {
 
 		usernameView.setText(user.getUsername());
 		scoreView.setText(getString(R.string.menu_score_text, user.getScore()));
-		//TODO 获取级别
+		// TODO 获取级别
 		rankView.setText(getString(R.string.menu_rank_text, "一级"));
 	}
 

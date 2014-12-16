@@ -13,6 +13,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.app.FragmentManager.OnBackStackChangedListener;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -35,6 +36,7 @@ import cn.com.cml.dbl.util.AnimUtils;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.MenuFragment.MenuItems;
+import cn.com.cml.dbl.view.MenuFragment;
 import cn.com.cml.dbl.view.MenuFragment_;
 
 @EActivity(R.layout.activity_main)
@@ -185,25 +187,32 @@ public class MainActivity extends BaseActivity {
 			public void onSuccess(int series) {
 
 				String checkingTip = "";
+				int gainScore = Constant.Checking.BASE_SCORE + series;
 				// 第一次签到
 				if (series == 0) {
+
 					checkingTip = getString(R.string.checking_start);
+
 				} else {
+
+					if (series >= Constant.Checking.MAX_SERIES) {
+						gainScore = Constant.Checking.BASE_SCORE
+								+ Constant.Checking.MAX_SERIES;
+					}
+
 					checkingTip = getString(R.string.checking_series, series,
-							Constant.Checking.BASE_SCORE + series);
+							gainScore);
 				}
 
 				DialogUtil.showTip(getApplicationContext(), checkingTip);
 
-				// UserLocalModel model = new UserLocalModel();
-				//
-				// model.username = BmobUser.getCurrentUser(
-				// getApplicationContext()).getUsername();
-				// model.lastChecking = CommonUtils.formatDate(new Date(),
-				// CommonUtils.FORMAT_YMD);
-				//
-				// // 保存信息到本地
-				// UserLocalModel.insertOrUpdate(model);
+				User user = BmobUser.getCurrentUser(getApplicationContext(),
+						User.class);
+
+				Intent intent = new Intent(MenuFragment.ACTION_USERINFO_CHANGE);
+				intent.putExtra(MenuFragment.EXTRA_SCORE,
+						gainScore + user.getScore());
+				sendBroadcast(intent);
 
 				todayChecking = true;
 				invalidateOptionsMenu();
