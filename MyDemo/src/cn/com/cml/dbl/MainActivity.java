@@ -184,24 +184,15 @@ public class MainActivity extends BaseActivity {
 		apiClient.dailyChecking(new CheckingListener() {
 
 			@Override
-			public void onSuccess(int series) {
+			public void onSuccess(int series, int score) {
 
-				String checkingTip = "";
-				int gainScore = Constant.Checking.BASE_SCORE + series;
-				// 第一次签到
-				if (series == 0) {
+				String checkingTip = getString(R.string.checking_start);
 
-					checkingTip = getString(R.string.checking_start);
-
-				} else {
-
-					if (series >= Constant.Checking.MAX_SERIES) {
-						gainScore = Constant.Checking.BASE_SCORE
-								+ Constant.Checking.MAX_SERIES;
-					}
+				if (series > 0) {
 
 					checkingTip = getString(R.string.checking_series, series,
-							gainScore);
+							score);
+
 				}
 
 				DialogUtil.showTip(getApplicationContext(), checkingTip);
@@ -211,7 +202,7 @@ public class MainActivity extends BaseActivity {
 
 				Intent intent = new Intent(MenuFragment.ACTION_USERINFO_CHANGE);
 				intent.putExtra(MenuFragment.EXTRA_SCORE,
-						gainScore + user.getScore());
+						score + user.getScore());
 				sendBroadcast(intent);
 
 				todayChecking = true;

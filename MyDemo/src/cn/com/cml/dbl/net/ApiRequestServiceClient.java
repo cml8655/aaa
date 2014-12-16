@@ -269,7 +269,7 @@ public class ApiRequestServiceClient implements ApiRequestService {
 			@Override
 			public void onSuccess() {
 				if (null != listener) {
-					listener.onSuccess(scoreHistory.getSeries());
+					listener.onSuccess(scoreHistory.getSeries(),scoreHistory.getScore());
 				}
 			}
 
