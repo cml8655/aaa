@@ -133,7 +133,7 @@
         </activity>
         <activity
             android:name="cn.com.cml.dbl.ModalActivity_"
-            android:theme="@style/ModalTheme" >
+            android:theme="@style/ModalStyle" >
         </activity>
 
         <service
