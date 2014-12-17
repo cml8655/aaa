@@ -158,6 +158,11 @@
         </service>
         <service android:name="cn.com.cml.dbl.service.AlarmServiceQuene_" >
         </service>
+        <service android:name="cn.com.cml.dbl.service.GlobalService" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.GlobalServiceHolder" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.LocalStorageService_"></service>
 
         <!-- bmob push service -->
         <service

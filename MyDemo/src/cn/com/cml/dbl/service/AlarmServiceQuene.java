@@ -16,8 +16,8 @@ public class AlarmServiceQuene extends Service {
 		return null;
 	}
 
-	private static Handler handler = new Handler();
-	
+	private Handler handler = new Handler();
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -36,7 +36,7 @@ public class AlarmServiceQuene extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		
+
 		Log.d("PushReceiver", "启动警报服务。。。");
 
 		handler.post(alaramTask);

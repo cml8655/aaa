@@ -20,7 +20,7 @@ public class BindMessageModel extends Model {
 	public static void clear() {
 		new Delete().from(BindMessageModel.class).execute();
 	}
-	
+
 	public static boolean checkExists(String bindPass) {
 
 		return new Select().from(BindMessageModel.class)
@@ -31,7 +31,7 @@ public class BindMessageModel extends Model {
 	public static boolean checkExists(String username, String bindPass) {
 
 		return new Select().from(BindMessageModel.class)
-				.where("username=? and bindPass=?", username, bindPass)
+				.where("username=? ", username).and("bindPass=?", bindPass)
 				.exists();
 
 	}

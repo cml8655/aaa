@@ -81,7 +81,6 @@ public class DeviceBindActivity extends BaseActivity {
 				LocalStorageService_.intent(DeviceBindActivity.this)
 						.saveBindPass(username, pass).start();
 
-				// 保存信息到本地
 				MainActivity_.intent(DeviceBindActivity.this).start();
 
 				finish();

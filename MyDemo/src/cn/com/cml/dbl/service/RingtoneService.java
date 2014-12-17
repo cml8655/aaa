@@ -45,7 +45,7 @@ public class RingtoneService extends Service {
 	PrefUtil_ prefUtil;
 
 	private Ringtone mRingtone;
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -65,9 +65,10 @@ public class RingtoneService extends Service {
 		// 存储原有音量大小
 		backupVolume();
 
-		// 将声音开到最大
-		volumeUtil.noisy();
+		// 将声音开到最大 TODO 解开
+		// volumeUtil.noisy();
 
+		// TODO
 		// 播放铃声
 		if (null != mRingtone && !mRingtone.isPlaying()) {
 			mRingtone.play();
@@ -89,7 +90,7 @@ public class RingtoneService extends Service {
 		Log.d("RingtoneService", "ringtoneService 销毁了！");
 
 		// 还原手机音量大小
-		restoreVolume();
+		// restoreVolume();
 
 		// 关闭铃声播放
 		if (isRinging) {
