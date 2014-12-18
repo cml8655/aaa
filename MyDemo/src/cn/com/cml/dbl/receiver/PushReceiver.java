@@ -2,6 +2,7 @@ package cn.com.cml.dbl.receiver;
 
 import static cn.com.cml.dbl.contant.Constant.DINGWEI;
 import static cn.com.cml.dbl.contant.Constant.JINBAO;
+import static cn.com.cml.dbl.contant.Constant.JINGBAO_RING;
 import static cn.com.cml.dbl.contant.Constant.JINGBAO_STOP;
 
 import org.androidannotations.annotations.EReceiver;
@@ -14,9 +15,11 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import cn.bmob.push.PushConstants;
+import cn.com.cml.dbl.listener.GlobalBaseListener_;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
+import cn.com.cml.dbl.service.GlobalService;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.PrefUtil_;
@@ -34,6 +37,10 @@ public class PushReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+
+		// 启动服务
+		Intent service = new Intent(context, GlobalService.class);
+		context.startService(service);
 
 		if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
 
@@ -66,7 +73,9 @@ public class PushReceiver extends BroadcastReceiver {
 						pref.edit().commandFromUsername()
 								.put(model.getFromUserName()).apply();
 
-						if (JINBAO.equals(model.getCommand())) {
+						if (JINGBAO_RING.equals(model.getCommand())) {
+							// TODO 发送信息提示用户，警报送达
+						} else if (JINBAO.equals(model.getCommand())) {
 
 							onJingBao(model, context);
 

@@ -5,6 +5,7 @@ public interface Constant {
 	String COMMAND_SPERATOR = "#";
 
 	String JINBAO = "jb";
+	String JINGBAO_RING="jbring";//警报响起
 	/**
 	 * 30s内有效
 	 */
@@ -21,12 +22,14 @@ public interface Constant {
 
 	enum Command {
 
-		JINGBAO_ENUM(JINBAO, JINBAO_EXPIRES), JINGBAO_STOP_ENUM(JINGBAO_STOP,
-				JINGBAO_STOP_EXPIRES), DINGWEI_ENUM(DINGWEI, DINGWEI_EXPIRES);
+		JINGBAO_ENUM(JINBAO, JINBAO_EXPIRES), //
+		JINGBAO_STOP_ENUM(JINGBAO_STOP, JINGBAO_STOP_EXPIRES), //
+		DINGWEI_ENUM(DINGWEI, DINGWEI_EXPIRES);
 
 		private String command;
 		private long endTime;
 		private String bindPass;
+		private String from;
 
 		private Command(String command, long endTime) {
 			this.command = command;
@@ -62,6 +65,14 @@ public interface Constant {
 			return endTime;
 		}
 
+		public String getFrom() {
+			return from;
+		}
+
+		public void setFrom(String from) {
+			this.from = from;
+		}
+
 	}
 
 	interface Checking {
@@ -69,6 +80,6 @@ public interface Constant {
 		int BASE_SCORE = 1;
 		int BASE_SERIES = 0;
 		int MAX_SERIES = 4;
-		int YESTERDAY=1;
+		int YESTERDAY = 1;
 	}
 }
