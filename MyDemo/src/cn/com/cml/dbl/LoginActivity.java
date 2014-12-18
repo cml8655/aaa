@@ -12,6 +12,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -58,8 +59,11 @@ public class LoginActivity extends BaseActivity {
 	protected void initConfig() {
 
 		// 打开系统应用
-		// Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
-		// startActivity(intent);
+		// Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS?);
+		// Intent intent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
+		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+		intent.setData(Uri.parse("package:" + this.getPackageName()));
+		startActivity(intent);
 
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
 				R.string.login_request);
