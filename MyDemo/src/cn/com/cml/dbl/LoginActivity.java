@@ -11,6 +11,8 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.content.Intent;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -54,6 +56,10 @@ public class LoginActivity extends BaseActivity {
 
 	@AfterViews
 	protected void initConfig() {
+
+		// 打开系统应用
+		// Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+		// startActivity(intent);
 
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
 				R.string.login_request);
