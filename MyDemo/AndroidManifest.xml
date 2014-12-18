@@ -190,27 +190,30 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="cn.com.cml.dbl.receiver.PushReceiver_"
-            android:exported="false" >
+            android:name="cn.com.cml.dbl.receiver.GlobalServiceReceiver"
+            android:enabled="true" >
             <intent-filter android:priority="2147483647" >
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-                <!-- 系统启动完成后会调用 -->
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <!-- 监听网络连通性 -->
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="cn.com.cml.dbl.receiver.PushReceiver_"
+            android:exported="false" >
+            <intent-filter android:priority="2147483647" >
+
                 <!-- bmob推送消息 -->
                 <action android:name="cn.bmob.push.action.MESSAGE" />
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-				<action android:name="android.intent.action.USER_PRESENT" />
-				<action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-				<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
         <!-- end -->
-
-
         <!-- 短信监听 -->
         <receiver android:name="cn.com.cml.dbl.listener.GlobalBaseListener_" >
             <intent-filter android:priority="999" >

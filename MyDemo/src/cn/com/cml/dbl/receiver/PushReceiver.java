@@ -38,10 +38,6 @@ public class PushReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		// 启动服务
-		Intent service = new Intent(context, GlobalService.class);
-		context.startService(service);
-
 		if (intent.getAction().equals(PushConstants.ACTION_MESSAGE)) {
 
 			try {
