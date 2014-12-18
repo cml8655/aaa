@@ -61,9 +61,10 @@ public class LoginActivity extends BaseActivity {
 		// 打开系统应用
 		// Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS?);
 		// Intent intent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
-		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-		intent.setData(Uri.parse("package:" + this.getPackageName()));
-		startActivity(intent);
+		// Intent intent = new
+		// Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+		// intent.setData(Uri.parse("package:" + this.getPackageName()));
+		// startActivity(intent);
 
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
 				R.string.login_request);
