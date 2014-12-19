@@ -1,12 +1,15 @@
 package cn.com.cml.dbl.service;
 
 import org.androidannotations.annotations.EService;
+import org.androidannotations.annotations.SystemService;
 
 import cn.com.cml.dbl.WindowAlarmActvity_;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 @EService
@@ -28,7 +31,7 @@ public class AlarmServiceQuene extends Service {
 	private Runnable alaramTask = new Runnable() {
 
 		@Override
-		public void run() {
+		public void run() {  
 			RingtoneService_.intent(getApplicationContext()).start();
 
 			WindowAlarmActvity_.intent(getApplicationContext())
@@ -39,6 +42,11 @@ public class AlarmServiceQuene extends Service {
 		}
 	};
 
+	@SystemService
+	PowerManager m;
+
+	WakeLock lock;
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -46,11 +54,15 @@ public class AlarmServiceQuene extends Service {
 
 		handler.post(alaramTask);
 
+		lock = m.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP
+				| PowerManager.SCREEN_DIM_WAKE_LOCK, "pow bright");
+		lock.acquire();
 		return super.onStartCommand(intent, flags, startId);
 	}
 
 	@Override
 	public void onDestroy() {
+		lock.release();
 		handler.removeCallbacks(alaramTask);
 		handler = null;
 		RingtoneService_.intent(getApplicationContext()).stop();

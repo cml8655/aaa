@@ -10,6 +10,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,6 +24,7 @@ import cn.bmob.v3.listener.FindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.service.AlarmServiceQuene_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
@@ -106,7 +108,7 @@ public class WindowAlarmActvity extends FragmentActivity implements
 	}
 
 	private void stopAlarm() {
-		WindowAlarmService_.intent(this).stop();
+		AlarmServiceQuene_.intent(this).stop();
 		finish();
 	}
 
