@@ -2,6 +2,7 @@ package cn.com.cml.dbl.service;
 
 import org.androidannotations.annotations.EService;
 
+import cn.com.cml.dbl.WindowAlarmActvity_;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
@@ -29,7 +30,11 @@ public class AlarmServiceQuene extends Service {
 		@Override
 		public void run() {
 			RingtoneService_.intent(getApplicationContext()).start();
-			WindowAlarmService_.intent(getApplicationContext()).start();
+
+			WindowAlarmActvity_.intent(getApplicationContext())
+					.flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
+
+			// WindowAlarmService_.intent(getApplicationContext()).start();
 			handler.postDelayed(alaramTask, 1000);
 		}
 	};

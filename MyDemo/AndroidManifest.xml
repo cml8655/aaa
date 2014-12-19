@@ -135,6 +135,11 @@
             android:name="cn.com.cml.dbl.ModalActivity_"
             android:theme="@style/ModalStyle" >
         </activity>
+        <activity
+            android:name="cn.com.cml.dbl.WindowAlarmActvity_"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" >
+        </activity>
 
         <service
             android:name="com.baidu.location.f"
