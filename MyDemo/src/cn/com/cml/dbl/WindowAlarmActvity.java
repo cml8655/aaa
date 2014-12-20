@@ -1,14 +1,17 @@
 package cn.com.cml.dbl;
 
+import java.nio.channels.AlreadyConnectedException;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -21,10 +24,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import cn.bmob.v3.listener.FindListener;
+import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.service.AlarmServiceQuene;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
+import cn.com.cml.dbl.service.PushService_;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
 
@@ -52,6 +58,9 @@ public class WindowAlarmActvity extends FragmentActivity implements
 	@Pref
 	PrefUtil_ pref;
 
+	@Extra
+	int alarmType;
+
 	@Override
 	protected void onCreate(Bundle savedConstant) {
 
@@ -71,6 +80,16 @@ public class WindowAlarmActvity extends FragmentActivity implements
 	}
 
 	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		setIntent(intent);
+
+		if (intent.hasExtra(AlarmServiceQuene.EXTRA_TYPE)) {
+			alarmType = intent.getIntExtra(AlarmServiceQuene.EXTRA_TYPE, -1);
+		}
+	}
+
+	@Override
 	public void onClick(View v) {
 
 		final String pass = passView.getText().toString();
@@ -82,10 +101,19 @@ public class WindowAlarmActvity extends FragmentActivity implements
 			return;
 		}
 
-		Log.d(TAG, "解除警报：" + pass + "," + username);
+		Log.d(TAG, "解除警报：" + pass + "," + username + "," + alarmType);
 
 		if (TextUtils.isEmpty(pass)) {
 			inputTipView.setText(getString(R.string.empty_password));
+			return;
+		}
+
+		// 短信发送
+		if (alarmType == Constant.Alarm.TYPE_SMS) {
+
+			if (BindMessageModel.checkExists(pass)) {
+				stopAlarm();
+			}
 			return;
 		}
 
@@ -111,15 +139,16 @@ public class WindowAlarmActvity extends FragmentActivity implements
 			}
 
 			@Override
-			public void onError(int arg0, String arg1) {
+			public void onError(int code, String msg) {
 				checkLocalStorage(username, pass);
-				Log.d(TAG, "解除警报，网络查询错误！");
+				Log.d(TAG, "解除警报，网络查询错误！" + msg + "," + code);
 			}
 		});
 
 	}
 
 	private void stopAlarm() {
+
 		AlarmServiceQuene_.intent(this).stop();
 		finish();
 	}

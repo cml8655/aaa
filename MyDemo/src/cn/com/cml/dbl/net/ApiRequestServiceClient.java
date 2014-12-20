@@ -143,6 +143,7 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		model.setEndTime(System.currentTimeMillis() + command.getEndTime());
 		model.setFromUserName(command.getFrom());
 		model.setBindPass(command.getBindPass());
+		model.setFromDevice(PetApplication.deviceId);
 
 		BmobPushManager<InstallationModel> pushManager = new BmobPushManager<InstallationModel>(
 				context);

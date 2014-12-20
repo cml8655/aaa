@@ -1,12 +1,17 @@
 package cn.com.cml.dbl.view;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.Button;
+import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
@@ -20,6 +25,19 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 	private static final int MONITOR_ALARM = 1;
 
 	private DialogFragment monitorSelectDialog;
+
+	@ViewById(R.id.home_mobile_monitor)
+	Button monitorButton;
+
+	@AfterViews
+	void afterViews() {
+
+		MainActivity ac = (MainActivity) getActivity();
+		if (ac.isBindDevice) {
+			monitorButton.setVisibility(View.GONE);
+		}
+
+	}
 
 	@Click(R.id.home_mobile_monitor)
 	public void mobileMonitorClicked() {

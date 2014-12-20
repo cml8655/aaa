@@ -25,19 +25,20 @@
 
     <!-- left menu -->
     <string name="menu_alarm">警报追踪</string>
-    <string name="menu_monitor">追踪定位</string>
+    <string name="menu_monitor">定位追踪</string>
     <string name="menu_command">指令管理</string>
     <string name="menu_sim_change">换卡设置</string>
     <string name="menu_setting">设置</string>
     <string name="menu_suggest">意见反馈</string>
     <string name="menu_score_text">积分：%1$s</string>
     <string name="menu_rank_text">等级：%1$s</string>
-    <!-- dummy -->
     <string name="menu_photo">相机</string>
     <string name="menu_sms">短信操作</string>
     <string name="menu_map">百度地图</string>
     <string name="menu_home">主页</string>
     <string name="menu_volume">音量控制</string>
+    <string name="menu_logout">安全退出</string>
+    <string name="exit_confirm">确定退出？</string>
 
     <!-- 百度fragment -->
     <string name="by_bus_text">公交</string>
@@ -48,6 +49,9 @@
     <string name="maptip_none">正在计算...</string>
     <string name="locate_user">正在获取我的位置...</string>
     <string name="locate_mobile">正在获取手机位置...</string>
+
+    <!-- 意见反馈 -->
+    <string name="suggest_hint">请输入您的宝贵意见</string>
 
     <!-- 登录界面 -->
     <string name="login_title">登录</string>

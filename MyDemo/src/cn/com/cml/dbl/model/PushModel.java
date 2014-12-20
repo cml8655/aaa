@@ -9,6 +9,7 @@ public class PushModel implements Serializable {
 	private String toUserName;
 	private String command;
 	private long endTime;// 有效的截止时间
+	private String fromDevice;
 
 	public String getBindPass() {
 		return bindPass;
@@ -48,6 +49,14 @@ public class PushModel implements Serializable {
 
 	public void setCommand(String command) {
 		this.command = command;
+	}
+
+	public String getFromDevice() {
+		return fromDevice;
+	}
+
+	public void setFromDevice(String fromDevice) {
+		this.fromDevice = fromDevice;
 	}
 
 }

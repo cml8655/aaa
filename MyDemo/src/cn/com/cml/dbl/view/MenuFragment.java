@@ -9,8 +9,10 @@ import org.androidannotations.annotations.ViewById;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -18,13 +20,16 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
+import cn.com.cml.dbl.LoginActivity_;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.mode.api.User;
+import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
 @EFragment(R.layout.fragment_menu)
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	private static final String TAG = "MenuFragment";
 
@@ -36,10 +41,12 @@ public class MenuFragment extends Fragment {
 
 	public static enum MenuItems {
 
-		HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), MAP(
-				R.id.menu_monitor, MobileMonitorFragment_.class,
-				R.string.menu_monitor), ALARM(R.id.menu_alarm,
-				AlarmFragment_.class, R.string.menu_alarm);
+		HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), //
+		MAP(R.id.menu_monitor, MobileMonitorFragment_.class,
+				R.string.menu_monitor), //
+		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), //
+		SUGGEST(R.id.menu_suggest, SuggestFragment_.class,
+				R.string.menu_suggest);//
 
 		private int id;
 		private Class<? extends Fragment> clazz;
@@ -173,8 +180,8 @@ public class MenuFragment extends Fragment {
 		rankView.setText(getString(R.string.menu_rank_text, "一级"));
 	}
 
-	@Click(value = { R.id.menu_home, R.id.menu_photo, R.id.menu_sms,
-			R.id.menu_alarm, R.id.menu_volume, R.id.menu_monitor })
+	@Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
+			R.id.menu_suggest })
 	public void click(View clickView) {
 
 		final int id = clickView.getId();
@@ -185,6 +192,12 @@ public class MenuFragment extends Fragment {
 	@Click(R.id.menu_setting)
 	public void settingClicked() {
 		ModalActivity_.intent(getActivity()).start();
+	}
+
+	@Click(R.id.menu_logout)
+	public void logoutClicked() {
+		DialogUtil.defaultDialog(R.string.exit_confirm, 1, this).show(
+				getFragmentManager(), "logout");
 	}
 
 	private void toggleMenu(int id, boolean leftMenuShow) {
@@ -211,7 +224,7 @@ public class MenuFragment extends Fragment {
 			return;
 		}
 
-		Fragment fragment = menus.get(R.id.menu_photo);
+		Fragment fragment = menus.get(id);
 
 		if (null == fragment) {
 
@@ -248,5 +261,13 @@ public class MenuFragment extends Fragment {
 
 	private void closeMenu() {
 		((MainActivity) getActivity()).closeMenu();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, long id, int requestId) {
+		if (id == DialogInterface.BUTTON_POSITIVE) {
+			LoginActivity_.intent(getActivity()).start();
+			getActivity().finish();
+		}
 	}
 }

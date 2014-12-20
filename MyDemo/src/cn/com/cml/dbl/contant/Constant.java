@@ -7,6 +7,7 @@ public interface Constant {
 	String JINBAO = "jb";
 	String JINGBAO_RING = "jbring";// 警报响起
 	long JINGBAO_RING_EXPIRES = 300000;// 警报响起
+
 	/**
 	 * 30s内有效
 	 */
@@ -26,7 +27,7 @@ public interface Constant {
 		JINGBAO_ENUM(JINBAO, JINBAO_EXPIRES), //
 		JINGBAO_STOP_ENUM(JINGBAO_STOP, JINGBAO_STOP_EXPIRES), //
 		DINGWEI_ENUM(DINGWEI, DINGWEI_EXPIRES), //
-		JINGBAO_RING_ENUM(JINGBAO_RING, JINGBAO_RING_EXPIRES);//警报响起
+		JINGBAO_RING_ENUM(JINGBAO_RING, JINGBAO_RING_EXPIRES);// 警报响起
 
 		private String command;
 		private long endTime;
@@ -83,5 +84,10 @@ public interface Constant {
 		int BASE_SERIES = 0;
 		int MAX_SERIES = 4;
 		int YESTERDAY = 1;
+	}
+
+	interface Alarm {
+		int TYPE_COMMAND = 1001;
+		int TYPE_SMS = 1002;
 	}
 }

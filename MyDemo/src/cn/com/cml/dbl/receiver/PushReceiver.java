@@ -14,14 +14,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 import cn.bmob.push.PushConstants;
 import cn.com.cml.dbl.contant.Constant;
-import cn.com.cml.dbl.listener.GlobalBaseListener_;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
+import cn.com.cml.dbl.service.AlarmServiceQuene;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
-import cn.com.cml.dbl.service.GlobalService;
 import cn.com.cml.dbl.service.PushService_;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
@@ -111,9 +109,13 @@ public class PushReceiver extends BroadcastReceiver {
 
 		if (exist) {
 
-			PushService_.intent(context).pushRingMessage("").start();
+			PushService_.intent(context).pushRingMessage(model.getFromDevice()).start();
 
-			AlarmServiceQuene_.intent(context).start();
+			Intent intent = AlarmServiceQuene_.intent(context).get();
+			intent.putExtra(AlarmServiceQuene.EXTRA_TYPE,
+					Constant.Alarm.TYPE_COMMAND);
+
+			context.startService(intent);
 		}
 
 	}

@@ -11,9 +11,6 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -165,7 +162,7 @@ public class LoginActivity extends BaseActivity {
 
 		dialog.dismiss();
 
-		MainActivity_.intent(LoginActivity.this).start();
+		MainActivity_.intent(LoginActivity.this).isBindDevice(true).start();
 
 		finish();
 	}

@@ -19,24 +19,19 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import cn.bmob.v3.BmobUser;
-import cn.com.cml.dbl.contant.Constant;
-import cn.com.cml.dbl.listener.BaseSaveListener;
 import cn.com.cml.dbl.listener.CheckingListener;
-import cn.com.cml.dbl.mode.api.ScoreHistory;
 import cn.com.cml.dbl.mode.api.User;
-import cn.com.cml.dbl.model.UserLocalModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.AnimUtils;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.DialogUtil;
-import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 import cn.com.cml.dbl.view.MenuFragment;
+import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 import cn.com.cml.dbl.view.MenuFragment_;
 
 @EActivity(R.layout.activity_main)
@@ -54,6 +49,9 @@ public class MainActivity extends BaseActivity {
 
 	@ViewById(R.id.over_view_container)
 	RelativeLayout overViewLayout;
+
+	@Extra
+	public boolean isBindDevice;// 是否绑定了此手机
 
 	private ActionBarDrawerToggle mDrawerToggle;
 

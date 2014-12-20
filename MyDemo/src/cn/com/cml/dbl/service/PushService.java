@@ -25,8 +25,17 @@ public class PushService extends IntentService {
 
 	@ServiceAction
 	public void pushRingMessage(String imei) {
-		Log.d("PushService", "停止指令：。。。。");
-		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM, PetApplication.deviceId, null);
+		if(null==imei){
+			return;
+		}
+		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM,imei, null);
+	}
+	@ServiceAction
+	public void pushAlarmExitMessage(String imei) {
+		if(null==imei){
+			return;
+		}
+		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM,imei, null);
 	}
 
 	@Override
