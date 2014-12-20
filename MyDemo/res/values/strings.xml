@@ -106,6 +106,8 @@
     <string name="alarm_cancel">取消警报</string>
     <string name="alarm_sending">正在发送...</string>
     <string name="alarm_pass_cancel">请输入密码解除警报</string>
+    <string name="alarm_wait_feedback">发送成功，等待响应</string>
+    <string name="alarm_ring">主人，警报已响起</string>
 
     <string-array name="monitor_select_list">
         <item>地图定位</item>

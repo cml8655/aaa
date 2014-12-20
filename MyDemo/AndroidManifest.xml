@@ -169,6 +169,7 @@
         </service>
         <service android:name="cn.com.cml.dbl.service.LocalStorageService_" >
         </service>
+        <service android:name="cn.com.cml.dbl.service.PushService_"></service>
 
         <!-- bmob push service -->
         <service

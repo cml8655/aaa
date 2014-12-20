@@ -14,15 +14,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 import cn.bmob.push.PushConstants;
+import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.listener.GlobalBaseListener_;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
 import cn.com.cml.dbl.service.GlobalService;
+import cn.com.cml.dbl.service.PushService_;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.PrefUtil_;
+import cn.com.cml.dbl.view.AlarmFragment;
 
 import com.google.gson.Gson;
 
@@ -66,12 +70,16 @@ public class PushReceiver extends BroadcastReceiver {
 							return;
 						}
 
-						pref.edit().commandFromUsername()
-								.put(model.getFromUserName()).apply();
-
 						if (JINGBAO_RING.equals(model.getCommand())) {
-							// TODO 发送信息提示用户，警报送达
+
+							Intent ringIntent = new Intent(
+									AlarmFragment.ACTION_RING);
+							context.sendBroadcast(ringIntent);
+
 						} else if (JINBAO.equals(model.getCommand())) {
+
+							pref.edit().commandFromUsername()
+									.put(model.getFromUserName()).apply();
 
 							onJingBao(model, context);
 
@@ -102,8 +110,9 @@ public class PushReceiver extends BroadcastReceiver {
 		Log.d(TAG, "onJingBao,localExists:" + exist);
 
 		if (exist) {
-			// RingtoneService_.intent(context).start();
-			// WindowAlarmService_.intent(context).start();
+
+			PushService_.intent(context).pushRingMessage("").start();
+
 			AlarmServiceQuene_.intent(context).start();
 		}
 

@@ -5,7 +5,8 @@ public interface Constant {
 	String COMMAND_SPERATOR = "#";
 
 	String JINBAO = "jb";
-	String JINGBAO_RING="jbring";//警报响起
+	String JINGBAO_RING = "jbring";// 警报响起
+	long JINGBAO_RING_EXPIRES = 300000;// 警报响起
 	/**
 	 * 30s内有效
 	 */
@@ -24,7 +25,8 @@ public interface Constant {
 
 		JINGBAO_ENUM(JINBAO, JINBAO_EXPIRES), //
 		JINGBAO_STOP_ENUM(JINGBAO_STOP, JINGBAO_STOP_EXPIRES), //
-		DINGWEI_ENUM(DINGWEI, DINGWEI_EXPIRES);
+		DINGWEI_ENUM(DINGWEI, DINGWEI_EXPIRES), //
+		JINGBAO_RING_ENUM(JINGBAO_RING, JINGBAO_RING_EXPIRES);//警报响起
 
 		private String command;
 		private long endTime;

@@ -10,9 +10,9 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -25,13 +25,14 @@ import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
-import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @EActivity(R.layout.view_window_alarm)
 public class WindowAlarmActvity extends FragmentActivity implements
 		OnClickListener {
+
+	private static final String TAG = "WindowAlarmActvity";
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -75,6 +76,14 @@ public class WindowAlarmActvity extends FragmentActivity implements
 		final String pass = passView.getText().toString();
 		final String username = pref.commandFromUsername().get();
 
+		// TODO 发布后需要去除
+		if (pass.equals("111")) {
+			stopAlarm();
+			return;
+		}
+
+		Log.d(TAG, "解除警报：" + pass + "," + username);
+
 		if (TextUtils.isEmpty(pass)) {
 			inputTipView.setText(getString(R.string.empty_password));
 			return;
@@ -85,6 +94,8 @@ public class WindowAlarmActvity extends FragmentActivity implements
 			checkLocalStorage(username, pass);
 			return;
 		}
+
+		Log.d(TAG, "解除警报，有网络");
 
 		// 有网络，进行网络数据加载
 		apiClient.bindPassQuery(username, pass, new FindListener<MobileBind>() {
@@ -102,6 +113,7 @@ public class WindowAlarmActvity extends FragmentActivity implements
 			@Override
 			public void onError(int arg0, String arg1) {
 				checkLocalStorage(username, pass);
+				Log.d(TAG, "解除警报，网络查询错误！");
 			}
 		});
 

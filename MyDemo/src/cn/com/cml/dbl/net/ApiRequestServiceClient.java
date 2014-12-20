@@ -141,7 +141,7 @@ public class ApiRequestServiceClient implements ApiRequestService {
 
 		model.setCommand(command.getCommand());
 		model.setEndTime(System.currentTimeMillis() + command.getEndTime());
-		model.setFromUserName(BmobUser.getCurrentUser(context).getUsername());
+		model.setFromUserName(command.getFrom());
 		model.setBindPass(command.getBindPass());
 
 		BmobPushManager<InstallationModel> pushManager = new BmobPushManager<InstallationModel>(
@@ -269,7 +269,8 @@ public class ApiRequestServiceClient implements ApiRequestService {
 			@Override
 			public void onSuccess() {
 				if (null != listener) {
-					listener.onSuccess(scoreHistory.getSeries(),scoreHistory.getScore());
+					listener.onSuccess(scoreHistory.getSeries(),
+							scoreHistory.getScore());
 				}
 			}
 

@@ -9,12 +9,19 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.PushListener;
 import cn.com.cml.dbl.PetApplication;
 import cn.com.cml.dbl.R;
@@ -33,6 +40,8 @@ public class AlarmFragment extends Fragment {
 
 	private static final String TAG = "AlarmFragment";
 
+	public static final String ACTION_RING = "cn.com.cml.dbl.view.AlarmFragment.alarm.ring";
+
 	@Bean
 	ApiRequestServiceClient apiClient;
 
@@ -49,6 +58,38 @@ public class AlarmFragment extends Fragment {
 
 	@StringRes(R.string.alarm_cancel)
 	String cancelAlarm;
+
+	private BroadcastReceiver alarmStateReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Activity ac = getActivity();
+			if (ac != null && !ac.isFinishing()) {
+
+				final String action = intent.getAction();
+
+				if (ACTION_RING.equals(action)) {
+					buttonStateChanged(R.color.cancel, cancelAlarm);
+					DialogUtil.toast(context, R.string.alarm_ring);
+				}
+			}
+		}
+	};
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		IntentFilter filter = new IntentFilter(ACTION_RING);
+		getActivity().registerReceiver(alarmStateReceiver, filter);
+	}
+
+	@Override
+	public void onDestroy() {
+
+		getActivity().unregisterReceiver(alarmStateReceiver);
+		super.onDestroy();
+	}
 
 	@AfterViews
 	public void initConfig() {
@@ -90,6 +131,7 @@ public class AlarmFragment extends Fragment {
 
 				// TODO 没有绑定手机，跳到绑定界面
 				if (result.size() == 0) {
+					Log.d(TAG, "没有找到绑定手机");
 					return;
 				}
 
@@ -109,6 +151,8 @@ public class AlarmFragment extends Fragment {
 
 					Command alaramCommand = Command.JINGBAO_ENUM;
 					alaramCommand.setBindPass(pass);
+					alaramCommand.setFrom(BmobUser
+							.getCurrentUser(getActivity()).getUsername());
 
 					apiClient.sendPushCommand(alaramCommand,
 							bindDevice.getImei(), new PushListener() {
@@ -117,8 +161,12 @@ public class AlarmFragment extends Fragment {
 								public void onSuccess() {
 									Log.d(TAG, "alaramCommand发送onSuccess"
 											+ Thread.currentThread().getId());
-									buttonStateChanged(R.color.cancel,
-											cancelAlarm);
+									// buttonStateChanged(R.color.cancel,
+									// cancelAlarm);
+									buttonStateChanged(
+											R.color.default_color,
+											getString(R.string.alarm_wait_feedback));
+									// TODO 计时
 								}
 
 								@Override
@@ -135,6 +183,8 @@ public class AlarmFragment extends Fragment {
 
 					Command alarmStopCommand = Command.JINGBAO_STOP_ENUM;
 					alarmStopCommand.setBindPass(pass);
+					alarmStopCommand.setFrom(BmobUser.getCurrentUser(
+							getActivity()).getUsername());
 
 					apiClient.sendPushCommand(alarmStopCommand,
 							bindDevice.getImei(), new PushListener() {
