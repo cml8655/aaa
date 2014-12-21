@@ -8,7 +8,9 @@
     <EditText
         android:id="@+id/bind_pass_input"
         style="@style/editStyle"
-        android:hint="@string/bind_password" />
+        android:hint="@string/bind_password"
+        android:inputType="textPassword"
+        android:maxLength="20" />
 
     <Button
         android:id="@+id/alarm_send_btn"

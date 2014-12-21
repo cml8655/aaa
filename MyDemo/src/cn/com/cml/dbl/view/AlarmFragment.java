@@ -15,16 +15,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.PushListener;
-import cn.com.cml.dbl.PetApplication;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.contant.Constant.Command;
 import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
@@ -59,6 +61,8 @@ public class AlarmFragment extends Fragment {
 	@StringRes(R.string.alarm_cancel)
 	String cancelAlarm;
 
+	private CountDownTimer countTimer;
+
 	private BroadcastReceiver alarmStateReceiver = new BroadcastReceiver() {
 
 		@Override
@@ -69,6 +73,7 @@ public class AlarmFragment extends Fragment {
 				final String action = intent.getAction();
 
 				if (ACTION_RING.equals(action)) {
+					countTimer.cancel();
 					buttonStateChanged(R.color.cancel, cancelAlarm);
 					DialogUtil.toast(context, R.string.alarm_ring);
 				}
@@ -161,12 +166,10 @@ public class AlarmFragment extends Fragment {
 								public void onSuccess() {
 									Log.d(TAG, "alaramCommand发送onSuccess"
 											+ Thread.currentThread().getId());
-									// buttonStateChanged(R.color.cancel,
-									// cancelAlarm);
 									buttonStateChanged(
 											R.color.default_color,
 											getString(R.string.alarm_wait_feedback));
-									// TODO 计时
+									startCountDown();
 								}
 
 								@Override
@@ -208,6 +211,37 @@ public class AlarmFragment extends Fragment {
 			}
 		});
 
+	}
+
+	private void startCountDown() {
+
+		countTimer = new CountDownTimer(Constant.JINBAO_EXPIRES, 1000) {
+
+			@Override
+			public void onTick(long millisUntilFinished) {
+
+				Activity ac = getActivity();
+
+				if (ac != null && !ac.isFinishing()) {
+					controlButton.setText(getString(
+							R.string.alarm_wait_feedback,
+							millisUntilFinished / 1000));
+				}
+
+			}
+
+			@Override
+			public void onFinish() {
+
+				Activity ac = getActivity();
+				if (ac != null && !ac.isFinishing()) {
+					buttonStateChanged(R.color.default_color, sendAlarm);
+				}
+
+			}
+		};
+
+		countTimer.start();
 	}
 
 	private void buttonStateChanged(int bg, String text) {

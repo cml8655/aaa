@@ -106,12 +106,14 @@
     <string name="monitor_select_list_title">请选择找回方式！</string>
 
     <!-- 警报追踪 -->
+    <string name="alarm_sms_send">短信发送</string>
     <string name="alarm_send">发送警报</string>
     <string name="alarm_cancel">取消警报</string>
     <string name="alarm_sending">正在发送...</string>
     <string name="alarm_pass_cancel">请输入密码解除警报</string>
-    <string name="alarm_wait_feedback">发送成功，等待响应</string>
+    <string name="alarm_wait_feedback">发送成功，等待响应%1$ss</string>
     <string name="alarm_ring">主人，警报已响起</string>
+    <string name="alarm_count_down">%1$ss</string>
 
     <string-array name="monitor_select_list">
         <item>地图定位</item>

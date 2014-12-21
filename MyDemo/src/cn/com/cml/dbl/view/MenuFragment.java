@@ -191,7 +191,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	@Click(R.id.menu_setting)
 	public void settingClicked() {
-		ModalActivity_.intent(getActivity()).start();
+		ModalActivity_.intent(getActivity()).container(SettingFragment_.class)
+				.fragmentTitle(R.string.menu_setting).start();
 	}
 
 	@Click(R.id.menu_logout)
@@ -266,8 +267,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public void onClick(DialogInterface dialog, long id, int requestId) {
 		if (id == DialogInterface.BUTTON_POSITIVE) {
-			LoginActivity_.intent(getActivity()).start();
-			getActivity().finish();
+			MainActivity ac = (MainActivity) getActivity();
+			ac.logout();
 		}
 	}
 }

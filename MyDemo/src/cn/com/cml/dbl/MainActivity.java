@@ -16,9 +16,11 @@ import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +54,10 @@ public class MainActivity extends BaseActivity {
 
 	@Extra
 	public boolean isBindDevice;// 是否绑定了此手机
+
+	private boolean backClicked;
+
+	private Handler handler = new Handler();
 
 	private ActionBarDrawerToggle mDrawerToggle;
 
@@ -226,7 +232,62 @@ public class MainActivity extends BaseActivity {
 		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK && !backClicked) {
+
+			backClicked = true;
+
+			DialogUtil.toast(this, R.string.click_exit);
+
+			handler.postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					backClicked = false;
+				}
+			}, 1000);
+
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public void logout() {
+		//
+		// List<Fragment> fragments =
+		// getSupportFragmentManager().getFragments();
+		//
+		// StringBuffer buffer = new StringBuffer();
+		//
+		// for (Fragment fragment : fragments) {
+		//
+		// if (fragment instanceof RemainTask) {
+		//
+		// RemainTask task = (RemainTask) fragment;
+		//
+		// if(task.hasTask()){
+		// buffer.append(task.taskTip()).append("\n");
+		// }
+		//
+		// }
+		//
+		// }
+
+		LoginActivity_.intent(this).start();
+		finish();
+	}
+
 	public void closeMenu() {
 		mDrawerLayout.closeDrawers();
+	}
+
+	public static interface RemainTask {
+
+		public boolean hasTask();
+
+		public String taskTip();
 	}
 }

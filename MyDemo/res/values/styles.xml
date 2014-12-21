@@ -23,7 +23,8 @@
 
     <style name="ModalStyle" mce_bogus="1" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowAnimationStyle">@style/defaultAnimation</item>
-        <item name="android:windowNoTitle">true</item>
+        <item name="android:actionBarStyle">@style/actionBar</item>
+        <item name="android:windowNoTitle">false</item>
     </style>
 
     <style name="defaultAnimation" parent="@android:style/Animation.Activity">

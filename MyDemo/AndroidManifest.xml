@@ -53,7 +53,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <!-- bmob 推送 -->
     <permission
@@ -134,6 +134,8 @@
         </activity>
         <activity
             android:name="cn.com.cml.dbl.ModalActivity_"
+            android:label="@string/back"
+            android:screenOrientation="portrait"
             android:theme="@style/ModalStyle" >
         </activity>
         <activity
@@ -170,7 +172,8 @@
         </service>
         <service android:name="cn.com.cml.dbl.service.LocalStorageService_" >
         </service>
-        <service android:name="cn.com.cml.dbl.service.PushService_"></service>
+        <service android:name="cn.com.cml.dbl.service.PushService_" >
+        </service>
 
         <!-- bmob push service -->
         <service
