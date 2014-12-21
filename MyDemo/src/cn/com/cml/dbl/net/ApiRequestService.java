@@ -36,5 +36,7 @@ public interface ApiRequestService {
 			PushListener listener);
 
 	void dailyChecking(CheckingListener listener);
+	
+	void suggestAdd(String text,SaveListener listener);
 
 }

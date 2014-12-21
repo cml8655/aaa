@@ -6,6 +6,7 @@
     android:padding="@dimen/default_margin" >
 
     <EditText
+        android:id="@+id/suggest_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_view_bg"
@@ -16,6 +17,7 @@
         android:padding="@dimen/default_margin" />
 
     <Button
+        android:id="@+id/suggest_send"
         style="@style/buttonStyle"
         android:layout_marginTop="@dimen/default_margin"
         android:text="@string/send" />

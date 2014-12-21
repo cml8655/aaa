@@ -52,6 +52,9 @@
 
     <!-- 意见反馈 -->
     <string name="suggest_hint">请输入您的宝贵意见</string>
+    <string name="suggest_empty">亲，说点什么吧！</string>
+    <string name="suggest_success">您的意见已经收到，非常感谢</string>
+    <string name="suggest_fail">非常抱歉，信息发送失败</string>
 
     <!-- 登录界面 -->
     <string name="login_title">登录</string>

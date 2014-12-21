@@ -23,6 +23,7 @@ import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.InstallationModel;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.ScoreHistory;
+import cn.com.cml.dbl.mode.api.Suggestion;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.util.CommonUtils;
@@ -283,5 +284,16 @@ public class ApiRequestServiceClient implements ApiRequestService {
 			}
 		});
 
+	}
+
+	@Override
+	public void suggestAdd(String text, SaveListener listener) {
+
+		Suggestion suggestion = new Suggestion();
+
+		suggestion.setText(text);
+		suggestion.setUsername(BmobUser.getCurrentUser(context).getUsername());
+
+		suggestion.save(context, listener);
 	}
 }
