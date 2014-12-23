@@ -118,6 +118,10 @@
     <string name="alarm_ring">主人，警报已响起</string>
     <string name="alarm_count_down">%1$ss</string>
 
+    <!-- setting fragment -->
+    <string name="setting_miui">小米授权</string>
+    <string name="setting_status_bar">状态栏显示</string>
+
     <string-array name="monitor_select_list">
         <item>地图定位</item>
         <item>手机警报</item>

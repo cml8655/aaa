@@ -5,7 +5,6 @@
 
     <FrameLayout
         android:id="@+id/modal_container"
-        android:background="@color/default_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </FrameLayout>

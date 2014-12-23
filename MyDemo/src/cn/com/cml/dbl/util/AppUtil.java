@@ -2,8 +2,6 @@ package cn.com.cml.dbl.util;
 
 import java.util.List;
 
-import cn.com.cml.dbl.WindowAlarmActvity_;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.app.ActivityManager.RunningTaskInfo;
@@ -11,12 +9,17 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 public class AppUtil {
 
 	private static final int SERVICE_LIMIT = 50;
+	private static final String TAG = "AppUtil";
 
 	public static String version(Context context) {
 
@@ -64,5 +67,51 @@ public class AppUtil {
 
 		return task.topActivity.getClassName().equals(clazz.getName());
 
+	}
+
+	public static boolean isMIUI(Context context) {
+
+		boolean result = false;
+
+		Intent i = new Intent("miui.intent.action.APP_PERM_EDITOR");
+
+		i.setClassName("com.android.settings",
+				"com.miui.securitycenter.permission.AppPermissionsEditor");
+
+		if (isIntentAvailable(context, i)) {
+			result = true;
+		}
+		return result;
+	}
+
+	public static boolean isIntentAvailable(Context context, Intent intent) {
+
+		PackageManager packageManager = context.getPackageManager();
+
+		List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+				PackageManager.GET_ACTIVITIES);
+
+		return list.size() > 0;
+	}
+
+	public static void setAppPriority(Context context) {
+
+		PackageManager pm = context.getPackageManager();
+
+		PackageInfo info = null;
+		try {
+			info = pm.getPackageInfo(context.getPackageName(), 0);
+		} catch (NameNotFoundException e) {
+			Log.e(TAG, "setAppPriority", e);
+		}
+		Intent i = new Intent("miui.intent.action.APP_PERM_EDITOR");
+		i.setClassName("com.android.settings",
+				"com.miui.securitycenter.permission.AppPermissionsEditor");
+		i.putExtra("extra_package_uid", info.applicationInfo.uid);
+		try {
+			context.startActivity(i);
+		} catch (Exception e) {
+			Toast.makeText(context, "只有MIUI才可以设置哦", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

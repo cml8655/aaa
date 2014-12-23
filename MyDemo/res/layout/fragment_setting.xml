@@ -2,17 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/default_margin"
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/setting_miui"
+        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置" />
+        android:text="@string/setting_miui"
+        android:visibility="gone" />
 
     <TextView
+        android:id="@+id/setting_status_bar"
+        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置" />
+        android:layout_marginTop="@dimen/default_margin"
+        android:text="@string/setting_status_bar" />
 
     <TextView
         android:layout_width="match_parent"

@@ -280,6 +280,13 @@ public class MainActivity extends BaseActivity {
 		finish();
 	}
 
+	@Override
+	protected void onDestroy() {
+
+		BmobUser.logOut(getApplicationContext());
+		super.onDestroy();
+	}
+
 	public void closeMenu() {
 		mDrawerLayout.closeDrawers();
 	}
