@@ -8,21 +8,20 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.helper.MapMenuHelper;
 import cn.com.cml.dbl.helper.MapMenuHelper.MenuType;
 import cn.com.cml.dbl.helper.MapMenuHelper.OnMenuClickListener;
+import cn.com.cml.dbl.helper.ReverseCoderHelper;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.ui.MapviewTipView;
 import cn.com.cml.dbl.ui.MapviewTipView_;
-import cn.com.cml.dbl.ui.PopupMenuView;
 import cn.com.cml.dbl.util.DialogUtil;
 
 import com.baidu.location.BDLocation;
@@ -44,9 +43,15 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 
 @EFragment(R.layout.fragment_mobile_monitor)
-public class MobileMonitorFragment extends Fragment implements
+public class MobileMonitorFragment extends BaseFragment implements
 		BDLocationListener {
 
 	private static final String TAG = "MobileMonitorFragment";
@@ -57,8 +62,8 @@ public class MobileMonitorFragment extends Fragment implements
 	@Bean
 	MapMenuHelper mapMenuHelper;
 
-	@ViewById(R.id.map_menu_user)
-	PopupMenuView userMenuView;
+	@Bean
+	ReverseCoderHelper reverseHelper;
 
 	private BDLocation myLocation;
 
@@ -69,6 +74,33 @@ public class MobileMonitorFragment extends Fragment implements
 
 	private DialogFragment dialog;
 	private boolean isFirst;
+
+	private OnGetGeoCoderResultListener userlocationReverse = new OnGetGeoCoderResultListener() {
+
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+				showNiftyTip(R.string.monitor_location_error);
+				return;
+			}
+
+			Activity ac = getActivity();
+
+			if (null != result && null != ac && !ac.isFinishing()) {
+				String address = result.getAddress();
+				int radius = (int) reverseHelper.getUserLocation().getRadius();
+				showNiftyTip(
+						getString(R.string.monitor_location_result, address,
+								radius), R.id.mobile_monitor_tip_container);
+			}
+
+		}
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult result) {
+		}
+	};
 
 	private OnMenuClickListener menuItemClickListener = new OnMenuClickListener() {
 
@@ -82,10 +114,13 @@ public class MobileMonitorFragment extends Fragment implements
 			switch (menuType) {
 
 			case TYPE_SETTING:
-
+				showNiftyTip("TYPE_MOBILE上海市地方：。。。。",
+						R.id.mobile_monitor_tip_container);
 				break;
 
 			case TYPE_USER:
+
+				reverseHelper.reverseUserLocationCoder(userlocationReverse);
 
 				map.animateMapStatus(MapStatusUpdateFactory
 						.newLatLng(new LatLng(myLocation.getLatitude(),
@@ -96,6 +131,8 @@ public class MobileMonitorFragment extends Fragment implements
 			case TYPE_MOBILE:
 				map.animateMapStatus(MapStatusUpdateFactory
 						.newLatLng(new LatLng(31.245951, 121.51377)));
+				showNiftyTip("TYPE_MOBILE上海市地方：。。。。",
+						R.id.mobile_monitor_tip_container);
 
 				break;
 
@@ -106,10 +143,8 @@ public class MobileMonitorFragment extends Fragment implements
 
 	@AfterViews
 	public void initConfig() {
-		
-		Log.d(TAG, "MobileMonitorFragment==》initConfig");
 
-		userMenuView.bindMenuListener("dddd", R.menu.main, null);
+		Log.d(TAG, "MobileMonitorFragment==》initConfig");
 
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_spin5,
 				R.string.locate_user);
@@ -335,6 +370,8 @@ public class MobileMonitorFragment extends Fragment implements
 			return;
 		}
 
+		reverseHelper.setUserLocation(location);
+
 		if (!isFirst) {
 			isFirst = true;
 			dialog.dismiss();
@@ -347,17 +384,6 @@ public class MobileMonitorFragment extends Fragment implements
 		repaintMap(mobileLocation, location);
 
 		myLocation = location;
-		//
-		// // 将数据保存到后台服务器
-		// LocationModel model = new LocationModel();
-		//
-		// model.setLatitude(location.getLatitude());
-		// model.setLongitude(location.getLongitude());
-		// model.setImei(PetApplication.deviceId);
-		// model.setRadius(location.getRadius());
-		// model.setLocType(location.getLocType());
-		//
-		// model.save(this.getActivity());
 
 		// MyLocationData myData = new MyLocationData.Builder()
 		// .accuracy(location.getRadius()).direction(100)

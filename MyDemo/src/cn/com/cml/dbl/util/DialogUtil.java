@@ -2,10 +2,10 @@ package cn.com.cml.dbl.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface.OnClickListener;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
@@ -13,7 +13,40 @@ import cn.com.cml.dbl.view.DefaultDialogFragment_;
 import cn.com.cml.dbl.view.NotifyDialogFragment;
 import cn.com.cml.dbl.view.NotifyDialogFragment_;
 
+import com.gitonway.lee.niftynotification.lib.Configuration;
+import com.gitonway.lee.niftynotification.lib.Effects;
+import com.gitonway.lee.niftynotification.lib.NiftyNotificationView;
+
 public class DialogUtil {
+
+	private static Configuration cfg;
+
+	static {
+		cfg = new Configuration.Builder().setAnimDuration(700)
+				.setDispalyDuration(1500).setBackgroundColor("#FFBDC3C7")
+				.setTextColor("#FF444444").setIconBackgroundColor("#FFFFFFFF")
+				.setTextPadding(5) // dp
+				.setViewHeight(48) // dp
+				.setTextLines(2) // You had better use setViewHeight and
+				.setTextGravity(Gravity.LEFT) // only text def
+				.build();
+	}
+
+	public static void showNiftyTip(Activity ac, String msg, int layoutId) {
+
+		final NiftyNotificationView niftyView = NiftyNotificationView.build(ac,
+				msg, Effects.flip, layoutId, cfg).setIcon(
+				R.drawable.launcher);// remove this line ,only text
+
+		niftyView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				niftyView.removeSticky();
+			}
+		});
+
+		niftyView.showSticky();
+	}
 
 	public static void showTip(Context context, String str) {
 
