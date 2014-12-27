@@ -65,8 +65,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Bean
 	ReverseCoderHelper reverseHelper;
 
-	private BDLocation myLocation;
-
 	private LocationClient baiduClient;
 
 	private BaiduMap map;
@@ -107,7 +105,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 		@Override
 		public void onClick(View v, MenuType menuType) {
 
-			if (map == null || myLocation == null) {
+			if (map == null) {
 				return;
 			}
 
@@ -120,11 +118,16 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 			case TYPE_USER:
 
+				// 根据坐标获取用户位置
 				reverseHelper.reverseUserLocationCoder(userlocationReverse);
 
-				map.animateMapStatus(MapStatusUpdateFactory
-						.newLatLng(new LatLng(myLocation.getLatitude(),
-								myLocation.getLongitude())));
+				BDLocation myLocation = reverseHelper.getUserLocation();
+
+				if (null != myLocation) {
+					map.animateMapStatus(MapStatusUpdateFactory
+							.newLatLng(new LatLng(myLocation.getLatitude(),
+									myLocation.getLongitude())));
+				}
 
 				break;
 
@@ -382,8 +385,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 		mobileLocation.setLongitude(121.51377);
 
 		repaintMap(mobileLocation, location);
-
-		myLocation = location;
 
 		// MyLocationData myData = new MyLocationData.Builder()
 		// .accuracy(location.getRadius()).direction(100)

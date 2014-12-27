@@ -2,9 +2,12 @@ package cn.com.cml.dbl.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 import cn.com.cml.dbl.model.SmsModel;
+import cn.com.cml.dbl.receiver.ShoutdownReceiver;
+import cn.com.cml.dbl.receiver.ShoutdownReceiver_;
 import cn.com.cml.dbl.util.AppUtil;
 
 /**
@@ -16,9 +19,20 @@ import cn.com.cml.dbl.util.AppUtil;
  */
 public class GlobalService extends Service {
 
+	private ShoutdownReceiver shoutDownReceiver;
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+		shoutDownReceiver = new ShoutdownReceiver_();
+
+		IntentFilter shoutdownFilter = new IntentFilter(Intent.ACTION_SHUTDOWN);
+		shoutdownFilter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+		shoutdownFilter.addAction(ShoutdownReceiver.ACTION_SHOUT_CANCEL);
+		shoutdownFilter.setPriority(Integer.MAX_VALUE);
+
+		registerReceiver(shoutDownReceiver, shoutdownFilter);
 
 		// 注册短信数据库监听
 		getContentResolver().registerContentObserver(SmsModel.SMS_CONTENT_URI,
@@ -51,6 +65,9 @@ public class GlobalService extends Service {
 
 	@Override
 	public void onDestroy() {
+
+		unregisterReceiver(shoutDownReceiver);
+
 		super.onDestroy();
 		startHolderService();
 	}

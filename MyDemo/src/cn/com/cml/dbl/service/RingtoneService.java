@@ -1,5 +1,8 @@
 package cn.com.cml.dbl.service;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EService;
 import org.androidannotations.annotations.SystemService;
@@ -11,7 +14,6 @@ import android.media.AudioManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.util.Log;
@@ -44,6 +46,8 @@ public class RingtoneService extends Service {
 	@Pref
 	PrefUtil_ prefUtil;
 
+	private Timer volumeTimer;
+
 	private Ringtone mRingtone;
 
 	@Override
@@ -65,10 +69,8 @@ public class RingtoneService extends Service {
 		// 存储原有音量大小
 		backupVolume();
 
-		// 将声音开到最大 TODO 解开
-		// volumeUtil.noisy();
+		volumeUtil.noisy();
 
-		// TODO
 		// 播放铃声
 		if (null != mRingtone && !mRingtone.isPlaying()) {
 			mRingtone.play();
@@ -81,6 +83,17 @@ public class RingtoneService extends Service {
 			isVirbrating = true;
 		}
 
+		if (null == volumeTimer) {
+			volumeTimer = new Timer();
+			volumeTimer.scheduleAtFixedRate(new TimerTask() {
+
+				@Override
+				public void run() {
+					volumeUtil.noisy();
+				}
+			}, 0, 500);
+		}
+
 		return super.onStartCommand(intent, flags, startId);
 	}
 
@@ -89,8 +102,11 @@ public class RingtoneService extends Service {
 
 		Log.d("RingtoneService", "ringtoneService 销毁了！");
 
+		volumeTimer.cancel();
+		volumeTimer = null;
+
 		// 还原手机音量大小
-		// restoreVolume();
+		restoreVolume();
 
 		// 关闭铃声播放
 		if (isRinging) {

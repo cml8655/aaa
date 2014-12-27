@@ -6,6 +6,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
@@ -15,6 +16,7 @@ import cn.com.cml.dbl.view.NotifyDialogFragment_;
 
 import com.gitonway.lee.niftynotification.lib.Configuration;
 import com.gitonway.lee.niftynotification.lib.Effects;
+import com.gitonway.lee.niftynotification.lib.Manager;
 import com.gitonway.lee.niftynotification.lib.NiftyNotificationView;
 
 public class DialogUtil {
@@ -23,7 +25,7 @@ public class DialogUtil {
 
 	static {
 		cfg = new Configuration.Builder().setAnimDuration(700)
-				.setDispalyDuration(1500).setBackgroundColor("#FFBDC3C7")
+				.setDispalyDuration(3000).setBackgroundColor("#FFBDC3C7")
 				.setTextColor("#FF444444").setIconBackgroundColor("#FFFFFFFF")
 				.setTextPadding(5) // dp
 				.setViewHeight(48) // dp
@@ -35,8 +37,8 @@ public class DialogUtil {
 	public static void showNiftyTip(Activity ac, String msg, int layoutId) {
 
 		final NiftyNotificationView niftyView = NiftyNotificationView.build(ac,
-				msg, Effects.flip, layoutId, cfg).setIcon(
-				R.drawable.launcher);// remove this line ,only text
+				msg, Effects.thumbSlider, layoutId, cfg).setIcon(
+				R.drawable.launcher);
 
 		niftyView.setOnClickListener(new View.OnClickListener() {
 			@Override

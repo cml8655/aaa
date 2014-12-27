@@ -1,9 +1,13 @@
 package cn.com.cml.dbl.util;
 
+import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
 @SharedPref(value = SharedPref.Scope.APPLICATION_DEFAULT)
 public interface PrefUtil {
+
+	@DefaultBoolean(value = true)
+	boolean shoutdownAlarm();
 
 	/** 代码前缀 */
 	String prefix();
@@ -35,7 +39,7 @@ public interface PrefUtil {
 	String username();
 
 	String nickName();
-	
+
 	String commandFromUsername();
 
 }

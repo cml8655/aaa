@@ -12,6 +12,9 @@
     <string name="checking_series">连续签到%1$s天 +%2$s</string>
     <string name="checking_start">签到成功 +1</string>
     <string name="checking_fail">签到失败，请稍候重试</string>
+    
+    <string name="shoutdown_tip">警报提示</string>
+    <string name="shoutdown_action">收到关机警报，点击解除</string>
 
     <!-- 主页 -->
     <string name="home">主页</string>
@@ -117,7 +120,7 @@
     <string name="alarm_wait_feedback">发送成功，等待响应%1$ss</string>
     <string name="alarm_ring">主人，警报已响起</string>
     <string name="alarm_count_down">%1$ss</string>
-    
+
     <!-- 地图定位 -->
     <string name="monitor_location_result">位置：%1$s\n误差范围：%2$s（米）</string>
     <string name="monitor_location_error">获取位置失败，请稍后再试</string>
