@@ -12,6 +12,7 @@ import org.androidannotations.annotations.UiThread;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ import cn.com.cml.dbl.ui.MapviewTipView;
 import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.ValidationUtil;
+import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -66,7 +68,7 @@ import com.google.gson.Gson;
 
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends BaseFragment implements
-		BDLocationListener {
+		BDLocationListener,OnItemClickListener {
 
 	private static final String TAG = "MobileMonitorFragment";
 
@@ -98,6 +100,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+
 			if (!intent.hasExtra(EXTRA_LOCATION_RESULT)) {
 				return;
 			}
@@ -107,8 +110,12 @@ public class MobileMonitorFragment extends BaseFragment implements
 			LocationModel model = new Gson().fromJson(locationStr,
 					LocationModel.class);
 
-			BDLocation bdLocation = new BDLocation(model.getLatitude(),
-					model.getLongitude(), model.getRadius());
+			BDLocation bdLocation = new BDLocation();
+
+			bdLocation.setLatitude(model.getLatitude());
+			bdLocation.setLongitude(model.getLongitude());
+			bdLocation.setLocType(model.getLocType());
+			bdLocation.setRadius(model.getRadius());
 
 			reverseHelper.setMobileLocation(bdLocation);
 			reverseHelper.reverseMobileLocationCoder(mobileLocationReverse);
@@ -128,8 +135,10 @@ public class MobileMonitorFragment extends BaseFragment implements
 			Activity ac = getActivity();
 
 			if (null != result && null != ac && !ac.isFinishing()) {
+
 				String address = result.getAddress();
-				int radius = (int) reverseHelper.getUserLocation().getRadius();
+				int radius = (int) reverseHelper.getMobileLocation()
+						.getRadius();
 				showNiftyTip(
 						getString(R.string.monitor_location_result, address,
 								radius), R.id.mobile_monitor_tip_container);
@@ -222,6 +231,9 @@ public class MobileMonitorFragment extends BaseFragment implements
 		dialog = DialogUtil.notifyDialogBuild(R.string.icon_spin5,
 				R.string.locate_user);
 		dialog.show(getFragmentManager(), "location");
+
+		DialogUtil.remotePassInputDialog(R.string.alarm_cancel, 1, this).show(
+				getFragmentManager(), "ddd");
 
 		// 设置菜单点击事件
 		mapMenuHelper.bindListener(menuItemClickListener);
@@ -555,6 +567,12 @@ public class MobileMonitorFragment extends BaseFragment implements
 						});
 			}
 		});
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, long id, int requestId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

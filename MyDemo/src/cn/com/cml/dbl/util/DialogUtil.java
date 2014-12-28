@@ -6,17 +6,16 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 import cn.com.cml.dbl.view.DefaultDialogFragment_;
 import cn.com.cml.dbl.view.NotifyDialogFragment;
 import cn.com.cml.dbl.view.NotifyDialogFragment_;
+import cn.com.cml.dbl.view.RemotePassInputDialogFragment_;
 
 import com.gitonway.lee.niftynotification.lib.Configuration;
 import com.gitonway.lee.niftynotification.lib.Effects;
-import com.gitonway.lee.niftynotification.lib.Manager;
 import com.gitonway.lee.niftynotification.lib.NiftyNotificationView;
 
 public class DialogUtil {
@@ -133,5 +132,26 @@ public class DialogUtil {
 
 		return dialog;
 
+	}
+
+	public static DialogFragment remotePassInputDialog(Integer text,
+			int requestId, Fragment targetFragment) {
+
+		if (targetFragment instanceof OnItemClickListener) {
+
+			DialogFragment dialog = RemotePassInputDialogFragment_.builder()
+					.negativeBtnText(R.string.system_btn_cancel)
+					.positiveBtnText(R.string.system_btn_ensure)
+					.requestId(requestId).title(R.string.system_tip).build();
+
+			dialog.setTargetFragment(targetFragment, 1);
+
+			dialog.setCancelable(false);
+
+			return dialog;
+		}
+
+		throw new IllegalArgumentException(
+				"fragment must extends OnItemClickListener");
 	}
 }
