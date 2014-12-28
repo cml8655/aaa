@@ -10,6 +10,15 @@ public class PushModel implements Serializable {
 	private String command;
 	private long endTime;// 有效的截止时间
 	private String fromDevice;
+	private String extraData;// 定位时使用
+
+	public String getExtraData() {
+		return extraData;
+	}
+
+	public void setExtraData(String extraData) {
+		this.extraData = extraData;
+	}
 
 	public String getBindPass() {
 		return bindPass;

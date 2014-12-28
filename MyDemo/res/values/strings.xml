@@ -12,7 +12,6 @@
     <string name="checking_series">连续签到%1$s天 +%2$s</string>
     <string name="checking_start">签到成功 +1</string>
     <string name="checking_fail">签到失败，请稍候重试</string>
-    
     <string name="shoutdown_tip">警报提示</string>
     <string name="shoutdown_action">收到关机警报，点击解除</string>
 
@@ -128,6 +127,8 @@
     <!-- setting fragment -->
     <string name="setting_miui">小米授权</string>
     <string name="setting_status_bar">状态栏显示</string>
+    <string name="setting_shoutdown_alarm">关机警报</string>
+    <string name="setting_about_us">关于我们</string>
 
     <string-array name="monitor_select_list">
         <item>地图定位</item>

@@ -1,17 +1,11 @@
 package cn.com.cml.dbl.model;
 
-public class LocationModel extends BaseModel {
+public class LocationModel {
 
 	private double latitude;
 	private double longitude;
 	private float radius;
-	private String address;
-	private String getTime;
-	private String userCode;
-	private String imei;
 	private int locType;
-	/** 0:imei,1:组合编号 */
-	private int imeiType;
 
 	public int getLocType() {
 		return locType;
@@ -43,46 +37,6 @@ public class LocationModel extends BaseModel {
 
 	public void setRadius(float radius) {
 		this.radius = radius;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getGetTime() {
-		return getTime;
-	}
-
-	public void setGetTime(String getTime) {
-		this.getTime = getTime;
-	}
-
-	public String getUserCode() {
-		return userCode;
-	}
-
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
-	}
-
-	public String getImei() {
-		return imei;
-	}
-
-	public void setImei(String imei) {
-		this.imei = imei;
-	}
-
-	public int getImeiType() {
-		return imeiType;
-	}
-
-	public void setImeiType(int imeiType) {
-		this.imeiType = imeiType;
 	}
 
 }

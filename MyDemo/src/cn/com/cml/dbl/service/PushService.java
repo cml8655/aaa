@@ -25,17 +25,33 @@ public class PushService extends IntentService {
 
 	@ServiceAction
 	public void pushRingMessage(String imei) {
-		if(null==imei){
+		if (null == imei) {
 			return;
 		}
-		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM,imei, null);
+		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM, imei,
+				null);
 	}
+
 	@ServiceAction
 	public void pushAlarmExitMessage(String imei) {
-		if(null==imei){
+		if (null == imei) {
 			return;
 		}
-		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM,imei, null);
+		apiClient.sendPushCommand(Constant.Command.JINGBAO_RING_ENUM, imei,
+				null);
+	}
+
+	@ServiceAction
+	public void pushLocationMonitorData(String imei, String location) {
+
+		if (null == imei) {
+			return;
+		}
+
+		Constant.Command command = Constant.Command.LOCATION_MONITOR_RESULT_ENUM;
+		command.setExtra(location);
+
+		apiClient.sendPushCommand(command, imei, null);
 	}
 
 	@Override

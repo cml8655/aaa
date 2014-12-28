@@ -176,6 +176,7 @@
         </service>
         <service android:name="cn.com.cml.dbl.service.NotificationClickService_" >
         </service>
+        <service android:name="cn.com.cml.dbl.service.LocationMonitorService_" />
 
         <!-- bmob push service -->
         <service

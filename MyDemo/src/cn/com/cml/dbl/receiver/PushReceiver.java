@@ -1,6 +1,5 @@
 package cn.com.cml.dbl.receiver;
 
-import static cn.com.cml.dbl.contant.Constant.DINGWEI;
 import static cn.com.cml.dbl.contant.Constant.JINBAO;
 import static cn.com.cml.dbl.contant.Constant.JINGBAO_RING;
 import static cn.com.cml.dbl.contant.Constant.JINGBAO_STOP;
@@ -20,11 +19,13 @@ import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.service.AlarmServiceQuene;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
+import cn.com.cml.dbl.service.LocationMonitorService_;
 import cn.com.cml.dbl.service.PushService_;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.view.AlarmFragment;
+import cn.com.cml.dbl.view.MobileMonitorFragment;
 
 import com.google.gson.Gson;
 
@@ -85,8 +86,30 @@ public class PushReceiver extends BroadcastReceiver {
 
 							onJingBaoStop(model, context);
 
-						} else if (DINGWEI.endsWith(model.getCommand())) {
-							// TODO 定位功能启动
+						} else if (Constant.LOCATION_MONITOR.equals(model
+								.getCommand())) {
+
+							Log.d(TAG, "定位服务启动:====>");
+
+							Intent locationIntent = LocationMonitorService_
+									.intent(context).get();
+							locationIntent.putExtra(
+									LocationMonitorService_.EXTRA_IMEI,
+									model.getFromDevice());
+							context.startService(locationIntent);
+							
+						} else if (Constant.LOCATION_MONITOR_RESULT
+								.equals(model.getCommand())) {
+							
+							Intent locationIntent = new Intent(
+									MobileMonitorFragment.ACTION_LOCATION_RESULT);
+
+							locationIntent
+									.putExtra(
+											MobileMonitorFragment.EXTRA_LOCATION_RESULT,
+											model.getExtraData());
+
+							context.sendBroadcast(locationIntent);
 						}
 
 					}
@@ -109,7 +132,8 @@ public class PushReceiver extends BroadcastReceiver {
 
 		if (exist) {
 
-			PushService_.intent(context).pushRingMessage(model.getFromDevice()).start();
+			PushService_.intent(context).pushRingMessage(model.getFromDevice())
+					.start();
 
 			Intent intent = AlarmServiceQuene_.intent(context).get();
 			intent.putExtra(AlarmServiceQuene.EXTRA_TYPE,

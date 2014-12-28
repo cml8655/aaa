@@ -13,8 +13,14 @@ public interface Constant {
 	 */
 	long JINBAO_EXPIRES = 30000;
 
-	String DINGWEI = "dw";
-	long DINGWEI_EXPIRES = 30000;
+	String LOCATION_MONITOR = "LOCATION_MONITOR";
+	long LOCATION_MONITOR_EXPIRES = 30000;
+
+	// 定位结果返回
+	String LOCATION_MONITOR_RESULT = "LOCATION_MONITOR_RESULT";
+	long LOCATION_MONITOR_RESULT_EXPIRES = 30000;
+
+	long LOCATION_CLIENT_EXPIRES = 600000;// 用户接收到定位后10分钟内自动定位
 
 	String JINGBAO_STOP = "jbtz";
 	/**
@@ -26,13 +32,16 @@ public interface Constant {
 
 		JINGBAO_ENUM(JINBAO, JINBAO_EXPIRES), //
 		JINGBAO_STOP_ENUM(JINGBAO_STOP, JINGBAO_STOP_EXPIRES), //
-		DINGWEI_ENUM(DINGWEI, DINGWEI_EXPIRES), //
+		DINGWEI_ENUM(LOCATION_MONITOR, LOCATION_MONITOR_EXPIRES), //
+		LOCATION_MONITOR_RESULT_ENUM(LOCATION_MONITOR_RESULT,
+				LOCATION_MONITOR_RESULT_EXPIRES), //
 		JINGBAO_RING_ENUM(JINGBAO_RING, JINGBAO_RING_EXPIRES);// 警报响起
 
 		private String command;
 		private long endTime;
 		private String bindPass;
 		private String from;
+		private String extra;
 
 		private Command(String command, long endTime) {
 			this.command = command;
@@ -50,6 +59,14 @@ public interface Constant {
 			}
 
 			return null;
+		}
+
+		public String getExtra() {
+			return extra;
+		}
+
+		public void setExtra(String extra) {
+			this.extra = extra;
 		}
 
 		public String getBindPass() {

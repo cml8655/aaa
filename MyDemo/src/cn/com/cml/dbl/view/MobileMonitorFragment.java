@@ -10,19 +10,32 @@ import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.UiThread;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.PushListener;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.contant.Constant.Command;
 import cn.com.cml.dbl.helper.MapMenuHelper;
 import cn.com.cml.dbl.helper.MapMenuHelper.MenuType;
 import cn.com.cml.dbl.helper.MapMenuHelper.OnMenuClickListener;
 import cn.com.cml.dbl.helper.ReverseCoderHelper;
+import cn.com.cml.dbl.listener.BaseFindListener;
+import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.LocationModel;
+import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.service.LocationMonitorService_;
 import cn.com.cml.dbl.ui.MapviewTipView;
 import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.util.ValidationUtil;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -49,12 +62,16 @@ import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.google.gson.Gson;
 
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends BaseFragment implements
 		BDLocationListener {
 
 	private static final String TAG = "MobileMonitorFragment";
+
+	public static final String ACTION_LOCATION_RESULT = "cn.com.cml.dbl.view.MobileMonitorFragment.ACTION_LOCATION_RESULT";
+	public static final String EXTRA_LOCATION_RESULT = "MobileMonitorFragment.EXTRA_LOCATION_RESULT";
 
 	@FragmentById(R.id.map_fragment)
 	SupportMapFragment mapFragment;
@@ -65,6 +82,9 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Bean
 	ReverseCoderHelper reverseHelper;
 
+	@Bean
+	ApiRequestServiceClient apiClient;
+
 	private LocationClient baiduClient;
 
 	private BaiduMap map;
@@ -72,6 +92,56 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 	private DialogFragment dialog;
 	private boolean isFirst;
+
+	// 手机定位返回数据
+	private BroadcastReceiver mobileLocationReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (!intent.hasExtra(EXTRA_LOCATION_RESULT)) {
+				return;
+			}
+
+			String locationStr = intent.getStringExtra(EXTRA_LOCATION_RESULT);
+
+			LocationModel model = new Gson().fromJson(locationStr,
+					LocationModel.class);
+
+			BDLocation bdLocation = new BDLocation(model.getLatitude(),
+					model.getLongitude(), model.getRadius());
+
+			reverseHelper.setMobileLocation(bdLocation);
+			reverseHelper.reverseMobileLocationCoder(mobileLocationReverse);
+		}
+	};
+
+	private OnGetGeoCoderResultListener mobileLocationReverse = new OnGetGeoCoderResultListener() {
+
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+				showNiftyTip(R.string.monitor_location_error);
+				return;
+			}
+
+			Activity ac = getActivity();
+
+			if (null != result && null != ac && !ac.isFinishing()) {
+				String address = result.getAddress();
+				int radius = (int) reverseHelper.getUserLocation().getRadius();
+				showNiftyTip(
+						getString(R.string.monitor_location_result, address,
+								radius), R.id.mobile_monitor_tip_container);
+			}
+
+		}
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult result) {
+
+		}
+	};
 
 	private OnGetGeoCoderResultListener userlocationReverse = new OnGetGeoCoderResultListener() {
 
@@ -191,6 +261,9 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		map.setMyLocationConfigeration(config);
 
+		// TODO 用户输入远程密码后进行定位功能开启
+		sendLocationCommand();
+
 	}
 
 	@Override
@@ -201,6 +274,20 @@ public class MobileMonitorFragment extends BaseFragment implements
 		}
 		super.onResume();
 
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		IntentFilter filter = new IntentFilter(ACTION_LOCATION_RESULT);
+		getActivity().registerReceiver(mobileLocationReceiver, filter);
+	}
+
+	@Override
+	public void onDestroy() {
+		getActivity().unregisterReceiver(mobileLocationReceiver);
+		super.onDestroy();
 	}
 
 	@Override
@@ -411,6 +498,63 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Override
 	public void onReceivePoi(BDLocation location) {
 
+	}
+
+	private void sendLocationCommand() {
+
+		// 查询用户手机绑定情况
+		apiClient.bindDeviceQuery(new BaseFindListener<MobileBind>(
+				getActivity()) {
+
+			@Override
+			public void onFinish() {
+				super.onFinish();
+			}
+
+			@Override
+			public void onSuccess(List<MobileBind> result) {
+
+				// TODO 没有绑定手机，跳到绑定界面
+				if (result.size() == 0) {
+					Log.d(TAG, "没有找到绑定手机");
+					return;
+				}
+
+				MobileBind bindDevice = result.get(0);
+
+				// TODO 输入远程密码
+				// // 密码错误
+				// if (!ValidationUtil.equals(pass,
+				// bindDevice.getBindPassword())) {
+				//
+				// DialogUtil.showTip(getActivity(),
+				// getString(R.string.password_error));
+				//
+				// return;
+				// }
+
+				// 启动警报
+
+				Command locationCommand = Command.DINGWEI_ENUM;
+				locationCommand.setBindPass("123");
+				locationCommand.setFrom(BmobUser.getCurrentUser(getActivity())
+						.getUsername());
+
+				apiClient.sendPushCommand(locationCommand,
+						bindDevice.getImei(), new PushListener() {
+
+							@Override
+							public void onSuccess() {
+								Log.d(TAG, "alaramCommand发送onSuccess");
+							}
+
+							@Override
+							public void onFailure(int arg0, String errorMsg) {
+								Log.d(TAG, "发送失败：" + errorMsg);
+							}
+						});
+			}
+		});
 	}
 
 }

@@ -145,6 +145,7 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		model.setFromUserName(command.getFrom());
 		model.setBindPass(command.getBindPass());
 		model.setFromDevice(PetApplication.deviceId);
+		model.setExtraData(command.getExtra());
 
 		BmobPushManager<InstallationModel> pushManager = new BmobPushManager<InstallationModel>(
 				context);
