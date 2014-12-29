@@ -53,6 +53,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <!-- bmob 推送 -->
     <permission
@@ -133,7 +134,14 @@
         </activity>
         <activity
             android:name="cn.com.cml.dbl.ModalActivity_"
+            android:label="@string/back"
+            android:screenOrientation="portrait"
             android:theme="@style/ModalStyle" >
+        </activity>
+        <activity
+            android:name="cn.com.cml.dbl.WindowAlarmActvity_"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" >
         </activity>
 
         <service
@@ -158,6 +166,17 @@
         </service>
         <service android:name="cn.com.cml.dbl.service.AlarmServiceQuene_" >
         </service>
+        <service android:name="cn.com.cml.dbl.service.GlobalService" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.GlobalServiceHolder" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.LocalStorageService_" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.PushService_" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.NotificationClickService_" >
+        </service>
+        <service android:name="cn.com.cml.dbl.service.LocationMonitorService_" />
 
         <!-- bmob push service -->
         <service
@@ -184,15 +203,30 @@
             </intent-filter>
         </receiver>
         <receiver
+            android:name="cn.com.cml.dbl.receiver.GlobalServiceReceiver"
+            android:enabled="true" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
             android:name="cn.com.cml.dbl.receiver.PushReceiver_"
             android:exported="false" >
-            <intent-filter>
+            <intent-filter android:priority="2147483647" >
+
+                <!-- bmob推送消息 -->
                 <action android:name="cn.bmob.push.action.MESSAGE" />
             </intent-filter>
         </receiver>
         <!-- end -->
-
-
         <!-- 短信监听 -->
         <receiver android:name="cn.com.cml.dbl.listener.GlobalBaseListener_" >
             <intent-filter android:priority="999" >

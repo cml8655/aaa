@@ -9,12 +9,17 @@ package cn.com.cml.dbl;
 
 public final class R {
     public static final class anim {
-        public static final int float_up_down=0x7f040000;
-        public static final int left_fadeout=0x7f040001;
-        public static final int left_out=0x7f040002;
-        public static final int right_fadein=0x7f040003;
-        public static final int right_in=0x7f040004;
-        public static final int splash_anim=0x7f040005;
+        public static final int checking_end=0x7f040000;
+        public static final int checking_start=0x7f040001;
+        public static final int fade_out=0x7f040002;
+        public static final int fall=0x7f040003;
+        public static final int float_up_down=0x7f040004;
+        public static final int left_fadeout=0x7f040005;
+        public static final int left_out=0x7f040006;
+        public static final int right_fadein=0x7f040007;
+        public static final int right_in=0x7f040008;
+        public static final int splash_anim=0x7f040009;
+        public static final int upgrade=0x7f04000a;
     }
     public static final class array {
         public static final int left_menus=0x7f080002;
@@ -69,224 +74,265 @@ containing a value of this type.
         public static final int shadow=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b004f;
-        public static final int actionbar_title=0x7f0b003e;
-        public static final int alarm_send_btn=0x7f0b0019;
-        public static final int bind_pass_input=0x7f0b0018;
+        public static final int actionbar_title=0x7f0b0046;
+        public static final int alarm_send_btn=0x7f0b001e;
+        public static final int bind_pass_input=0x7f0b001d;
         public static final int btn_bind=0x7f0b0002;
         public static final int btn_bind_device=0x7f0b0003;
-        public static final int btn_login=0x7f0b000a;
-        public static final int btn_register=0x7f0b000f;
-        public static final int btn_reset=0x7f0b0011;
-        public static final int cameraView=0x7f0b001a;
-        public static final int content_frame=0x7f0b000c;
-        public static final int device_show_tv=0x7f0b0033;
-        public static final int dialog_icon=0x7f0b001b;
-        public static final int dialog_msg=0x7f0b001c;
-        public static final int drawer_layout=0x7f0b000b;
-        public static final int dumy_search_btn=0x7f0b0015;
-        public static final int first_tv=0x7f0b0044;
-        public static final int forth_tv=0x7f0b0047;
-        public static final int gl_surface=0x7f0b0032;
-        public static final int home_mobile_monitor=0x7f0b001d;
-        public static final int img=0x7f0b002f;
+        public static final int btn_login=0x7f0b000b;
+        public static final int btn_monitor_device=0x7f0b0004;
+        public static final int btn_register=0x7f0b0014;
+        public static final int btn_reset=0x7f0b0016;
+        public static final int cameraView=0x7f0b001f;
+        public static final int content_frame=0x7f0b000e;
+        public static final int device_show_tv=0x7f0b003b;
+        public static final int dialog_icon=0x7f0b0020;
+        public static final int dialog_msg=0x7f0b0021;
+        public static final int drawer_layout=0x7f0b000d;
+        public static final int dumy_search_btn=0x7f0b001a;
+        public static final int first_tv=0x7f0b004c;
+        public static final int forth_tv=0x7f0b004f;
+        public static final int gl_surface=0x7f0b0036;
+        public static final int home_mobile_monitor=0x7f0b0022;
+        public static final int img=0x7f0b0033;
         public static final int input_bind_pass=0x7f0b0000;
         public static final int input_bind_repass=0x7f0b0001;
-        public static final int input_email=0x7f0b0010;
-        public static final int input_password=0x7f0b0007;
-        public static final int input_repassword=0x7f0b000e;
-        public static final int input_tip_tv=0x7f0b004b;
-        public static final int input_username=0x7f0b0006;
-        public static final int last_username_contanier=0x7f0b0004;
-        public static final int left_drawer=0x7f0b000d;
-        public static final int load_imei=0x7f0b0034;
-        public static final int load_imei_mac=0x7f0b0036;
-        public static final int load_mac=0x7f0b0035;
-        public static final int mapView=0x7f0b0017;
-        public static final int map_fragment=0x7f0b0029;
-        public static final int map_menu_bar_layout=0x7f0b002a;
-        public static final int map_menu_mobile=0x7f0b002c;
-        public static final int map_menu_setting=0x7f0b002b;
-        public static final int map_menu_user=0x7f0b002d;
-        public static final int map_search_btn=0x7f0b0014;
-        public static final int map_view_container=0x7f0b0016;
-        public static final int maptip_icon=0x7f0b003f;
-        public static final int maptip_text=0x7f0b0040;
-        public static final int media_volume_btn=0x7f0b0039;
-        public static final int menu_alarm=0x7f0b001e;
-        public static final int menu_command=0x7f0b0020;
-        public static final int menu_etc=0x7f0b0022;
-        public static final int menu_home=0x7f0b0024;
-        public static final int menu_icon=0x7f0b0041;
-        public static final int menu_item_login=0x7f0b003d;
-        public static final int menu_map=0x7f0b0026;
-        public static final int menu_monitor=0x7f0b001f;
-        public static final int menu_photo=0x7f0b0025;
-        public static final int menu_register=0x7f0b004e;
-        public static final int menu_sim_change=0x7f0b0021;
-        public static final int menu_sms=0x7f0b0027;
-        public static final int menu_suggest=0x7f0b0023;
-        public static final int menu_txt=0x7f0b0042;
-        public static final int menu_volume=0x7f0b0028;
-        public static final int msg_show=0x7f0b0038;
-        public static final int mylocation=0x7f0b0013;
-        public static final int pass_input=0x7f0b004c;
-        public static final int play_ringtone_btn=0x7f0b003b;
-        public static final int popup_menu_icon=0x7f0b0043;
-        public static final int receive_msg=0x7f0b0031;
-        public static final int ring_volume_btn=0x7f0b003a;
-        public static final int second_tv=0x7f0b0045;
-        public static final int send_btn=0x7f0b004d;
-        public static final int send_msg=0x7f0b0030;
-        public static final int show_msg=0x7f0b002e;
-        public static final int splash_logo=0x7f0b0012;
-        public static final int stop_ringtone_btn=0x7f0b003c;
-        public static final int third_tv=0x7f0b0046;
-        public static final int toggle_gps=0x7f0b0037;
-        public static final int tools_mobile=0x7f0b0049;
-        public static final int tools_setting=0x7f0b0048;
-        public static final int tools_user=0x7f0b004a;
-        public static final int tv_exchange=0x7f0b0008;
-        public static final int tv_findpass=0x7f0b0009;
-        public static final int tv_last_username=0x7f0b0005;
+        public static final int input_email=0x7f0b0015;
+        public static final int input_password=0x7f0b0008;
+        public static final int input_repassword=0x7f0b0013;
+        public static final int input_tip_tv=0x7f0b0054;
+        public static final int input_username=0x7f0b0007;
+        public static final int last_username_contanier=0x7f0b0005;
+        public static final int left_drawer=0x7f0b000f;
+        public static final int load_imei=0x7f0b003c;
+        public static final int load_imei_mac=0x7f0b003e;
+        public static final int load_mac=0x7f0b003d;
+        public static final int main_container=0x7f0b000c;
+        public static final int mapView=0x7f0b001c;
+        public static final int map_fragment=0x7f0b002c;
+        public static final int map_menu_bar_layout=0x7f0b002d;
+        public static final int map_menu_mobile=0x7f0b002f;
+        public static final int map_menu_setting=0x7f0b002e;
+        public static final int map_menu_user=0x7f0b0030;
+        public static final int map_search_btn=0x7f0b0019;
+        public static final int map_view_container=0x7f0b001b;
+        public static final int maptip_icon=0x7f0b0047;
+        public static final int maptip_text=0x7f0b0048;
+        public static final int media_volume_btn=0x7f0b0041;
+        public static final int menu_alarm=0x7f0b0027;
+        public static final int menu_checking=0x7f0b0058;
+        public static final int menu_home=0x7f0b0026;
+        public static final int menu_icon=0x7f0b0049;
+        public static final int menu_item_login=0x7f0b0045;
+        public static final int menu_logout=0x7f0b002b;
+        public static final int menu_monitor=0x7f0b0028;
+        public static final int menu_rank=0x7f0b0025;
+        public static final int menu_register=0x7f0b0057;
+        public static final int menu_score=0x7f0b0024;
+        public static final int menu_setting=0x7f0b0029;
+        public static final int menu_suggest=0x7f0b002a;
+        public static final int menu_txt=0x7f0b004a;
+        public static final int menu_username=0x7f0b0023;
+        public static final int mobile_monitor_tip_container=0x7f0b0031;
+        public static final int modal_container=0x7f0b0011;
+        public static final int modal_oval=0x7f0b0012;
+        public static final int msg_show=0x7f0b0040;
+        public static final int mylocation=0x7f0b0018;
+        public static final int over_view_container=0x7f0b0010;
+        public static final int pass_input=0x7f0b0055;
+        public static final int play_ringtone_btn=0x7f0b0043;
+        public static final int popup_menu_icon=0x7f0b004b;
+        public static final int receive_msg=0x7f0b0035;
+        public static final int remote_pass_input=0x7f0b0053;
+        public static final int ring_volume_btn=0x7f0b0042;
+        public static final int second_tv=0x7f0b004d;
+        public static final int send_btn=0x7f0b0056;
+        public static final int send_msg=0x7f0b0034;
+        public static final int setting_miui=0x7f0b0037;
+        public static final int setting_status_bar=0x7f0b0038;
+        public static final int show_msg=0x7f0b0032;
+        public static final int splash_logo=0x7f0b0017;
+        public static final int stop_ringtone_btn=0x7f0b0044;
+        public static final int suggest_send=0x7f0b003a;
+        public static final int suggest_text=0x7f0b0039;
+        public static final int third_tv=0x7f0b004e;
+        public static final int toggle_gps=0x7f0b003f;
+        public static final int tools_mobile=0x7f0b0051;
+        public static final int tools_setting=0x7f0b0050;
+        public static final int tools_user=0x7f0b0052;
+        public static final int tv_exchange=0x7f0b0009;
+        public static final int tv_findpass=0x7f0b000a;
+        public static final int tv_last_username=0x7f0b0006;
     }
     public static final class layout {
         public static final int activity_bind_device=0x7f030000;
         public static final int activity_importance=0x7f030001;
         public static final int activity_login=0x7f030002;
         public static final int activity_main=0x7f030003;
-        public static final int activity_register=0x7f030004;
-        public static final int activity_resetpassword=0x7f030005;
-        public static final int activity_splash=0x7f030006;
-        public static final int baiduapi_fragment=0x7f030007;
-        public static final int fragment_alarm=0x7f030008;
-        public static final int fragment_camerascan=0x7f030009;
-        public static final int fragment_dialog=0x7f03000a;
-        public static final int fragment_home=0x7f03000b;
-        public static final int fragment_menu=0x7f03000c;
-        public static final int fragment_mobile_monitor=0x7f03000d;
-        public static final int fragment_msg=0x7f03000e;
-        public static final int fragment_opengl=0x7f03000f;
-        public static final int fragment_userinfo=0x7f030010;
-        public static final int main=0x7f030011;
-        public static final int media_volume_fragment=0x7f030012;
-        public static final int menu_login=0x7f030013;
-        public static final int test=0x7f030014;
-        public static final int view_actionbar=0x7f030015;
-        public static final int view_maptip=0x7f030016;
-        public static final int view_menu_item=0x7f030017;
-        public static final int view_mobile_monitor_menu=0x7f030018;
-        public static final int view_mobile_monitor_select=0x7f030019;
-        public static final int view_mobile_monitor_tools=0x7f03001a;
-        public static final int view_window_alarm=0x7f03001b;
+        public static final int activity_modal=0x7f030004;
+        public static final int activity_register=0x7f030005;
+        public static final int activity_resetpassword=0x7f030006;
+        public static final int activity_splash=0x7f030007;
+        public static final int baiduapi_fragment=0x7f030008;
+        public static final int fragment_alarm=0x7f030009;
+        public static final int fragment_camerascan=0x7f03000a;
+        public static final int fragment_dialog=0x7f03000b;
+        public static final int fragment_home=0x7f03000c;
+        public static final int fragment_menu=0x7f03000d;
+        public static final int fragment_mobile_monitor=0x7f03000e;
+        public static final int fragment_msg=0x7f03000f;
+        public static final int fragment_opengl=0x7f030010;
+        public static final int fragment_setting=0x7f030011;
+        public static final int fragment_suggest=0x7f030012;
+        public static final int fragment_userinfo=0x7f030013;
+        public static final int main=0x7f030014;
+        public static final int media_volume_fragment=0x7f030015;
+        public static final int menu_login=0x7f030016;
+        public static final int test=0x7f030017;
+        public static final int view_actionbar=0x7f030018;
+        public static final int view_maptip=0x7f030019;
+        public static final int view_menu_item=0x7f03001a;
+        public static final int view_mobile_monitor_menu=0x7f03001b;
+        public static final int view_mobile_monitor_select=0x7f03001c;
+        public static final int view_mobile_monitor_tools=0x7f03001d;
+        public static final int view_remotepass_input=0x7f03001e;
+        public static final int view_window_alarm=0x7f03001f;
     }
     public static final class menu {
         public static final int login=0x7f0a0000;
         public static final int main=0x7f0a0001;
+        public static final int modal=0x7f0a0002;
     }
     public static final class string {
         public static final int action_settings=0x7f060002;
-        public static final int alarm_cancel=0x7f06004b;
-        public static final int alarm_pass_cancel=0x7f06004d;
+        public static final int alarm_cancel=0x7f060059;
+        public static final int alarm_count_down=0x7f06005e;
+        public static final int alarm_pass_cancel=0x7f06005b;
+        public static final int alarm_ring=0x7f06005d;
+        public static final int alarm_send=0x7f060058;
+        public static final int alarm_sending=0x7f06005a;
         /**  警报追踪 
          */
-        public static final int alarm_send=0x7f06004a;
-        public static final int alarm_sending=0x7f06004c;
+        public static final int alarm_sms_send=0x7f060057;
+        public static final int alarm_wait_feedback=0x7f06005c;
         public static final int app_name=0x7f060001;
         public static final int back=0x7f060003;
-        public static final int bind_btn_content=0x7f060046;
-        public static final int bind_device_success=0x7f060047;
+        public static final int bind_btn_content=0x7f060053;
+        public static final int bind_device_success=0x7f060054;
         /**  绑定界面 
          */
-        public static final int bind_password=0x7f060043;
-        public static final int bind_repassword=0x7f060044;
-        public static final int bind_tip_content=0x7f060048;
-        public static final int bind_tip_title=0x7f060045;
+        public static final int bind_password=0x7f060050;
+        public static final int bind_repassword=0x7f060051;
+        public static final int bind_tip_content=0x7f060055;
+        public static final int bind_tip_title=0x7f060052;
         /**  百度fragment 
          */
-        public static final int by_bus_text=0x7f06001a;
-        public static final int by_driver_text=0x7f06001b;
-        public static final int by_walk_text=0x7f06001c;
-        public static final int cancel_text=0x7f06001d;
+        public static final int by_bus_text=0x7f060023;
+        public static final int by_driver_text=0x7f060024;
+        public static final int by_walk_text=0x7f060025;
+        public static final int cancel_text=0x7f060026;
+        public static final int checking_fail=0x7f06000b;
+        public static final int checking_series=0x7f060009;
+        public static final int checking_start=0x7f06000a;
         public static final int click_exit=0x7f060005;
         public static final int command_desc=0x7f060000;
-        public static final int daily_sign=0x7f06000a;
+        public static final int daily_sign=0x7f06000f;
         public static final int data_requesting=0x7f060006;
-        public static final int email_incorrect=0x7f06002a;
-        public static final int email_send_fail=0x7f060037;
-        public static final int email_send_success=0x7f060036;
-        public static final int empty_password=0x7f060028;
-        public static final int empty_username=0x7f060027;
+        public static final int email_incorrect=0x7f060037;
+        public static final int email_send_fail=0x7f060044;
+        public static final int email_send_success=0x7f060043;
+        public static final int empty_password=0x7f060035;
+        public static final int empty_username=0x7f060034;
+        public static final int exit_confirm=0x7f060022;
         /**  主页 
          */
-        public static final int home=0x7f060009;
-        public static final int home_mobile_monitor=0x7f06000b;
-        public static final int icon_setting=0x7f06000e;
+        public static final int home=0x7f06000e;
+        public static final int home_mobile_monitor=0x7f060010;
+        public static final int icon_setting=0x7f060013;
         /**  font icon 
          */
-        public static final int icon_spin5=0x7f06000c;
-        public static final int icon_user=0x7f06000d;
-        public static final int locate_mobile=0x7f060021;
-        public static final int locate_user=0x7f060020;
-        public static final int login_exchange=0x7f06002d;
-        public static final int login_fail=0x7f06002b;
-        public static final int login_forget_pass=0x7f060024;
-        public static final int login_password_tip=0x7f060026;
-        public static final int login_register=0x7f060023;
-        public static final int login_request=0x7f06002c;
+        public static final int icon_spin5=0x7f060011;
+        public static final int icon_user=0x7f060012;
+        public static final int locate_mobile=0x7f06002a;
+        public static final int locate_user=0x7f060029;
+        public static final int login_exchange=0x7f06003a;
+        public static final int login_fail=0x7f060038;
+        public static final int login_forget_pass=0x7f060031;
+        public static final int login_password_tip=0x7f060033;
+        public static final int login_register=0x7f060030;
+        public static final int login_request=0x7f060039;
         /**  登录界面 
          */
-        public static final int login_title=0x7f060022;
-        public static final int login_username_tip=0x7f060025;
-        public static final int maptip=0x7f06001e;
-        public static final int maptip_none=0x7f06001f;
+        public static final int login_title=0x7f06002f;
+        public static final int login_username_tip=0x7f060032;
+        public static final int maptip=0x7f060027;
+        public static final int maptip_none=0x7f060028;
         /**  left menu 
          */
-        public static final int menu_alarm=0x7f06000f;
-        public static final int menu_command=0x7f060011;
-        public static final int menu_etc=0x7f060013;
-        public static final int menu_home=0x7f060018;
-        public static final int menu_map=0x7f060017;
-        public static final int menu_monitor=0x7f060010;
-        /**  dummy 
+        public static final int menu_alarm=0x7f060014;
+        public static final int menu_command=0x7f060016;
+        public static final int menu_home=0x7f06001f;
+        public static final int menu_logout=0x7f060021;
+        public static final int menu_map=0x7f06001e;
+        public static final int menu_monitor=0x7f060015;
+        public static final int menu_photo=0x7f06001c;
+        public static final int menu_rank_text=0x7f06001b;
+        public static final int menu_score_text=0x7f06001a;
+        public static final int menu_setting=0x7f060018;
+        public static final int menu_sim_change=0x7f060017;
+        public static final int menu_sms=0x7f06001d;
+        public static final int menu_suggest=0x7f060019;
+        public static final int menu_volume=0x7f060020;
+        public static final int monitor_location_error=0x7f060060;
+        /**  地图定位 
          */
-        public static final int menu_photo=0x7f060015;
-        public static final int menu_sim_change=0x7f060012;
-        public static final int menu_sms=0x7f060016;
-        public static final int menu_suggest=0x7f060014;
-        public static final int menu_volume=0x7f060019;
+        public static final int monitor_location_result=0x7f06005f;
         /**  手机找回弹出按钮 
          */
-        public static final int monitor_select_list_title=0x7f060049;
+        public static final int monitor_select_list_title=0x7f060056;
         public static final int network_error=0x7f060007;
         public static final int password_error=0x7f060008;
-        public static final int password_not_equals=0x7f060029;
-        public static final int register_email=0x7f06002f;
-        public static final int register_register=0x7f060030;
+        public static final int password_not_equals=0x7f060036;
+        public static final int register_email=0x7f06003c;
+        public static final int register_register=0x7f06003d;
         /**  注册界面 
          */
-        public static final int register_repasswrod=0x7f06002e;
-        public static final int register_success=0x7f060033;
-        public static final int register_tip=0x7f060031;
-        public static final int register_user_repeat=0x7f060032;
-        public static final int reset_pass_send=0x7f060035;
+        public static final int register_repasswrod=0x7f06003b;
+        public static final int register_success=0x7f060040;
+        public static final int register_tip=0x7f06003e;
+        public static final int register_user_repeat=0x7f06003f;
+        public static final int reset_pass_send=0x7f060042;
         /**  密码重置 
          */
-        public static final int reset_pass_title=0x7f060034;
-        public static final int reset_retry_countdown=0x7f060039;
+        public static final int reset_pass_title=0x7f060041;
+        public static final int reset_retry_countdown=0x7f060046;
         public static final int send=0x7f060004;
-        public static final int system_bind_device=0x7f06003c;
-        public static final int system_bind_device_confirm=0x7f060040;
-        public static final int system_bind_device_success=0x7f06003f;
-        public static final int system_btn_cancel=0x7f060042;
-        public static final int system_btn_ensure=0x7f060041;
-        public static final int system_ignore=0x7f06003e;
-        public static final int system_monitor_device=0x7f06003d;
+        public static final int setting_about_us=0x7f060064;
+        /**  setting fragment 
+         */
+        public static final int setting_miui=0x7f060061;
+        public static final int setting_shoutdown_alarm=0x7f060063;
+        public static final int setting_status_bar=0x7f060062;
+        public static final int shoutdown_action=0x7f06000d;
+        public static final int shoutdown_tip=0x7f06000c;
+        public static final int suggest_empty=0x7f06002c;
+        public static final int suggest_fail=0x7f06002e;
+        /**  意见反馈 
+         */
+        public static final int suggest_hint=0x7f06002b;
+        public static final int suggest_success=0x7f06002d;
+        public static final int system_bind_device=0x7f060049;
+        public static final int system_bind_device_confirm=0x7f06004d;
+        public static final int system_bind_device_success=0x7f06004c;
+        public static final int system_btn_cancel=0x7f06004f;
+        public static final int system_btn_ensure=0x7f06004e;
+        public static final int system_ignore=0x7f06004b;
+        public static final int system_monitor_device=0x7f06004a;
         /**  系统通知 
          */
-        public static final int system_tip=0x7f06003a;
-        public static final int system_tip2=0x7f06003b;
-        public static final int user_not_found=0x7f060038;
+        public static final int system_tip=0x7f060047;
+        public static final int system_tip2=0x7f060048;
+        public static final int user_not_found=0x7f060045;
     }
     public static final class style {
         public static final int AppBaseTheme=0x7f090000;
@@ -294,13 +340,15 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090002;
-        public static final int MyTryUseDialogFragment=0x7f090007;
-        public static final int TitleBgStyle=0x7f090004;
-        public static final int TitleTextStyle=0x7f090005;
-        public static final int actionBar=0x7f090003;
-        public static final int buttonStyle=0x7f090009;
-        public static final int editStyle=0x7f090008;
-        public static final int horizontalDivider=0x7f090006;
+        public static final int ModalStyle=0x7f090003;
+        public static final int MyTryUseDialogFragment=0x7f090009;
+        public static final int TitleBgStyle=0x7f090006;
+        public static final int TitleTextStyle=0x7f090007;
+        public static final int actionBar=0x7f090005;
+        public static final int buttonStyle=0x7f09000b;
+        public static final int defaultAnimation=0x7f090004;
+        public static final int editStyle=0x7f09000a;
+        public static final int horizontalDivider=0x7f090008;
         /**  menu字体 
          */
         public static final int menuTextAppearance=0x7f090001;
