@@ -77,6 +77,16 @@ public class DialogUtil {
 				.build();
 	}
 
+	public static DialogFragment passForgetDialog(OnItemClickListener listener) {
+
+		return DefaultDialogFragment_.builder()
+				.negativeBtnText(R.string.login_retry)
+				.positiveBtnText(R.string.login_pass_find)
+				.title(R.string.system_tip)
+				.text(R.string.login_forget_pass_tip).build();
+
+	}
+
 	public static DialogFragment defaultDialog(Integer text, int requestId,
 			Activity activity) {
 

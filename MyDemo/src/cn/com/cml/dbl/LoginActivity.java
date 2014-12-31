@@ -11,6 +11,8 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.content.DialogInterface;
+import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,10 +29,11 @@ import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.NetworkUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.ValidationUtil;
+import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
 @EActivity(R.layout.activity_login)
 @OptionsMenu(R.menu.login)
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements OnItemClickListener {
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -52,6 +55,8 @@ public class LoginActivity extends BaseActivity {
 
 	@ViewById(R.id.tv_exchange)
 	TextView accountExchangeView;
+
+	private DialogFragment passIncorrectDialog;
 
 	@AfterViews
 	protected void initConfig() {
@@ -157,8 +162,13 @@ public class LoginActivity extends BaseActivity {
 				dialog.dismissAllowingStateLoss();
 
 				if (errorCode == 101) {
-					DialogUtil.showTip(getApplicationContext(),
-							getString(R.string.login_fail));
+
+					if (null == passIncorrectDialog) {
+						passIncorrectDialog = DialogUtil
+								.passForgetDialog(LoginActivity.this);
+					}
+					passIncorrectDialog.show(getSupportFragmentManager(),
+							"passForgetTip");
 				}
 			}
 		});
@@ -206,6 +216,13 @@ public class LoginActivity extends BaseActivity {
 	@OptionsItem(R.id.menu_register)
 	public void onRegisterMenuClick() {
 		RegisterActivity_.intent(this).start();
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, long id, int requestId) {
+		if (id == DialogInterface.BUTTON_POSITIVE) {
+			PasswordResetActivity_.intent(this).start();
+		}
 	}
 
 }
