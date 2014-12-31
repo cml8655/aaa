@@ -13,6 +13,7 @@ import cn.com.cml.dbl.view.DefaultDialogFragment_;
 import cn.com.cml.dbl.view.NotifyDialogFragment;
 import cn.com.cml.dbl.view.NotifyDialogFragment_;
 import cn.com.cml.dbl.view.RemotePassInputDialogFragment_;
+import cn.com.cml.dbl.view.dialog.MessageDialogFragment_;
 
 import com.gitonway.lee.niftynotification.lib.Configuration;
 import com.gitonway.lee.niftynotification.lib.Effects;
@@ -66,6 +67,14 @@ public class DialogUtil {
 	public static void toast(Context context, int str) {
 		Toast.makeText(context, context.getString(str), Toast.LENGTH_LONG)
 				.show();
+	}
+
+	public static DialogFragment dataLoadingDialog() {
+
+		return MessageDialogFragment_.builder()
+				.dialogText(R.string.data_requesting)
+				.iconText(R.string.icon_spin5).iconAnim(R.anim.center_rotate)
+				.build();
 	}
 
 	public static DialogFragment defaultDialog(Integer text, int requestId,

@@ -60,6 +60,9 @@ public class LoginActivity extends BaseActivity {
 			DialogUtil.showTip(this, getString(R.string.network_error));
 		}
 
+		dialog = DialogUtil.dataLoadingDialog();
+		dialog.setCancelable(false);
+
 		// 打开系统应用
 		// Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS?);
 		// Intent intent = new Intent(Settings.ACTION_AIRPLANE_MODE_SETTINGS);
@@ -68,9 +71,8 @@ public class LoginActivity extends BaseActivity {
 		// intent.setData(Uri.parse("package:" + this.getPackageName()));
 		// startActivity(intent);
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-				R.string.login_request);
-		dialog.setCancelable(false);
+		// dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
+		// R.string.login_request);
 
 		setCustomTitle(R.string.login_title);
 
