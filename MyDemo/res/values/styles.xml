@@ -4,7 +4,7 @@
         <item name="android:actionBarStyle">@style/actionBar</item>
         <!--
 		设置menu背景颜色
-  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
+  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
         -->
         <!-- 菜单栏颜色 -->
         <item name="android:actionMenuTextColor">@android:color/white</item>
@@ -84,6 +84,19 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="presentViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="deviderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/disabled_color</item>
     </style>
 
 </resources>

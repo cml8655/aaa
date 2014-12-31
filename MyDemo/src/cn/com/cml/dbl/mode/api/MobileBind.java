@@ -18,6 +18,18 @@ public class MobileBind extends BmobObject {
 	 * 0 :绑定 ，1：解绑
 	 */
 	private int bindType;
+	/**
+	 * 设备名称
+	 */
+	private String deviceName;
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
 
 	public BmobUser getUser() {
 		return user;

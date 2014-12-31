@@ -4,39 +4,52 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/device_show_tv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="150dp"
+        android:background="@android:color/holo_blue_light" >
 
-    <cn.com.cml.dbl.ui.FontIconTextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/icon_spin5"
-        android:textSize="40sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/launcher" />
+    </RelativeLayout>
 
-    <Button
-        android:id="@+id/load_imei"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取IMEI" />
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/load_mac"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取MAC" />
+        <TextView
+            android:id="@+id/userinfo_account"
+            style="@style/presentViewStyle"
+            android:text="当前账号：XXXXXX.com" />
 
-    <Button
-        android:id="@+id/load_imei_mac"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="获取IMEI-MAc" />
+        <View style="@style/deviderStyle" />
 
-    <Button
-        android:id="@+id/toggle_gps"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="toggle GPS状态" />
+        <TextView
+            android:id="@+id/userinfo_point"
+            style="@style/presentViewStyle"
+            android:text="积分：123分" />
+
+        <View style="@style/deviderStyle" />
+
+        <TextView
+            android:id="@+id/userinfo_device"
+            style="@style/presentViewStyle"
+            android:text="绑定手机：sony_l36h" />
+
+        <View style="@style/deviderStyle" />
+
+        <TextView
+            android:id="@+id/userinfo_logout"
+            style="@style/presentViewStyle"
+            android:background="@color/md_red_300"
+            android:gravity="center"
+            android:text="@string/userinfo_logout" />
+    </LinearLayout>
 
 </LinearLayout>

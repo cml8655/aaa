@@ -10,6 +10,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 
 public class ImageUtil {
+
+	public static final int DEFAULT_CORNER = 10;
+
 	/**
 	 * 
 	 * @param src

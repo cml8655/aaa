@@ -195,6 +195,12 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 				.fragmentTitle(R.string.menu_setting).start();
 	}
 
+	@Click(R.id.menu_userinfo)
+	public void userinfoClicked() {
+		ModalActivity_.intent(getActivity()).container(UserInfoFragment_.class)
+				.fragmentTitle(R.string.menu_userinfo).start();
+	}
+
 	@Click(R.id.menu_logout)
 	public void logoutClicked() {
 		DialogUtil.defaultDialog(R.string.exit_confirm, 1, this).show(

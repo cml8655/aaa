@@ -26,6 +26,7 @@
     <string name="icon_setting">&#xe821;</string>
 
     <!-- left menu -->
+    <string name="menu_userinfo">个人中心</string>
     <string name="menu_alarm">警报追踪</string>
     <string name="menu_monitor">定位追踪</string>
     <string name="menu_command">指令管理</string>
@@ -123,6 +124,13 @@
     <!-- 地图定位 -->
     <string name="monitor_location_result">位置：%1$s\n误差范围：%2$s（米）</string>
     <string name="monitor_location_error">获取位置失败，请稍后再试</string>
+    
+    <!-- 个人中心 -->
+	<string name="userinfo_account">当前账号：%1$s</string>
+	<string name="userinfo_point">积分：%1$s</string>
+	<string name="userinfo_bind_device">绑定手机：%1$s</string>
+	<string name="userinfo_unbind_device">绑定手机：暂未绑定手机</string>
+	<string name="userinfo_logout">退出账号</string>
 
     <!-- setting fragment -->
     <string name="setting_miui">小米授权</string>
