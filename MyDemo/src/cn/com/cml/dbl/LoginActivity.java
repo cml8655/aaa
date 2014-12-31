@@ -24,6 +24,7 @@ import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.util.NetworkUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.ValidationUtil;
 
@@ -54,6 +55,10 @@ public class LoginActivity extends BaseActivity {
 
 	@AfterViews
 	protected void initConfig() {
+
+		if (!NetworkUtils.isNetworkActive(this)) {
+			DialogUtil.showTip(this, getString(R.string.network_error));
+		}
 
 		// 打开系统应用
 		// Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS?);
