@@ -4,6 +4,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.helper.NotificationHelper;
 import cn.com.cml.dbl.util.AppUtil;
 
+@OptionsMenu(R.menu.help)
 @EFragment(R.layout.fragment_setting)
 public class SettingFragment extends Fragment {
 

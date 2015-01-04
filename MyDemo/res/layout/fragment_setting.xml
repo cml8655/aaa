@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:indicator="http://schemas.android.com/apk/res/cn.com.cml.dbl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/default_margin"
     android:orientation="vertical" >
+
+    <cn.com.cml.dbl.ui.IndicatorItems_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        indicator:arrow_type="switchType"
+        indicator:left_icon="@string/icon_user"
+        indicator:show_text="@string/setting_shoutdown_alarm" >
+    </cn.com.cml.dbl.ui.IndicatorItems_>
+
+    <cn.com.cml.dbl.ui.IndicatorItems_
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        indicator:left_icon="@string/icon_setting"
+        indicator:show_text="dddd" >
+    </cn.com.cml.dbl.ui.IndicatorItems_>
 
     <TextView
         android:id="@+id/setting_miui"
@@ -22,7 +38,6 @@
         android:text="@string/setting_status_bar" />
 
     <LinearLayout
-        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginTop="@dimen/default_margin"
@@ -35,11 +50,11 @@
             android:gravity="center_vertical"
             android:text="@string/setting_shoutdown_alarm" />
 
-        <TextView
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="false" />
+            android:checked="true"
+            android:textOn="开启" />
     </LinearLayout>
 
     <TextView

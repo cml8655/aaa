@@ -15,6 +15,7 @@
     <string name="checking_fail">签到失败，请稍候重试</string>
     <string name="shoutdown_tip">警报提示</string>
     <string name="shoutdown_action">收到关机警报，点击解除</string>
+    <string name="use_help">使用帮助</string>
 
     <!-- 主页 -->
     <string name="home">主页</string>

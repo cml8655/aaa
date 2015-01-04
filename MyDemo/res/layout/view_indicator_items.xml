@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <cn.com.cml.dbl.ui.FontIconTextView
+        android:id="@+id/indicator_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/indicator_text"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical" />
+
+    <cn.com.cml.dbl.ui.FontIconTextView
+        android:id="@+id/indicator_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:gravity="center_vertical" />
+
+    <Switch
+        android:id="@+id/indicator_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</LinearLayout>

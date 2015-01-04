@@ -4,9 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="1212" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:textOn="sdfsdf"
+        android:checked="true"
+        android:textOff="关闭"
+        android:text="这个是什么啊" android:gravity="right"
+        android:shadowColor="@color/md_amber_100"
+        android:hint="的淡淡的淡淡的淡淡的"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

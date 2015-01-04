@@ -5,5 +5,16 @@
         <attr name="icon" format="string" />
         <attr name="text" format="string" />
     </declare-styleable>
+    
+    <declare-styleable name="IndicatorItems">
+        <attr name="left_icon" format="string"/>
+        <attr name="show_text" format="string"/>
+        <attr name="text_size" format="float"/>
+        <attr name="right_icon" format="string"/>
+        <attr name="arrow_type">
+            <enum name="common" value="1" />
+            <enum name="switchType" value="2" />
+        </attr>
+    </declare-styleable>
 
 </resources>
