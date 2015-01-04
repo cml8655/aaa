@@ -19,8 +19,8 @@
         android:orientation="horizontal" >
 
         <cn.com.cml.dbl.ui.CircleImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/icon_logo"
             circle:border_color="@color/md_amber_200"
             circle:border_width="2dp" />
