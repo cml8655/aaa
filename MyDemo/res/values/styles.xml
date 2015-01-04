@@ -4,7 +4,7 @@
         <item name="android:actionBarStyle">@style/actionBar</item>
         <!--
 		设置menu背景颜色
-  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
+  		<item name="android:actionBarItemBackground">@android:color/holo_green_light</item>
         -->
         <!-- 菜单栏颜色 -->
         <item name="android:actionMenuTextColor">@android:color/white</item>
@@ -113,6 +113,13 @@
     <style name="dialogWindowAnim">
         <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
         <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <style name="indicatorItemsStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/md_green_100</item>
+        <item name="android:layout_marginTop">@dimen/half_default_margin</item>
     </style>
 
 </resources>

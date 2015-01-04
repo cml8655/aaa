@@ -7,16 +7,14 @@
     android:orientation="vertical" >
 
     <cn.com.cml.dbl.ui.IndicatorItems_
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/indicatorItemsStyle"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
         indicator:show_text="@string/setting_shoutdown_alarm" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
     <cn.com.cml.dbl.ui.IndicatorItems_
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/indicatorItemsStyle"
         indicator:left_icon="@string/icon_setting"
         indicator:show_text="dddd" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
@@ -80,13 +78,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/md_cyan_200"
         android:gravity="center"
-        android:text="@string/setting_about_us" />
+        android:padding="@dimen/half_default_margin"
+        android:text="@string/setting_about_us"
+        android:textSize="20sp" />
 
 </LinearLayout>
