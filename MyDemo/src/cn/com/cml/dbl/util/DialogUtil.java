@@ -77,6 +77,13 @@ public class DialogUtil {
 				.build();
 	}
 
+	public static DialogFragment dataLoadingDialog(int text) {
+
+		return MessageDialogFragment_.builder().dialogText(text)
+				.iconText(R.string.icon_spin5).iconAnim(R.anim.center_rotate)
+				.build();
+	}
+
 	public static DialogFragment passForgetDialog(OnItemClickListener listener) {
 
 		return DefaultDialogFragment_.builder()

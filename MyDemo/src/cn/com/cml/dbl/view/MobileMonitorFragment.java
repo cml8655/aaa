@@ -229,8 +229,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		Log.d(TAG, "MobileMonitorFragment==》initConfig");
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_spin5,
-				R.string.locate_user);
+		dialog =DialogUtil.dataLoadingDialog(R.string.locate_user); 
 		dialog.show(getFragmentManager(), "location");
 
 		DialogUtil.remotePassInputDialog(R.string.alarm_cancel, 1, this).show(
