@@ -68,7 +68,7 @@ import com.google.gson.Gson;
 
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends BaseFragment implements
-		BDLocationListener,OnItemClickListener {
+		BDLocationListener, OnItemClickListener {
 
 	private static final String TAG = "MobileMonitorFragment";
 
@@ -128,7 +128,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 
 			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				showNiftyTip(R.string.monitor_location_error);
+				showNiftyTip(getString(R.string.monitor_location_error));
 				return;
 			}
 
@@ -158,7 +158,8 @@ public class MobileMonitorFragment extends BaseFragment implements
 		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 
 			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				showNiftyTip(R.string.monitor_location_error);
+				showNiftyTip(getString(R.string.monitor_location_error),
+						R.id.mobile_monitor_tip_container);
 				return;
 			}
 
@@ -572,7 +573,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Override
 	public void onClick(DialogInterface dialog, long id, int requestId) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

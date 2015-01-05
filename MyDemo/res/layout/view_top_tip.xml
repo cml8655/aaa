@@ -2,27 +2,23 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:padding="@dimen/half_default_margin" >
 
     <cn.com.cml.dbl.ui.FontIconTextView
         android:id="@+id/toptip_icon"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/toptip_text"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/default_margin"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical" />
-
-    <cn.com.cml.dbl.ui.FontIconTextView
-        android:id="@+id/toptip_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:textSize="18sp" />
 
 </merge>

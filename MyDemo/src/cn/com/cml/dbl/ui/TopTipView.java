@@ -5,6 +5,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
@@ -19,7 +20,6 @@ public class TopTipView extends LinearLayout {
 	private static final int ANIM_DURATION = 500;
 	private String message;
 	private String leftIcon;
-	private OnClickListener listener;
 
 	@ViewById(R.id.toptip_icon)
 	TextView leftIconView;
@@ -30,7 +30,7 @@ public class TopTipView extends LinearLayout {
 	public TopTipView(Context context, OnClickListener clickListener,
 			String message, String leftIcon) {
 		super(context);
-		this.setOnClickListener(listener);
+		this.setOnClickListener(clickListener);
 		this.message = message;
 		this.leftIcon = leftIcon;
 	}
@@ -39,29 +39,19 @@ public class TopTipView extends LinearLayout {
 	protected void afterView() {
 		leftIconView.setText(leftIcon);
 		messageView.setText(message);
+		setBackgroundColor(getContext().getResources().getColor(
+				R.color.md_yellow_400));
 	}
 
-	public void show() {
 
+	public void show() {
 		TranslateAnimation showAnim = new TranslateAnimation(
-				Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF,
-				1.0f, Animation.RELATIVE_TO_SELF, 1.0f,
-				Animation.RELATIVE_TO_SELF, 1.0f);
+				Animation.RELATIVE_TO_SELF, -0.2f, Animation.RELATIVE_TO_SELF,
+				0f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF,
+				0);
 		showAnim.setDuration(ANIM_DURATION);
 		showAnim.setInterpolator(new OvershootInterpolator());
 		this.startAnimation(showAnim);
-	}
-
-	public void hide() {
-		
-		TranslateAnimation showAnim = new TranslateAnimation(
-				Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF,
-				0.2f, Animation.RELATIVE_TO_SELF, 1.0f,
-				Animation.RELATIVE_TO_SELF, 1.0f);
-		showAnim.setDuration(ANIM_DURATION);
-		showAnim.setInterpolator(new LinearInterpolator());
-		this.startAnimation(showAnim);
-		
 	}
 
 }
