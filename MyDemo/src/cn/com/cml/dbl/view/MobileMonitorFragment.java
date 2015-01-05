@@ -229,11 +229,13 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		Log.d(TAG, "MobileMonitorFragment==》initConfig");
 
-		dialog =DialogUtil.dataLoadingDialog(R.string.locate_user); 
+		dialog = DialogUtil.dataLoadingDialog(R.string.locate_user);
 		dialog.show(getFragmentManager(), "location");
 
-		DialogUtil.remotePassInputDialog(R.string.alarm_cancel, 1, this).show(
-				getFragmentManager(), "ddd");
+		// 远程密码输入
+		// DialogUtil.remotePassInputDialog(R.string.alarm_cancel, 1,
+		// this).show(
+		// getFragmentManager(), "ddd");
 
 		// 设置菜单点击事件
 		mapMenuHelper.bindListener(menuItemClickListener);
@@ -259,7 +261,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		LocationClientOption option = new LocationClientOption();
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为1000ms
+		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为3000ms
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		option.setPriority(LocationClientOption.GpsFirst);
