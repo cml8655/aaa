@@ -1,18 +1,21 @@
 package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import cn.com.cml.dbl.R;
-import cn.com.cml.dbl.helper.NotificationHelper;
+import cn.com.cml.dbl.ui.IndicatorItems;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.PrefUtil_;
 
 @OptionsMenu(R.menu.help)
 @EFragment(R.layout.fragment_setting)
@@ -21,8 +24,14 @@ public class SettingFragment extends Fragment {
 	@ViewById(R.id.setting_miui)
 	TextView miuiSettingView;
 
-	@Bean
-	NotificationHelper notifyHelper;
+	@ViewById(R.id.setting_alarm)
+	IndicatorItems alarmItemView;
+
+	@ViewById(R.id.setting_remember_pass)
+	IndicatorItems rememberPassItemView;
+
+	@Pref
+	PrefUtil_ prefUtil;
 
 	@AfterViews
 	public void afterViews() {
@@ -32,18 +41,34 @@ public class SettingFragment extends Fragment {
 			miuiSettingView.setVisibility(View.VISIBLE);
 		}
 
+		// 关机警报
+		alarmItemView.setSwitchChecked(prefUtil.shoutdownAlarm().get());
+		alarmItemView.setOnChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+
+				prefUtil.edit().shoutdownAlarm().put(isChecked).apply();
+			}
+		});
+
+		// 记住密码
+		rememberPassItemView.setSwitchChecked(prefUtil.rememberPass().get());
+		rememberPassItemView.setOnChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				prefUtil.edit().rememberPass().put(isChecked).apply();
+			}
+		});
+
 	}
 
 	@Click(R.id.setting_miui)
 	protected void miuiSettingClicked() {
 		AppUtil.setAppPriority(getActivity());
-	}
-
-//	@Click(R.id.setting_status_bar)
-	protected void statusBarSettingClicked() {
-
-		notifyHelper.addOrUpdateNotification(null, null);
-
 	}
 
 }

@@ -5,9 +5,18 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
 @SharedPref(value = SharedPref.Scope.APPLICATION_DEFAULT)
 public interface PrefUtil {
-
+	/**
+	 * 关机警报
+	 */
 	@DefaultBoolean(value = true)
 	boolean shoutdownAlarm();
+
+	/**
+	 * 记住密码
+	 */
+	boolean rememberPass();
+
+	String password();
 
 	/** 代码前缀 */
 	String prefix();

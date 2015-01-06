@@ -122,6 +122,10 @@ public class IndicatorItems extends LinearLayout implements
 		}
 	}
 
+	public void setSwitchChecked(boolean checked) {
+		switchView.setChecked(checked);
+	}
+
 	public void setOnChangeListener(OnCheckedChangeListener onChangeListener) {
 		this.onChangeListener = onChangeListener;
 	}

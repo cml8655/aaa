@@ -94,6 +94,10 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 			accountExchangeView.setVisibility(View.GONE);
 		}
 
+		if (prefUtil.rememberPass().get()) {
+			passwordView.setText(prefUtil.password().get());
+		}
+
 	}
 
 	@Click(R.id.tv_exchange)
@@ -108,8 +112,8 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 	@Click(R.id.btn_login)
 	void loginClick() {
 
-		String username = usernameView.getText().toString();
-		String password = passwordView.getText().toString();
+		final String username = usernameView.getText().toString();
+		final String password = passwordView.getText().toString();
 
 		StringBuffer error = checkInputRegular(username, password);
 
@@ -129,10 +133,11 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 			@Override
 			public void onSuccess() {
 
-				User user = BmobUser.getCurrentUser(getApplicationContext(),
-						User.class);
+				prefUtil.edit().username().put(username).apply();
 
-				prefUtil.edit().username().put(user.getUsername()).apply();
+				if (prefUtil.rememberPass().get()) {
+					prefUtil.edit().password().put(password).apply();
+				}
 
 				apiClient
 						.bindCurrentDeviceQuery(new FindListener<MobileBind>() {
