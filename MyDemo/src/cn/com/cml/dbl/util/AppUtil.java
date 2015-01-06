@@ -1,5 +1,6 @@
 package cn.com.cml.dbl.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ActivityManager;
@@ -8,6 +9,7 @@ import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -20,6 +22,19 @@ public class AppUtil {
 
 	private static final int SERVICE_LIMIT = 50;
 	private static final String TAG = "AppUtil";
+
+	/** 百度手机卫士 */
+	public static final String APP_BAIDU_MOBILE = "cn.opda.a.phonoalbumshoushou";
+	/** 360卫士 */
+	public static final String APP_360_MOBILE = "com.qihoo360.mobilesafe";
+	/** 腾讯手机管家: */
+	public static final String APP_TENCENT_MOBILE = "com.tencent.qqpimsecure";
+	/** 金山手机卫士 */
+	public static final String APP_JINSHAN_MOBILE = "com.ijinshan.mguard";
+	/** 猎豹安全大师 */
+	public static final String APP_LIEBAO_MOBILE = "com.cleanmaster.security_cn";
+	/** 猎豹清理大师 */
+	public static final String APP_LIEBAO_CLEAN_MASTER = "com.cleanmaster.mguard_cn";
 
 	public static String version(Context context) {
 
@@ -113,5 +128,20 @@ public class AppUtil {
 		} catch (Exception e) {
 			Toast.makeText(context, "只有MIUI才可以设置哦", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	public static List<String> getInstalledPackages(Context context) {
+
+		List<String> packages = new ArrayList<String>();
+
+		PackageManager pkManager = context.getPackageManager();
+
+		List<ApplicationInfo> apps = pkManager.getInstalledApplications(0);
+
+		for (ApplicationInfo info : apps) {
+			packages.add(info.packageName);
+		}
+
+		return packages;
 	}
 }

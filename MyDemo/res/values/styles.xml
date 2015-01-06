@@ -79,11 +79,15 @@
 
     <style name="buttonStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@android:color/holo_blue_light</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">@dimen/half_default_margin</item>
+    </style>
+    <style name="buttonStyle.disabled" parent="@style/buttonStyle">
+        <item name="android:background">@color/disabled_color</item>
     </style>
 
     <style name="presentViewStyle">

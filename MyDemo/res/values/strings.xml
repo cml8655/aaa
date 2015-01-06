@@ -31,6 +31,7 @@
     <string name="menu_userinfo">个人中心</string>
     <string name="menu_alarm">警报追踪</string>
     <string name="menu_monitor">定位追踪</string>
+    <string name="menu_secure">安全设置</string>
     <string name="menu_command">指令管理</string>
     <string name="menu_sim_change">换卡设置</string>
     <string name="menu_setting">设置</string>
@@ -146,6 +147,16 @@
     <string name="setting_shoutdown_alarm_close">长按关机键发出警报，推荐开启</string>
     <string name="setting_sms_alarm_open">发送短信\"远程密码#jb\"响起警报</string>
     <string name="setting_sms_location_open">发送短信\"远程密码#dw\"进行手机定位</string>
+
+    <!-- 安全设置 -->
+    <string name="secure_desc">为了保证防盗功能能实时开启，请将app添加到内存清理白名单中</string>
+    <string name="secure_app_miui">MIUI(小米/红米手机)</string>
+    <string name="secure_app_baidu">百度手机卫士</string>
+    <string name="secure_app_360">360卫士</string>
+    <string name="secure_app_tencent"> 腾讯手机管家</string>
+    <string name="secure_app_jinshan">金山手机卫士</string>
+    <string name="secure_app_liebao">猎豹安全大师</string>
+    <string name="secure_app_liebao_master">猎豹清理大师</string>
 
     <string-array name="monitor_select_list">
         <item>地图定位</item>

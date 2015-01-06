@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/default_margin"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_desc" />
+
+    <Button
+        android:id="@+id/secure_miui"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_miui"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/secure_app_360"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_360"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/secure_app_baidu"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_baidu"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/secure_app_tencent"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_tencent"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/secure_app_liebao"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_liebao"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/secure_app_liebao_master"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_liebao_master"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/secure_app_jinshan"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/secure_app_jinshan"
+        android:visibility="gone" />
+
+</LinearLayout>

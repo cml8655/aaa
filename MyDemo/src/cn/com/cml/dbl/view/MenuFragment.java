@@ -43,6 +43,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		MAP(R.id.menu_monitor, MobileMonitorFragment_.class,
 				R.string.menu_monitor), //
 		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), //
+		SECURE(R.id.menu_secure, SecureSetFragment_.class, R.string.menu_secure), // 安全设置
 		SUGGEST(R.id.menu_suggest, SuggestFragment_.class,
 				R.string.menu_suggest);//
 
@@ -179,7 +180,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
-			R.id.menu_suggest })
+			R.id.menu_suggest, R.id.menu_secure })
 	public void click(View clickView) {
 
 		final int id = clickView.getId();
