@@ -42,7 +42,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), //
 		MAP(R.id.menu_monitor, MobileMonitorFragment_.class,
 				R.string.menu_monitor), //
-		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), //
+		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), //..
+		USERINFO(R.id.menu_userinfo, UserInfoFragment_.class, R.string.menu_userinfo), //
 		SECURE(R.id.menu_secure, SecureSetFragment_.class, R.string.menu_secure), // 安全设置
 		SUGGEST(R.id.menu_suggest, SuggestFragment_.class,
 				R.string.menu_suggest);//
@@ -180,7 +181,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
-			R.id.menu_suggest, R.id.menu_secure })
+			R.id.menu_suggest, R.id.menu_secure ,R.id.menu_userinfo})
 	public void click(View clickView) {
 
 		final int id = clickView.getId();
@@ -194,11 +195,11 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 				.fragmentTitle(R.string.menu_setting).start();
 	}
 
-	@Click(R.id.menu_userinfo)
-	public void userinfoClicked() {
-		ModalActivity_.intent(getActivity()).container(UserInfoFragment_.class)
-				.fragmentTitle(R.string.menu_userinfo).start();
-	}
+//	@Click(R.id.menu_userinfo)
+//	public void userinfoClicked() {
+//		ModalActivity_.intent(getActivity()).container(UserInfoFragment_.class)
+//				.fragmentTitle(R.string.menu_userinfo).start();
+//	}
 
 	@Click(R.id.menu_logout)
 	public void logoutClicked() {
