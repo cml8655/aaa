@@ -9,12 +9,14 @@
         android:layout_height="150dp"
         android:background="@android:color/holo_blue_light" >
 
-        <ImageView
+        <cn.com.cml.dbl.ui.CircleImageView
+            xmlns:circle="http://schemas.android.com/apk/res/cn.com.cml.dbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/launcher" />
+            android:src="@drawable/launcher"
+            circle:border_color="@color/md_amber_200"
+            circle:border_width="2dp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -25,28 +27,42 @@
 
         <TextView
             android:id="@+id/userinfo_account"
-            style="@style/presentViewStyle"
+            style="@style/indicatorItemsStyle"
             android:text="当前账号：XXXXXX.com" />
 
         <View style="@style/deviderStyle" />
 
         <TextView
             android:id="@+id/userinfo_point"
-            style="@style/presentViewStyle"
+            style="@style/indicatorItemsStyle"
             android:text="积分：123分" />
 
         <View style="@style/deviderStyle" />
 
         <TextView
             android:id="@+id/userinfo_device"
-            style="@style/presentViewStyle"
+            style="@style/indicatorItemsStyle"
             android:text="绑定手机：sony_l36h" />
 
         <View style="@style/deviderStyle" />
 
         <TextView
+            android:id="@+id/userinfo_remote_pass_query"
+            style="@style/indicatorItemsStyle"
+            android:text="远程密码查询：15积分/次" />
+
+        <View style="@style/deviderStyle" />
+
+        <TextView
+            android:id="@+id/userinfo_secure"
+            style="@style/indicatorItemsStyle"
+            android:background="@color/md_red_300"
+            android:gravity="center"
+            android:text="手机安全设置" />
+
+        <TextView
             android:id="@+id/userinfo_logout"
-            style="@style/presentViewStyle"
+            style="@style/indicatorItemsStyle"
             android:background="@color/md_red_300"
             android:gravity="center"
             android:text="@string/userinfo_logout" />

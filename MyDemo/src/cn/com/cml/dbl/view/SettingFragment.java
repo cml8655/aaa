@@ -39,7 +39,7 @@ public class SettingFragment extends Fragment {
 		AppUtil.setAppPriority(getActivity());
 	}
 
-	@Click(R.id.setting_status_bar)
+//	@Click(R.id.setting_status_bar)
 	protected void statusBarSettingClicked() {
 
 		notifyHelper.addOrUpdateNotification(null, null);
