@@ -15,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.LoginActivity_;
+import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
@@ -27,6 +28,8 @@ import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 public class UserInfoFragment extends Fragment implements OnItemClickListener {
 
 	private static final String INIT_CHARACTOR = "--";
+
+	private static final int REQUEST_REMOTE_PASS = 1001;
 
 	private DialogFragment dialog;
 
@@ -82,11 +85,24 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 		deviceView.setText(getString(R.string.userinfo_bind_device, device));
 	}
 
+	@Click(R.id.userinfo_remote_pass_query)
+	public void onRemotePassQueryClicked() {
+		DialogFragment confirmDialog = DialogUtil.defaultDialog(
+				R.string.userinfo_query_confirm, REQUEST_REMOTE_PASS, this);
+		confirmDialog.show(getFragmentManager(), "remote_pass_query");
+	}
+
+	@Click(R.id.userinfo_secure)
+	public void onSecureClicked() {
+		MainActivity ac = (MainActivity) getActivity();
+		ac.changeContent(MenuFragment.MenuItems.SECURE.getId());
+	}
+
 	@Override
 	public void onClick(DialogInterface dialog, long id, int requestId) {
-		if (id == DialogInterface.BUTTON_POSITIVE) {
-			LoginActivity_.intent(this).start();
-			getActivity().finish();
+		if (id == DialogInterface.BUTTON_POSITIVE
+				&& requestId == REQUEST_REMOTE_PASS) {
+			DialogUtil.showTip(getActivity(), "确定哦");
 		}
 	}
 }

@@ -138,6 +138,8 @@
     <string name="userinfo_unbind_device">绑定手机：暂未绑定手机</string>
     <string name="userinfo_logout">退出账号</string>
     <string name="userinfo_remote_pass_query">远程密码查询</string>
+    <string name="userinfo_query_confirm">确定使用15积分查询远程密码？</string>
+    <string name="userinfo_query_result">请牢记，您的远程密码为：%1$s</string>
 
     <!-- setting fragment -->
     <string name="setting_miui">小米授权</string>

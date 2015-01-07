@@ -5,6 +5,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.DialogFragment;
@@ -68,10 +69,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 	}
 
 	private void changeContent(int menuId) {
-
-		Intent intent = new Intent(MenuFragment.ACTION_MENU_CHANGE);
-		intent.putExtra(MenuFragment.EXTRA_MENUITEM, menuId);
-		getActivity().sendBroadcast(intent);
-
+		MainActivity ac = (MainActivity) getActivity();
+		ac.changeContent(menuId);
 	}
 }

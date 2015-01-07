@@ -291,10 +291,12 @@ public class MainActivity extends BaseActivity {
 		mDrawerLayout.closeDrawers();
 	}
 
-	public static interface RemainTask {
+	public void changeContent(int menuId) {
 
-		public boolean hasTask();
+		Intent intent = new Intent(MenuFragment.ACTION_MENU_CHANGE);
+		intent.putExtra(MenuFragment.EXTRA_MENUITEM, menuId);
+		sendBroadcast(intent);
 
-		public String taskTip();
 	}
+
 }
