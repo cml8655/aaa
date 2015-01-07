@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/userinfo_point"
             style="@style/indicatorItemsStyle"
-            android:text="积分：123分" />
+            android:text="@string/userinfo_point" />
 
         <View style="@style/deviderStyle" />
 
@@ -60,12 +60,6 @@
             android:gravity="center"
             android:text="手机安全设置" />
 
-        <TextView
-            android:id="@+id/userinfo_logout"
-            style="@style/indicatorItemsStyle"
-            android:background="@color/md_red_300"
-            android:gravity="center"
-            android:text="@string/userinfo_logout" />
     </LinearLayout>
 
 </LinearLayout>

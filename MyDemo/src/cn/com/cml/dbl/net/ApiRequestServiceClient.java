@@ -8,6 +8,7 @@ import org.androidannotations.annotations.RootContext;
 import org.json.JSONArray;
 
 import android.content.Context;
+import android.os.Build;
 import cn.bmob.v3.BmobPushManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -27,6 +28,7 @@ import cn.com.cml.dbl.mode.api.Suggestion;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.model.PushModel;
 import cn.com.cml.dbl.util.CommonUtils;
+import cn.com.cml.dbl.util.DeviceUtil;
 
 import com.google.gson.Gson;
 
@@ -99,6 +101,8 @@ public class ApiRequestServiceClient implements ApiRequestService {
 				bindUpdate.setBindType(MobileBind.TYPE_BIND);
 				bindUpdate.setBindPassword(pass);
 				bindUpdate.setImei(deviceId);
+				bindUpdate
+						.setDeviceName(Build.MANUFACTURER + "-" + Build.MODEL);
 
 				// 重新绑定
 				bindUpdate.save(context, listener);

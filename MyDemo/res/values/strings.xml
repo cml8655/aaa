@@ -133,7 +133,7 @@
 
     <!-- 个人中心 -->
     <string name="userinfo_account">当前账号：%1$s</string>
-    <string name="userinfo_point">积分：%1$s</string>
+    <string name="userinfo_point">积\u0020\u0020分：%1$s</string>
     <string name="userinfo_bind_device">绑定手机：%1$s</string>
     <string name="userinfo_unbind_device">绑定手机：暂未绑定手机</string>
     <string name="userinfo_logout">退出账号</string>
