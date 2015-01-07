@@ -7,19 +7,21 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.ui.IndicatorItems;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @OptionsMenu(R.menu.help)
 @EFragment(R.layout.fragment_setting)
-public class SettingFragment extends Fragment {
+public class SettingFragment extends BaseFragment {
 
 	@ViewById(R.id.setting_miui)
 	TextView miuiSettingView;
@@ -69,6 +71,13 @@ public class SettingFragment extends Fragment {
 	@Click(R.id.setting_miui)
 	protected void miuiSettingClicked() {
 		AppUtil.setAppPriority(getActivity());
+	}
+
+	@Click(R.id.setting_about_us)
+	protected void aboutUsClicked() {
+
+		changeContainer(WebViewFragment_.builder()
+				.mLoadUrl(Constant.Url.URL_ABOUT_US).build());
 	}
 
 }

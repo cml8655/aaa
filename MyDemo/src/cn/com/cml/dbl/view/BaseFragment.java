@@ -1,6 +1,7 @@
 package cn.com.cml.dbl.view;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -17,6 +18,16 @@ public class BaseFragment extends Fragment {
 		DialogUtil.showNiftyTip(getActivity(), text, R.id.over_view_container);
 	}
 
+	protected void changeContainer(Fragment target) {
+		FragmentTransaction transaction = getFragmentManager()
+				.beginTransaction();
+		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
+				R.anim.right_fadein, R.anim.left_fadeout);
+		transaction.add(R.id.modal_container, target);
+		transaction.addToBackStack(null);
+		transaction.commit();
+	}
+	
 	protected void showNiftyTip(String text, int containerId) {
 
 		final ViewGroup parent = (ViewGroup) getActivity().findViewById(

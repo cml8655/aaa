@@ -107,4 +107,8 @@ public interface Constant {
 		int TYPE_COMMAND = 1001;
 		int TYPE_SMS = 1002;
 	}
+
+	interface Url {
+		String URL_ABOUT_US = "file:///android_asset/html_files/about_us.html";
+	}
 }
