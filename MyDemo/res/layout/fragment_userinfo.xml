@@ -46,19 +46,15 @@
 
         <View style="@style/deviderStyle" />
 
-        <TextView
+        <Button
             android:id="@+id/userinfo_remote_pass_query"
-            style="@style/indicatorItemsStyle"
-            android:text="远程密码查询：15积分/次" />
+            style="@style/buttonStyle"
+            android:text="@string/userinfo_remote_pass_query" />
 
-        <View style="@style/deviderStyle" />
-
-        <TextView
+        <Button
             android:id="@+id/userinfo_secure"
-            style="@style/indicatorItemsStyle"
-            android:background="@color/md_red_300"
-            android:gravity="center"
-            android:text="手机安全设置" />
+            style="@style/buttonStyle"
+            android:text="@string/menu_secure" />
 
     </LinearLayout>
 

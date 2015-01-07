@@ -137,6 +137,7 @@
     <string name="userinfo_bind_device">绑定手机：%1$s</string>
     <string name="userinfo_unbind_device">绑定手机：暂未绑定手机</string>
     <string name="userinfo_logout">退出账号</string>
+    <string name="userinfo_remote_pass_query">远程密码查询</string>
 
     <!-- setting fragment -->
     <string name="setting_miui">小米授权</string>
