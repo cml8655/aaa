@@ -17,6 +17,8 @@ public interface ApiRequestService {
 
 	void bindDeviceQuery(FindListener listener);
 
+	void bindDevicePassQuery(FindListener<MobileBind> listener);
+
 	void bindPassQuery(String username, String bindPass,
 			FindListener<MobileBind> listener);
 
@@ -36,7 +38,7 @@ public interface ApiRequestService {
 			PushListener listener);
 
 	void dailyChecking(CheckingListener listener);
-	
-	void suggestAdd(String text,SaveListener listener);
+
+	void suggestAdd(String text, SaveListener listener);
 
 }

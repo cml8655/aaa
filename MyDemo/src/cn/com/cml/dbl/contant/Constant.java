@@ -111,4 +111,8 @@ public interface Constant {
 	interface Url {
 		String URL_ABOUT_US = "file:///android_asset/html_files/about_us.html";
 	}
+
+	interface Gloable {
+		int REMOTE_PASS_QUERY_CHARGE = 15;// 远程密码查询积分
+	}
 }
