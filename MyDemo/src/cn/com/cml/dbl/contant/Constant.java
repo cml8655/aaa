@@ -110,6 +110,8 @@ public interface Constant {
 
 	interface Url {
 		String URL_ABOUT_US = "file:///android_asset/html_files/about_us.html";
+		String URL_AGREEMENT = "file:///android_asset/html_files/agreement.html";
+		String URL_HTLP = "file:///android_asset/html_files/help.html";
 	}
 
 	interface Gloable {
