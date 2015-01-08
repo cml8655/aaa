@@ -32,7 +32,10 @@ public class DefaultDialogFragment extends DialogFragment implements
 	Integer title;
 
 	@FragmentArg
-	Integer text;
+	Integer textRes;
+
+	@FragmentArg
+	String text;
 
 	@FragmentArg
 	int requestId;
@@ -74,6 +77,8 @@ public class DefaultDialogFragment extends DialogFragment implements
 
 		if (null != text) {
 			builder.setMessage(text);
+		} else if (null != textRes) {
+			builder.setMessage(textRes);
 		}
 
 		return builder.create();

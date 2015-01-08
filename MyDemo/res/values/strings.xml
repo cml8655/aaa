@@ -140,6 +140,8 @@
     <string name="userinfo_remote_pass_query">远程密码查询</string>
     <string name="userinfo_query_confirm">确定使用15积分查询远程密码？</string>
     <string name="userinfo_query_result">请牢记，您的远程密码为：%1$s</string>
+    <string name="userinfo_device_unbind">对不起，没有查询到您绑定的手机信息！</string>
+    <string name="userinfo_score_less">您的积分不足，记得每天签到赚积分哦！！</string>
 
     <!-- setting fragment -->
     <string name="setting_miui">小米授权</string>

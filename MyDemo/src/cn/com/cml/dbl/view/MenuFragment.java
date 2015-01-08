@@ -32,18 +32,16 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	private static final String TAG = "MenuFragment";
 
 	public static final String ACTION_MENU_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_MENU_CHANGE";
-	public static final String ACTION_USERINFO_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_USERINFO_CHANGE";
-
 	public static final String EXTRA_MENUITEM = "cn.com.cml.dbl.view.MenuFragment.EXTRA_MENUITEM";
-	public static final String EXTRA_SCORE = "cn.com.cml.dbl.view.MenuFragment.EXTRA_SCORE";
 
 	public static enum MenuItems {
 
 		HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), //
 		MAP(R.id.menu_monitor, MobileMonitorFragment_.class,
 				R.string.menu_monitor), //
-		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), //..
-		USERINFO(R.id.menu_userinfo, UserInfoFragment_.class, R.string.menu_userinfo), //
+		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), // ..
+		USERINFO(R.id.menu_userinfo, UserInfoFragment_.class,
+				R.string.menu_userinfo), //
 		SECURE(R.id.menu_secure, SecureSetFragment_.class, R.string.menu_secure), // 安全设置
 		SUGGEST(R.id.menu_suggest, SuggestFragment_.class,
 				R.string.menu_suggest);//
@@ -98,9 +96,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	@ViewById(R.id.menu_score)
 	TextView scoreView;
 
-	@ViewById(R.id.menu_rank)
-	TextView rankView;
-
 	private BroadcastReceiver itemChangeReceiver = new BroadcastReceiver() {
 
 		@Override
@@ -109,14 +104,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			final String action = intent.getAction();
 
 			Log.d(TAG, "收到广播:" + action);
-
-			if (ACTION_USERINFO_CHANGE.equals(action)) {
-
-				scoreView.setText(getString(R.string.menu_score_text,
-						intent.getIntExtra(EXTRA_SCORE, 0)));
-
-				return;
-			}
 
 			if (ACTION_MENU_CHANGE.equals(action)
 					&& intent.hasExtra(EXTRA_MENUITEM)) {
@@ -134,7 +121,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	public void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		IntentFilter filter = new IntentFilter(ACTION_MENU_CHANGE);
-		filter.addAction(ACTION_USERINFO_CHANGE);
 		getActivity().registerReceiver(itemChangeReceiver, filter);
 	}
 
@@ -165,23 +151,11 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 				.beginTransaction();
 		transaction.add(R.id.content_frame, initFragment);
 		transaction.commit();
-
-		initUserMessage();
-
 	}
 
-	private void initUserMessage() {
-
-		User user = BmobUser.getCurrentUser(getActivity(), User.class);
-
-		usernameView.setText(user.getUsername());
-		scoreView.setText(getString(R.string.menu_score_text, user.getScore()));
-		// TODO 获取级别
-		rankView.setText(getString(R.string.menu_rank_text, "一级"));
-	}
 
 	@Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
-			R.id.menu_suggest, R.id.menu_secure ,R.id.menu_userinfo})
+			R.id.menu_suggest, R.id.menu_secure, R.id.menu_userinfo })
 	public void click(View clickView) {
 
 		final int id = clickView.getId();
@@ -195,11 +169,11 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 				.fragmentTitle(R.string.menu_setting).start();
 	}
 
-//	@Click(R.id.menu_userinfo)
-//	public void userinfoClicked() {
-//		ModalActivity_.intent(getActivity()).container(UserInfoFragment_.class)
-//				.fragmentTitle(R.string.menu_userinfo).start();
-//	}
+	// @Click(R.id.menu_userinfo)
+	// public void userinfoClicked() {
+	// ModalActivity_.intent(getActivity()).container(UserInfoFragment_.class)
+	// .fragmentTitle(R.string.menu_userinfo).start();
+	// }
 
 	@Click(R.id.menu_logout)
 	public void logoutClicked() {

@@ -113,6 +113,6 @@ public interface Constant {
 	}
 
 	interface Gloable {
-		int REMOTE_PASS_QUERY_CHARGE = 15;// 远程密码查询积分
+		int REMOTE_PASS_QUERY_SCORE = 15;// 远程密码查询积分
 	}
 }

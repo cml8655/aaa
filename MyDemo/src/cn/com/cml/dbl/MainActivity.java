@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
@@ -35,6 +36,7 @@ import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.MenuFragment;
 import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 import cn.com.cml.dbl.view.MenuFragment_;
+import cn.com.cml.dbl.view.UserInfoFragment;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.main)
@@ -201,12 +203,15 @@ public class MainActivity extends BaseActivity {
 
 				DialogUtil.showTip(getApplicationContext(), checkingTip);
 
-				User user = BmobUser.getCurrentUser(getApplicationContext(),
-						User.class);
+				// 更新当前用户积分信息
+				// User user = BmobUser.getCurrentUser(getApplicationContext(),
+				// User.class);
+				// user.setScore(score + user.getScore());
+				// user.update(getApplicationContext());
 
-				Intent intent = new Intent(MenuFragment.ACTION_USERINFO_CHANGE);
-				intent.putExtra(MenuFragment.EXTRA_SCORE,
-						score + user.getScore());
+				Intent intent = new Intent(
+						UserInfoFragment.ACTION_USERINFO_CHANGE);
+				intent.putExtra(UserInfoFragment.EXTRA_SCORE, score);
 				sendBroadcast(intent);
 
 				todayChecking = true;

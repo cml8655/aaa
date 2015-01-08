@@ -302,32 +302,4 @@ public class ApiRequestServiceClient implements ApiRequestService {
 		suggestion.save(context, listener);
 	}
 
-	@Override
-	public void bindDevicePassQuery(final FindListener<MobileBind> listener) {
-		// 查询用户积分
-		User user = BmobUser.getCurrentUser(context, User.class);
-
-		BmobQuery<MobileBind> mobileBindQuery = new BmobQuery<MobileBind>();
-
-		mobileBindQuery.addWhereEqualTo("user", user).addWhereEqualTo(
-				"bindType", MobileBind.TYPE_BIND);
-
-		mobileBindQuery.findObjects(context, new FindListener<MobileBind>() {
-
-			@Override
-			public void onError(int errCode, String errMsg) {
-				listener.onError(errCode, errMsg);
-			}
-
-			@Override
-			public void onSuccess(List<MobileBind> result) {
-				
-				if (result.size() == 0) {
-					listener.onError(-1, null);
-					return;
-				} 
-				
-			}
-		});
-	}
 }

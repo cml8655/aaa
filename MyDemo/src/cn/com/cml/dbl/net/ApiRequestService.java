@@ -17,8 +17,6 @@ public interface ApiRequestService {
 
 	void bindDeviceQuery(FindListener listener);
 
-	void bindDevicePassQuery(FindListener<MobileBind> listener);
-
 	void bindPassQuery(String username, String bindPass,
 			FindListener<MobileBind> listener);
 

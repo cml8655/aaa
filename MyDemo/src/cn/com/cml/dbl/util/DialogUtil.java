@@ -90,8 +90,28 @@ public class DialogUtil {
 				.negativeBtnText(R.string.login_retry)
 				.positiveBtnText(R.string.login_pass_find)
 				.title(R.string.system_tip)
-				.text(R.string.login_forget_pass_tip).build();
+				.textRes(R.string.login_forget_pass_tip).build();
 
+	}
+
+	public static DialogFragment defaultDialog(String text, int requestId,
+			Fragment targetFragment) {
+
+		if (targetFragment instanceof OnItemClickListener) {
+
+			DialogFragment dialog = DefaultDialogFragment_.builder()
+					.negativeBtnText(R.string.system_btn_cancel)
+					.positiveBtnText(R.string.system_btn_ensure)
+					.requestId(requestId).title(R.string.system_tip).text(text)
+					.build();
+
+			dialog.setTargetFragment(targetFragment, 1);
+
+			return dialog;
+		}
+
+		throw new IllegalArgumentException(
+				"activity must extends OnItemClickListener");
 	}
 
 	public static DialogFragment defaultDialog(Integer text, int requestId,
@@ -101,8 +121,8 @@ public class DialogUtil {
 			return DefaultDialogFragment_.builder()
 					.negativeBtnText(R.string.system_btn_cancel)
 					.positiveBtnText(R.string.system_btn_ensure)
-					.requestId(requestId).title(R.string.system_tip).text(text)
-					.build();
+					.requestId(requestId).title(R.string.system_tip)
+					.textRes(text).build();
 		}
 
 		throw new IllegalArgumentException(
@@ -117,8 +137,8 @@ public class DialogUtil {
 			DialogFragment dialog = DefaultDialogFragment_.builder()
 					.negativeBtnText(R.string.system_btn_cancel)
 					.positiveBtnText(R.string.system_btn_ensure)
-					.requestId(requestId).title(R.string.system_tip).text(text)
-					.build();
+					.requestId(requestId).title(R.string.system_tip)
+					.textRes(text).build();
 
 			dialog.setTargetFragment(targetFragment, 1);
 
