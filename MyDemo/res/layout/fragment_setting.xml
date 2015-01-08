@@ -46,9 +46,9 @@
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
     <cn.com.cml.dbl.ui.IndicatorItems_
+        android:id="@+id/setting_remember_pass"
         style="@style/indicatorItemsStyle"
         indicator:arrow_type="switchType"
-        android:id="@+id/setting_remember_pass"
         indicator:left_icon="@string/icon_setting"
         indicator:show_text="记住密码" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
@@ -58,6 +58,7 @@
     <!-- 系统功能 -->
 
     <cn.com.cml.dbl.ui.IndicatorItems_
+        android:id="@+id/setting_help"
         style="@style/indicatorItemsStyle"
         indicator:left_icon="@string/icon_setting"
         indicator:show_text="使用帮助" >
@@ -76,6 +77,7 @@
     <cn.com.cml.dbl.ui.IndicatorItems_
         style="@style/indicatorItemsStyle"
         indicator:left_icon="@string/icon_setting"
+        android:id="@+id/setting_agreement"
         indicator:show_text="服务条款" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
@@ -92,9 +94,9 @@
     <View style="@style/deviderStyle" />
 
     <TextView
+        android:id="@+id/setting_about_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/setting_about_us"
         android:layout_gravity="bottom"
         android:background="@color/md_cyan_200"
         android:gravity="center"
