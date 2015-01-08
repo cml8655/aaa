@@ -82,6 +82,7 @@
             <Button
                 android:id="@+id/btn_login"
                 style="@style/buttonStyle"
+                android:layout_marginBottom="0dp"
                 android:layout_alignParentBottom="true"
                 android:text="@string/login_title" />
         </RelativeLayout>
