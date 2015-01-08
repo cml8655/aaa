@@ -20,7 +20,6 @@
     </uses-permission>
 
     <!-- 收发短信 -->
-    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
@@ -144,6 +143,12 @@
             android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" >
         </activity>
 
+        <!-- bmob自动更新 -->
+        <activity
+            android:name="cn.bmob.v3.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -153,7 +158,7 @@
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter>
+            </intent-filter>
             -->
         </service>
         <service
@@ -253,6 +258,9 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="NKwPZQ4lCLM8GIs3kfGdgYG0" />
+        <meta-data
+            android:name="BMOB_CHANNEL"
+            android:value="yingyongbao" />
     </application>
 
 </manifest>

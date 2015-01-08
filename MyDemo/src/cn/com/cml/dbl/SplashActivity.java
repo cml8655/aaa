@@ -11,6 +11,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
@@ -18,6 +19,7 @@ import cn.com.cml.dbl.util.AppUtil;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
 import android.app.Activity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -59,7 +61,7 @@ public class SplashActivity extends Activity {
 			return;
 		}
 
-		//有网络，同步数据
+		// 有网络，同步数据
 		apiClient.bindCurrentDeviceQuery(new FindListener<MobileBind>() {
 
 			@Override

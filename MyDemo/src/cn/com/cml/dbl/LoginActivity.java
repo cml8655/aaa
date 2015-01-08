@@ -12,6 +12,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
@@ -57,9 +59,11 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 	TextView accountExchangeView;
 
 	private DialogFragment passIncorrectDialog;
-
+	
 	@AfterViews
 	protected void initConfig() {
+		
+		BmobUpdateAgent.update(this);
 
 		if (!NetworkUtils.isNetworkActive(this)) {
 			DialogUtil.showTip(this, getString(R.string.network_error));
