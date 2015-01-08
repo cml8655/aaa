@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import cn.com.cml.dbl.ModalActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.ui.IndicatorItems;
@@ -33,6 +34,9 @@ public class SettingFragment extends BaseFragment {
 
 	@AfterViews
 	public void afterViews() {
+
+		ModalActivity ac = (ModalActivity) getActivity();
+		ac.setCustomTitle(R.string.menu_setting);
 
 		// 设置小米权限
 		if (AppUtil.isMIUI(getActivity())) {
