@@ -1,7 +1,9 @@
 package cn.com.cml.dbl.view;
 
-import android.app.Activity;
+import java.util.List;
+
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,12 +27,21 @@ public class BaseFragment extends Fragment {
 		ModalActivity ac = (ModalActivity) getActivity();
 		ac.setCustomTitle(titleId);
 
-		FragmentTransaction transaction = getFragmentManager()
-				.beginTransaction();
+		FragmentManager manager = getFragmentManager();
+
+		FragmentTransaction transaction = manager.beginTransaction();
 		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
 				R.anim.right_fadein, R.anim.left_fadeout);
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 		transaction.add(R.id.modal_container, target);
+		// transaction.replace(R.id.modal_container, target);
 		transaction.addToBackStack(null);
+
+		List<Fragment> fragments = manager.getFragments();
+
+		if (fragments.size() > 0) {
+			transaction.hide(fragments.get(0));
+		}
 		transaction.commit();
 	}
 

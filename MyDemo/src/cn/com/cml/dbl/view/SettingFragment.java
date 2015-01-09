@@ -6,6 +6,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -15,10 +16,13 @@ import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.ui.IndicatorItems;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @EFragment(R.layout.fragment_setting)
 public class SettingFragment extends BaseFragment {
+
+	private static final String TAG = "SettingFragment";
 
 	@ViewById(R.id.setting_miui)
 	TextView miuiSettingView;
@@ -31,12 +35,16 @@ public class SettingFragment extends BaseFragment {
 
 	@Pref
 	PrefUtil_ prefUtil;
+	
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		
+		Log.d(TAG, "onHiddenChanged：" + hidden);
+	}
 
 	@AfterViews
 	public void afterViews() {
-
-		ModalActivity ac = (ModalActivity) getActivity();
-		ac.setCustomTitle(R.string.menu_setting);
 
 		// 设置小米权限
 		if (AppUtil.isMIUI(getActivity())) {
@@ -50,7 +58,7 @@ public class SettingFragment extends BaseFragment {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-
+				Log.d(TAG, "关机警报开关变化了：" + isChecked);
 				prefUtil.edit().shoutdownAlarm().put(isChecked).apply();
 			}
 		});
@@ -65,6 +73,8 @@ public class SettingFragment extends BaseFragment {
 				prefUtil.edit().rememberPass().put(isChecked).apply();
 			}
 		});
+
+		Log.d(TAG, "settingFragment afterview finish");
 
 	}
 
