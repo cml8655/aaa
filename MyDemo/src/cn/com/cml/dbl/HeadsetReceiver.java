@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.Toast;
 
 /**
  * 对耳机插入和拔出进行监听，此类必须要在代码中注入册才可使用，在配置文件中配置无效

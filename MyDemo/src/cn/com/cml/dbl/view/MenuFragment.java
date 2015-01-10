@@ -18,11 +18,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
-import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
-import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 

@@ -10,7 +10,6 @@ import java.util.Date;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.renderscript.Program.TextureType;
 import android.text.TextUtils;
 import android.util.Log;
 

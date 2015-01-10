@@ -5,9 +5,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.View;

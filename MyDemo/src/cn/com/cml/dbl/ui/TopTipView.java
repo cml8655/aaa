@@ -5,9 +5,7 @@ import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;

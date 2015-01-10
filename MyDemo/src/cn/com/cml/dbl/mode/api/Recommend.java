@@ -1,9 +1,6 @@
 package cn.com.cml.dbl.mode.api;
 
-import java.util.Date;
-
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.datatype.BmobDate;
 
 /**
  * 用户推荐下载

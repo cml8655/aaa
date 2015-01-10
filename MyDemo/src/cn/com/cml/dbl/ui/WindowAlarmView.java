@@ -28,7 +28,6 @@ import cn.com.cml.dbl.service.AlarmServiceQuene_;
 import cn.com.cml.dbl.service.RingtoneService_;
 import cn.com.cml.dbl.service.WindowAlarmService_;
 import cn.com.cml.dbl.util.CommonUtils;
-import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @EViewGroup(R.layout.view_window_alarm)

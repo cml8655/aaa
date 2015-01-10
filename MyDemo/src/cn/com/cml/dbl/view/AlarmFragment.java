@@ -12,6 +12,7 @@ import org.androidannotations.annotations.res.StringRes;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -22,9 +23,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.PushListener;
+import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.contant.Constant.Command;
@@ -33,16 +34,18 @@ import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.ValidationUtil;
+import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
 /**
  * 手机警报
  */
 @EFragment(R.layout.fragment_alarm)
-public class AlarmFragment extends Fragment {
+public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 	private static final String TAG = "AlarmFragment";
 
 	public static final String ACTION_RING = "cn.com.cml.dbl.view.AlarmFragment.alarm.ring";
+	private static final int REQUEST_ALARM = 2001;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -99,8 +102,7 @@ public class AlarmFragment extends Fragment {
 	@AfterViews
 	public void initConfig() {
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_spin5,
-				R.string.data_requesting);
+		dialog = DialogUtil.dataLoadingDialog();
 		dialog.setCancelable(false);
 
 	}
@@ -145,8 +147,14 @@ public class AlarmFragment extends Fragment {
 				// 密码错误
 				if (!ValidationUtil.equals(pass, bindDevice.getBindPassword())) {
 
-					DialogUtil.showTip(getActivity(),
-							getString(R.string.password_error));
+					DialogFragment passErrorDialog = DialogUtil
+							.remotePassForgetDialog(R.string.alarm_pass_error,
+									REQUEST_ALARM, AlarmFragment.this);
+
+					passErrorDialog.setCancelable(false);
+
+					passErrorDialog.show(getFragmentManager(),
+							"remote_pass_error");
 
 					return;
 				}
@@ -247,5 +255,15 @@ public class AlarmFragment extends Fragment {
 	private void buttonStateChanged(int bg, String text) {
 		controlButton.setBackgroundColor(getResources().getColor(bg));
 		controlButton.setText(text);
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, long id, int requestId) {
+
+		if (requestId == REQUEST_ALARM && id == DialogInterface.BUTTON_POSITIVE) {
+			MainActivity ac = (MainActivity) getActivity();
+			ac.changeContent(MenuFragment.MenuItems.USERINFO.getId());
+		}
+
 	}
 }

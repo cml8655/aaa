@@ -7,11 +7,11 @@
     android:orientation="vertical" >
 
     <cn.com.cml.dbl.ui.IndicatorItems_
-        android:id="@+id/setting_alarm"
+        android:id="@+id/setting_shoutdown_alarm"
         style="@style/indicatorItemsStyle"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
-        indicator:show_text="关机警报"
+        indicator:show_text="@string/setting_shoutdown_alarm"
         indicator:switch_checked="true"
         indicator:switch_checked_text="@string/setting_shoutdown_alarm_open"
         indicator:switch_unchecked_text="@string/setting_shoutdown_alarm_close" >
@@ -20,18 +20,20 @@
     <View style="@style/deviderStyle" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
+        android:id="@+id/setting_sms_alarm"
         style="@style/indicatorItemsStyle"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
-        indicator:show_text="短信警报"
+        indicator:show_text="@string/setting_sms_alarm"
         indicator:switch_checked_text="@string/setting_sms_alarm_open" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
     <cn.com.cml.dbl.ui.IndicatorItems_
+        android:id="@+id/setting_sms_location"
         style="@style/indicatorItemsStyle"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
-        indicator:show_text="短信定位"
+        indicator:show_text="@string/setting_sms_location"
         indicator:switch_checked_text="@string/setting_sms_location_open" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
@@ -75,9 +77,9 @@
     <View style="@style/deviderStyle" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
+        android:id="@+id/setting_agreement"
         style="@style/indicatorItemsStyle"
         indicator:left_icon="@string/icon_setting"
-        android:id="@+id/setting_agreement"
         indicator:show_text="服务条款" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 

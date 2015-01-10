@@ -3,12 +3,11 @@ package cn.com.cml.dbl.service;
 import org.androidannotations.annotations.EIntentService;
 import org.androidannotations.annotations.ServiceAction;
 
-import com.activeandroid.query.Delete;
-
-import cn.com.cml.dbl.model.BindMessageModel;
-
 import android.app.IntentService;
 import android.content.Intent;
+import cn.com.cml.dbl.model.BindMessageModel;
+
+import com.activeandroid.query.Delete;
 
 @EIntentService
 public class LocalStorageService extends IntentService {

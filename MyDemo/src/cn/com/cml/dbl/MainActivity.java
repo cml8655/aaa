@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.UpdateListener;
 import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;

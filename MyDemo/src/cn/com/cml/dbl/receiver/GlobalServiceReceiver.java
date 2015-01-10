@@ -1,10 +1,10 @@
 package cn.com.cml.dbl.receiver;
 
-import cn.com.cml.dbl.service.GlobalService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import cn.com.cml.dbl.service.GlobalService;
 
 /**
  * 启动短信监听服务

@@ -2,7 +2,6 @@ package cn.com.cml.dbl.util;
 
 import java.io.IOException;
 
-import android.content.res.Configuration;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;

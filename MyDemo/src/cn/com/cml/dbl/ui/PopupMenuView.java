@@ -3,8 +3,6 @@ package cn.com.cml.dbl.ui;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
-import cn.com.cml.dbl.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import cn.com.cml.dbl.R;
 
 @EViewGroup(R.layout.view_mobile_monitor_menu)
 public class PopupMenuView extends LinearLayout implements OnClickListener {

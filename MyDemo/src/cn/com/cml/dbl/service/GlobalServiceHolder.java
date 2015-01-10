@@ -1,13 +1,10 @@
 package cn.com.cml.dbl.service;
 
-import org.androidannotations.annotations.EService;
-
-import cn.com.cml.dbl.util.AppUtil;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import cn.com.cml.dbl.util.AppUtil;
 
 public class GlobalServiceHolder extends Service {
 

@@ -10,19 +10,17 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.app.Activity;
+import android.util.Log;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.AppUtil;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 @EActivity(R.layout.activity_splash)
 public class SplashActivity extends Activity {

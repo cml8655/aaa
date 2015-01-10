@@ -1,6 +1,5 @@
 package cn.com.cml.dbl.service;
 
-import cn.com.cml.dbl.model.SmsModel;
 import android.content.ContentUris;
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
+import cn.com.cml.dbl.model.SmsModel;
 
 public class SMSHandler extends Handler {
 

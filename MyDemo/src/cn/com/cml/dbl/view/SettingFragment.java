@@ -6,7 +6,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -26,11 +25,17 @@ public class SettingFragment extends BaseFragment {
 	@ViewById(R.id.setting_miui)
 	TextView miuiSettingView;
 
-	@ViewById(R.id.setting_alarm)
-	IndicatorItems alarmItemView;
+	@ViewById(R.id.setting_shoutdown_alarm)
+	IndicatorItems shoutdownAlarmItem;
 
 	@ViewById(R.id.setting_remember_pass)
 	IndicatorItems rememberPassItemView;
+
+	@ViewById(R.id.setting_sms_alarm)
+	IndicatorItems smsAlarmView;
+
+	@ViewById(R.id.setting_sms_location)
+	IndicatorItems smsLocationView;
 
 	@Pref
 	PrefUtil_ prefUtil;
@@ -55,13 +60,12 @@ public class SettingFragment extends BaseFragment {
 		}
 
 		// 关机警报
-		alarmItemView.setSwitchChecked(prefUtil.shoutdownAlarm().get());
-		alarmItemView.setOnChangeListener(new OnCheckedChangeListener() {
+		shoutdownAlarmItem.setSwitchChecked(prefUtil.shoutdownAlarm().get());
+		shoutdownAlarmItem.setOnChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				Log.d(TAG, "关机警报开关变化了：" + isChecked);
 				prefUtil.edit().shoutdownAlarm().put(isChecked).apply();
 			}
 		});
@@ -77,7 +81,27 @@ public class SettingFragment extends BaseFragment {
 			}
 		});
 
-		Log.d(TAG, "settingFragment afterview finish");
+		// 短信警报
+		smsAlarmView.setSwitchChecked(prefUtil.smsAlaram().get());
+		smsAlarmView.setOnChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				prefUtil.edit().smsAlaram().put(isChecked).apply();
+			}
+		});
+
+		// 短信定位
+		smsLocationView.setSwitchChecked(prefUtil.smsLocation().get());
+		smsLocationView.setOnChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				prefUtil.edit().smsLocation().put(isChecked).apply();
+			}
+		});
 
 	}
 

@@ -94,6 +94,17 @@ public class DialogUtil {
 
 	}
 
+	public static DialogFragment remotePassForgetDialog(Integer message,
+			int requestCode, Fragment target) {
+
+		DialogFragment dialog = DefaultDialogFragment_.builder()
+				.requestId(requestCode).negativeBtnText(R.string.login_retry)
+				.positiveBtnText(R.string.login_pass_find)
+				.title(R.string.system_tip).textRes(message).build();
+		dialog.setTargetFragment(target, requestCode);
+		return dialog;
+	}
+
 	public static DialogFragment defaultDialog(String text, int requestId,
 			Fragment targetFragment) {
 

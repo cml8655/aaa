@@ -3,11 +3,11 @@ package cn.com.cml.dbl.ui;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
-import cn.com.cml.dbl.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.com.cml.dbl.R;
 
 @EViewGroup(R.layout.view_maptip)
 public class MapviewTipView extends LinearLayout {

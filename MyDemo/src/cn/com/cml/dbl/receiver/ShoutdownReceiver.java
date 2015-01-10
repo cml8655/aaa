@@ -1,6 +1,5 @@
 package cn.com.cml.dbl.receiver;
 
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EReceiver;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 

@@ -4,13 +4,11 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
-@OptionsMenu(R.menu.modal)
 @EActivity(R.layout.activity_modal)
 public class ModalActivity extends BaseActivity {
 

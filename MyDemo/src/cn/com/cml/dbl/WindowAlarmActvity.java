@@ -1,6 +1,5 @@
 package cn.com.cml.dbl;
 
-import java.nio.channels.AlreadyConnectedException;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -30,7 +29,6 @@ import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.service.AlarmServiceQuene;
 import cn.com.cml.dbl.service.AlarmServiceQuene_;
-import cn.com.cml.dbl.service.PushService_;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.PrefUtil_;
 

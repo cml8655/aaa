@@ -11,6 +11,12 @@ public interface PrefUtil {
 	@DefaultBoolean(value = true)
 	boolean shoutdownAlarm();
 
+	@DefaultBoolean(value = true)
+	boolean smsAlaram();
+
+	@DefaultBoolean(value = true)
+	boolean smsLocation();
+
 	/**
 	 * 记住密码
 	 */

@@ -8,7 +8,6 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
-import com.activeandroid.query.Update;
 
 @Table(name = "t_user_local_table")
 public class UserLocalModel extends Model {

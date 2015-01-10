@@ -1,11 +1,9 @@
 package cn.com.cml.dbl.service;
 
 import org.androidannotations.annotations.EService;
-import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.SystemService;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;

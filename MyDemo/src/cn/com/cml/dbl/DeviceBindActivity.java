@@ -8,7 +8,6 @@ import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.listener.BaseSaveListener;
