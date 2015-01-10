@@ -16,7 +16,6 @@ import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.ui.IndicatorItems;
 import cn.com.cml.dbl.util.AppUtil;
-import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @EFragment(R.layout.fragment_setting)
@@ -35,12 +34,16 @@ public class SettingFragment extends BaseFragment {
 
 	@Pref
 	PrefUtil_ prefUtil;
-	
+
 	@Override
 	public void onHiddenChanged(boolean hidden) {
 		super.onHiddenChanged(hidden);
-		
-		Log.d(TAG, "onHiddenChanged：" + hidden);
+
+		if (!hidden) {
+			ModalActivity ac = (ModalActivity) getActivity();
+			ac.setCustomTitle(R.string.menu_setting);
+		}
+
 	}
 
 	@AfterViews
