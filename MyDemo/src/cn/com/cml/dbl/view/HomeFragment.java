@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.util.AppUtil;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 import cn.com.cml.dbl.view.MenuFragment.MenuItems;

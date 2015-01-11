@@ -28,7 +28,7 @@ public interface Constant {
 	 */
 	long JINGBAO_STOP_EXPIRES = 300000;
 
-	enum Command {
+	public static enum Command {
 
 		JINGBAO_ENUM(JINBAO, JINBAO_EXPIRES), //
 		JINGBAO_STOP_ENUM(JINGBAO_STOP, JINGBAO_STOP_EXPIRES), //

@@ -9,10 +9,13 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 
 @EBean
-public class ReverseCoderHelper {
+public class LocationHelper {
 
 	private BDLocation userLocation;
 	private BDLocation mobileLocation;
+
+	private String userLocationCache;
+	private String mobileLocationCache;
 
 	public boolean reverseUserLocationCoder(OnGetGeoCoderResultListener listener) {
 
@@ -61,6 +64,22 @@ public class ReverseCoderHelper {
 
 	public void setMobileLocation(BDLocation mobileLocation) {
 		this.mobileLocation = mobileLocation;
+	}
+
+	public String getUserLocationCache() {
+		return userLocationCache;
+	}
+
+	public void setUserLocationCache(String userLocationCache) {
+		this.userLocationCache = userLocationCache;
+	}
+
+	public String getMobileLocationCache() {
+		return mobileLocationCache;
+	}
+
+	public void setMobileLocationCache(String mobileLocationCache) {
+		this.mobileLocationCache = mobileLocationCache;
 	}
 
 }

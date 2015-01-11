@@ -1,7 +1,15 @@
 package cn.com.cml.dbl.util;
 
+import java.util.prefs.Preferences;
+
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 
 @SharedPref(value = SharedPref.Scope.APPLICATION_DEFAULT)
 public interface PrefUtil {

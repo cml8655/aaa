@@ -15,6 +15,7 @@ import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.ui.IndicatorItems;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @EFragment(R.layout.fragment_setting)

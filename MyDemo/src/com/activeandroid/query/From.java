@@ -16,6 +16,9 @@ package com.activeandroid.query;
  * limitations under the License.
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.text.TextUtils;
 
 import com.activeandroid.Cache;
@@ -24,9 +27,6 @@ import com.activeandroid.content.ContentProvider;
 import com.activeandroid.query.Join.JoinType;
 import com.activeandroid.util.Log;
 import com.activeandroid.util.SQLiteUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class From implements Sqlable {
 	private Sqlable mQueryBase;

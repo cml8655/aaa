@@ -17,12 +17,10 @@ package com.activeandroid.util;
  * limitations under the License.
  */
 
-import android.database.Cursor;
-
 import java.io.Closeable;
 import java.io.IOException;
 
-import com.activeandroid.util.Log;
+import android.database.Cursor;
 
 
 public class IOUtils {

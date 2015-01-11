@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
@@ -46,6 +47,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 	public static final String ACTION_RING = "cn.com.cml.dbl.view.AlarmFragment.alarm.ring";
 	private static final int REQUEST_ALARM = 2001;
+	private static final int REQUEST_SMS_ALARM = 2002;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -244,6 +246,11 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 				Activity ac = getActivity();
 				if (ac != null && !ac.isFinishing()) {
 					buttonStateChanged(R.color.default_color, sendAlarm);
+					DialogFragment smsDialog = DialogUtil.defaultDialog(
+							R.string.alarm_no_response, REQUEST_SMS_ALARM,
+							AlarmFragment.this);
+					smsDialog.setCancelable(false);
+					smsDialog.show(getFragmentManager(), "sms_dialog");
 				}
 
 			}
@@ -263,6 +270,14 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 		if (requestId == REQUEST_ALARM && id == DialogInterface.BUTTON_POSITIVE) {
 			MainActivity ac = (MainActivity) getActivity();
 			ac.changeContent(MenuFragment.MenuItems.USERINFO.getId());
+		}
+		if (requestId == REQUEST_SMS_ALARM
+				&& id == DialogInterface.BUTTON_POSITIVE) {
+			// 发送短信
+			Intent intent = new Intent(Intent.ACTION_SENDTO);
+			intent.putExtra("sms_body", "TheSMS text");
+			intent.setData(Uri.parse("smsto:"));
+			getActivity().startActivity(intent);
 		}
 
 	}

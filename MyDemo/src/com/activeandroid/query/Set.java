@@ -16,11 +16,11 @@ package com.activeandroid.query;
  * limitations under the License.
  */
 
-import com.activeandroid.util.SQLiteUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.activeandroid.util.SQLiteUtils;
 
 public final class Set implements Sqlable {
 	private Update mUpdate;

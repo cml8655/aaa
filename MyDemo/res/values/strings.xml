@@ -129,6 +129,7 @@
     <string name="alarm_ring">主人，警报已响起</string>
     <string name="alarm_count_down">%1$ss</string>
     <string name="alarm_pass_error">远程密码错误，忘记密码了？</string>
+    <string name="alarm_no_response">警报启动失败，使用短信强力开启？</string>
 
     <!-- 地图定位 -->
     <string name="monitor_location_result">%1$s\n误差范围：%2$s（米）</string>

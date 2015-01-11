@@ -27,7 +27,7 @@ import cn.com.cml.dbl.contant.Constant.Command;
 import cn.com.cml.dbl.helper.MapMenuHelper;
 import cn.com.cml.dbl.helper.MapMenuHelper.MenuType;
 import cn.com.cml.dbl.helper.MapMenuHelper.OnMenuClickListener;
-import cn.com.cml.dbl.helper.ReverseCoderHelper;
+import cn.com.cml.dbl.helper.LocationHelper;
 import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.LocationModel;
@@ -78,7 +78,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 	MapMenuHelper mapMenuHelper;
 
 	@Bean
-	ReverseCoderHelper reverseHelper;
+	LocationHelper locationHelper;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -113,8 +113,8 @@ public class MobileMonitorFragment extends BaseFragment implements
 			bdLocation.setLocType(model.getLocType());
 			bdLocation.setRadius(model.getRadius());
 
-			reverseHelper.setMobileLocation(bdLocation);
-			reverseHelper.reverseMobileLocationCoder(mobileLocationReverse);
+			locationHelper.setMobileLocation(bdLocation);
+			locationHelper.reverseMobileLocationCoder(mobileLocationReverse);
 		}
 	};
 
@@ -133,7 +133,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 			if (null != result && null != ac && !ac.isFinishing()) {
 
 				String address = result.getAddress();
-				int radius = (int) reverseHelper.getMobileLocation()
+				int radius = (int) locationHelper.getMobileLocation()
 						.getRadius();
 				showNiftyTip(
 						getString(R.string.monitor_location_result, address,
@@ -163,7 +163,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 			if (null != result && null != ac && !ac.isFinishing()) {
 				String address = result.getAddress();
-				int radius = (int) reverseHelper.getUserLocation().getRadius();
+				int radius = (int) locationHelper.getUserLocation().getRadius();
 				showNiftyTip(
 						getString(R.string.monitor_location_result, address,
 								radius), R.id.mobile_monitor_tip_container);
@@ -188,16 +188,15 @@ public class MobileMonitorFragment extends BaseFragment implements
 			switch (menuType) {
 
 			case TYPE_SETTING:
-				showNiftyTip("TYPE_MOBILE上海市地方：。。。。",
-						R.id.mobile_monitor_tip_container);
+				showNiftyTip("我是setting", R.id.mobile_monitor_tip_container);
 				break;
 
 			case TYPE_USER:
 
 				// 根据坐标获取用户位置
-				reverseHelper.reverseUserLocationCoder(userlocationReverse);
+				locationHelper.reverseUserLocationCoder(userlocationReverse);
 
-				BDLocation myLocation = reverseHelper.getUserLocation();
+				BDLocation myLocation = locationHelper.getUserLocation();
 
 				if (null != myLocation) {
 					map.animateMapStatus(MapStatusUpdateFactory
@@ -470,11 +469,13 @@ public class MobileMonitorFragment extends BaseFragment implements
 			return;
 		}
 
-		reverseHelper.setUserLocation(location);
+		locationHelper.setUserLocation(location);
 
 		if (!isFirst) {
 			isFirst = true;
 			dialog.dismiss();
+			map.animateMapStatus(MapStatusUpdateFactory.newLatLng(new LatLng(
+					location.getLatitude(), location.getLongitude())));
 		}
 		LocationModel mobileLocation = new LocationModel();
 

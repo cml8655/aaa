@@ -10,6 +10,7 @@ import android.util.Log;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.SmsModel;
+import cn.com.cml.dbl.util.AppUtil;
 
 /**
  * 短信数据库变化监听
@@ -60,33 +61,41 @@ public class SmsContentObserver extends ContentObserver {
 
 				Constant.Command command = isCommand(body);
 
-				Log.d(TAG, "收到新短信,指令：" + command.getCommand());
-
 				if (null != command) {
 
 					switch (command) {
 
 					case JINGBAO_ENUM:
-						// 启动警报
-						// RingtoneService_.intent(context).start();
-						// // 启动桌面密码输入
-						// WindowAlarmService_.intent(context).start();
 
-						AlarmServiceQuene_.intent(context).start();
+						if (AppUtil.getPrefValue(context, "smsAlaram")) {
+							AlarmServiceQuene_.intent(context).start();
 
-						Message msg = handler.obtainMessage();
+							Message msg = handler.obtainMessage();
 
-						msg.what = CONTENT_CHANGE;
-						msg.obj = new SmsModel(body, id);
+							msg.what = CONTENT_CHANGE;
+							msg.obj = new SmsModel(body, id);
 
-						handler.sendMessage(msg);
+							handler.sendMessage(msg);
+						}
 
 						break;
+
 					case JINGBAO_STOP_ENUM:
 
 						RingtoneService_.intent(context).stop();
 						// 启动桌面密码输入
 						WindowAlarmService_.intent(context).stop();
+						break;
+
+					case DINGWEI_ENUM:
+
+						if (AppUtil.getPrefValue(context, "smsLocation")) {
+							// 定位追踪
+							// TODO
+							// 1：判断网络，开启网络
+							// 2:10分钟内推送定位信息
+						}
+
 						break;
 
 					default:
