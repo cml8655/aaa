@@ -5,6 +5,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -19,6 +20,9 @@ public class ModalActivity extends BaseActivity {
 
 	@Extra
 	int fragmentTitle;
+	
+	@Extra
+	Bundle extraArguments;
 
 	@AfterViews
 	void afterViews() {
@@ -31,7 +35,9 @@ public class ModalActivity extends BaseActivity {
 
 			FragmentTransaction transaction = getSupportFragmentManager()
 					.beginTransaction();
-			transaction.replace(R.id.modal_container, container.newInstance());
+			Fragment fragment= container.newInstance();
+			fragment.setArguments(extraArguments);
+			transaction.replace(R.id.modal_container,fragment);
 			transaction.commit();
 
 		} catch (Exception e) {

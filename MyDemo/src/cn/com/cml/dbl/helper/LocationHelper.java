@@ -50,8 +50,7 @@ public class LocationHelper {
 				String address = result.getAddress();
 				int radius = (int) userLocation.getRadius();
 				baseFragment.showNiftyTip(ac.getString(
-						R.string.monitor_location_result, address, radius),
-						R.id.mobile_monitor_tip_container);
+						R.string.monitor_location_result, address, radius));
 			}
 
 		}

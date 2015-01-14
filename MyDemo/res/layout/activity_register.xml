@@ -41,6 +41,14 @@
             android:hint="@string/register_repasswrod"
             android:inputType="textPassword" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/register_agreement"
+            android:layout_gravity="center"
+            android:textColor="@color/default_color"
+            android:text="@string/register_agreement" />
+
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"

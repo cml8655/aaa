@@ -1,7 +1,13 @@
 package cn.com.cml.dbl.helper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.graphics.Color;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.ui.MapviewTipView;
+import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.DialogUtil;
 
 import com.baidu.location.BDLocation;
@@ -11,13 +17,18 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 
 public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 
@@ -41,7 +52,7 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		option.setPriority(LocationClientOption.GpsFirst);
-
+		
 		baiduClient.setLocOption(option);
 		baiduClient.registerLocationListener(this);
 
@@ -104,14 +115,35 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	}
 
 	@Override
-	public void addWindowInfo(LatLng lat) {
-		// TODO Auto-generated method stub
+	public void addWindowInfo(LatLng lat, int icon, int text) {
 
+		// 设置提示
+		MapviewTipView tip = MapviewTipView_.build(mapFragment.getActivity());
+
+		tip.bind(icon, text);
+
+		// 创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+		InfoWindow mInfoWindow = new InfoWindow(tip, lat, -47);
+
+		// 显示InfoWindow
+		baiduMap.showInfoWindow(mInfoWindow);
 	}
 
 	@Override
 	public void drawLine(LatLng start, LatLng end) {
-		// TODO Auto-generated method stub
+
+		// 创建两点的连线
+		List<LatLng> pts = new ArrayList<LatLng>();
+
+		pts.add(start);
+		pts.add(end);
+
+		// 构建用户绘制多边形的Option对象
+		OverlayOptions polygonOption = new PolylineOptions().points(pts).color(
+				Color.BLUE);
+		
+		// 在地图上添加多边形Option，用于显示
+		baiduMap.addOverlay(polygonOption);
 
 	}
 
@@ -139,23 +171,19 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 
 		if (!isFirstLocate) {
 			isFirstLocate = true;
-			
+
+			// TODO 模拟手机位置
 			LatLng mobileLocation = new LatLng(31.245951, 121.51377);
 
-			this.addMarker(new LatLng(location.getLatitude(), location
-					.getLongitude()));
 			this.addMarker(mobileLocation);
-			baiduMap.animateMapStatus(MapStatusUpdateFactory
-					.newLatLng(new LatLng(location.getLatitude(), location
-							.getLongitude())));
-		}
 
-		// MyLocationData myData = new MyLocationData.Builder()
-		// .accuracy(location.getRadius()).direction(100)
-		// .latitude(location.getLatitude())
-		// .longitude(location.getLongitude()).build();
-		//
-		// map.setMyLocationData(myData);
+			MyLocationData myData = new MyLocationData.Builder()
+					.accuracy(location.getRadius()).direction(0)
+					.latitude(location.getLatitude())
+					.longitude(location.getLongitude()).build();
+
+			baiduMap.setMyLocationData(myData);
+		}
 
 	}
 
@@ -167,8 +195,8 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	private boolean checkLocationResult(BDLocation location) {
 
 		switch (location.getLocType()) {
-		case 61:// 61 ： GPS定位结果
-		case 161:// 表示网络定位结果
+		case BDLocation.TypeGpsLocation:// 61 ： GPS定位结果
+		case BDLocation.TypeNetWorkLocation:// 表示网络定位结果
 			return true;
 		}
 

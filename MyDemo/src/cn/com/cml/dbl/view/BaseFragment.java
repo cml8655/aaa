@@ -19,7 +19,7 @@ import cn.com.cml.dbl.util.DialogUtil;
 public class BaseFragment extends Fragment {
 
 	public void showNiftyTip(String text) {
-		DialogUtil.showNiftyTip(getActivity(), text, R.id.over_view_container);
+		this.showNiftyTip(text, R.id.over_view_container);
 	}
 
 	protected void changeContainer(Fragment target, Integer titleId) {

@@ -1,6 +1,5 @@
 package cn.com.cml.dbl.view;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -8,14 +7,12 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
-import org.androidannotations.annotations.UiThread;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
@@ -32,20 +29,16 @@ import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
-import cn.com.cml.dbl.ui.MapviewTipView;
-import cn.com.cml.dbl.ui.MapviewTipView_;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
 import com.baidu.location.BDLocation;
-import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.GroundOverlayOptions;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.Gson;
 
 @EFragment(R.layout.fragment_mobile_monitor)
@@ -57,6 +50,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 	public static final String ACTION_LOCATION_RESULT = "cn.com.cml.dbl.view.MobileMonitorFragment.ACTION_LOCATION_RESULT";
 	public static final String EXTRA_LOCATION_RESULT = "MobileMonitorFragment.EXTRA_LOCATION_RESULT";
 	private static final int LOCATE_INTERVAL = 10000;
+	
 	@FragmentById(R.id.map_fragment)
 	SupportMapFragment mapFragment;
 
@@ -115,12 +109,27 @@ public class MobileMonitorFragment extends BaseFragment implements
 		// getFragmentManager(), "ddd");
 
 		// TODO 用户输入远程密码后进行定位功能开启
-		sendLocationCommand();
+		// sendLocationCommand();
 
 	}
 
 	@Click(R.id.map_menu_setting)
 	public void settingClick(View v) {
+
+		BDLocation userLocation = locationHelper.getUserLocation();
+		BDLocation mobileLocation = locationHelper.getMobileLocation();
+
+		if (null != userLocation && null != mobileLocation) {
+			LatLng start = new LatLng(userLocation.getLatitude(),
+					userLocation.getLongitude());
+			LatLng end = new LatLng(mobileLocation.getLatitude(),
+					mobileLocation.getLongitude());
+			mapHelper.drawLine(start, end);
+			int distance = (int) DistanceUtil.getDistance(start, end);
+			String distanceStr = getActivity().getString(
+					R.string.monitor_distance, distance);
+			showNiftyTip(distanceStr,R.id.mobile_monitor_tip_container);
+		}
 
 	}
 
@@ -130,8 +139,13 @@ public class MobileMonitorFragment extends BaseFragment implements
 		BDLocation userLocation = locationHelper.getUserLocation();
 
 		if (null != userLocation) {
-			mapHelper.animateTo(new LatLng(userLocation.getLatitude(),
-					userLocation.getLongitude()));
+
+			LatLng lat = new LatLng(userLocation.getLatitude(),
+					userLocation.getLongitude());
+
+			mapHelper.animateTo(lat);
+			mapHelper.addWindowInfo(lat, R.string.icon_spin5,
+					R.string.monitor_my_location);
 			locationHelper.reverseUserLocationCoder();
 		}
 	}
@@ -145,8 +159,13 @@ public class MobileMonitorFragment extends BaseFragment implements
 		BDLocation mobileLocation = locationHelper.getMobileLocation();
 
 		if (null != mobileLocation) {
-			mapHelper.animateTo(new LatLng(mobileLocation.getLatitude(),
-					mobileLocation.getLongitude()));
+
+			LatLng lat = new LatLng(mobileLocation.getLatitude(),
+					mobileLocation.getLongitude());
+
+			mapHelper.animateTo(lat);
+			mapHelper.addWindowInfo(lat, R.string.icon_spin5,
+					R.string.monitor_mobile_location);
 			locationHelper.reverseMobileLocationCoder();
 		}
 
@@ -192,93 +211,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 		}
 	}
 
-	@UiThread
-	protected void repaintMap(LocationModel mobileLocation,
-			BDLocation userLocation) {
-
-		// map.clear();
-
-		// 添加 坐标提示信息
-		String tip = getActivity().getString(R.string.maptip_none);
-
-		// 添加用户位置
-		if (userLocation != null) {
-
-			// MyLocationData myData = new MyLocationData.Builder()
-			// .accuracy(userLocation.getRadius()).direction(100)
-			// .latitude(userLocation.getLatitude())
-			// .longitude(userLocation.getLongitude()).build();
-			//
-			// map.setMyLocationData(myData);
-			// // 添加用户信息
-			LatLng lat = new LatLng(userLocation.getLatitude(),
-					userLocation.getLongitude());
-
-			BitmapDescriptor icon = BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_marka);
-
-			// map.addOverlay(new MarkerOptions().position(lat).icon(icon));
-
-			// 显示大概范围
-			// showLocationRadius(userLocation.getLatitude(),
-			// userLocation.getLongitude(), (int) userLocation.getRadius());
-
-		}
-
-		// 手机和用户都定位到了，连接两点
-		if (userLocation != null && mobileLocation != null) {
-
-			int distance = cn.com.cml.dbl.util.DistanceUtil.calculateDistance(
-					userLocation, mobileLocation);
-
-			tip = getActivity().getString(R.string.maptip, distance);
-
-			// 创建两点的连线
-			List<LatLng> pts = new ArrayList<LatLng>();
-
-			pts.add(new LatLng(mobileLocation.getLatitude(), mobileLocation
-					.getLongitude()));
-			pts.add(new LatLng(userLocation.getLatitude(), userLocation
-					.getLongitude()));
-
-			// 构建用户绘制多边形的Option对象
-			OverlayOptions polygonOption = new PolylineOptions().points(pts)
-					.color(Color.BLUE);
-			// 在地图上添加多边形Option，用于显示
-			// map.addOverlay(polygonOption);
-		}
-
-		if (mobileLocation != null) {
-			// 添加用户信息
-			LatLng lat = new LatLng(mobileLocation.getLatitude(),
-					mobileLocation.getLongitude());
-
-			BitmapDescriptor icon = BitmapDescriptorFactory
-					.fromResource(R.drawable.icon_marka);
-
-			// map.addOverlay(new MarkerOptions().position(lat).icon(icon));
-
-			// 显示大概范围
-			showLocationRadius(mobileLocation.getLatitude(),
-					mobileLocation.getLongitude(),
-					(int) mobileLocation.getRadius());
-
-			// // 构造定位数据,设置手机定位数据
-			// MyLocationData locData = new MyLocationData.Builder()
-			// .accuracy(mobileLocation.getRadius()).direction(0)
-			// .latitude(mobileLocation.getLatitude())
-			// .longitude(mobileLocation.getLongitude()).build();
-			//
-			// // 设置定位数据
-			// map.setMyLocationData(locData);
-
-			// 添加提示信息
-			addMapInfo(mobileLocation.getLatitude(),
-					mobileLocation.getLongitude(), R.string.icon_spin5, tip);
-		}
-
-	}
-
 	/**
 	 * 指定圆心，半径，显示大概范围
 	 * 
@@ -305,23 +237,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 		// .center(new LatLng(latitude, longitude)).color(Color.GREEN)
 		// .radius(radius);
 		// map.addOverlay(groundOverlay);
-	}
-
-	private void addMapInfo(double latitude, double longitude, int icon,
-			String text) {
-
-		// 设置提示
-		MapviewTipView tip = MapviewTipView_.build(getActivity());
-
-		tip.bind(icon, text);
-
-		// 定义用于显示该InfoWindow的坐标点
-		LatLng pt = new LatLng(latitude, longitude);
-		// 创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
-		InfoWindow mInfoWindow = new InfoWindow(tip, pt, -47);
-
-		// 显示InfoWindow
-		// map.showInfoWindow(mInfoWindow);
 	}
 
 	private void sendLocationCommand() {
@@ -391,6 +306,10 @@ public class MobileMonitorFragment extends BaseFragment implements
 		if (isValid) {
 			locationHelper.setUserLocation(location);
 		}
+		if (!dialog.isHidden()) {
+			dialog.dismiss();
+		}
+
 	}
 
 }

@@ -4,15 +4,19 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 import cn.bmob.v3.listener.SaveListener;
+import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.util.ValidationUtil;
+import cn.com.cml.dbl.view.WebViewFragment_;
 
 @EActivity(R.layout.activity_register)
 public class RegisterActivity extends BaseActivity {
@@ -38,11 +42,21 @@ public class RegisterActivity extends BaseActivity {
 
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
+
 		// usernameView.setText("865517964@qq.com");
 		// passwordView.setText("123456");
 
 		setCustomTitle(R.string.login_register);
+	}
+
+	@Click(R.id.register_agreement)
+	void agreementClick() {
+		Bundle bundle = new Bundle();
+		bundle.putString("errorUrl", "");
+		bundle.putString("mLoadUrl", Constant.Url.URL_AGREEMENT);
+		ModalActivity_.intent(this).fragmentTitle(R.string.agreement)
+				.extraArguments(bundle).container(WebViewFragment_.class)
+				.start();
 	}
 
 	@Click(R.id.btn_register)
@@ -68,7 +82,8 @@ public class RegisterActivity extends BaseActivity {
 			@Override
 			public void onSuccess() {
 				dialog.dismiss();
-				DialogUtil.toast(getApplicationContext(), R.string.register_success);
+				DialogUtil.toast(getApplicationContext(),
+						R.string.register_success);
 				finish();
 			}
 

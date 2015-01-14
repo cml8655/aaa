@@ -31,7 +31,7 @@ public abstract class MapHelper {
 
 	public abstract void addMarker(LatLng lat);
 
-	public abstract void addWindowInfo(LatLng lat);
+	public abstract void addWindowInfo(LatLng lat,int icon,int text);
 
 	public abstract void animateTo(LatLng lat);
 	
