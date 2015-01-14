@@ -52,7 +52,6 @@ public class RegisterActivity extends BaseActivity {
 	@Click(R.id.register_agreement)
 	void agreementClick() {
 		Bundle bundle = new Bundle();
-		bundle.putString("errorUrl", "");
 		bundle.putString("mLoadUrl", Constant.Url.URL_AGREEMENT);
 		ModalActivity_.intent(this).fragmentTitle(R.string.agreement)
 				.extraArguments(bundle).container(WebViewFragment_.class)
