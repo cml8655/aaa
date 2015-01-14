@@ -18,7 +18,7 @@ import cn.com.cml.dbl.util.DialogUtil;
 
 public class BaseFragment extends Fragment {
 
-	protected void showNiftyTip(String text) {
+	public void showNiftyTip(String text) {
 		DialogUtil.showNiftyTip(getActivity(), text, R.id.over_view_container);
 	}
 
@@ -45,7 +45,7 @@ public class BaseFragment extends Fragment {
 		transaction.commit();
 	}
 
-	protected void showNiftyTip(String text, int containerId) {
+	public void showNiftyTip(String text, int containerId) {
 
 		final ViewGroup parent = (ViewGroup) getActivity().findViewById(
 				containerId);

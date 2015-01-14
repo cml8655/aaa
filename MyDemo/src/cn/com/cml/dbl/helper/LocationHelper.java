@@ -1,14 +1,18 @@
 package cn.com.cml.dbl.helper;
 
-import org.androidannotations.annotations.EBean;
+import android.app.Activity;
+import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.view.BaseFragment;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 
-@EBean
 public class LocationHelper {
 
 	private BDLocation userLocation;
@@ -17,7 +21,82 @@ public class LocationHelper {
 	private String userLocationCache;
 	private String mobileLocationCache;
 
-	public boolean reverseUserLocationCoder(OnGetGeoCoderResultListener listener) {
+	private BaseFragment baseFragment;
+
+	public LocationHelper(BaseFragment baseFragment) {
+		super();
+		this.baseFragment = baseFragment;
+	}
+
+	private OnGetGeoCoderResultListener userlocationReverse = new OnGetGeoCoderResultListener() {
+
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+			Activity ac = baseFragment.getActivity();
+
+			if (null == ac || ac.isFinishing()) {
+				return;
+			}
+
+			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+				baseFragment.showNiftyTip(
+						ac.getString(R.string.monitor_location_error),
+						R.id.mobile_monitor_tip_container);
+				return;
+			}
+
+			if (null != result) {
+				String address = result.getAddress();
+				int radius = (int) userLocation.getRadius();
+				baseFragment.showNiftyTip(ac.getString(
+						R.string.monitor_location_result, address, radius),
+						R.id.mobile_monitor_tip_container);
+			}
+
+		}
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult result) {
+		}
+	};
+
+	private OnGetGeoCoderResultListener mobileLocationReverse = new OnGetGeoCoderResultListener() {
+
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+			Activity ac = baseFragment.getActivity();
+
+			if (null == ac || ac.isFinishing()) {
+				return;
+			}
+
+			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+				baseFragment.showNiftyTip(
+						ac.getString(R.string.monitor_location_error),
+						R.id.mobile_monitor_tip_container);
+				return;
+			}
+
+			if (null != result) {
+
+				String address = result.getAddress();
+				int radius = (int) mobileLocation.getRadius();
+				baseFragment.showNiftyTip(ac.getString(
+						R.string.monitor_location_result, address, radius),
+						R.id.mobile_monitor_tip_container);
+			}
+
+		}
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult result) {
+
+		}
+	};
+
+	public boolean reverseUserLocationCoder() {
 
 		if (null == userLocation) {
 			return false;
@@ -28,13 +107,12 @@ public class LocationHelper {
 				.getLongitude()));
 
 		GeoCoder coder = GeoCoder.newInstance();
-		coder.setOnGetGeoCodeResultListener(listener);
+		coder.setOnGetGeoCodeResultListener(userlocationReverse);
 
 		return coder.reverseGeoCode(option);
 	}
 
-	public boolean reverseMobileLocationCoder(
-			OnGetGeoCoderResultListener listener) {
+	public boolean reverseMobileLocationCoder() {
 
 		if (null == mobileLocation) {
 			return false;
@@ -45,17 +123,9 @@ public class LocationHelper {
 				.getLongitude()));
 
 		GeoCoder coder = GeoCoder.newInstance();
-		coder.setOnGetGeoCodeResultListener(listener);
+		coder.setOnGetGeoCodeResultListener(mobileLocationReverse);
 
 		return coder.reverseGeoCode(option);
-	}
-
-	public BDLocation getUserLocation() {
-		return userLocation;
-	}
-
-	public BDLocation getMobileLocation() {
-		return mobileLocation;
 	}
 
 	public void setUserLocation(BDLocation userLocation) {
@@ -66,20 +136,29 @@ public class LocationHelper {
 		this.mobileLocation = mobileLocation;
 	}
 
-	public String getUserLocationCache() {
-		return userLocationCache;
-	}
-
-	public void setUserLocationCache(String userLocationCache) {
-		this.userLocationCache = userLocationCache;
-	}
-
 	public String getMobileLocationCache() {
 		return mobileLocationCache;
 	}
 
 	public void setMobileLocationCache(String mobileLocationCache) {
 		this.mobileLocationCache = mobileLocationCache;
+	}
+
+	public OnGetGeoCoderResultListener getMobileLocationReverse() {
+		return mobileLocationReverse;
+	}
+
+	public void setMobileLocationReverse(
+			OnGetGeoCoderResultListener mobileLocationReverse) {
+		this.mobileLocationReverse = mobileLocationReverse;
+	}
+
+	public BDLocation getUserLocation() {
+		return userLocation;
+	}
+
+	public BDLocation getMobileLocation() {
+		return mobileLocation;
 	}
 
 }

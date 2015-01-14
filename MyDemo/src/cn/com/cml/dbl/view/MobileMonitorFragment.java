@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.UiThread;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,10 +24,10 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.PushListener;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant.Command;
-import cn.com.cml.dbl.helper.MapMenuHelper;
-import cn.com.cml.dbl.helper.MapMenuHelper.MenuType;
-import cn.com.cml.dbl.helper.MapMenuHelper.OnMenuClickListener;
 import cn.com.cml.dbl.helper.LocationHelper;
+import cn.com.cml.dbl.helper.MapFactory;
+import cn.com.cml.dbl.helper.MapHelper;
+import cn.com.cml.dbl.helper.MapHelper.LocationStatusListener;
 import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.LocationModel;
@@ -38,58 +38,34 @@ import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
 import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.GroundOverlayOptions;
 import com.baidu.mapapi.map.InfoWindow;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.geocode.GeoCodeResult;
-import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.google.gson.Gson;
 
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends BaseFragment implements
-		BDLocationListener, OnItemClickListener {
+		OnItemClickListener, LocationStatusListener {
 
 	private static final String TAG = "MobileMonitorFragment";
 
 	public static final String ACTION_LOCATION_RESULT = "cn.com.cml.dbl.view.MobileMonitorFragment.ACTION_LOCATION_RESULT";
 	public static final String EXTRA_LOCATION_RESULT = "MobileMonitorFragment.EXTRA_LOCATION_RESULT";
-
+	private static final int LOCATE_INTERVAL = 10000;
 	@FragmentById(R.id.map_fragment)
 	SupportMapFragment mapFragment;
 
-	@Bean
-	MapMenuHelper mapMenuHelper;
-
-	@Bean
-	LocationHelper locationHelper;
-
+	private MapHelper mapHelper;
+	private LocationHelper locationHelper;
 	@Bean
 	ApiRequestServiceClient apiClient;
 
-	private LocationClient baiduClient;
-
-	private BaiduMap map;
-	private MapView mapView;
-
 	private DialogFragment dialog;
-	private boolean isFirst;
 
 	// 手机定位返回数据
 	private BroadcastReceiver mobileLocationReceiver = new BroadcastReceiver() {
@@ -114,108 +90,8 @@ public class MobileMonitorFragment extends BaseFragment implements
 			bdLocation.setRadius(model.getRadius());
 
 			locationHelper.setMobileLocation(bdLocation);
-			locationHelper.reverseMobileLocationCoder(mobileLocationReverse);
-		}
-	};
-
-	private OnGetGeoCoderResultListener mobileLocationReverse = new OnGetGeoCoderResultListener() {
-
-		@Override
-		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-
-			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				showNiftyTip(getString(R.string.monitor_location_error));
-				return;
-			}
-
-			Activity ac = getActivity();
-
-			if (null != result && null != ac && !ac.isFinishing()) {
-
-				String address = result.getAddress();
-				int radius = (int) locationHelper.getMobileLocation()
-						.getRadius();
-				showNiftyTip(
-						getString(R.string.monitor_location_result, address,
-								radius), R.id.mobile_monitor_tip_container);
-			}
-
-		}
-
-		@Override
-		public void onGetGeoCodeResult(GeoCodeResult result) {
-
-		}
-	};
-
-	private OnGetGeoCoderResultListener userlocationReverse = new OnGetGeoCoderResultListener() {
-
-		@Override
-		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-
-			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				showNiftyTip(getString(R.string.monitor_location_error),
-						R.id.mobile_monitor_tip_container);
-				return;
-			}
-
-			Activity ac = getActivity();
-
-			if (null != result && null != ac && !ac.isFinishing()) {
-				String address = result.getAddress();
-				int radius = (int) locationHelper.getUserLocation().getRadius();
-				showNiftyTip(
-						getString(R.string.monitor_location_result, address,
-								radius), R.id.mobile_monitor_tip_container);
-			}
-
-		}
-
-		@Override
-		public void onGetGeoCodeResult(GeoCodeResult result) {
-		}
-	};
-
-	private OnMenuClickListener menuItemClickListener = new OnMenuClickListener() {
-
-		@Override
-		public void onClick(View v, MenuType menuType) {
-
-			if (map == null) {
-				return;
-			}
-
-			switch (menuType) {
-
-			case TYPE_SETTING:
-				showNiftyTip("我是setting", R.id.mobile_monitor_tip_container);
-				break;
-
-			case TYPE_USER:
-
-				// 根据坐标获取用户位置
-				locationHelper.reverseUserLocationCoder(userlocationReverse);
-
-				BDLocation myLocation = locationHelper.getUserLocation();
-
-				if (null != myLocation) {
-					map.animateMapStatus(MapStatusUpdateFactory
-							.newLatLng(new LatLng(myLocation.getLatitude(),
-									myLocation.getLongitude())));
-				}
-
-				break;
-
-			case TYPE_MOBILE:
-				map.animateMapStatus(MapStatusUpdateFactory
-						.newLatLng(new LatLng(31.245951, 121.51377)));
-				showNiftyTip("TYPE_MOBILE上海市地方：。。。。",
-						R.id.mobile_monitor_tip_container);
-
-				break;
-
-			}
-
+			mapHelper.animateTo(new LatLng(model.getLatitude(), model
+					.getLongitude()));
 		}
 	};
 
@@ -223,6 +99,12 @@ public class MobileMonitorFragment extends BaseFragment implements
 	public void initConfig() {
 
 		Log.d(TAG, "MobileMonitorFragment==》initConfig");
+
+		mapHelper = new MapFactory().createBaiduMapHelper(mapFragment);
+		mapHelper.initMap(LOCATE_INTERVAL);// 10s定位一次
+		mapHelper.setLocationStatusListener(this);
+
+		locationHelper = new LocationHelper(this);
 
 		dialog = DialogUtil.dataLoadingDialog(R.string.locate_user);
 		dialog.show(getFragmentManager(), "location");
@@ -232,56 +114,41 @@ public class MobileMonitorFragment extends BaseFragment implements
 		// this).show(
 		// getFragmentManager(), "ddd");
 
-		// 设置菜单点击事件
-		mapMenuHelper.bindListener(menuItemClickListener);
-
-		// 百度地图初始化
-		map = mapFragment.getBaiduMap();
-		map.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-		map.setTrafficEnabled(true);
-		map.setMyLocationEnabled(true);
-		map.setBuildingsEnabled(true);
-
-		// 放大地图
-		MapStatusUpdate u = MapStatusUpdateFactory.zoomTo(18);
-		map.setMapStatus(u);
-
-		mapView = mapFragment.getMapView();
-		mapView.setScrollbarFadingEnabled(true);
-		mapView.showScaleControl(true);
-		mapView.showZoomControls(true);
-
-		// 定位功能初始化
-		baiduClient = new LocationClient(getActivity());
-
-		LocationClientOption option = new LocationClientOption();
-		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
-		option.setScanSpan(3000);// 设置发起定位请求的间隔时间为3000ms
-		option.setOpenGps(true);
-		option.setTimeOut(20000);// 20s延迟
-		option.setPriority(LocationClientOption.GpsFirst);
-
-		baiduClient.setLocOption(option);
-		baiduClient.registerLocationListener(this);
-
-		// 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
-		MyLocationConfiguration config = new MyLocationConfiguration(
-				LocationMode.FOLLOWING, true, null);
-
-		map.setMyLocationConfigeration(config);
-
 		// TODO 用户输入远程密码后进行定位功能开启
 		sendLocationCommand();
 
 	}
 
-	@Override
-	public void onResume() {
+	@Click(R.id.map_menu_setting)
+	public void settingClick(View v) {
 
-		if (null != baiduClient && !baiduClient.isStarted()) {
-			baiduClient.start();
+	}
+
+	@Click(R.id.map_menu_user)
+	public void userClick(View v) {
+
+		BDLocation userLocation = locationHelper.getUserLocation();
+
+		if (null != userLocation) {
+			mapHelper.animateTo(new LatLng(userLocation.getLatitude(),
+					userLocation.getLongitude()));
+			locationHelper.reverseUserLocationCoder();
 		}
-		super.onResume();
+	}
+
+	@Click(R.id.map_menu_mobile)
+	public void mobileClick(View v) {
+
+		// TODO 去除
+		locationHelper.setMobileLocation(new BDLocation(121.51377, 31.245951,
+				11));
+		BDLocation mobileLocation = locationHelper.getMobileLocation();
+
+		if (null != mobileLocation) {
+			mapHelper.animateTo(new LatLng(mobileLocation.getLatitude(),
+					mobileLocation.getLongitude()));
+			locationHelper.reverseMobileLocationCoder();
+		}
 
 	}
 
@@ -300,12 +167,15 @@ public class MobileMonitorFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onPause() {
+	public void onResume() {
+		super.onResume();
+		mapHelper.startLocationMonitor();
+	}
 
-		if (null != baiduClient && baiduClient.isStarted()) {
-			baiduClient.stop();
-		}
+	@Override
+	public void onPause() {
 		super.onPause();
+		mapHelper.stopLocationMonitor();
 	}
 
 	/**
@@ -315,18 +185,10 @@ public class MobileMonitorFragment extends BaseFragment implements
 	public void onHiddenChanged(boolean hidden) {
 		super.onHiddenChanged(hidden);
 
-		if (baiduClient != null) {
-			if (hidden) {// 不在最前端界面显示
-				if (null != baiduClient && baiduClient.isStarted()) {
-					mapView.onPause();
-					baiduClient.stop();
-				}
-			} else {// 重新显示到最前端中
-				if (null != baiduClient && !baiduClient.isStarted()) {
-					mapView.onResume();
-					baiduClient.start();
-				}
-			}
+		if (hidden) {// 不在最前端界面显示
+			mapHelper.stopLocationMonitor();
+		} else {// 重新显示到最前端中
+			mapHelper.startLocationMonitor();
 		}
 	}
 
@@ -334,7 +196,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 	protected void repaintMap(LocationModel mobileLocation,
 			BDLocation userLocation) {
 
-		map.clear();
+		// map.clear();
 
 		// 添加 坐标提示信息
 		String tip = getActivity().getString(R.string.maptip_none);
@@ -355,7 +217,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 			BitmapDescriptor icon = BitmapDescriptorFactory
 					.fromResource(R.drawable.icon_marka);
 
-			map.addOverlay(new MarkerOptions().position(lat).icon(icon));
+			// map.addOverlay(new MarkerOptions().position(lat).icon(icon));
 
 			// 显示大概范围
 			// showLocationRadius(userLocation.getLatitude(),
@@ -383,7 +245,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 			OverlayOptions polygonOption = new PolylineOptions().points(pts)
 					.color(Color.BLUE);
 			// 在地图上添加多边形Option，用于显示
-			map.addOverlay(polygonOption);
+			// map.addOverlay(polygonOption);
 		}
 
 		if (mobileLocation != null) {
@@ -394,7 +256,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 			BitmapDescriptor icon = BitmapDescriptorFactory
 					.fromResource(R.drawable.icon_marka);
 
-			map.addOverlay(new MarkerOptions().position(lat).icon(icon));
+			// map.addOverlay(new MarkerOptions().position(lat).icon(icon));
 
 			// 显示大概范围
 			showLocationRadius(mobileLocation.getLatitude(),
@@ -459,57 +321,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 		InfoWindow mInfoWindow = new InfoWindow(tip, pt, -47);
 
 		// 显示InfoWindow
-		map.showInfoWindow(mInfoWindow);
-	}
-
-	@Override
-	public void onReceiveLocation(BDLocation location) {
-
-		if (getActivity() == null) {
-			return;
-		}
-		
-		if (!isValid(location)) {
-			DialogUtil.showTip(getActivity(), "定位失败");
-			return;
-		}
-		locationHelper.setUserLocation(location);
-
-		if (!isFirst) {
-			isFirst = true;
-			dialog.dismiss();
-			map.animateMapStatus(MapStatusUpdateFactory.newLatLng(new LatLng(
-					location.getLatitude(), location.getLongitude())));
-		}
-		LocationModel mobileLocation = new LocationModel();
-
-		mobileLocation.setLatitude(31.245951);
-		mobileLocation.setLongitude(121.51377);
-
-		repaintMap(mobileLocation, location);
-
-		// MyLocationData myData = new MyLocationData.Builder()
-		// .accuracy(location.getRadius()).direction(100)
-		// .latitude(location.getLatitude())
-		// .longitude(location.getLongitude()).build();
-		//
-		// map.setMyLocationData(myData);
-	}
-
-	private boolean isValid(BDLocation location) {
-
-		switch (location.getLocType()) {
-		case 61:// 61 ： GPS定位结果
-		case 161:// 表示网络定位结果
-			return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public void onReceivePoi(BDLocation location) {
-
+		// map.showInfoWindow(mInfoWindow);
 	}
 
 	private void sendLocationCommand() {
@@ -571,8 +383,14 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(DialogInterface dialog, long id, int requestId) {
-		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onLocationReceive(boolean isValid, BDLocation location) {
+		if (isValid) {
+			locationHelper.setUserLocation(location);
+		}
 	}
 
 }
