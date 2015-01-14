@@ -17,18 +17,18 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.GroundOverlayOptions;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.PolylineOptions;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.utils.DistanceUtil;
 
 public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 
@@ -172,11 +172,6 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		if (!isFirstLocate) {
 			isFirstLocate = true;
 
-			// TODO 模拟手机位置
-			LatLng mobileLocation = new LatLng(31.245951, 121.51377);
-
-			this.addMarker(mobileLocation);
-
 			MyLocationData myData = new MyLocationData.Builder()
 					.accuracy(location.getRadius()).direction(0)
 					.latitude(location.getLatitude())
@@ -212,5 +207,34 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	public BDLocation getLastLocation() {
 		return lastLocation;
 	}
+	
+	/**
+	 * 指定圆心，半径，显示大概范围
+	 * 
+	 * @param latitude
+	 * @param longitude
+	 * @param radius
+	 */
+	private void showLocationRadius(double latitude, double longitude,
+			int radius) {
+
+		// OverlayOptions circle = new CircleOptions()
+		// .center(new LatLng(latitude, longitude)).radius(radius)
+		// .stroke(new Stroke(5, Color.RED)).fillColor(Color.GREEN);
+
+		OverlayOptions groundOverlay = new GroundOverlayOptions()
+				.dimensions(radius)
+				// 设置 ground 覆盖物的宽度，单位：米， 高度按图片宽高比例
+				.position(new LatLng(latitude, longitude))
+				.transparency(0.3f)
+				.image(BitmapDescriptorFactory
+						.fromResource(R.drawable.icon_geo));
+
+		// OverlayOptions dotOverlay = new DotOptions()
+		// .center(new LatLng(latitude, longitude)).color(Color.GREEN)
+		// .radius(radius);
+		// map.addOverlay(groundOverlay);
+	}
+
 
 }

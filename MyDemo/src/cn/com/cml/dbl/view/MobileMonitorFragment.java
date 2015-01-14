@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import cn.bmob.v3.BmobUser;
@@ -30,12 +31,11 @@ import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.util.ValidationUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
+import cn.com.cml.dbl.view.RemotePassInputDialogFragment.OnPassFinishListener;
 
 import com.baidu.location.BDLocation;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.GroundOverlayOptions;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -43,23 +43,27 @@ import com.google.gson.Gson;
 
 @EFragment(R.layout.fragment_mobile_monitor)
 public class MobileMonitorFragment extends BaseFragment implements
-		OnItemClickListener, LocationStatusListener {
+		OnItemClickListener, LocationStatusListener, OnPassFinishListener {
 
 	private static final String TAG = "MobileMonitorFragment";
 
 	public static final String ACTION_LOCATION_RESULT = "cn.com.cml.dbl.view.MobileMonitorFragment.ACTION_LOCATION_RESULT";
 	public static final String EXTRA_LOCATION_RESULT = "MobileMonitorFragment.EXTRA_LOCATION_RESULT";
+
 	private static final int LOCATE_INTERVAL = 10000;
-	
+	private static final int REQUEST_REMOTE_PASS = 3001;
+
 	@FragmentById(R.id.map_fragment)
 	SupportMapFragment mapFragment;
 
-	private MapHelper mapHelper;
-	private LocationHelper locationHelper;
 	@Bean
 	ApiRequestServiceClient apiClient;
 
-	private DialogFragment dialog;
+	private MapHelper mapHelper;
+	private LocationHelper locationHelper;
+
+	private DialogFragment loadingDialog;
+	private boolean remotePassValid;
 
 	// 手机定位返回数据
 	private BroadcastReceiver mobileLocationReceiver = new BroadcastReceiver() {
@@ -84,6 +88,8 @@ public class MobileMonitorFragment extends BaseFragment implements
 			bdLocation.setRadius(model.getRadius());
 
 			locationHelper.setMobileLocation(bdLocation);
+			mapHelper.addMarker(new LatLng(model.getLatitude(), model
+					.getLongitude()));
 			mapHelper.animateTo(new LatLng(model.getLatitude(), model
 					.getLongitude()));
 		}
@@ -100,16 +106,20 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		locationHelper = new LocationHelper(this);
 
-		dialog = DialogUtil.dataLoadingDialog(R.string.locate_user);
-		dialog.show(getFragmentManager(), "location");
+		loadingDialog = DialogUtil.dataLoadingDialog(R.string.locate_user);
+		loadingDialog.show(getFragmentManager(), "location");
 
-		// 远程密码输入
-		// DialogUtil.remotePassInputDialog(R.string.alarm_cancel, 1,
-		// this).show(
-		// getFragmentManager(), "ddd");
-
+		showRemotePassRequiredDialog();
 		// TODO 用户输入远程密码后进行定位功能开启
 		// sendLocationCommand();
+
+	}
+
+	private void showRemotePassRequiredDialog() {
+		// 远程密码输入
+		DialogUtil.remotePassInputDialog(R.string.alarm_cancel,
+				REQUEST_REMOTE_PASS, this).show(getFragmentManager(),
+				"remote_pass_required");
 
 	}
 
@@ -128,7 +138,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 			int distance = (int) DistanceUtil.getDistance(start, end);
 			String distanceStr = getActivity().getString(
 					R.string.monitor_distance, distance);
-			showNiftyTip(distanceStr,R.id.mobile_monitor_tip_container);
+			showNiftyTip(distanceStr, R.id.mobile_monitor_tip_container);
 		}
 
 	}
@@ -153,9 +163,14 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Click(R.id.map_menu_mobile)
 	public void mobileClick(View v) {
 
+		if (!remotePassValid) {
+			this.showRemotePassRequiredDialog();
+			return;
+		}
+
 		// TODO 去除
-		locationHelper.setMobileLocation(new BDLocation(121.51377, 31.245951,
-				11));
+		// locationHelper.setMobileLocation(new BDLocation(121.51377, 31.245951,
+		// 11));
 		BDLocation mobileLocation = locationHelper.getMobileLocation();
 
 		if (null != mobileLocation) {
@@ -211,35 +226,11 @@ public class MobileMonitorFragment extends BaseFragment implements
 		}
 	}
 
-	/**
-	 * 指定圆心，半径，显示大概范围
-	 * 
-	 * @param latitude
-	 * @param longitude
-	 * @param radius
-	 */
-	private void showLocationRadius(double latitude, double longitude,
-			int radius) {
+	private void sendLocationCommand(final String pass) {
 
-		// OverlayOptions circle = new CircleOptions()
-		// .center(new LatLng(latitude, longitude)).radius(radius)
-		// .stroke(new Stroke(5, Color.RED)).fillColor(Color.GREEN);
-
-		OverlayOptions groundOverlay = new GroundOverlayOptions()
-				.dimensions(radius)
-				// 设置 ground 覆盖物的宽度，单位：米， 高度按图片宽高比例
-				.position(new LatLng(latitude, longitude))
-				.transparency(0.3f)
-				.image(BitmapDescriptorFactory
-						.fromResource(R.drawable.icon_geo));
-
-		// OverlayOptions dotOverlay = new DotOptions()
-		// .center(new LatLng(latitude, longitude)).color(Color.GREEN)
-		// .radius(radius);
-		// map.addOverlay(groundOverlay);
-	}
-
-	private void sendLocationCommand() {
+		loadingDialog = DialogUtil
+				.dataLoadingDialog(R.string.monitor_pass_check);
+		loadingDialog.show(getFragmentManager(), "remote_pass_check");
 
 		// 查询用户手机绑定情况
 		apiClient.bindDeviceQuery(new BaseFindListener<MobileBind>(
@@ -247,7 +238,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 			@Override
 			public void onFinish() {
-				super.onFinish();
+				loadingDialog.dismissAllowingStateLoss();
 			}
 
 			@Override
@@ -255,27 +246,24 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 				// TODO 没有绑定手机，跳到绑定界面
 				if (result.size() == 0) {
-					Log.d(TAG, "没有找到绑定手机");
+					DialogUtil.showTip(getActivity(), "没有找到绑定手机");
 					return;
 				}
 
 				MobileBind bindDevice = result.get(0);
 
-				// TODO 输入远程密码
-				// // 密码错误
-				// if (!ValidationUtil.equals(pass,
-				// bindDevice.getBindPassword())) {
-				//
-				// DialogUtil.showTip(getActivity(),
-				// getString(R.string.password_error));
-				//
-				// return;
-				// }
+				// TODO 提示用户找回密码，密码错误
+				if (!ValidationUtil.equals(pass, bindDevice.getBindPassword())) {
+
+					DialogUtil.showTip(getActivity(),
+							getString(R.string.password_error));
+
+					return;
+				}
 
 				// 启动警报
-
 				Command locationCommand = Command.DINGWEI_ENUM;
-				locationCommand.setBindPass("123");
+				locationCommand.setBindPass(pass);
 				locationCommand.setFrom(BmobUser.getCurrentUser(getActivity())
 						.getUsername());
 
@@ -284,12 +272,14 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 							@Override
 							public void onSuccess() {
-								Log.d(TAG, "alaramCommand发送onSuccess");
+								remotePassValid = true;
+								DialogUtil.showTip(getActivity(), "推送发送成功！！");
 							}
 
 							@Override
 							public void onFailure(int arg0, String errorMsg) {
 								Log.d(TAG, "发送失败：" + errorMsg);
+								DialogUtil.showTip(getActivity(), "推送发送失败！！");
 							}
 						});
 			}
@@ -306,10 +296,25 @@ public class MobileMonitorFragment extends BaseFragment implements
 		if (isValid) {
 			locationHelper.setUserLocation(location);
 		}
-		if (!dialog.isHidden()) {
-			dialog.dismiss();
+		if (!loadingDialog.isHidden()) {
+			loadingDialog.dismiss();
 		}
 
+	}
+
+	@Override
+	public void onClick(DialogInterface dialog, long id, int requestId,
+			String pass) {
+
+		if (id == DialogInterface.BUTTON_POSITIVE) {
+			if (TextUtils.isEmpty(pass)) {
+				showRemotePassRequiredDialog();
+				DialogUtil.toast(getActivity(),
+						R.string.monitor_remote_pass_empty);
+			} else {
+				sendLocationCommand(pass);
+			}
+		}
 	}
 
 }

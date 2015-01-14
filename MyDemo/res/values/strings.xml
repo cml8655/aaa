@@ -138,6 +138,8 @@
     <string name="monitor_my_location">我的位置</string>
     <string name="monitor_mobile_location">手机位置</string>
     <string name="monitor_distance">距离手机位置约:%1$s米</string>
+    <string name="monitor_remote_pass_empty">请输入远程密码</string>
+    <string name="monitor_pass_check">正在校验密码，请稍候</string>
 
     <!-- 个人中心 -->
     <string name="userinfo_account">当前账号：%1$s</string>

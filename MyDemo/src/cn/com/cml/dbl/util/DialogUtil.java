@@ -12,6 +12,7 @@ import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 import cn.com.cml.dbl.view.DefaultDialogFragment_;
 import cn.com.cml.dbl.view.NotifyDialogFragment;
 import cn.com.cml.dbl.view.NotifyDialogFragment_;
+import cn.com.cml.dbl.view.RemotePassInputDialogFragment.OnPassFinishListener;
 import cn.com.cml.dbl.view.RemotePassInputDialogFragment_;
 import cn.com.cml.dbl.view.dialog.MessageDialogFragment_;
 
@@ -194,12 +195,13 @@ public class DialogUtil {
 	public static DialogFragment remotePassInputDialog(Integer text,
 			int requestId, Fragment targetFragment) {
 
-		if (targetFragment instanceof OnItemClickListener) {
+		if (targetFragment instanceof OnPassFinishListener) {
 
 			DialogFragment dialog = RemotePassInputDialogFragment_.builder()
+					.title(R.string.system_tip)
 					.negativeBtnText(R.string.system_btn_cancel)
 					.positiveBtnText(R.string.system_btn_ensure)
-					.requestId(requestId).title(R.string.system_tip).build();
+					.requestId(requestId).build();
 
 			dialog.setTargetFragment(targetFragment, 1);
 
@@ -209,6 +211,6 @@ public class DialogUtil {
 		}
 
 		throw new IllegalArgumentException(
-				"fragment must extends OnItemClickListener");
+				"fragment must extends OnPassFinishListener");
 	}
 }

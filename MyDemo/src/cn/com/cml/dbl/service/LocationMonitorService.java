@@ -45,6 +45,7 @@ public class LocationMonitorService extends Service {
 		public void onReceiveLocation(BDLocation location) {
 
 			if (!isValid(location)) {
+				locationClient.requestLocation();
 				return;
 			}
 
@@ -70,10 +71,8 @@ public class LocationMonitorService extends Service {
 
 			switch (location.getLocType()) {
 
-			case 66:// 66 ： 离线定位结果。通过requestOfflineLocaiton调用时对应的返回结果\n
-			case 65:// ： 定位缓存的结果。
-			case 68:// 网络连接失败时，查找本地离线定位时对应的返回结果
-			case 161:// 表示网络定位结果
+			case BDLocation.TypeGpsLocation:
+			case BDLocation.TypeNetWorkLocation:
 				return true;
 			}
 
