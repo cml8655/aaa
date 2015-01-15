@@ -1,5 +1,8 @@
 package cn.com.cml.dbl.helper;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.view.BaseFragment;
@@ -15,149 +18,205 @@ import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 
 public class LocationHelper {
 
-	private BDLocation userLocation;
-	private BDLocation mobileLocation;
+	private LocationHandler locationHandler = new LocationHandler();
 
-	private String userLocationCache;
-	private String mobileLocationCache;
+	private static final String KEY_USER = "key_user";
+	private static final String KEY_MOBILE = "key_mobile";
 
 	private BaseFragment baseFragment;
 
+	private LocationHandler.LocationHandlerModel userLocationModel;
+	private LocationHandler.LocationHandlerModel mobileLocationModel;
+
 	public LocationHelper(BaseFragment baseFragment) {
-		super();
+
 		this.baseFragment = baseFragment;
+
+		userLocationModel = initLocationModel(R.string.icon_user);
+		locationHandler.storeModel(KEY_USER, userLocationModel);
+
+		mobileLocationModel = initLocationModel(R.string.icon_spin5);
+		locationHandler.storeModel(KEY_MOBILE, mobileLocationModel);
 	}
 
-	private OnGetGeoCoderResultListener userlocationReverse = new OnGetGeoCoderResultListener() {
+	private LocationHandler.LocationHandlerModel initLocationModel(
+			final int iconRes) {
 
-		@Override
-		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+		final LocationHandler.LocationHandlerModel model = new LocationHandler.LocationHandlerModel();
+		model.cacheLocation = new LocationStorage();
+		model.listener = new LocationReverseListener(baseFragment) {
 
-			Activity ac = baseFragment.getActivity();
+			@Override
+			public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
 
-			if (null == ac || ac.isFinishing()) {
-				return;
+				if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+					super.showError(iconRes);
+				}
+
+				if (null != result) {
+
+					String address = result.getAddress();
+					int radius = (int) model.location.getRadius();
+
+					super.showAddressResult(address, radius);
+
+					model.cacheLocation.cacheAddress(address);
+					model.cacheLocation.setmLocation(model.location);
+				}
+
 			}
 
-			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				baseFragment.showNiftyTip(
-						ac.getString(R.string.monitor_location_error),
-						R.id.mobile_monitor_tip_container);
-				return;
-			}
+		};
+		return model;
+	}
 
-			if (null != result) {
-				String address = result.getAddress();
-				int radius = (int) userLocation.getRadius();
-				baseFragment.showNiftyTip(ac.getString(
-						R.string.monitor_location_result, address, radius));
-			}
+	private boolean reverseLocationCoder(String key) {
 
-		}
+		LocationHandler.LocationHandlerModel model = locationHandler
+				.retrieveModel(key);
 
-		@Override
-		public void onGetGeoCodeResult(GeoCodeResult result) {
-		}
-	};
+		BDLocation location = model.location;
 
-	private OnGetGeoCoderResultListener mobileLocationReverse = new OnGetGeoCoderResultListener() {
-
-		@Override
-		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
-
-			Activity ac = baseFragment.getActivity();
-
-			if (null == ac || ac.isFinishing()) {
-				return;
-			}
-
-			if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-				baseFragment.showNiftyTip(
-						ac.getString(R.string.monitor_location_error),
-						R.id.mobile_monitor_tip_container);
-				return;
-			}
-
-			if (null != result) {
-
-				String address = result.getAddress();
-				int radius = (int) mobileLocation.getRadius();
-				baseFragment.showNiftyTip(ac.getString(
-						R.string.monitor_location_result, address, radius),
-						R.id.mobile_monitor_tip_container);
-			}
-
-		}
-
-		@Override
-		public void onGetGeoCodeResult(GeoCodeResult result) {
-
-		}
-	};
-
-	public boolean reverseUserLocationCoder() {
-
-		if (null == userLocation) {
+		if (null == location) {
 			return false;
 		}
 
-		ReverseGeoCodeOption option = new ReverseGeoCodeOption();
-		option.location(new LatLng(userLocation.getLatitude(), userLocation
-				.getLongitude()));
+		// 位置移动了，重新定位
+		if (model.cacheLocation.isMove(location)) {
 
-		GeoCoder coder = GeoCoder.newInstance();
-		coder.setOnGetGeoCodeResultListener(userlocationReverse);
+			ReverseGeoCodeOption option = new ReverseGeoCodeOption();
+			option.location(new LatLng(location.getLatitude(), location
+					.getLongitude()));
 
-		return coder.reverseGeoCode(option);
+			GeoCoder coder = GeoCoder.newInstance();
+			coder.setOnGetGeoCodeResultListener(model.listener);
+
+			return coder.reverseGeoCode(option);
+		}
+
+		// 位置没有移动，不进行重新定位
+		LocationStorage cacheLocation = model.cacheLocation;
+
+		model.listener.showAddressResult(cacheLocation.cacheAddress,
+				(int) model.location.getRadius());
+
+		return true;
+
+	}
+
+	public boolean reverseUserLocationCoder() {
+		return reverseLocationCoder(KEY_USER);
 	}
 
 	public boolean reverseMobileLocationCoder() {
-
-		if (null == mobileLocation) {
-			return false;
-		}
-
-		ReverseGeoCodeOption option = new ReverseGeoCodeOption();
-		option.location(new LatLng(mobileLocation.getLatitude(), mobileLocation
-				.getLongitude()));
-
-		GeoCoder coder = GeoCoder.newInstance();
-		coder.setOnGetGeoCodeResultListener(mobileLocationReverse);
-
-		return coder.reverseGeoCode(option);
+		return reverseLocationCoder(KEY_MOBILE);
 	}
 
 	public void setUserLocation(BDLocation userLocation) {
-		this.userLocation = userLocation;
+		userLocationModel.location = userLocation;
 	}
 
 	public void setMobileLocation(BDLocation mobileLocation) {
-		this.mobileLocation = mobileLocation;
-	}
-
-	public String getMobileLocationCache() {
-		return mobileLocationCache;
-	}
-
-	public void setMobileLocationCache(String mobileLocationCache) {
-		this.mobileLocationCache = mobileLocationCache;
-	}
-
-	public OnGetGeoCoderResultListener getMobileLocationReverse() {
-		return mobileLocationReverse;
-	}
-
-	public void setMobileLocationReverse(
-			OnGetGeoCoderResultListener mobileLocationReverse) {
-		this.mobileLocationReverse = mobileLocationReverse;
+		mobileLocationModel.location = mobileLocation;
 	}
 
 	public BDLocation getUserLocation() {
-		return userLocation;
+		return userLocationModel.location;
 	}
 
 	public BDLocation getMobileLocation() {
-		return mobileLocation;
+		return mobileLocationModel.location;
 	}
 
+	private class LocationStorage {
+
+		private BDLocation mLocation;
+		private String cacheAddress;
+
+		public boolean isMove(BDLocation location) {
+
+			if (mLocation == null) {
+				return true;
+			}
+
+			boolean equals = (mLocation.getLatitude() == location.getLatitude())
+					&& (location.getLongitude() == mLocation.getLongitude());
+
+			return !equals;
+		}
+
+		public void cacheAddress(String address) {
+			this.cacheAddress = address;
+		}
+
+		public void setmLocation(BDLocation mLocation) {
+			this.mLocation = mLocation;
+		}
+
+	}
+
+	private static class LocationHandler {
+
+		public static class LocationHandlerModel {
+			public BDLocation location;
+			public LocationReverseListener listener;
+			public LocationStorage cacheLocation;
+		}
+
+		private Map<String, LocationHandlerModel> map = new HashMap<String, LocationHandlerModel>();
+
+		public void storeModel(String key, LocationHandlerModel model) {
+			map.put(key, model);
+		}
+
+		public LocationHandlerModel retrieveModel(String key) {
+			return map.get(key);
+		}
+	}
+
+	private abstract class LocationReverseListener implements
+			OnGetGeoCoderResultListener {
+
+		private BaseFragment baseFragment;
+
+		public LocationReverseListener(BaseFragment baseFragment) {
+			this.baseFragment = baseFragment;
+		}
+
+		@Override
+		public void onGetGeoCodeResult(GeoCodeResult result) {
+
+		}
+
+		@Override
+		public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+
+		}
+
+		public void showAddressResult(String address, int radius) {
+
+			Activity ac = baseFragment.getActivity();
+
+			if (null == ac || ac.isFinishing()) {
+				return;
+			}
+
+			baseFragment.showNiftyTip(ac.getString(
+					R.string.monitor_location_result, address, radius));
+		}
+
+		public void showError(int icon) {
+
+			Activity ac = baseFragment.getActivity();
+
+			if (null == ac || ac.isFinishing()) {
+				return;
+			}
+
+			baseFragment.showNiftyTip(
+					ac.getString(R.string.monitor_location_error), icon,
+					R.id.mobile_monitor_tip_container);
+
+		}
+	}
 }

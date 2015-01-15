@@ -19,7 +19,7 @@ import cn.com.cml.dbl.util.DialogUtil;
 public class BaseFragment extends Fragment {
 
 	public void showNiftyTip(String text) {
-		this.showNiftyTip(text, R.id.over_view_container);
+		this.showNiftyTip(text, R.string.icon_setting, R.id.over_view_container);
 	}
 
 	protected void changeContainer(Fragment target, Integer titleId) {
@@ -45,7 +45,7 @@ public class BaseFragment extends Fragment {
 		transaction.commit();
 	}
 
-	public void showNiftyTip(String text, int containerId) {
+	public void showNiftyTip(String text, int iconRes, int containerId) {
 
 		final ViewGroup parent = (ViewGroup) getActivity().findViewById(
 				containerId);
@@ -59,7 +59,7 @@ public class BaseFragment extends Fragment {
 					public void onClick(View v) {
 						parent.removeAllViews();
 					}
-				}, text, getString(R.string.icon_setting));
+				}, text, getString(iconRes));
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);

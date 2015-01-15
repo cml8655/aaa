@@ -138,9 +138,9 @@ public class MobileMonitorFragment extends BaseFragment implements
 			int distance = (int) DistanceUtil.getDistance(start, end);
 			String distanceStr = getActivity().getString(
 					R.string.monitor_distance, distance);
-			showNiftyTip(distanceStr, R.id.mobile_monitor_tip_container);
+			showNiftyTip(distanceStr, R.string.icon_user,
+					R.id.mobile_monitor_tip_container);
 		}
-
 	}
 
 	@Click(R.id.map_menu_user)
