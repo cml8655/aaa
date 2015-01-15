@@ -56,10 +56,10 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 	TextView accountExchangeView;
 
 	private DialogFragment passIncorrectDialog;
-	
+
 	@AfterViews
 	protected void initConfig() {
-		
+
 		BmobUpdateAgent.update(this);
 
 		if (!NetworkUtils.isNetworkActive(this)) {
@@ -125,8 +125,6 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 			return;
 		}
 
-		Log.d(TAG, "validate:" + error.toString());
-
 		dialog.show(getSupportFragmentManager(), "login");
 
 		apiClient.login(username, password, new SaveListener() {
@@ -151,8 +149,14 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 
 							@Override
 							public void onSuccess(List<MobileBind> result) {
+
+								boolean isBindDevice = (result.size() != 0);
+
+								prefUtil.edit().isBindDevice()
+										.put(isBindDevice).apply();
+
 								// 未绑定此手机，提示绑定
-								if (result.size() == 0) {
+								if (!isBindDevice) {
 									startImportanceActivity();
 								} else {
 									startMainActivity();
