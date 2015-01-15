@@ -26,6 +26,8 @@ public abstract class MapHelper {
 	public abstract void startLocationMonitor();
 
 	public abstract void stopLocationMonitor();
+	
+	public abstract void requestLocation();
 
 	public abstract void clear();
 

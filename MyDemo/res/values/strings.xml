@@ -18,6 +18,7 @@
     <string name="use_help">使用帮助</string>
     <string name="agreement">服务协议</string>
     <string name="about_us">关于我们</string>
+    <string name="bind_current_device">找到了，手机不就在您手上么？</string>
 
     <!-- 主页 -->
     <string name="home">主页</string>
@@ -140,6 +141,9 @@
     <string name="monitor_distance">距离手机位置约:%1$s米</string>
     <string name="monitor_remote_pass_empty">请输入远程密码</string>
     <string name="monitor_pass_check">正在校验密码，请稍候</string>
+    <string name="monitor_menu_user">我的位置</string>
+    <string name="monitor_menu_mobile">手机位置</string>
+    <string name="monitor_menu_conn">连接手机</string>
 
     <!-- 个人中心 -->
     <string name="userinfo_account">当前账号：%1$s</string>

@@ -52,7 +52,7 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		option.setPriority(LocationClientOption.GpsFirst);
-		
+
 		baiduClient.setLocOption(option);
 		baiduClient.registerLocationListener(this);
 
@@ -141,7 +141,7 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		// 构建用户绘制多边形的Option对象
 		OverlayOptions polygonOption = new PolylineOptions().points(pts).color(
 				Color.BLUE);
-		
+
 		// 在地图上添加多边形Option，用于显示
 		baiduMap.addOverlay(polygonOption);
 
@@ -207,7 +207,7 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	public BDLocation getLastLocation() {
 		return lastLocation;
 	}
-	
+
 	/**
 	 * 指定圆心，半径，显示大概范围
 	 * 
@@ -236,5 +236,9 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		// map.addOverlay(groundOverlay);
 	}
 
+	@Override
+	public void requestLocation() {
+		baiduClient.requestLocation();
+	}
 
 }

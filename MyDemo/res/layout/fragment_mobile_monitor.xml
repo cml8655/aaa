@@ -20,43 +20,94 @@
         <LinearLayout
             android:id="@+id/map_menu_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|left"
-            android:background="@android:color/white"
+            android:background="@color/default_color"
+            android:dividerPadding="5dp"
             android:gravity="center|center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/half_default_margin" >
 
-            <cn.com.cml.dbl.ui.FontIconTextView
+            <!-- 第一个icon -->
+
+            <LinearLayout
                 android:id="@+id/map_menu_setting"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/icon_setting"
-                android:textColor="#F00"
-                android:textSize="30sp" />
+                android:orientation="vertical" >
 
-            <cn.com.cml.dbl.ui.FontIconTextView
+                <cn.com.cml.dbl.ui.FontIconTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/icon_setting"
+                    android:textColor="#F00"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/monitor_menu_conn"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+            <!-- 第二个icon -->
+
+            <LinearLayout
                 android:id="@+id/map_menu_mobile"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="手机"
-                android:textSize="30sp" />
+                android:orientation="vertical" >
 
-            <cn.com.cml.dbl.ui.FontIconTextView
+                <cn.com.cml.dbl.ui.FontIconTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/icon_spin5"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/monitor_menu_mobile" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <!-- 第三个icon -->
+
+            <LinearLayout
                 android:id="@+id/map_menu_user"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/icon_user"
-                android:textSize="30sp" />
+                android:orientation="vertical" >
+
+                <cn.com.cml.dbl.ui.FontIconTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/icon_user"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/monitor_menu_user" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

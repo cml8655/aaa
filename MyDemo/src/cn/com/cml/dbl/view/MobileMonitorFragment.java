@@ -7,6 +7,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -31,6 +32,7 @@ import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.LocationModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.ValidationUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 import cn.com.cml.dbl.view.RemotePassInputDialogFragment.OnPassFinishListener;
@@ -58,6 +60,9 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 	@Bean
 	ApiRequestServiceClient apiClient;
+
+	@Pref
+	PrefUtil_ prefUtil;
 
 	private MapHelper mapHelper;
 	private LocationHelper locationHelper;
@@ -157,11 +162,21 @@ public class MobileMonitorFragment extends BaseFragment implements
 			mapHelper.addWindowInfo(lat, R.string.icon_spin5,
 					R.string.monitor_my_location);
 			locationHelper.reverseUserLocationCoder();
+		} else {
+			mapHelper.requestLocation();
+			loadingDialog.show(getFragmentManager(), "location");
 		}
 	}
 
 	@Click(R.id.map_menu_mobile)
 	public void mobileClick(View v) {
+
+		if (prefUtil.isBindDevice().get()) {
+			DialogUtil.tipDialog(R.string.icon_user,
+					R.string.bind_current_device).show(getFragmentManager(),
+					"current_device");
+			return;
+		}
 
 		if (!remotePassValid) {
 			this.showRemotePassRequiredDialog();

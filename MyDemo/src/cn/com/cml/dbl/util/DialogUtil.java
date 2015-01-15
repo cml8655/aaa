@@ -78,6 +78,12 @@ public class DialogUtil {
 				.build();
 	}
 
+	public static DialogFragment tipDialog(Integer icon, Integer text) {
+
+		return MessageDialogFragment_.builder().dialogText(text).iconText(icon)
+				.build();
+	}
+
 	public static DialogFragment dataLoadingDialog(int text) {
 
 		return MessageDialogFragment_.builder().dialogText(text)

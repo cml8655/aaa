@@ -6,6 +6,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import cn.com.cml.dbl.listener.BaseSaveListener;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
 import cn.com.cml.dbl.service.LocalStorageService_;
 import cn.com.cml.dbl.util.DialogUtil;
+import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.ValidationUtil;
 
 @EActivity(R.layout.activity_bind_device)
@@ -21,6 +23,9 @@ public class DeviceBindActivity extends BaseActivity {
 
 	@Bean
 	ApiRequestServiceClient apiClient;
+
+	@Pref
+	PrefUtil_ prefUtil;
 
 	@ViewById(R.id.input_bind_pass)
 	EditText passView;
@@ -70,8 +75,11 @@ public class DeviceBindActivity extends BaseActivity {
 
 				super.onSuccess();
 
+				// TODO 提示用户密码保护的重要性
 				DialogUtil.toast(getApplicationContext(),
 						R.string.bind_device_success);
+
+				prefUtil.edit().isBindDevice().put(true).apply();
 
 				// save data to local
 				String username = BmobUser.getCurrentUser(

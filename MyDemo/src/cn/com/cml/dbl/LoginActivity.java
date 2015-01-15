@@ -179,6 +179,10 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 					}
 					passIncorrectDialog.show(getSupportFragmentManager(),
 							"passForgetTip");
+				} else {
+					DialogUtil.tipDialog(R.string.icon_user,
+							R.string.network_error).show(
+							getSupportFragmentManager(), "net_error");
 				}
 			}
 		});
