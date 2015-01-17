@@ -46,7 +46,7 @@ public class AlarmServiceQuene extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
-		if (intent.hasExtra(EXTRA_TYPE)) {
+		if (null != intent && intent.hasExtra(EXTRA_TYPE)) {
 
 			int type = intent.getIntExtra(EXTRA_TYPE, -1);
 
@@ -69,7 +69,7 @@ public class AlarmServiceQuene extends Service {
 			lock.acquire();
 		}
 
-		return super.onStartCommand(intent, flags, startId);
+		return START_STICKY;
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class AlarmServiceQuene extends Service {
 			super();
 			this.type = type;
 		}
-		
+
 		@Override
 		public void run() {
 
@@ -103,7 +103,7 @@ public class AlarmServiceQuene extends Service {
 
 			if (!AppUtil.serviceRunning(RingtoneService_.class,
 					getApplicationContext())) {
-				 RingtoneService_.intent(getApplicationContext()).start();
+				RingtoneService_.intent(getApplicationContext()).start();
 			}
 
 		}

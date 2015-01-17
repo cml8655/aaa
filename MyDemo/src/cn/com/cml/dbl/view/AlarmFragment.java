@@ -79,6 +79,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 				if (ACTION_RING.equals(action)) {
 					countTimer.cancel();
+					controlButton.setClickable(true);
 					buttonStateChanged(R.color.cancel, cancelAlarm);
 					DialogUtil.toast(context, R.string.alarm_ring);
 				}
@@ -118,8 +119,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 		if (TextUtils.isEmpty(pass)) {
 
-			DialogUtil
-					.showTip(getActivity(), getString(R.string.bind_password));
+			DialogUtil.toast(getActivity(), R.string.bind_password);
 			return;
 		}
 
@@ -174,8 +174,6 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 								@Override
 								public void onSuccess() {
-									Log.d(TAG, "alaramCommand发送onSuccess"
-											+ Thread.currentThread().getId());
 									buttonStateChanged(
 											R.color.default_color,
 											getString(R.string.alarm_wait_feedback));
@@ -224,9 +222,13 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 	}
 
 	private void startCountDown() {
+		
+		controlButton.setClickable(false);
 
 		countTimer = new CountDownTimer(Constant.JINBAO_EXPIRES, 1000) {
+			
 
+			
 			@Override
 			public void onTick(long millisUntilFinished) {
 
@@ -245,6 +247,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 				Activity ac = getActivity();
 				if (ac != null && !ac.isFinishing()) {
+					controlButton.setClickable(true);
 					buttonStateChanged(R.color.default_color, sendAlarm);
 					DialogFragment smsDialog = DialogUtil.defaultDialog(
 							R.string.alarm_no_response, REQUEST_SMS_ALARM,

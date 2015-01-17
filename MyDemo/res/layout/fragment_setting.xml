@@ -3,12 +3,14 @@
     xmlns:indicator="http://schemas.android.com/apk/res/cn.com.cml.dbl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/default_margin"
+    android:background="@color/disabled_color"
     android:orientation="vertical" >
+
+    <View style="@style/deviderStyle.grey" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_shoutdown_alarm"
-        style="@style/indicatorItemsStyle"
+        style="@style/indicatorItemsStyle.setting"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
         indicator:show_text="@string/setting_shoutdown_alarm"
@@ -17,73 +19,96 @@
         indicator:switch_unchecked_text="@string/setting_shoutdown_alarm_close" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
-    <View style="@style/deviderStyle" />
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_height="20dp" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_sms_alarm"
-        style="@style/indicatorItemsStyle"
+        style="@style/indicatorItemsStyle.setting"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
         indicator:show_text="@string/setting_sms_alarm"
         indicator:switch_checked_text="@string/setting_sms_alarm_open" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_width="30dp"
+        android:background="@color/white" />
+
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_sms_location"
-        style="@style/indicatorItemsStyle"
+        style="@style/indicatorItemsStyle.setting"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_user"
         indicator:show_text="@string/setting_sms_location"
         indicator:switch_checked_text="@string/setting_sms_location_open" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
-    <View style="@style/deviderStyle" />
-
-    <!-- 账户安全 -->
-
-    <cn.com.cml.dbl.ui.IndicatorItems_
-        style="@style/indicatorItemsStyle"
-        indicator:left_icon="@string/icon_setting"
-        indicator:show_text="绑定查询（绑定了此手机的账号）" >
-    </cn.com.cml.dbl.ui.IndicatorItems_>
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_height="20dp" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_remember_pass"
-        style="@style/indicatorItemsStyle"
+        style="@style/indicatorItemsStyle.setting"
         indicator:arrow_type="switchType"
         indicator:left_icon="@string/icon_setting"
         indicator:show_text="记住密码" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
-    <View style="@style/deviderStyle" />
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_height="20dp" />
 
-    <!-- 系统功能 -->
+    <!-- 版本 检测 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <cn.com.cml.dbl.ui.IndicatorItems_
+            style="@style/indicatorItemsStyle.setting"
+            android:layout_width="wrap_content"
+            indicator:left_icon="@string/icon_setting"
+            indicator:show_text="当前版本XXXX" >
+        </cn.com.cml.dbl.ui.IndicatorItems_>
+
+        <cn.com.cml.dbl.ui.FontIconTextView
+            style="@style/indicatorItemsStyle.setting"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:text="已经是最新版本" />
+    </LinearLayout>
+
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_width="30dp"
+        android:background="@color/white" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_help"
-        style="@style/indicatorItemsStyle"
+        style="@style/indicatorItemsStyle.setting"
         indicator:left_icon="@string/icon_setting"
         indicator:show_text="使用帮助" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
-    <View style="@style/deviderStyle" />
-
-    <cn.com.cml.dbl.ui.IndicatorItems_
-        style="@style/indicatorItemsStyle"
-        indicator:left_icon="@string/icon_setting"
-        indicator:show_text="当前版本XXXX" >
-    </cn.com.cml.dbl.ui.IndicatorItems_>
-
-    <View style="@style/deviderStyle" />
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_width="30dp"
+        android:background="@color/white" />
 
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_agreement"
-        style="@style/indicatorItemsStyle"
+        style="@style/indicatorItemsStyle.setting"
         indicator:left_icon="@string/icon_setting"
         indicator:show_text="服务条款" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
-    <View style="@style/deviderStyle" />
+    <View style="@style/deviderStyle.grey" />
 
     <TextView
         android:id="@+id/setting_miui"
@@ -93,7 +118,9 @@
         android:text="@string/setting_miui"
         android:visibility="gone" />
 
-    <View style="@style/deviderStyle" />
+    <View
+        style="@style/deviderStyle.grey"
+        android:layout_height="20dp" />
 
     <TextView
         android:id="@+id/setting_about_us"
@@ -105,5 +132,7 @@
         android:padding="@dimen/half_default_margin"
         android:text="@string/setting_about_us"
         android:textSize="20sp" />
+
+    <View style="@style/deviderStyle.grey" />
 
 </LinearLayout>

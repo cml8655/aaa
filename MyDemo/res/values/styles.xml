@@ -86,6 +86,7 @@
         <item name="android:gravity">center</item>
         <item name="android:layout_marginBottom">@dimen/half_default_margin</item>
     </style>
+
     <style name="buttonStyle.disabled" parent="@style/buttonStyle">
         <item name="android:background">@color/disabled_color</item>
     </style>
@@ -99,7 +100,11 @@
 
     <style name="deviderStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">2dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="deviderStyle.grey" parent="@style/deviderStyle">
         <item name="android:background">@color/disabled_color</item>
     </style>
 
@@ -125,8 +130,18 @@
         <item name="android:textSize">18sp</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@color/md_green_100</item>
-        <item name="android:layout_marginTop">@dimen/half_default_margin</item>
+        <item name="android:layout_marginLeft">@dimen/default_margin</item>
+        <item name="android:layout_marginRight">@dimen/default_margin</item>
+    </style>
+
+    <style name="indicatorItemsStyle.setting" parent="@style/indicatorItemsStyle">
+        <item name="android:minHeight">40dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:paddingLeft">@dimen/default_margin</item>
+        <item name="android:paddingRight">@dimen/default_margin</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 
 </resources>

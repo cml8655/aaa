@@ -7,6 +7,7 @@ import org.androidannotations.annotations.ViewById;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
@@ -31,7 +32,7 @@ public class IndicatorItems extends LinearLayout implements
 	private String rightIconText;
 
 	@ViewById(R.id.indicator_switch)
-	Switch switchView;
+	CheckBox switchView;
 
 	@ViewById(R.id.indicator_desc)
 	TextView indicatorDescView;

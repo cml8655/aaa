@@ -114,9 +114,8 @@ public class MobileMonitorFragment extends BaseFragment implements
 		loadingDialog = DialogUtil.dataLoadingDialog(R.string.locate_user);
 		loadingDialog.show(getFragmentManager(), "location");
 
-		showRemotePassRequiredDialog();
-		// TODO 用户输入远程密码后进行定位功能开启
-		// sendLocationCommand();
+		// 输入远程密码
+		// showRemotePassRequiredDialog();
 
 	}
 

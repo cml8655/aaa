@@ -9,13 +9,15 @@
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:gravity="center|center_vertical" />
+        android:gravity="center|center_vertical"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/menu_txt"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="left|center_vertical" />
+        android:gravity="left|center_vertical"
+        android:textSize="16sp" />
 
 </merge>

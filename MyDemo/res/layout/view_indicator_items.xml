@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_vertical"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -30,7 +31,7 @@
             android:layout_gravity="right"
             android:gravity="center_vertical" />
 
-        <Switch
+        <CheckBox
             android:id="@+id/indicator_switch"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -41,8 +42,8 @@
         android:id="@+id/indicator_desc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/cancel"
         android:gravity="right"
+        android:textColor="@color/cancel"
         android:visibility="gone" />
 
 </LinearLayout>

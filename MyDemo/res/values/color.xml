@@ -5,5 +5,6 @@
     <color name="disabled_color">#ddd</color>
     <color name="white">#FFF</color>
     <color name="cancel">#F00</color>
+    <color name="default_color_menu">@color/md_cyan_200</color>
 
 </resources>
