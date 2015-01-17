@@ -183,6 +183,9 @@ public class MainActivity extends BaseActivity {
 			return;
 		}
 
+		// 提前设置为已签到
+		todayChecking = true;
+
 		// 今日未签到
 		AnimUtils.checkingAnim(overViewLayout);
 
@@ -202,12 +205,6 @@ public class MainActivity extends BaseActivity {
 
 				DialogUtil.showTip(getApplicationContext(), checkingTip);
 
-				// 更新当前用户积分信息
-				// User user = BmobUser.getCurrentUser(getApplicationContext(),
-				// User.class);
-				// user.setScore(score + user.getScore());
-				// user.update(getApplicationContext());
-
 				Intent intent = new Intent(
 						UserInfoFragment.ACTION_USERINFO_CHANGE);
 				intent.putExtra(UserInfoFragment.EXTRA_SCORE, score);
@@ -219,6 +216,9 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onFail() {
+				// 还原签到设置，防止连续点击导致bug
+				todayChecking = false;
+				invalidateOptionsMenu();
 				DialogUtil.showTip(getApplicationContext(),
 						getString(R.string.checking_fail));
 			}
