@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:gravity="center" >
+
+        <cn.com.cml.dbl.ui.CircleIndicatorView
+            android:id="@+id/circle_first"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="@dimen/half_default_margin" />
+
+        <cn.com.cml.dbl.ui.CircleIndicatorView
+            android:id="@+id/circle_second"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="@dimen/half_default_margin" />
+
+        <cn.com.cml.dbl.ui.CircleIndicatorView
+            android:id="@+id/circle_third"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="@dimen/half_default_margin" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -44,6 +44,9 @@ public class SplashActivity extends Activity {
 
 		if (!pref.introduceVersion().exists()) {
 			// TODO 跳到欢迎界面
+			IntroduceActivity_.intent(this).start();
+			finish();
+			return;
 		}
 
 		String version = pref.introduceVersion().get();
@@ -58,6 +61,8 @@ public class SplashActivity extends Activity {
 			closeActivity();
 			return;
 		}
+
+		closeActivity();
 
 		// 有网络，同步数据
 		apiClient.bindCurrentDeviceQuery(new FindListener<MobileBind>() {

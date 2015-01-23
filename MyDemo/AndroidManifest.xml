@@ -142,6 +142,11 @@
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar" >
         </activity>
+        <activity
+            android:name="cn.com.cml.dbl.IntroduceActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
 
         <!-- bmob自动更新 -->
         <activity
@@ -158,7 +163,7 @@
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter>
+            </intent-filter>
             -->
         </service>
         <service

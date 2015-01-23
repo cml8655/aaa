@@ -70,6 +70,8 @@
                 android:text="@string/login_forget_pass"
                 android:textColor="@color/default_color" />
         </RelativeLayout>
+        
+     
 
         <RelativeLayout
             android:layout_width="match_parent"
