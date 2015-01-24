@@ -7,8 +7,12 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.util.AppUtil;
 
 @EFragment(R.layout.fragment_secure)
@@ -78,6 +82,21 @@ public class SecureSetFragment extends BaseFragment {
 			R.id.secure_app_liebao_master, R.id.secure_app_tencent,
 			R.id.secure_miui })
 	public void onClicked(View v) {
+
 		// TODO 进行清理引导
+		final int id = v.getId();
+
+		Bundle extra = new Bundle();
+
+		switch (id) {
+		case R.id.secure_app_360:
+
+			extra.putString("mLoadUrl", Constant.Url.URL_SECURE_360);
+			ModalActivity_.intent(getActivity()).extraArguments(extra)
+					.fragmentTitle(R.string.menu_secure)
+					.container(WebViewFragment_.class).start();
+			break;
+		}
+
 	}
 }

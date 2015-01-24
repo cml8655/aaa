@@ -112,6 +112,7 @@ public interface Constant {
 		String URL_ABOUT_US = "file:///android_asset/html_files/about_us.html";
 		String URL_AGREEMENT = "file:///android_asset/html_files/agreement.html";
 		String URL_HTLP = "file:///android_asset/html_files/help.html";
+		String URL_SECURE_360 = "file:///android_asset/html_files/secure/secure_360.html";
 	}
 
 	interface Gloable {

@@ -262,7 +262,7 @@
         <!-- meta-data需要写在application中 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="NKwPZQ4lCLM8GIs3kfGdgYG0" />
+            android:value="G6yBFoVWRcAqCNEPUG8LIq2f" />
         <meta-data
             android:name="BMOB_CHANNEL"
             android:value="yingyongbao" />
