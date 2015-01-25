@@ -6,6 +6,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -17,6 +18,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.UpdateListener;
@@ -27,6 +31,7 @@ import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
+import cn.com.cml.dbl.ui.CircleImageView;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
@@ -49,6 +54,9 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 
 	@ViewById(R.id.userinfo_device)
 	TextView deviceView;
+
+	// @ViewById(R.id.logo)
+	// CircleImageView logoView;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -92,6 +100,10 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 
 	@AfterViews
 	public void afterView() {
+
+		// Animation circleRotateAnim = AnimationUtils.loadAnimation(
+		// getActivity(), R.anim.circle_rotate);
+		// logoView.startAnimation(circleRotateAnim);
 
 		loadingDialog = DialogUtil.dataLoadingDialog();
 		loadingDialog.show(getFragmentManager(), "user_info");

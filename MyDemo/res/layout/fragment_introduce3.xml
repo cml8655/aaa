@@ -11,8 +11,16 @@
 
     <Button
         android:id="@+id/entrance_btn"
+        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="开启" />
+
+    <Button
+        android:id="@+id/secure_btn"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="安全设置" />
 
 </LinearLayout>

@@ -10,6 +10,7 @@
         android:background="@android:color/holo_blue_light" >
 
         <cn.com.cml.dbl.ui.CircleImageView
+            android:id="@+id/logo"
             xmlns:circle="http://schemas.android.com/apk/res/cn.com.cml.dbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

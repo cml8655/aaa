@@ -42,9 +42,9 @@ public class SecureSetFragment extends BaseFragment {
 	@AfterViews
 	protected void afterViews() {
 
-		if (AppUtil.isMIUI(getActivity())) {
-			miuiButton.setVisibility(View.VISIBLE);
-		}
+		// if (AppUtil.isMIUI(getActivity())) {
+		miuiButton.setVisibility(View.VISIBLE);
+		// }
 
 		List<String> installedApps = AppUtil
 				.getInstalledPackages(getActivity());
@@ -95,6 +95,13 @@ public class SecureSetFragment extends BaseFragment {
 			ModalActivity_.intent(getActivity()).extraArguments(extra)
 					.fragmentTitle(R.string.menu_secure)
 					.container(WebViewFragment_.class).start();
+			break;
+
+		case R.id.secure_miui:
+
+			ModalActivity_.intent(getActivity())
+					.fragmentTitle(R.string.menu_secure)
+					.container(MiuiToturialFragment_.class).start();
 			break;
 		}
 

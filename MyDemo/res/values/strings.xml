@@ -171,13 +171,14 @@
 
     <!-- 安全设置 -->
     <string name="secure_desc">为了更好的保护您的手机，请将\"我\"添加到内存清理白名单中</string>
-    <string name="secure_app_miui">MIUI(小米/红米手机)</string>
+    <string name="secure_app_miui">MIUI(小米/红米es)</string>
     <string name="secure_app_baidu">百度手机卫士</string>
     <string name="secure_app_360">360卫士</string>
     <string name="secure_app_tencent"> 腾讯手机管家</string>
     <string name="secure_app_jinshan">金山手机卫士</string>
     <string name="secure_app_liebao">猎豹安全大师</string>
     <string name="secure_app_liebao_master">猎豹清理大师</string>
+    <string name="secure_app_setting">点击设置</string>
 
     <string-array name="monitor_select_list">
         <item>地图定位</item>
