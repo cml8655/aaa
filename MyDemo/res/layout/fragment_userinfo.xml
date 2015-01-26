@@ -1,77 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@android:color/holo_blue_light" >
+
+        <cn.com.cml.dbl.ui.CircleImageView
+            android:id="@+id/logo"
+            xmlns:circle="http://schemas.android.com/apk/res/cn.com.cml.dbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/launcher"
+            circle:border_color="@color/md_amber_200"
+            circle:border_width="2dp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/default_margin"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@android:color/holo_blue_light" >
+        <TextView
+            android:id="@+id/userinfo_account"
+            style="@style/indicatorItemsStyle"
+            android:text="当前账号：XXXXXX.com" />
 
-            <cn.com.cml.dbl.ui.CircleImageView
-                xmlns:circle="http://schemas.android.com/apk/res/cn.com.cml.dbl"
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/launcher"
-                circle:border_color="@color/md_amber_200"
-                circle:border_width="2dp" />
-        </RelativeLayout>
+        <View style="@style/deviderStyle" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/default_margin"
-            android:orientation="vertical" >
+        <TextView
+            android:id="@+id/userinfo_point"
+            style="@style/indicatorItemsStyle"
+            android:text="@string/userinfo_point" />
 
-            <TextView
-                android:id="@+id/userinfo_account"
-                style="@style/indicatorItemsStyle"
-                android:text="当前账号：XXXXXX.com" />
+        <View style="@style/deviderStyle" />
 
-            <View style="@style/deviderStyle" />
+        <TextView
+            android:id="@+id/userinfo_device"
+            style="@style/indicatorItemsStyle"
+            android:text="绑定手机：sony_l36h" />
 
-            <TextView
-                android:id="@+id/userinfo_point"
-                style="@style/indicatorItemsStyle"
-                android:text="@string/userinfo_point" />
+        <View style="@style/deviderStyle" />
 
-            <View style="@style/deviderStyle" />
+        <Button
+            android:id="@+id/userinfo_remote_pass_query"
+            style="@style/buttonStyle"
+            android:text="@string/userinfo_remote_pass_query" />
 
-            <TextView
-                android:id="@+id/userinfo_device"
-                style="@style/indicatorItemsStyle"
-                android:text="绑定手机：sony_l36h" />
+        <Button
+            android:id="@+id/userinfo_secure"
+            style="@style/buttonStyle"
+            android:text="@string/menu_secure" />
 
-            <View style="@style/deviderStyle" />
-
-            <Button
-                android:id="@+id/userinfo_remote_pass_query"
-                style="@style/buttonStyle"
-                android:text="@string/userinfo_remote_pass_query" />
-
-            <Button
-                android:id="@+id/userinfo_secure"
-                style="@style/buttonStyle"
-                android:text="@string/menu_secure" />
-        </LinearLayout>
     </LinearLayout>
 
-    <cn.com.cml.dbl.ui.CircleImageView
-        xmlns:circle="http://schemas.android.com/apk/res/cn.com.cml.dbl"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="@dimen/default_margin"
-        android:layout_marginTop="125dp"
-        android:src="@drawable/ic_launcher"
-        circle:border_color="@color/white"
-        circle:border_width="2dp" />
-
-</FrameLayout>
+</LinearLayout>
