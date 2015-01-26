@@ -19,7 +19,7 @@ public class MiuiToturialFragment extends Fragment {
 
 	@AfterViews
 	public void afterView() {
-		webview.loadUrl(Constant.Url.URL_SECURE_360);
+		webview.loadUrl(Constant.Url.URL_SECURE_MIUI);
 	}
 
 	@Click(R.id.setting_btn)
