@@ -146,6 +146,7 @@
     <string name="monitor_menu_conn">连接手机</string>
 
     <!-- 个人中心 -->
+    <string name="userinfo_refresh_succ">刷新成功</string>
     <string name="userinfo_account">当前账号：%1$s</string>
     <string name="userinfo_point">积\u0020\u0020分：%1$s</string>
     <string name="userinfo_bind_device">绑定手机：%1$s</string>
@@ -171,7 +172,7 @@
 
     <!-- 安全设置 -->
     <string name="secure_desc">为了更好的保护您的手机，请将\"我\"添加到内存清理白名单中</string>
-    <string name="secure_app_miui">MIUI(小米/红米es)</string>
+    <string name="secure_app_miui">MIUI(小米/红米)</string>
     <string name="secure_app_baidu">百度手机卫士</string>
     <string name="secure_app_360">360卫士</string>
     <string name="secure_app_tencent"> 腾讯手机管家</string>

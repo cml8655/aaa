@@ -55,8 +55,8 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 	@ViewById(R.id.userinfo_device)
 	TextView deviceView;
 
-	// @ViewById(R.id.logo)
-	// CircleImageView logoView;
+	@ViewById(R.id.pg_refresh)
+	CircleImageView refreshView;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -101,12 +101,10 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 	@AfterViews
 	public void afterView() {
 
-		// Animation circleRotateAnim = AnimationUtils.loadAnimation(
-		// getActivity(), R.anim.circle_rotate);
-		// logoView.startAnimation(circleRotateAnim);
+		refresh(true);
 
 		loadingDialog = DialogUtil.dataLoadingDialog();
-		loadingDialog.show(getFragmentManager(), "user_info");
+		// loadingDialog.show(getFragmentManager(), "user_info");
 
 		// 用户信息加载
 		User user = BmobUser.getCurrentUser(getActivity(), User.class);
@@ -120,12 +118,24 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 		deviceView.setText(getString(R.string.userinfo_bind_device,
 				INIT_CHARACTOR));
 
+		loadUserInfo();
+
+	}
+
+	private void loadUserInfo() {
 		apiClient.bindDeviceQuery(new BaseFindListener<MobileBind>(
 				getActivity()) {
 			@Override
 			public void onFinish() {
 				super.onFinish();
-				loadingDialog.dismiss();
+				refresh(false);
+				DialogUtil.toast(getActivity(), R.string.userinfo_refresh_succ);
+			}
+
+			@Override
+			public void onStart() {
+				super.onStart();
+				refresh(true);
 			}
 
 			@Override
@@ -138,6 +148,27 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 
 			}
 		});
+	}
+
+	@Click(R.id.pg_refresh)
+	protected void onRefreshClicked() {
+		loadUserInfo();
+	}
+
+	/**
+	 * 
+	 * @param refresh
+	 *            true 刷新，false 停止刷新
+	 */
+	protected void refresh(boolean refresh) {
+
+		refreshView.clearAnimation();
+
+		if (refresh) {
+			Animation anim = AnimationUtils.loadAnimation(getActivity(),
+					R.anim.circle_rotate);
+			refreshView.startAnimation(anim);
+		}
 
 	}
 
