@@ -42,9 +42,9 @@ public class SecureSetFragment extends BaseFragment {
 	@AfterViews
 	protected void afterViews() {
 
-		// if (AppUtil.isMIUI(getActivity())) {
-		miuiButton.setVisibility(View.VISIBLE);
-		// }
+		if (AppUtil.isMIUI(getActivity())) {
+			miuiButton.setVisibility(View.VISIBLE);
+		}
 
 		List<String> installedApps = AppUtil
 				.getInstalledPackages(getActivity());

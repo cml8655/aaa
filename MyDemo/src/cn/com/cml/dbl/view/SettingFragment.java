@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.ModalActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
@@ -132,6 +133,11 @@ public class SettingFragment extends BaseFragment {
 		changeContainer(
 				WebViewFragment_.builder().mLoadUrl(Constant.Url.URL_AGREEMENT)
 						.build(), R.string.agreement);
+	}
+
+	@Click(R.id.setting_version_update)
+	protected void versionUpdate() {
+		BmobUpdateAgent.forceUpdate(getActivity());
 	}
 
 }

@@ -6,7 +6,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -18,7 +17,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -57,6 +55,8 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 
 	@ViewById(R.id.pg_refresh)
 	CircleImageView refreshView;
+
+	private boolean isFirst = true;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -129,7 +129,14 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 			public void onFinish() {
 				super.onFinish();
 				refresh(false);
-				DialogUtil.toast(getActivity(), R.string.userinfo_refresh_succ);
+
+				if (isFirst) {
+					isFirst = false;
+				} else {
+					DialogUtil.toast(getActivity(),
+							R.string.userinfo_refresh_succ);
+				}
+
 			}
 
 			@Override

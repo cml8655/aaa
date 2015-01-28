@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
@@ -38,6 +39,8 @@ public class SplashActivity extends Activity {
 
 	@AfterViews
 	protected void initConfig() {
+		
+		BmobUpdateAgent.update(getApplicationContext());
 
 		logoView.startAnimation(AnimationUtils.loadAnimation(
 				getApplicationContext(), R.anim.splash_anim));

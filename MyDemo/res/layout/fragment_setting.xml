@@ -65,6 +65,7 @@
     <!-- 版本 检测 -->
 
     <LinearLayout
+        android:id="@+id/setting_version_update"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
