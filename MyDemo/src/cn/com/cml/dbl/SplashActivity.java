@@ -11,6 +11,7 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.app.Activity;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -39,7 +40,7 @@ public class SplashActivity extends Activity {
 
 	@AfterViews
 	protected void initConfig() {
-		
+
 		BmobUpdateAgent.update(getApplicationContext());
 
 		logoView.startAnimation(AnimationUtils.loadAnimation(
@@ -64,8 +65,14 @@ public class SplashActivity extends Activity {
 			closeActivity();
 			return;
 		}
+		
+		// 一天只更新一次
+		if (DateUtils.isToday(pref.syncDateMills().get())) {
+			closeActivity();
+			return;
+		}
 
-		// 有网络，同步数据
+		// 有网络，同步数据 并且今天未更新
 		apiClient.bindCurrentDeviceQuery(new FindListener<MobileBind>() {
 
 			@Override
@@ -96,6 +103,8 @@ public class SplashActivity extends Activity {
 
 				model.save();
 			}
+
+			pref.edit().syncDateMills().put(System.currentTimeMillis()).apply();
 
 			closeActivity();
 

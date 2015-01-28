@@ -45,4 +45,7 @@ public interface PrefUtil {
 	@DefaultBoolean(false)
 	boolean isBindDevice();
 
+	/** 同步日期 */
+	long syncDateMills();
+
 }
