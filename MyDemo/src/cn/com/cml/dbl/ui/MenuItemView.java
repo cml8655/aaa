@@ -17,11 +17,16 @@ public class MenuItemView extends LinearLayout {
 	@ViewById(R.id.menu_icon)
 	FontIconTextView icon;
 
+	@ViewById(R.id.menu_selected)
+	TextView selectedView;
+
 	@ViewById(R.id.menu_txt)
 	TextView text;
 
 	private String iconStr;
 	private String textStr;
+
+	private boolean selected;
 
 	public MenuItemView(Context context) {
 		super(context);
@@ -57,4 +62,14 @@ public class MenuItemView extends LinearLayout {
 		icon.setText(iconStr);
 		text.setText(textStr);
 	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+		selectedView.setVisibility(selected ? VISIBLE : GONE);
+	}
+
 }

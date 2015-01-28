@@ -56,7 +56,7 @@
         android:id="@+id/menu_home"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        menu:icon="@string/icon_spin5"
+        menu:icon="@string/icon_home"
         menu:text="@string/menu_home" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
@@ -78,7 +78,7 @@
         android:id="@+id/menu_monitor"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        menu:icon="@string/icon_spin5"
+        menu:icon="@string/icon_location"
         menu:text="@string/menu_monitor" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
@@ -88,7 +88,7 @@
         android:id="@+id/menu_secure"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        menu:icon="@string/icon_spin5"
+        menu:icon="@string/icon_secure"
         menu:text="@string/menu_secure" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
@@ -98,7 +98,7 @@
         android:id="@+id/menu_suggest"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        menu:icon="@string/icon_spin5"
+        menu:icon="@string/icon_suggest"
         menu:text="@string/menu_suggest" >
     </cn.com.cml.dbl.ui.MenuItemView_>
 
@@ -127,7 +127,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/md_cyan_300"
             android:gravity="bottom"
-            menu:icon="@string/icon_spin5"
+            menu:icon="@string/icon_exit"
             menu:text="@string/menu_logout" >
         </cn.com.cml.dbl.ui.MenuItemView_>
     </RelativeLayout>

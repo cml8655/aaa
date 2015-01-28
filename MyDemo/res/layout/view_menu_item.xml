@@ -20,4 +20,15 @@
         android:gravity="left|center_vertical"
         android:textSize="16sp" />
 
+    <cn.com.cml.dbl.ui.FontIconTextView
+        android:id="@+id/menu_selected"
+        android:visibility="gone"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:gravity="center|center_vertical"
+        android:text="@string/icon_lefthand"
+        android:textSize="16sp" />
+
 </merge>

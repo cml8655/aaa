@@ -21,6 +21,7 @@ import android.widget.TextView;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.ui.MenuItemView_;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 
@@ -94,6 +95,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	@ViewById(R.id.menu_score)
 	TextView scoreView;
 
+	private MenuItemView_ lastSelectedMenu;
+
 	private BroadcastReceiver itemChangeReceiver = new BroadcastReceiver() {
 
 		@Override
@@ -151,7 +154,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		transaction.commit();
 	}
 
-
 	@Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
 			R.id.menu_suggest, R.id.menu_secure, R.id.menu_userinfo })
 	public void click(View clickView) {
@@ -159,10 +161,36 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		final int id = clickView.getId();
 
 		toggleMenu(id, true);
+
+		if (clickView instanceof MenuItemView_) {
+
+			if (lastSelectedMenu != clickView) {
+
+				MenuItemView_ item = (MenuItemView_) clickView;
+
+				item.setSelected(true);
+
+				if (null != lastSelectedMenu) {
+					lastSelectedMenu.setSelected(false);
+				}
+
+				lastSelectedMenu = item;
+			}
+
+		} else {
+			if (lastSelectedMenu != null) {
+				lastSelectedMenu.setSelected(false);
+				lastSelectedMenu = null;
+			}
+		}
 	}
 
 	@Click(R.id.menu_setting)
-	public void settingClicked() {
+	public void settingClicked(View item) {
+		if (lastSelectedMenu != item) {
+			lastSelectedMenu = (MenuItemView_) item;
+			lastSelectedMenu.setSelected(true);
+		}
 		ModalActivity_.intent(getActivity()).container(SettingFragment_.class)
 				.fragmentTitle(R.string.menu_setting).start();
 	}

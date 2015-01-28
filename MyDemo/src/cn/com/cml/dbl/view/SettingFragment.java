@@ -23,9 +23,6 @@ public class SettingFragment extends BaseFragment {
 
 	private static final String TAG = "SettingFragment";
 
-	@ViewById(R.id.setting_miui)
-	TextView miuiSettingView;
-
 	@ViewById(R.id.setting_shoutdown_alarm)
 	IndicatorItems shoutdownAlarmItem;
 
@@ -54,11 +51,6 @@ public class SettingFragment extends BaseFragment {
 
 	@AfterViews
 	public void afterViews() {
-
-		// 设置小米权限
-		if (AppUtil.isMIUI(getActivity())) {
-			miuiSettingView.setVisibility(View.VISIBLE);
-		}
 
 		// 关机警报
 		shoutdownAlarmItem.setSwitchChecked(prefUtil.shoutdownAlarm().get());
@@ -104,11 +96,6 @@ public class SettingFragment extends BaseFragment {
 			}
 		});
 
-	}
-
-	@Click(R.id.setting_miui)
-	protected void miuiSettingClicked() {
-		AppUtil.setAppPriority(getActivity());
 	}
 
 	@Click(R.id.setting_about_us)
