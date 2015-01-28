@@ -26,6 +26,7 @@
     <string name="home_mobile_monitor">手机找回</string>
 
     <!-- font icon -->
+    <string name="icon_loading">&#xe803;</string>
     <string name="icon_help">&#xe819;</string>
     <string name="icon_service">&#xe815;</string>
     <string name="icon_version">&#xe815;</string>

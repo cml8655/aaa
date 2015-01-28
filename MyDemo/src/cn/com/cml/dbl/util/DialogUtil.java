@@ -74,7 +74,7 @@ public class DialogUtil {
 
 		return MessageDialogFragment_.builder()
 				.dialogText(R.string.data_requesting)
-				.iconText(R.string.icon_spin5).iconAnim(R.anim.center_rotate)
+				.iconText(R.string.icon_loading).iconAnim(R.anim.center_rotate)
 				.build();
 	}
 
@@ -87,7 +87,7 @@ public class DialogUtil {
 	public static DialogFragment dataLoadingDialog(int text) {
 
 		return MessageDialogFragment_.builder().dialogText(text)
-				.iconText(R.string.icon_spin5).iconAnim(R.anim.center_rotate)
+				.iconText(R.string.icon_loading).iconAnim(R.anim.center_rotate)
 				.build();
 	}
 

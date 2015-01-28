@@ -68,7 +68,7 @@
         android:id="@+id/menu_alarm"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        menu:icon="@string/icon_spin5"
+        menu:icon="@string/icon_alarm"
         menu:text="@string/menu_alarm" />
 
     <View style="@style/horizontalDivider" />
