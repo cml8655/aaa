@@ -113,19 +113,23 @@ public class MenuHelper {
 
 			Log.d(TAG, "没有实例化");
 
-			transaction.addToBackStack(null);
-			transaction.replace(R.id.content_frame, fragment);
+			// transaction.addToBackStack(null);
+			transaction.add(R.id.content_frame, fragment);
 
 		} else {
-
-			for (Fragment backFragment : fragmentManager.getFragments()) {
-				if (backFragment.getClass().equals(menuItem.getClazz())) {
-					transaction.replace(R.id.content_frame, backFragment);
-					break;
-				}
-			}
-
+			transaction.show(fragment);
 		}
+
+		// else {
+		//
+		// for (Fragment backFragment : fragmentManager.getFragments()) {
+		// if (backFragment.getClass().equals(menuItem.getClazz())) {
+		// transaction.replace(R.id.content_frame, backFragment);
+		// break;
+		// }
+		// }
+		//
+		// }
 
 		transaction.commit();
 	}
