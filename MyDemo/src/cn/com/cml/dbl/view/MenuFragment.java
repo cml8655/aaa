@@ -89,6 +89,9 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 		menuHelper.setFragmentManager(getFragmentManager());
 		menuHelper.setMenuSelectedListener(this);
+
+		menuHelper.onMenuSelected(getActivity().findViewById(
+				initMenuItem.getId()));
 	}
 
 	@Click(R.id.menu_logout)
