@@ -12,9 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.helper.MenuItems;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
-import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 
 @EFragment(R.layout.fragment_home)
 public class HomeFragment extends Fragment implements OnItemClickListener {

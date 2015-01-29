@@ -9,9 +9,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.support.v4.app.DialogFragment;
 import android.widget.Button;
+import cn.com.cml.dbl.helper.MenuItems;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
-import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 
 /**
  * 通知信息

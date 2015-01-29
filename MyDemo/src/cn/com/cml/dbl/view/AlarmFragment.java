@@ -30,6 +30,7 @@ import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.contant.Constant.Command;
+import cn.com.cml.dbl.helper.MenuItems;
 import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
@@ -272,7 +273,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 		if (requestId == REQUEST_ALARM && id == DialogInterface.BUTTON_POSITIVE) {
 			MainActivity ac = (MainActivity) getActivity();
-			ac.changeContent(MenuFragment.MenuItems.USERINFO.getId());
+			ac.changeContent(MenuItems.USERINFO.getId());
 		}
 		if (requestId == REQUEST_SMS_ALARM
 				&& id == DialogInterface.BUTTON_POSITIVE) {

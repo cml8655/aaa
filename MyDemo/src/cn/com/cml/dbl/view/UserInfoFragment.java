@@ -25,6 +25,7 @@ import cn.bmob.v3.listener.UpdateListener;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
+import cn.com.cml.dbl.helper.MenuItems;
 import cn.com.cml.dbl.listener.BaseFindListener;
 import cn.com.cml.dbl.mode.api.MobileBind;
 import cn.com.cml.dbl.mode.api.User;
@@ -194,7 +195,7 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 	@Click(R.id.userinfo_secure)
 	public void onSecureClicked() {
 		MainActivity ac = (MainActivity) getActivity();
-		ac.changeContent(MenuFragment.MenuItems.SECURE.getId());
+		ac.changeContent(MenuItems.SECURE.getId());
 	}
 
 	@Override

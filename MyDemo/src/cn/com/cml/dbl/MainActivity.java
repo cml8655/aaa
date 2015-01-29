@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import cn.bmob.v3.BmobUser;
+import cn.com.cml.dbl.helper.MenuItems;
 import cn.com.cml.dbl.listener.CheckingListener;
 import cn.com.cml.dbl.mode.api.User;
 import cn.com.cml.dbl.net.ApiRequestServiceClient;
@@ -33,7 +34,6 @@ import cn.com.cml.dbl.util.AnimUtils;
 import cn.com.cml.dbl.util.CommonUtils;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.MenuFragment;
-import cn.com.cml.dbl.view.MenuFragment.MenuItems;
 import cn.com.cml.dbl.view.MenuFragment_;
 import cn.com.cml.dbl.view.UserInfoFragment;
 

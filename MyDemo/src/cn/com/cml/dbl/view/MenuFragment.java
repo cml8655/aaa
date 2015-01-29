@@ -1,12 +1,12 @@
 package cn.com.cml.dbl.view;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,72 +19,25 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.TextView;
 import cn.com.cml.dbl.MainActivity;
-import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
-import cn.com.cml.dbl.ui.MenuItemView_;
+import cn.com.cml.dbl.helper.MenuHelper;
+import cn.com.cml.dbl.helper.MenuItems;
 import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
+import cn.volley.toolbox.ClearCacheRequest;
 
 @EFragment(R.layout.fragment_menu)
-public class MenuFragment extends Fragment implements OnItemClickListener {
+public class MenuFragment extends Fragment implements OnItemClickListener,
+		MenuHelper.OnMenuSelectedListener {
 
 	private static final String TAG = "MenuFragment";
 
 	public static final String ACTION_MENU_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_MENU_CHANGE";
 	public static final String EXTRA_MENUITEM = "cn.com.cml.dbl.view.MenuFragment.EXTRA_MENUITEM";
 
-	public static enum MenuItems {
+	// private SparseArray<Fragment> menus = new SparseArray<Fragment>(5);
 
-		HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), //
-		MAP(R.id.menu_monitor, MobileMonitorFragment_.class,
-				R.string.menu_monitor), //
-		ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), // ..
-		USERINFO(R.id.menu_userinfo, UserInfoFragment_.class,
-				R.string.menu_userinfo), //
-		SECURE(R.id.menu_secure, SecureSetFragment_.class, R.string.menu_secure), // 安全设置
-		SUGGEST(R.id.menu_suggest, SuggestFragment_.class,
-				R.string.menu_suggest);//
-
-		private int id;
-		private Class<? extends Fragment> clazz;
-		private int title;
-
-		public static MenuItems getById(int id) {
-
-			MenuItems[] values = MenuItems.values();
-
-			for (MenuItems value : values) {
-				if (value.getId() == id) {
-					return value;
-				}
-			}
-
-			return null;
-		}
-
-		private MenuItems(int id, Class<? extends Fragment> clazz, int title) {
-			this.id = id;
-			this.clazz = clazz;
-			this.title = title;
-		}
-
-		public int getTitle() {
-			return title;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		public Class<? extends Fragment> getClazz() {
-			return clazz;
-		}
-
-	}
-
-	private SparseArray<Fragment> menus = new SparseArray<Fragment>(5);
-
-	private int selectedId = -1;
+	// private int selectedId = -1;
 
 	@FragmentArg
 	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
@@ -95,7 +48,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 	@ViewById(R.id.menu_score)
 	TextView scoreView;
 
-	private MenuItemView_ lastSelectedMenu;
+	// private MenuItemView_ lastSelectedMenu;
 
 	private BroadcastReceiver itemChangeReceiver = new BroadcastReceiver() {
 
@@ -110,7 +63,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 					&& intent.hasExtra(EXTRA_MENUITEM)) {
 
 				int menuId = intent.getIntExtra(EXTRA_MENUITEM, -1);
-				toggleMenu(menuId, false);
+				// toggleMenu(menuId, false);
+				menuHelper.onMenuSelected(getActivity().findViewById(menuId));
 			}
 		}
 	};
@@ -127,70 +81,75 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 		super.onDestroy();
 	}
 
+	@Bean
+	MenuHelper menuHelper;
+
 	@AfterViews
 	public void initConfig() {
 
-		final int id = initMenuItem.getId();
+		menuHelper.setFragmentManager(getFragmentManager());
 
-		Fragment initFragment = null;
+		// final int id = initMenuItem.getId();
+		//
+		// Fragment initFragment = null;
+		//
+		// try {
+		// initFragment = initMenuItem.getClazz().newInstance();
+		// } catch (Exception e) {
+		// Log.e(TAG, "initClass error", e);
+		// initFragment = HomeFragment_.builder().build();
+		// }
 
-		try {
-			initFragment = initMenuItem.getClazz().newInstance();
-		} catch (Exception e) {
-			Log.e(TAG, "initClass error", e);
-			initFragment = HomeFragment_.builder().build();
-		}
+		// selectedId = id;
+		// menus.put(id, initFragment);
 
-		selectedId = id;
-		menus.put(id, initFragment);
-
-		FragmentTransaction transaction = getFragmentManager()
-				.beginTransaction();
-		transaction.replace(R.id.content_frame, initFragment);
-		transaction.addToBackStack(null);
-		transaction.commit();
+		// FragmentTransaction transaction = getFragmentManager()
+		// .beginTransaction();
+		// transaction.replace(R.id.content_frame, initFragment);
+		// transaction.addToBackStack(null);
+		// transaction.commit();
 	}
 
-	@Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
-			R.id.menu_suggest, R.id.menu_secure, R.id.menu_userinfo })
-	public void click(View clickView) {
+	// @Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
+	// R.id.menu_suggest, R.id.menu_secure, R.id.menu_userinfo })
+	// public void click(View clickView) {
+	//
+	// final int id = clickView.getId();
+	//
+	// toggleMenu(id, true);
+	//
+	// if (clickView instanceof MenuItemView_) {
+	//
+	// if (lastSelectedMenu != clickView) {
+	//
+	// MenuItemView_ item = (MenuItemView_) clickView;
+	//
+	// item.setSelected(true);
+	//
+	// if (null != lastSelectedMenu) {
+	// lastSelectedMenu.setSelected(false);
+	// }
+	//
+	// lastSelectedMenu = item;
+	// }
+	//
+	// } else {
+	// if (lastSelectedMenu != null) {
+	// lastSelectedMenu.setSelected(false);
+	// lastSelectedMenu = null;
+	// }
+	// }
+	// }
 
-		final int id = clickView.getId();
-
-		toggleMenu(id, true);
-
-		if (clickView instanceof MenuItemView_) {
-
-			if (lastSelectedMenu != clickView) {
-
-				MenuItemView_ item = (MenuItemView_) clickView;
-
-				item.setSelected(true);
-
-				if (null != lastSelectedMenu) {
-					lastSelectedMenu.setSelected(false);
-				}
-
-				lastSelectedMenu = item;
-			}
-
-		} else {
-			if (lastSelectedMenu != null) {
-				lastSelectedMenu.setSelected(false);
-				lastSelectedMenu = null;
-			}
-		}
-	}
-
-	@Click(R.id.menu_setting)
-	public void settingClicked(View item) {
-		if (lastSelectedMenu != item) {
-			lastSelectedMenu = (MenuItemView_) item;
-			lastSelectedMenu.setSelected(true);
-		}
-		ModalActivity_.intent(getActivity()).container(SettingFragment_.class)
-				.fragmentTitle(R.string.menu_setting).start();
-	}
+	// @Click(R.id.menu_setting)
+	// public void settingClicked(View item) {
+	// if (lastSelectedMenu != item) {
+	// lastSelectedMenu = (MenuItemView_) item;
+	// lastSelectedMenu.setSelected(true);
+	// }
+	// ModalActivity_.intent(getActivity()).container(SettingFragment_.class)
+	// .fragmentTitle(R.string.menu_setting).start();
+	// }
 
 	// @Click(R.id.menu_userinfo)
 	// public void userinfoClicked() {
@@ -200,68 +159,70 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 	@Click(R.id.menu_logout)
 	public void logoutClicked() {
+		menuHelper.clearSelected();
 		DialogUtil.defaultDialog(R.string.exit_confirm, 1, this).show(
 				getFragmentManager(), "logout");
+
 	}
 
-	private void toggleMenu(int id, boolean leftMenuShow) {
-
-		// 点击当前菜单
-		if (id == selectedId) {
-
-			if (leftMenuShow) {
-				closeMenu();
-			}
-
-			return;
-		}
-
-		FragmentTransaction transaction = getFragmentManager()
-				.beginTransaction();
-
-		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
-				R.anim.right_fadein, R.anim.left_fadeout);
-
-		MenuItems menu = MenuItems.getById(id);
-
-		if (null == menu) {
-			return;
-		}
-
-		Fragment fragment = menus.get(id);
-
-		if (null == fragment) {
-
-			try {
-
-				fragment = menu.getClazz().newInstance();
-				transaction.add(R.id.content_frame, fragment);
-				menus.append(id, fragment);
-
-			} catch (Exception e) {
-
-				Log.e(TAG, "实例化菜单失败");
-				return;
-			}
-
-		}
-
-		if (selectedId != -1) {
-			transaction.hide(menus.get(selectedId));
-		}
-
-		transaction.show(fragment);
-
-		transaction.commit();
-
-		((MainActivity) getActivity()).setCustomTitle(menu.getTitle());
-
-		selectedId = id;
-
-		if (leftMenuShow) {
-			closeMenu();
-		}
-	}
+	// private void toggleMenu(int id, boolean leftMenuShow) {
+	//
+	// // 点击当前菜单
+	// if (id == selectedId) {
+	//
+	// if (leftMenuShow) {
+	// closeMenu();
+	// }
+	//
+	// return;
+	// }
+	//
+	// FragmentTransaction transaction = getFragmentManager()
+	// .beginTransaction();
+	//
+	// transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
+	// R.anim.right_fadein, R.anim.left_fadeout);
+	//
+	// MenuItems menu = MenuItems.getById(id);
+	//
+	// if (null == menu) {
+	// return;
+	// }
+	//
+	// Fragment fragment = menus.get(id);
+	//
+	// if (null == fragment) {
+	//
+	// try {
+	//
+	// fragment = menu.getClazz().newInstance();
+	// transaction.add(R.id.content_frame, fragment);
+	// menus.append(id, fragment);
+	//
+	// } catch (Exception e) {
+	//
+	// Log.e(TAG, "实例化菜单失败");
+	// return;
+	// }
+	//
+	// }
+	//
+	// if (selectedId != -1) {
+	// transaction.hide(menus.get(selectedId));
+	// }
+	//
+	// transaction.show(fragment);
+	//
+	// transaction.commit();
+	//
+	// ((MainActivity) getActivity()).setCustomTitle(menu.getTitle());
+	//
+	// selectedId = id;
+	//
+	// if (leftMenuShow) {
+	// closeMenu();
+	// }
+	// }
 
 	private void closeMenu() {
 		((MainActivity) getActivity()).closeMenu();
@@ -273,5 +234,10 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			MainActivity ac = (MainActivity) getActivity();
 			ac.logout();
 		}
+	}
+
+	@Override
+	public void onMenuSelected(View menu, MenuItems item) {
+		closeMenu();
 	}
 }
