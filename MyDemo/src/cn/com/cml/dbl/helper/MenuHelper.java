@@ -48,16 +48,10 @@ public class MenuHelper {
 
 		// 选中菜单
 		if (v != lastSelectView) {
-
-			v.setSelected(true);
-
-			if (null != lastSelectView) {
-				lastSelectView.setSelected(false);
-			}
+			
+			toggleSelectedMenuStatus(v);
 
 			replaceContaner(menuItem, v.getId());
-
-			lastSelectView = v;
 		}
 
 		// 回调菜单选中监听
@@ -71,18 +65,26 @@ public class MenuHelper {
 	@Click(R.id.menu_setting)
 	public void onSettingCliked(View v) {
 
-		if (v != lastSelectView) {
-			if (lastSelectView != null) {
-				lastSelectView.setSelected(false);
-			}
-			lastSelectView = v;
-		}
+		toggleSelectedMenuStatus(v);
 
 		v.setSelected(true);
 
 		ModalActivity_.intent(mContext).container(SettingFragment_.class)
 				.fragmentTitle(R.string.menu_setting).start();
 
+	}
+
+
+	private void toggleSelectedMenuStatus(View v) {
+		
+		v.setSelected(true);
+		
+		if (v != lastSelectView) {
+			if (lastSelectView != null) {
+				lastSelectView.setSelected(false);
+			}
+			lastSelectView = v;
+		}
 	}
 	public void clearSelected(){
 		if(null!=lastSelectView){
