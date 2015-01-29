@@ -109,12 +109,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 			if (ACTION_MENU_CHANGE.equals(action)
 					&& intent.hasExtra(EXTRA_MENUITEM)) {
 
-				Activity activity = getActivity();
-				if (null != activity && !activity.isFinishing()) {
-
-					int menuId = intent.getIntExtra(EXTRA_MENUITEM, -1);
-					toggleMenu(menuId, false);
-				}
+				int menuId = intent.getIntExtra(EXTRA_MENUITEM, -1);
+				toggleMenu(menuId, false);
 			}
 		}
 	};
@@ -150,7 +146,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener {
 
 		FragmentTransaction transaction = getFragmentManager()
 				.beginTransaction();
-		transaction.add(R.id.content_frame, initFragment);
+		transaction.replace(R.id.content_frame, initFragment);
+		transaction.addToBackStack(null);
 		transaction.commit();
 	}
 
