@@ -66,7 +66,6 @@ public class MainActivity extends BaseActivity {
 
 	@AfterViews
 	protected void initLayouts() {
-
 		// 检查是否已经签到
 		todayCheckingCheck();
 

@@ -9,13 +9,13 @@ import org.androidannotations.annotations.RootContext;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.BackStackEntry;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
-import cn.com.cml.dbl.util.DialogUtil;
 import cn.com.cml.dbl.view.SettingFragment_;
 
 @EBean
@@ -48,10 +48,10 @@ public class MenuHelper {
 
 		// 选中菜单
 		if (v != lastSelectView) {
-			
+
 			toggleSelectedMenuStatus(v);
 
-			replaceContaner(menuItem, v.getId());
+			replaceContaner(menuItem);
 		}
 
 		// 回调菜单选中监听
@@ -61,7 +61,6 @@ public class MenuHelper {
 
 	}
 
-	
 	@Click(R.id.menu_setting)
 	public void onSettingCliked(View v) {
 
@@ -74,11 +73,10 @@ public class MenuHelper {
 
 	}
 
-
 	private void toggleSelectedMenuStatus(View v) {
-		
+
 		v.setSelected(true);
-		
+
 		if (v != lastSelectView) {
 			if (lastSelectView != null) {
 				lastSelectView.setSelected(false);
@@ -86,36 +84,49 @@ public class MenuHelper {
 			lastSelectView = v;
 		}
 	}
-	public void clearSelected(){
-		if(null!=lastSelectView){
+
+	public void clearSelected() {
+		if (null != lastSelectView) {
 			lastSelectView.setSelected(false);
 		}
 	}
 
-	private void replaceContaner(MenuItems menuItem, int id) {
+	private void replaceContaner(MenuItems menuItem) {
+
+		Fragment fragment = menus.get(menuItem.getId());
 
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
 				R.anim.right_fadein, R.anim.left_fadeout);
 
-		Fragment fragment = menus.get(id);
-
 		if (null == fragment) {
 
 			try {
 				fragment = menuItem.getClazz().newInstance();
-				menus.append(id, fragment);
+				menus.append(menuItem.getId(), fragment);
 			} catch (Exception e) {
 
 				Log.e(TAG, "实例化菜单失败");
 				return;
 			}
 
+			Log.d(TAG, "没有实例化");
+
+			transaction.addToBackStack(null);
+			transaction.replace(R.id.content_frame, fragment);
+
+		} else {
+
+			for (Fragment backFragment : fragmentManager.getFragments()) {
+				if (backFragment.getClass().equals(menuItem.getClazz())) {
+					transaction.replace(R.id.content_frame, backFragment);
+					break;
+				}
+			}
+
 		}
 
-		transaction.replace(R.id.content_frame, fragment);
-		transaction.addToBackStack(null);
 		transaction.commit();
 	}
 
