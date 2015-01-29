@@ -88,74 +88,8 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	public void initConfig() {
 
 		menuHelper.setFragmentManager(getFragmentManager());
-
-		// final int id = initMenuItem.getId();
-		//
-		// Fragment initFragment = null;
-		//
-		// try {
-		// initFragment = initMenuItem.getClazz().newInstance();
-		// } catch (Exception e) {
-		// Log.e(TAG, "initClass error", e);
-		// initFragment = HomeFragment_.builder().build();
-		// }
-
-		// selectedId = id;
-		// menus.put(id, initFragment);
-
-		// FragmentTransaction transaction = getFragmentManager()
-		// .beginTransaction();
-		// transaction.replace(R.id.content_frame, initFragment);
-		// transaction.addToBackStack(null);
-		// transaction.commit();
+		menuHelper.setMenuSelectedListener(this);
 	}
-
-	// @Click(value = { R.id.menu_home, R.id.menu_alarm, R.id.menu_monitor,
-	// R.id.menu_suggest, R.id.menu_secure, R.id.menu_userinfo })
-	// public void click(View clickView) {
-	//
-	// final int id = clickView.getId();
-	//
-	// toggleMenu(id, true);
-	//
-	// if (clickView instanceof MenuItemView_) {
-	//
-	// if (lastSelectedMenu != clickView) {
-	//
-	// MenuItemView_ item = (MenuItemView_) clickView;
-	//
-	// item.setSelected(true);
-	//
-	// if (null != lastSelectedMenu) {
-	// lastSelectedMenu.setSelected(false);
-	// }
-	//
-	// lastSelectedMenu = item;
-	// }
-	//
-	// } else {
-	// if (lastSelectedMenu != null) {
-	// lastSelectedMenu.setSelected(false);
-	// lastSelectedMenu = null;
-	// }
-	// }
-	// }
-
-	// @Click(R.id.menu_setting)
-	// public void settingClicked(View item) {
-	// if (lastSelectedMenu != item) {
-	// lastSelectedMenu = (MenuItemView_) item;
-	// lastSelectedMenu.setSelected(true);
-	// }
-	// ModalActivity_.intent(getActivity()).container(SettingFragment_.class)
-	// .fragmentTitle(R.string.menu_setting).start();
-	// }
-
-	// @Click(R.id.menu_userinfo)
-	// public void userinfoClicked() {
-	// ModalActivity_.intent(getActivity()).container(UserInfoFragment_.class)
-	// .fragmentTitle(R.string.menu_userinfo).start();
-	// }
 
 	@Click(R.id.menu_logout)
 	public void logoutClicked() {
@@ -164,65 +98,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 				getFragmentManager(), "logout");
 
 	}
-
-	// private void toggleMenu(int id, boolean leftMenuShow) {
-	//
-	// // 点击当前菜单
-	// if (id == selectedId) {
-	//
-	// if (leftMenuShow) {
-	// closeMenu();
-	// }
-	//
-	// return;
-	// }
-	//
-	// FragmentTransaction transaction = getFragmentManager()
-	// .beginTransaction();
-	//
-	// transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
-	// R.anim.right_fadein, R.anim.left_fadeout);
-	//
-	// MenuItems menu = MenuItems.getById(id);
-	//
-	// if (null == menu) {
-	// return;
-	// }
-	//
-	// Fragment fragment = menus.get(id);
-	//
-	// if (null == fragment) {
-	//
-	// try {
-	//
-	// fragment = menu.getClazz().newInstance();
-	// transaction.add(R.id.content_frame, fragment);
-	// menus.append(id, fragment);
-	//
-	// } catch (Exception e) {
-	//
-	// Log.e(TAG, "实例化菜单失败");
-	// return;
-	// }
-	//
-	// }
-	//
-	// if (selectedId != -1) {
-	// transaction.hide(menus.get(selectedId));
-	// }
-	//
-	// transaction.show(fragment);
-	//
-	// transaction.commit();
-	//
-	// ((MainActivity) getActivity()).setCustomTitle(menu.getTitle());
-	//
-	// selectedId = id;
-	//
-	// if (leftMenuShow) {
-	// closeMenu();
-	// }
-	// }
 
 	private void closeMenu() {
 		((MainActivity) getActivity()).closeMenu();
