@@ -6,11 +6,13 @@ import cn.com.cml.dbl.view.AlarmFragment_;
 import cn.com.cml.dbl.view.HomeFragment_;
 import cn.com.cml.dbl.view.MobileMonitorFragment_;
 import cn.com.cml.dbl.view.SecureSetFragment_;
+import cn.com.cml.dbl.view.SettingFragment_;
 import cn.com.cml.dbl.view.SuggestFragment_;
 import cn.com.cml.dbl.view.UserInfoFragment_;
 
 public enum MenuItems {
 
+	SETTING(R.id.menu_setting, SettingFragment_.class, R.string.menu_setting_title), //
 	HOME(R.id.menu_home, HomeFragment_.class, R.string.menu_home), //
 	MAP(R.id.menu_monitor, MobileMonitorFragment_.class, R.string.menu_monitor), //
 	ALARM(R.id.menu_alarm, AlarmFragment_.class, R.string.menu_alarm), // ..

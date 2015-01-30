@@ -68,6 +68,11 @@ public class MenuHelper {
 		ModalActivity_.intent(mContext).container(SettingFragment_.class)
 				.fragmentTitle(R.string.menu_setting).start();
 
+		// 回调菜单选中监听
+		if (null != menuSelectedListener) {
+			menuSelectedListener.onMenuSelected(v, MenuItems.SETTING);
+		}
+
 	}
 
 	private void toggleSelectedMenuStatus(View v) {
@@ -107,7 +112,7 @@ public class MenuHelper {
 				return;
 			}
 		}
-		
+
 		transaction.replace(R.id.content_frame, fragment);
 
 		transaction.commit();
@@ -122,7 +127,6 @@ public class MenuHelper {
 		}
 		return null;
 	}
-
 
 	public void setMenuSelectedListener(
 			OnMenuSelectedListener menuSelectedListener) {
