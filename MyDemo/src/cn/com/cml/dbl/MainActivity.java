@@ -12,14 +12,15 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.FragmentManager.OnBackStackChangedListener;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -100,11 +101,13 @@ public class MainActivity extends BaseActivity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 		mDrawerLayout.closeDrawers();
 
-		getFragmentManager().addOnBackStackChangedListener(
+		getSupportFragmentManager().addOnBackStackChangedListener(
 				new OnBackStackChangedListener() {
 
 					@Override
 					public void onBackStackChanged() {
+
+						Log.d(TAG, "fragment 实例化数量onBackStackChanged：");
 
 						boolean showIndicator = getFragmentManager()
 								.getBackStackEntryCount() > 0;
@@ -255,30 +258,12 @@ public class MainActivity extends BaseActivity {
 			return true;
 		}
 
-		return super.onKeyDown(keyCode, event);
+		logout();
+
+		return true;
 	}
 
 	public void logout() {
-		//
-		// List<Fragment> fragments =
-		// getSupportFragmentManager().getFragments();
-		//
-		// StringBuffer buffer = new StringBuffer();
-		//
-		// for (Fragment fragment : fragments) {
-		//
-		// if (fragment instanceof RemainTask) {
-		//
-		// RemainTask task = (RemainTask) fragment;
-		//
-		// if(task.hasTask()){
-		// buffer.append(task.taskTip()).append("\n");
-		// }
-		//
-		// }
-		//
-		// }
-
 		LoginActivity_.intent(this).start();
 		finish();
 	}

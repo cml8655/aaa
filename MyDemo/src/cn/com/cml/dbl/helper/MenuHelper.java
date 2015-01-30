@@ -28,7 +28,6 @@ public class MenuHelper {
 	private static final String TAG = "MenuHelper";
 
 	private View lastSelectView;
-	private SparseArray<Fragment> menus = new SparseArray<Fragment>(5);
 	private OnMenuSelectedListener menuSelectedListener;
 
 	@RootContext
@@ -66,8 +65,6 @@ public class MenuHelper {
 
 		toggleSelectedMenuStatus(v);
 
-		v.setSelected(true);
-
 		ModalActivity_.intent(mContext).container(SettingFragment_.class)
 				.fragmentTitle(R.string.menu_setting).start();
 
@@ -93,41 +90,37 @@ public class MenuHelper {
 
 	private void replaceContaner(MenuItems menuItem) {
 
-		Fragment fragment = menus.get(menuItem.getId());
-
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
 				R.anim.right_fadein, R.anim.left_fadeout);
 
-		if (null == fragment) {
+		Fragment fragment = retrieveFromCache(menuItem);
 
+		if (null == fragment) {
 			try {
 				fragment = menuItem.getClazz().newInstance();
-				menus.append(menuItem.getId(), fragment);
+				transaction.addToBackStack(null);
 			} catch (Exception e) {
 
 				Log.e(TAG, "实例化菜单失败");
 				return;
 			}
-
-			Log.d(TAG, "没有实例化");
-
-			transaction.addToBackStack(null);
-			transaction.replace(R.id.content_frame, fragment);
-
-		} else {
-
-			for (Fragment backFragment : fragmentManager.getFragments()) {
-				if (backFragment.getClass().equals(menuItem.getClazz())) {
-					transaction.replace(R.id.content_frame, backFragment);
-					break;
-				}
-			}
-
 		}
+		
+		transaction.replace(R.id.content_frame, fragment);
 
 		transaction.commit();
+	}
+
+	private Fragment retrieveFromCache(MenuItems menuItem) {
+		for (Fragment backFragment : fragmentManager.getFragments()) {
+			if (null != backFragment
+					&& menuItem.getClazz().equals(backFragment.getClass())) {
+				return backFragment;
+			}
+		}
+		return null;
 	}
 
 	public void toggleMenu(int menuId) {
