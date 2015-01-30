@@ -264,7 +264,6 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void logout() {
-		LoginActivity_.intent(this).start();
 		finish();
 	}
 
