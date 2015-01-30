@@ -123,15 +123,6 @@ public class MenuHelper {
 		return null;
 	}
 
-	public void toggleMenu(int menuId) {
-
-		if (lastSelectView == null) {
-			if (lastSelectView.getId() != menuId) {
-
-			}
-		}
-
-	}
 
 	public void setMenuSelectedListener(
 			OnMenuSelectedListener menuSelectedListener) {

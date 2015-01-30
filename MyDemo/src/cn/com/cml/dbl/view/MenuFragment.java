@@ -7,6 +7,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,10 +36,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	public static final String ACTION_MENU_CHANGE = "cn.com.cml.dbl.view.MenuFragment.ACTION_MENU_CHANGE";
 	public static final String EXTRA_MENUITEM = "cn.com.cml.dbl.view.MenuFragment.EXTRA_MENUITEM";
 
-	// private SparseArray<Fragment> menus = new SparseArray<Fragment>(5);
-
-	// private int selectedId = -1;
-
 	@FragmentArg
 	MenuItems initMenuItem = MenuItems.HOME;// 初始化时默认的菜单
 
@@ -47,8 +44,6 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 
 	@ViewById(R.id.menu_score)
 	TextView scoreView;
-
-	// private MenuItemView_ lastSelectedMenu;
 
 	private BroadcastReceiver itemChangeReceiver = new BroadcastReceiver() {
 
@@ -117,5 +112,7 @@ public class MenuFragment extends Fragment implements OnItemClickListener,
 	@Override
 	public void onMenuSelected(View menu, MenuItems item) {
 		closeMenu();
+		MainActivity ac = (MainActivity) getActivity();
+		ac.setCustomTitle(item.getTitle());
 	}
 }
