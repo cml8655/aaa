@@ -7,6 +7,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentById;
+import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.content.BroadcastReceiver;
@@ -19,6 +20,7 @@ import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.PushListener;
 import cn.com.cml.dbl.R;
@@ -103,9 +105,11 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@AfterViews
 	public void initConfig() {
 
-		Log.d(TAG, "MobileMonitorFragment==》initConfig");
+		Log.d("MenuHelper", "mapFragment:" + mapFragment);
 
-		mapHelper = new MapFactory().createBaiduMapHelper(mapFragment);
+		mapHelper = new MapFactory().createBaiduMapHelper(mapFragment,
+				this.getActivity());
+
 		mapHelper.initMap(LOCATE_INTERVAL);// 10s定位一次
 		mapHelper.setLocationStatusListener(this);
 
@@ -211,6 +215,9 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Override
 	public void onDestroy() {
 		getActivity().unregisterReceiver(mobileLocationReceiver);
+
+		getFragmentManager().beginTransaction().remove(mapFragment).commit();
+
 		super.onDestroy();
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.ui.MapviewTipView;
@@ -36,15 +37,17 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	private LocationClient baiduClient;
 	private BaiduMap baiduMap;
 	private BDLocation lastLocation;
+	private Context context;
 
-	public BaiduMapHelper(SupportMapFragment mapFragment) {
+	public BaiduMapHelper(SupportMapFragment mapFragment, Context context) {
 		super(mapFragment);
+		this.context = context;
 	}
 
 	@Override
 	public void initMap(int scanInterval) {
 		// 定位功能初始化
-		baiduClient = new LocationClient(mapFragment.getActivity());
+		baiduClient = new LocationClient(context);
 
 		LocationClientOption option = new LocationClientOption();
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
@@ -118,7 +121,7 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	public void addWindowInfo(LatLng lat, int icon, int text) {
 
 		// 设置提示
-		MapviewTipView tip = MapviewTipView_.build(mapFragment.getActivity());
+		MapviewTipView tip = MapviewTipView_.build(context);
 
 		tip.bind(icon, text);
 
@@ -150,12 +153,6 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 	@Override
 	public void onReceiveLocation(BDLocation location) {
 
-		Activity ac = mapFragment.getActivity();
-
-		if (ac == null) {
-			return;
-		}
-
 		boolean isValid = checkLocationResult(location);
 
 		if (null != this.locationStatusListener) {
@@ -163,7 +160,7 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		}
 
 		if (!isValid) {
-			DialogUtil.showTip(ac, "定位失败");
+			DialogUtil.showTip(context, "定位失败");
 			return;
 		}
 

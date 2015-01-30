@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/map_menu_bar_layout"
             android:layout_alignParentTop="true"
-            android:tag="xxdd" />
+            android:tag="xxdd" >
+        </fragment>
 
         <LinearLayout
             android:id="@+id/map_menu_bar_layout"
