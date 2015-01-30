@@ -55,7 +55,7 @@ public class MessageFragment extends Fragment {
 		smsManager = SmsManager.getDefault();
 
 		Bitmap source = BitmapFactory.decodeResource(getResources(),
-				R.drawable.ic_launcher);
+				R.drawable.launcher);
 
 		img.setImageBitmap(ImageUtil.roundCorner(source, 5));
 	}
