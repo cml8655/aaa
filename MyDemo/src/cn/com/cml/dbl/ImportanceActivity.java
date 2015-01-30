@@ -62,6 +62,11 @@ public class ImportanceActivity extends BaseActivity implements
 		DeviceBindActivity_.intent(this).start();
 	}
 
+	@Click(R.id.btn_ignore)
+	protected void onIgnoreClicked() {
+		startMain(MenuItems.HOME);
+	}
+
 	@Override
 	public void onClick(DialogInterface clickDialog, int which) {
 

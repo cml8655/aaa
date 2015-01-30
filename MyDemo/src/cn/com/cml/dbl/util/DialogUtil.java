@@ -184,7 +184,7 @@ public class DialogUtil {
 
 		DialogFragment dialog = DefaultDialogFragment_.builder()
 				.requestId(requestId).title(title).singleChoiceItems(items)
-				.build();
+				.negativeBtnText(R.string.cancel_text).build();
 
 		return dialog;
 	}
