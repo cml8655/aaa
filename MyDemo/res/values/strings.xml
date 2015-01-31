@@ -164,7 +164,7 @@
     <string name="userinfo_account">当前账号：%1$s</string>
     <string name="userinfo_point">积\u0020\u0020分：%1$s</string>
     <string name="userinfo_bind_device">绑定手机：%1$s</string>
-    <string name="userinfo_unbind_device">绑定手机：暂未绑定手机</string>
+    <string name="userinfo_unbind_device">绑定手机：无</string>
     <string name="userinfo_logout">退出账号</string>
     <string name="userinfo_remote_pass_query">远程密码查询</string>
     <string name="userinfo_query_confirm">确定使用15积分查询远程密码？</string>

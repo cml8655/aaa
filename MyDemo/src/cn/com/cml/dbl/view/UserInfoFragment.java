@@ -8,6 +8,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,11 +18,13 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.com.cml.dbl.DeviceBindActivity_;
 import cn.com.cml.dbl.MainActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
@@ -56,6 +59,9 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 
 	@ViewById(R.id.pg_refresh)
 	CircleImageView refreshView;
+
+	@StringRes(R.string.userinfo_unbind_device)
+	String unbindDeviceStr;
 
 	private boolean isFirst = true;
 
@@ -105,22 +111,35 @@ public class UserInfoFragment extends Fragment implements OnItemClickListener {
 		refresh(true);
 
 		loadingDialog = DialogUtil.dataLoadingDialog();
-		// loadingDialog.show(getFragmentManager(), "user_info");
 
 		// 用户信息加载
 		User user = BmobUser.getCurrentUser(getActivity(), User.class);
 
+		initBindInfo(user);
+
+		loadUserInfo();
+
+	}
+
+	private void initBindInfo(User user) {
 		userScore = user.getScore();
 
 		accountView.setText(getString(R.string.userinfo_account,
 				user.getUsername()));
 		pointView.setText(getString(R.string.userinfo_point, user.getScore()));
 
-		deviceView.setText(getString(R.string.userinfo_bind_device,
-				INIT_CHARACTOR));
+		deviceView.setText(unbindDeviceStr);
+	}
 
-		loadUserInfo();
+	@Click(R.id.userinfo_device)
+	protected void onBindDeviceClicked(View v) {
 
+		TextView tv = (TextView) v;
+
+		// 前往绑定页面
+		if (unbindDeviceStr.equals(tv.getText().toString())) {
+			DeviceBindActivity_.intent(getActivity()).start();
+		}
 	}
 
 	private void loadUserInfo() {
