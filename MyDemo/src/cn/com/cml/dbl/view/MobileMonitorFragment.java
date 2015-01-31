@@ -20,7 +20,6 @@ import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.PushListener;
 import cn.com.cml.dbl.R;
@@ -40,6 +39,7 @@ import cn.com.cml.dbl.view.DefaultDialogFragment.OnItemClickListener;
 import cn.com.cml.dbl.view.RemotePassInputDialogFragment.OnPassFinishListener;
 
 import com.baidu.location.BDLocation;
+import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -57,8 +57,8 @@ public class MobileMonitorFragment extends BaseFragment implements
 	private static final int LOCATE_INTERVAL = 10000;
 	private static final int REQUEST_REMOTE_PASS = 3001;
 
-	@FragmentById(R.id.map_fragment)
-	SupportMapFragment mapFragment;
+	@ViewById(R.id.map_baidu)
+	MapView mapView;
 
 	@Bean
 	ApiRequestServiceClient apiClient;
@@ -105,9 +105,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@AfterViews
 	public void initConfig() {
 
-		Log.d("MenuHelper", "mapFragment:" + mapFragment);
-
-		mapHelper = new MapFactory().createBaiduMapHelper(mapFragment,
+		mapHelper = new MapFactory().createBaiduMapHelper(mapView,
 				this.getActivity());
 
 		mapHelper.initMap(LOCATE_INTERVAL);// 10s定位一次
@@ -215,9 +213,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Override
 	public void onDestroy() {
 		getActivity().unregisterReceiver(mobileLocationReceiver);
-
-		getFragmentManager().beginTransaction().remove(mapFragment).commit();
-
 		super.onDestroy();
 	}
 

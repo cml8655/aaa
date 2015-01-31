@@ -8,15 +8,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <fragment
-            android:id="@+id/map_fragment"
-            android:name="com.baidu.mapapi.map.SupportMapFragment"
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/map_baidu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/map_menu_bar_layout"
-            android:layout_alignParentTop="true"
-            android:tag="xxdd" >
-        </fragment>
+            android:layout_alignParentTop="true" />
 
         <LinearLayout
             android:id="@+id/map_menu_bar_layout"

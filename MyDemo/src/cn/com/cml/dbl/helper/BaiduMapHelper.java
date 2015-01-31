@@ -3,7 +3,6 @@ package cn.com.cml.dbl.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import cn.com.cml.dbl.R;
@@ -22,26 +21,27 @@ import com.baidu.mapapi.map.GroundOverlayOptions;
 import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.PolylineOptions;
-import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
 
 public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 
 	private boolean isFirstLocate;// 第一次定位
 	private LocationClient baiduClient;
-	private BaiduMap baiduMap;
 	private BDLocation lastLocation;
 	private Context context;
+	private MapView mapView;
+	private BaiduMap baiduMap;
 
-	public BaiduMapHelper(SupportMapFragment mapFragment, Context context) {
-		super(mapFragment);
+	public BaiduMapHelper(MapView mapView, Context context) {
 		this.context = context;
+		this.mapView = mapView;
 	}
 
 	@Override
@@ -49,20 +49,19 @@ public class BaiduMapHelper extends MapHelper implements BDLocationListener {
 		// 定位功能初始化
 		baiduClient = new LocationClient(context);
 
+		baiduClient.registerLocationListener(this);
+
 		LocationClientOption option = new LocationClientOption();
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
 		option.setScanSpan(scanInterval);// 设置发起定位请求的间隔时间为scanIntervalms
 		option.setOpenGps(true);
 		option.setTimeOut(20000);// 20s延迟
 		option.setPriority(LocationClientOption.GpsFirst);
-
 		baiduClient.setLocOption(option);
-		baiduClient.registerLocationListener(this);
 
-		baiduMap = mapFragment.getBaiduMap();
+		baiduMap = mapView.getMap();
 
 		// 百度地图初始化
-		baiduMap = mapFragment.getBaiduMap();
 		baiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
 		baiduMap.setTrafficEnabled(true);
 		baiduMap.setMyLocationEnabled(true);

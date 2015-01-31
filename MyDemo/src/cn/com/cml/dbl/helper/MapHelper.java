@@ -12,12 +12,6 @@ public abstract class MapHelper {
 
 	protected LocationStatusListener locationStatusListener;
 
-	protected SupportMapFragment mapFragment;
-
-	public MapHelper(SupportMapFragment mapFragment) {
-		this.mapFragment = mapFragment;
-	}
-
 	/**
 	 * 初始化地图信息
 	 */
