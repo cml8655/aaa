@@ -6,7 +6,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
-import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -18,7 +17,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,9 +38,6 @@ public class WindowAlarmActvity extends FragmentActivity implements
 
 	@Bean
 	ApiRequestServiceClient apiClient;
-
-	@SystemService
-	InputMethodManager inputManager;
 
 	@ViewById(R.id.input_tip_tv)
 	TextView inputTipView;

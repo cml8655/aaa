@@ -179,6 +179,8 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 											R.color.default_color,
 											getString(R.string.alarm_wait_feedback));
 									startCountDown();
+									// 密码不可编辑
+									setPassViewStatus(false);
 								}
 
 								@Override
@@ -206,6 +208,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 									Log.d(TAG, "alarmStopCommand发送onSuccess");
 									buttonStateChanged(R.color.default_color,
 											sendAlarm);
+									setPassViewStatus(true);
 								}
 
 								@Override
@@ -222,14 +225,16 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 	}
 
+	private void setPassViewStatus(boolean enabled) {
+		passView.setEnabled(enabled);
+	}
+
 	private void startCountDown() {
-		
+
 		controlButton.setClickable(false);
 
 		countTimer = new CountDownTimer(Constant.JINBAO_EXPIRES, 1000) {
-			
 
-			
 			@Override
 			public void onTick(long millisUntilFinished) {
 
@@ -248,6 +253,7 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 
 				Activity ac = getActivity();
 				if (ac != null && !ac.isFinishing()) {
+					setPassViewStatus(true);
 					controlButton.setClickable(true);
 					buttonStateChanged(R.color.default_color, sendAlarm);
 					DialogFragment smsDialog = DialogUtil.defaultDialog(
@@ -277,9 +283,13 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 		}
 		if (requestId == REQUEST_SMS_ALARM
 				&& id == DialogInterface.BUTTON_POSITIVE) {
+			
+			String command = Constant.JINBAO + Constant.COMMAND_SPERATOR
+					+ passView.getText().toString();
 			// 发送短信
 			Intent intent = new Intent(Intent.ACTION_SENDTO);
-			intent.putExtra("sms_body", "TheSMS text");
+
+			intent.putExtra("sms_body", command);
 			intent.setData(Uri.parse("smsto:"));
 			getActivity().startActivity(intent);
 		}

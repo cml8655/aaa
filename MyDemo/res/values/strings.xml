@@ -18,7 +18,7 @@
     <string name="use_help">使用帮助</string>
     <string name="agreement">服务协议</string>
     <string name="about_us">关于我们</string>
-    <string name="bind_current_device">找到了，手机不就在您手上么？</string>
+    <string name="bind_current_device">手机在您手上!</string>
 
     <!-- 主页 -->
     <string name="home">主页</string>

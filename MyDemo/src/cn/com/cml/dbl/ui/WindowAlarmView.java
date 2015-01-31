@@ -5,7 +5,6 @@ import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EViewGroup;
-import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -14,7 +13,6 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,8 +34,6 @@ public class WindowAlarmView extends LinearLayout implements OnClickListener {
 	@Bean
 	ApiRequestServiceClient apiClient;
 
-	@SystemService
-	InputMethodManager inputManager;
 
 	@ViewById(R.id.input_tip_tv)
 	TextView inputTipView;
@@ -109,7 +105,6 @@ public class WindowAlarmView extends LinearLayout implements OnClickListener {
 	}
 
 	private void stopAlarm() {
-		inputManager.hideSoftInputFromWindow(getWindowToken(), 0);
 		RingtoneService_.intent(getContext()).stop();
 		WindowAlarmService_.intent(getContext()).stop();
 		AlarmServiceQuene_.intent(getContext()).stop();

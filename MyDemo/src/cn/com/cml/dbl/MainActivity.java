@@ -241,26 +241,28 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-		if (keyCode == KeyEvent.KEYCODE_BACK && !backClicked) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			
+			if (!backClicked) {
+				backClicked = true;
+				DialogUtil.toast(this, R.string.click_exit);
 
-			backClicked = true;
+				handler.postDelayed(new Runnable() {
 
-			DialogUtil.toast(this, R.string.click_exit);
+					@Override
+					public void run() {
+						backClicked = false;
+					}
+				}, 1000);
 
-			handler.postDelayed(new Runnable() {
+				return true;
+			} else {
+				logout();
+			}
 
-				@Override
-				public void run() {
-					backClicked = false;
-				}
-			}, 1000);
-
-			return true;
 		}
 
-		logout();
-
-		return true;
+		return super.onKeyDown(keyCode, event);
 	}
 
 	public void logout() {
