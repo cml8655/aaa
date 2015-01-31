@@ -9,6 +9,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
@@ -25,6 +26,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import cn.bmob.v3.BmobUser;
 import cn.com.cml.dbl.helper.MenuItems;
@@ -89,6 +92,7 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onDrawerOpened(View drawerView) {
 				super.onDrawerOpened(drawerView);
+
 				invalidateOptionsMenu();
 			}
 
@@ -242,7 +246,7 @@ public class MainActivity extends BaseActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			
+
 			if (!backClicked) {
 				backClicked = true;
 				DialogUtil.toast(this, R.string.click_exit);
