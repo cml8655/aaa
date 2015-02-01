@@ -134,7 +134,7 @@ public class IndicatorItems extends LinearLayout implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		
+
 		if (isChecked) {
 			setSwitchDesc(indicatorDescCheckedText);
 		} else {
@@ -155,4 +155,14 @@ public class IndicatorItems extends LinearLayout implements
 			indicatorDescView.setText(text);
 		}
 	}
+
+	public String getMessageText() {
+		return messageText;
+	}
+
+	public void setMessageText(String messageText) {
+		this.messageText = messageText;
+		messageView.setText(messageText);
+	}
+
 }

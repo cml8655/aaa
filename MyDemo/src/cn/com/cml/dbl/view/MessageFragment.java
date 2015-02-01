@@ -69,7 +69,6 @@ public class MessageFragment extends Fragment {
 				new SmsContentObserver(getActivity(), new SMSHandler(
 						getActivity())));
 
-		Log.e("fff", "注册监听");
 	}
 
 	@Override

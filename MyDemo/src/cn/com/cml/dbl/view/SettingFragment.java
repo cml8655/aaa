@@ -13,6 +13,7 @@ import cn.com.cml.dbl.ModalActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.ui.IndicatorItems;
+import cn.com.cml.dbl.util.AppUtil;
 import cn.com.cml.dbl.util.PrefUtil_;
 
 @EFragment(R.layout.fragment_setting)
@@ -31,6 +32,9 @@ public class SettingFragment extends BaseFragment {
 
 	@ViewById(R.id.setting_sms_location)
 	IndicatorItems smsLocationView;
+
+	@ViewById(R.id.setting_version)
+	IndicatorItems versionView;
 
 	@Pref
 	PrefUtil_ prefUtil;
@@ -93,6 +97,10 @@ public class SettingFragment extends BaseFragment {
 			}
 		});
 
+		String version = AppUtil.version(getActivity());
+
+		versionView
+				.setMessageText(getString(R.string.setting_version, version));
 	}
 
 	@Click(R.id.setting_about_us)
@@ -120,7 +128,7 @@ public class SettingFragment extends BaseFragment {
 						.build(), R.string.agreement);
 	}
 
-	@Click(R.id.setting_version_update)
+	@Click(R.id.setting_version_container)
 	protected void versionUpdate() {
 		BmobUpdateAgent.forceUpdate(getActivity());
 	}

@@ -77,8 +77,6 @@ public class LoginActivity extends BaseActivity implements OnItemClickListener {
 		// intent.setData(Uri.parse("package:" + this.getPackageName()));
 		// startActivity(intent);
 
-		// dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-		// R.string.login_request);
 
 		setCustomTitle(R.string.login_title);
 

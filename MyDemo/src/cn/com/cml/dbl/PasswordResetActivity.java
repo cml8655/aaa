@@ -53,12 +53,11 @@ public class PasswordResetActivity extends BaseActivity {
 	@AfterViews
 	void initConfig() {
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-				R.string.login_request);
+		dialog = DialogUtil.dataLoadingDialog();
 		dialog.setCancelable(false);
 
 		setCustomTitle(R.string.reset_pass_title);
-		emailView.setText("865517964@qq.com");
+		// emailView.setText("865517964@qq.com");
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
 	}

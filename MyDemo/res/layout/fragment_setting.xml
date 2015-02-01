@@ -65,15 +65,14 @@
     <!-- 版本 检测 -->
 
     <LinearLayout
-        android:id="@+id/setting_version_update"
+        android:id="@+id/setting_version_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <cn.com.cml.dbl.ui.IndicatorItems_
+            android:id="@+id/setting_version"
             style="@style/indicatorItemsStyle.setting"
-            android:layout_width="wrap_content"
-            indicator:left_icon="@string/icon_version"
-            indicator:show_text="当前版本XXXX" >
+            android:layout_width="wrap_content" >
         </cn.com.cml.dbl.ui.IndicatorItems_>
 
         <cn.com.cml.dbl.ui.FontIconTextView
@@ -82,7 +81,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center|right"
-            android:text="已经是最新版本" />
+            android:text="@string/setting_version_check" />
     </LinearLayout>
 
     <View
@@ -93,8 +92,7 @@
     <cn.com.cml.dbl.ui.IndicatorItems_
         android:id="@+id/setting_help"
         style="@style/indicatorItemsStyle.setting"
-        indicator:left_icon="@string/icon_help"
-        indicator:show_text="使用帮助" >
+        indicator:show_text="@string/setting_help" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
     <View
@@ -106,7 +104,7 @@
         android:id="@+id/setting_agreement"
         style="@style/indicatorItemsStyle.setting"
         indicator:left_icon="@string/icon_service"
-        indicator:show_text="服务条款" >
+        indicator:show_text="@string/setting_service" >
     </cn.com.cml.dbl.ui.IndicatorItems_>
 
     <View

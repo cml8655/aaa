@@ -36,8 +36,7 @@ public class RegisterActivity extends BaseActivity {
 	@AfterViews
 	protected void initConfig() {
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-				R.string.register_tip);
+		dialog = DialogUtil.dataLoadingDialog();
 		dialog.setCancelable(false);
 
 		actionBar.setDisplayShowTitleEnabled(true);

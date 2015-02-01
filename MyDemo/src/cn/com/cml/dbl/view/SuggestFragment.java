@@ -35,8 +35,7 @@ public class SuggestFragment extends Fragment {
 	@AfterViews
 	void afterViews() {
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-				R.string.data_requesting);
+		dialog = DialogUtil.dataLoadingDialog();
 		dialog.setCancelable(false);
 
 	}

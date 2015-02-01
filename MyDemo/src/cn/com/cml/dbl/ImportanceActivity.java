@@ -36,8 +36,7 @@ public class ImportanceActivity extends BaseActivity implements
 	@AfterViews
 	protected void initConfig() {
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_user,
-				R.string.data_requesting);
+		dialog = DialogUtil.dataLoadingDialog();
 		dialog.setCancelable(false);
 
 		setCustomTitle(R.string.system_tip);
