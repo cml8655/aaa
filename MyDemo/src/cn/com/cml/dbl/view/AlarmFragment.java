@@ -283,9 +283,9 @@ public class AlarmFragment extends Fragment implements OnItemClickListener {
 		}
 		if (requestId == REQUEST_SMS_ALARM
 				&& id == DialogInterface.BUTTON_POSITIVE) {
-			
-			String command = Constant.JINBAO + Constant.COMMAND_SPERATOR
-					+ passView.getText().toString();
+
+			String command = passView.getText().toString()
+					+ Constant.COMMAND_SPERATOR + Constant.JINBAO;
 			// 发送短信
 			Intent intent = new Intent(Intent.ACTION_SENDTO);
 
