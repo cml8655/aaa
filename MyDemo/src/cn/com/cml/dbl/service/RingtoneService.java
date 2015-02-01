@@ -17,6 +17,8 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.util.Log;
+import cn.com.cml.dbl.R;
+import cn.com.cml.dbl.helper.AlarmHelper;
 import cn.com.cml.dbl.util.PrefUtil_;
 import cn.com.cml.dbl.util.VolumeUtil;
 
@@ -35,7 +37,6 @@ public class RingtoneService extends Service {
 	private long[] vibratorPattern = { 1000, 3000, 1000, 3000, 1000 };
 
 	private boolean isVirbrating;
-	private boolean isRinging;
 
 	@SystemService
 	Vibrator vibrator;
@@ -48,23 +49,21 @@ public class RingtoneService extends Service {
 
 	private Timer volumeTimer;
 
-	private Ringtone mRingtone;
+	@Bean
+	AlarmHelper alarmHelper;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		mRingtone = this.getDefaultRingtone();
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
 		// 已经在播放了，直接返回
-		if (isRinging || isVirbrating) {
+		if (alarmHelper.isPlay() || isVirbrating) {
 			return super.onStartCommand(intent, flags, startId);
 		}
-
-		Log.d("RingtoneService", "ringtoneService 播放了！");
 
 		// 存储原有音量大小
 		backupVolume();
@@ -72,9 +71,8 @@ public class RingtoneService extends Service {
 		volumeUtil.noisy();
 
 		// 播放铃声
-		if (null != mRingtone && !mRingtone.isPlaying()) {
-			mRingtone.play();
-			isRinging = true;
+		if (!alarmHelper.isPlay()) {
+			alarmHelper.play(R.raw.alarm);
 		}
 
 		// 开始震动
@@ -109,9 +107,8 @@ public class RingtoneService extends Service {
 		restoreVolume();
 
 		// 关闭铃声播放
-		if (isRinging) {
-			mRingtone.stop();
-			isRinging = false;
+		if (alarmHelper.isPlay()) {
+			alarmHelper.release();
 		}
 
 		if (isVirbrating) {
@@ -142,14 +139,6 @@ public class RingtoneService extends Service {
 		volumeUtil.setStreamVolume(prefUtil.mediaVolume().get(),
 				AudioManager.STREAM_MUSIC);
 
-	}
-
-	private Ringtone getDefaultRingtone() {
-
-		Uri ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(this,
-				RingtoneManager.TYPE_RINGTONE);
-
-		return RingtoneManager.getRingtone(this, ringtoneUri);
 	}
 
 	@Override

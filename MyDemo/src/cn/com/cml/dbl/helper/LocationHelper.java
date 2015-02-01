@@ -35,7 +35,7 @@ public class LocationHelper {
 		userLocationModel = initLocationModel(R.string.icon_user);
 		locationHandler.storeModel(KEY_USER, userLocationModel);
 
-		mobileLocationModel = initLocationModel(R.string.icon_spin5);
+		mobileLocationModel = initLocationModel(R.string.icon_mobile);
 		locationHandler.storeModel(KEY_MOBILE, mobileLocationModel);
 	}
 

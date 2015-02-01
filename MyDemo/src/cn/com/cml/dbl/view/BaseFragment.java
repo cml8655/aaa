@@ -14,12 +14,11 @@ import cn.com.cml.dbl.ModalActivity;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.ui.TopTipView;
 import cn.com.cml.dbl.ui.TopTipView_;
-import cn.com.cml.dbl.util.DialogUtil;
 
 public class BaseFragment extends Fragment {
 
 	public void showNiftyTip(String text) {
-		this.showNiftyTip(text, R.string.icon_setting, R.id.over_view_container);
+		this.showNiftyTip(text, R.string.icon_mobile, R.id.mobile_monitor_tip_container);
 	}
 
 	protected void changeContainer(Fragment target, Integer titleId) {

@@ -81,7 +81,7 @@ public class BaiduApiFragment extends Fragment {
 	@AfterViews
 	public void initLocationComponent() {
 
-		dialog = DialogUtil.notifyDialogBuild(R.string.icon_spin5,
+		dialog = DialogUtil.notifyDialogBuild(R.string.icon_mobile,
 				R.string.locate_user);
 		dialog.show(getFragmentManager(), "location");
 
@@ -308,7 +308,7 @@ public class BaiduApiFragment extends Fragment {
 
 			// 添加提示信息
 			addMapInfo(mobileLocation.getLatitude(),
-					mobileLocation.getLongitude(), R.string.icon_spin5, tip);
+					mobileLocation.getLongitude(), R.string.icon_mobile, tip);
 		}
 
 	}

@@ -6,7 +6,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
@@ -40,7 +39,6 @@ import cn.com.cml.dbl.view.RemotePassInputDialogFragment.OnPassFinishListener;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.google.gson.Gson;
@@ -115,10 +113,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 
 		loadingDialog = DialogUtil.dataLoadingDialog(R.string.locate_user);
 		loadingDialog.show(getFragmentManager(), "location");
-
-		// 输入远程密码
-		// showRemotePassRequiredDialog();
-
 	}
 
 	private void showRemotePassRequiredDialog() {
@@ -160,7 +154,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 					userLocation.getLongitude());
 
 			mapHelper.animateTo(lat);
-			mapHelper.addWindowInfo(lat, R.string.icon_spin5,
+			mapHelper.addWindowInfo(lat, R.string.icon_user,
 					R.string.monitor_my_location);
 			locationHelper.reverseUserLocationCoder();
 		} else {
@@ -172,14 +166,13 @@ public class MobileMonitorFragment extends BaseFragment implements
 	@Click(R.id.map_menu_mobile)
 	public void mobileClick(View v) {
 
-		if (prefUtil.isBindDevice().get()) {
-			DialogUtil.tipDialog(R.string.icon_user,
-					R.string.bind_current_device).show(getFragmentManager(),
-					"current_device");
-			return;
-		}
+		BDLocation mobileLocation = locationHelper.getMobileLocation();
 
-		if (!remotePassValid) {
+		// 设备与绑定手机相同
+		if (prefUtil.isBindDevice().get()) {
+			mobileLocation = locationHelper.getUserLocation();
+			locationHelper.setMobileLocation(mobileLocation);
+		} else if (!remotePassValid) {
 			this.showRemotePassRequiredDialog();
 			return;
 		}
@@ -187,7 +180,6 @@ public class MobileMonitorFragment extends BaseFragment implements
 		// TODO 去除
 		// locationHelper.setMobileLocation(new BDLocation(121.51377, 31.245951,
 		// 11));
-		BDLocation mobileLocation = locationHelper.getMobileLocation();
 
 		if (null != mobileLocation) {
 
@@ -195,7 +187,7 @@ public class MobileMonitorFragment extends BaseFragment implements
 					mobileLocation.getLongitude());
 
 			mapHelper.animateTo(lat);
-			mapHelper.addWindowInfo(lat, R.string.icon_spin5,
+			mapHelper.addWindowInfo(lat, R.string.icon_mobile,
 					R.string.monitor_mobile_location);
 			locationHelper.reverseMobileLocationCoder();
 		}

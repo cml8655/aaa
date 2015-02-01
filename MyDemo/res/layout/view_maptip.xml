@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cc3458"
+    android:background="@color/default_color"
     android:orientation="horizontal" >
 
     <cn.com.cml.dbl.ui.FontIconTextView

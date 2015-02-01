@@ -26,6 +26,7 @@
     <string name="home_mobile_monitor">手机找回</string>
 
     <!-- font icon -->
+    <string name="icon_conn">&#xe81a;</string>
     <string name="icon_loading">&#xe801;</string>
     <string name="icon_help">&#xe819;</string>
     <string name="icon_service">&#xe815;</string>
@@ -39,8 +40,8 @@
     <string name="icon_location">&#xe817;</string>
     <string name="icon_home">&#xe81b;</string>
     <string name="icon_lefthand">&#xe80e;</string>
-    <string name="icon_spin5">&#xe805;</string>
     <string name="icon_user">&#xe81c;</string>
+    <string name="icon_mobile">&#xe809;</string>
 
     <!-- left menu -->
     <string name="menu_userinfo">个人中心</string>

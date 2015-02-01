@@ -40,8 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/icon_setting"
-                    android:textColor="#F00"
+                    android:text="@string/icon_conn"
                     android:textSize="25sp" />
 
                 <TextView
@@ -69,14 +68,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/icon_spin5"
+                    android:text="@string/icon_mobile"
                     android:textSize="25sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/monitor_menu_mobile" />
+                    android:text="@string/monitor_menu_mobile"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <View
@@ -104,7 +104,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/monitor_menu_user" />
+                    android:text="@string/monitor_menu_user"
+                    android:textColor="@color/white" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
