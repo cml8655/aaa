@@ -41,8 +41,6 @@ public class SplashActivity extends Activity {
 	@AfterViews
 	protected void initConfig() {
 
-		BmobUpdateAgent.update(getApplicationContext());
-
 		logoView.startAnimation(AnimationUtils.loadAnimation(
 				getApplicationContext(), R.anim.splash_anim));
 
