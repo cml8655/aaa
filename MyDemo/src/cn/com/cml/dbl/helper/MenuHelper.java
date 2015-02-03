@@ -50,7 +50,7 @@ public class MenuHelper {
 
 			toggleSelectedMenuStatus(v);
 
-			replaceContaner(menuItem);
+			replaceContainer(menuItem);
 		}
 
 		// 回调菜单选中监听
@@ -93,7 +93,7 @@ public class MenuHelper {
 		}
 	}
 
-	private void replaceContaner(MenuItems menuItem) {
+	private void replaceContainer(MenuItems menuItem) {
 
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -102,6 +102,7 @@ public class MenuHelper {
 
 		Fragment fragment = retrieveFromCache(menuItem);
 
+		// fragment没有实例化过，new出一个添加到FragmentTransaction中，并且保存fragment的状态
 		if (null == fragment) {
 			try {
 				fragment = menuItem.getClazz().newInstance();
@@ -119,6 +120,7 @@ public class MenuHelper {
 	}
 
 	private Fragment retrieveFromCache(MenuItems menuItem) {
+		//从fragmentManager中获取已有的fragment对象
 		for (Fragment backFragment : fragmentManager.getFragments()) {
 			if (null != backFragment
 					&& menuItem.getClazz().equals(backFragment.getClass())) {
