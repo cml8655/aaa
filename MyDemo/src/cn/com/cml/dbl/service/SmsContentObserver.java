@@ -11,6 +11,7 @@ import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.SmsModel;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.NetworkUtils;
 
 /**
  * 短信数据库变化监听
@@ -67,15 +68,17 @@ public class SmsContentObserver extends ContentObserver {
 
 					case JINGBAO_ENUM:
 
+						// 短信警报功能开启
 						if (AppUtil.getPrefValue(context, "smsAlaram")) {
+							// 启动警报
 							AlarmServiceQuene_.intent(context).start();
-
-							Message msg = handler.obtainMessage();
-
-							msg.what = CONTENT_CHANGE;
-							msg.obj = new SmsModel(body, id);
-
-							handler.sendMessage(msg);
+							//
+							// Message msg = handler.obtainMessage();
+							//
+							// msg.what = CONTENT_CHANGE;
+							// msg.obj = new SmsModel(body, id);
+							//
+							// handler.sendMessage(msg);
 						}
 
 						break;
@@ -89,11 +92,13 @@ public class SmsContentObserver extends ContentObserver {
 
 					case DINGWEI_ENUM:
 
+						// 允许开启短信定位
 						if (AppUtil.getPrefValue(context, "smsLocation")) {
-							// 定位追踪
-							// TODO
-							// 1：判断网络，开启网络
-							// 2:10分钟内推送定位信息
+							
+							// 网路没有开启
+							if (!NetworkUtils.isNetworkActive(this.context)) {
+								//TODO 开启网络
+							}
 						}
 
 						break;
@@ -115,6 +120,12 @@ public class SmsContentObserver extends ContentObserver {
 		}
 	}
 
+	/**
+	 * 将数据指令转换成哼Command对象
+	 * 
+	 * @param body
+	 * @return 密码与本地数据库存储相同，返回对应的指令对象，else 返回null
+	 */
 	private Constant.Command isCommand(String body) {
 
 		if (TextUtils.isEmpty(body) || body.endsWith(Constant.COMMAND_SPERATOR)) {
