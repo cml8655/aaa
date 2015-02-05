@@ -11,6 +11,7 @@ import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.model.BindMessageModel;
 import cn.com.cml.dbl.model.SmsModel;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.NetworkStatusUtil;
 import cn.com.cml.dbl.util.NetworkUtils;
 
 /**
@@ -94,10 +95,19 @@ public class SmsContentObserver extends ContentObserver {
 
 						// 允许开启短信定位
 						if (AppUtil.getPrefValue(context, "smsLocation")) {
-							
+
 							// 网路没有开启
 							if (!NetworkUtils.isNetworkActive(this.context)) {
-								//TODO 开启网络
+								// 开启wifi
+								NetworkStatusUtil.openWifiIfClosed(context);
+								// 开启mobile网络
+								boolean mobileNetEnable = NetworkStatusUtil
+										.getMobileDataStatus(context);
+
+								if (!mobileNetEnable) {
+									NetworkStatusUtil.setMobileDataStatus(
+											context, true);
+								}
 							}
 						}
 
