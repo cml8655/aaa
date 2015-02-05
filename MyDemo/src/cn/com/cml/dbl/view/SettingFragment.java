@@ -6,6 +6,9 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
@@ -52,6 +55,15 @@ public class SettingFragment extends BaseFragment {
 
 	@AfterViews
 	public void afterViews() {
+		Log.d("SettingFragment", "afterviews");
+		Log.d("SettingFragment", "afterViews shoutdownAlarmItem:"
+				+ prefUtil.shoutdownAlarm().get());
+		Log.d("SettingFragment", "afterViews rememberPassItemView:"
+				+ prefUtil.rememberPass().get());
+		Log.d("SettingFragment", "afterViews smsAlarmView:"
+				+ prefUtil.smsAlaram().get());
+		Log.d("SettingFragment", "afterViews smsLocationView:"
+				+ prefUtil.smsLocation().get());
 
 		// 关机警报
 		shoutdownAlarmItem.setSwitchChecked(prefUtil.shoutdownAlarm().get());

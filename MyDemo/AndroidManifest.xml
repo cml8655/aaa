@@ -134,6 +134,7 @@
         <activity
             android:name="cn.com.cml.dbl.ModalActivity_"
             android:label="@string/back"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/ModalStyle" >
         </activity>
@@ -163,7 +164,7 @@
             <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter>
+            </intent-filter>
             -->
         </service>
         <service

@@ -6,7 +6,10 @@ import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -110,13 +113,6 @@ public class IndicatorItems extends LinearLayout implements
 			switchView.setVisibility(VISIBLE);
 			rightIcon.setVisibility(GONE);
 			indicatorDescView.setVisibility(VISIBLE);
-			switchView.setChecked(switchChecked);
-
-			if (switchChecked) {
-				setSwitchDesc(indicatorDescCheckedText);
-			} else {
-				setSwitchDesc(indicatorDescUnCheckedText);
-			}
 
 			switchView.setOnCheckedChangeListener(this);
 			break;
@@ -126,6 +122,10 @@ public class IndicatorItems extends LinearLayout implements
 
 	public void setSwitchChecked(boolean checked) {
 		switchView.setChecked(checked);
+	}
+
+	public boolean getSwitchChecked() {
+		return switchView.isChecked();
 	}
 
 	public void setOnChangeListener(OnCheckedChangeListener onChangeListener) {
@@ -141,7 +141,11 @@ public class IndicatorItems extends LinearLayout implements
 			setSwitchDesc(indicatorDescUnCheckedText);
 		}
 
+		Log.d("SettingFragment", this.messageText + "变化了： onCheckedChanged:"
+				+ isChecked);
+
 		if (null != onChangeListener) {
+			Log.d("SettingFragment", "回调了。。。");
 			onChangeListener.onCheckedChanged(buttonView, isChecked);
 		}
 

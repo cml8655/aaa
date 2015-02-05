@@ -20,12 +20,14 @@ public class ModalActivity extends BaseActivity {
 
 	@Extra
 	int fragmentTitle;
-	
+
 	@Extra
 	Bundle extraArguments;
 
 	@AfterViews
 	void afterViews() {
+
+		Log.d("SettingFragment", "modal==============>afterviews");
 
 		try {
 
@@ -35,9 +37,20 @@ public class ModalActivity extends BaseActivity {
 
 			FragmentTransaction transaction = getSupportFragmentManager()
 					.beginTransaction();
-			Fragment fragment= container.newInstance();
-			fragment.setArguments(extraArguments);
-			transaction.replace(R.id.modal_container,fragment);
+
+			Fragment cacheFragment = getSupportFragmentManager()
+					.findFragmentByTag(container.getCanonicalName());
+
+			if (null != cacheFragment) {
+				transaction.replace(R.id.modal_container, cacheFragment,
+						container.getCanonicalName());
+			} else {
+				Fragment fragment = container.newInstance();
+				fragment.setArguments(extraArguments);
+				transaction.replace(R.id.modal_container, fragment,
+						container.getCanonicalName());
+			}
+
 			transaction.commit();
 
 		} catch (Exception e) {
