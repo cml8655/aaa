@@ -2,25 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/default_color"
+    android:orientation="vertical"
+    android:padding="@dimen/default_margin" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/img_menu" />
-
-    <Button
-        android:id="@+id/entrance_btn"
-        style="@style/buttonStyle"
+    <TextView
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开启" />
+        android:gravity="center"
+        android:text="安全护航需要您的支持\n请将我添加到进程清理白名单"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/secure_btn"
-        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="安全设置" />
+        android:layout_marginTop="@dimen/default_margin"
+        android:background="@drawable/bg_msgtip_normal"
+        android:text="白名单设置"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/entrance_btn"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_height="50dp"
+        android:gravity="right"
+        android:textSize="20sp"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="跳过，马上体验>>"
+        android:textColor="@color/white" />
 
 </LinearLayout>
