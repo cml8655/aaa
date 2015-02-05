@@ -3,6 +3,7 @@ package cn.com.cml.dbl.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import cn.com.cml.dbl.model.SmsModel;
@@ -36,7 +37,8 @@ public class GlobalService extends Service {
 
 		// 注册短信数据库监听
 		getContentResolver().registerContentObserver(SmsModel.SMS_CONTENT_URI,
-				true, new SmsContentObserver(this, new SMSHandler(this)));
+				true, new SmsContentObserver(this, new Handler()));
+		Log.d("SmsContentObserver", "注册短信监听。。。。");
 
 	}
 

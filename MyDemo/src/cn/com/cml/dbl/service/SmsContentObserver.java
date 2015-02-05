@@ -1,10 +1,10 @@
 package cn.com.cml.dbl.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import cn.com.cml.dbl.contant.Constant;
@@ -27,14 +27,12 @@ public class SmsContentObserver extends ContentObserver {
 
 	public static final int CONTENT_CHANGE = 1002;
 
-	private Handler handler;
 	private Context context;
 
 	private String[] projection = new String[] { SmsModel._ID, SmsModel.BODY };
 
 	public SmsContentObserver(Context context, Handler handler) {
 		super(handler);
-		this.handler = handler;
 		this.context = context;
 	}
 
@@ -43,7 +41,7 @@ public class SmsContentObserver extends ContentObserver {
 
 		Log.d(TAG, "收到新短信");
 
-		if (selfChange || null == context || null == handler) {
+		if (selfChange || null == context) {
 			return;
 		}
 
@@ -55,7 +53,7 @@ public class SmsContentObserver extends ContentObserver {
 
 			if (null != cursor && cursor.moveToNext()) {
 
-				int id = cursor.getInt(cursor.getColumnIndex(SmsModel._ID));
+				// int id = cursor.getInt(cursor.getColumnIndex(SmsModel._ID));
 				String body = cursor.getString(cursor
 						.getColumnIndex(SmsModel.BODY));
 
@@ -63,32 +61,47 @@ public class SmsContentObserver extends ContentObserver {
 
 				Constant.Command command = isCommand(body);
 
+				Log.d(TAG,
+						"收到新短信,内容、分析如下：" + command + ","
+								+ AppUtil.getPrefValue(context, "smsAlaram"));
+
 				if (null != command) {
 
 					switch (command) {
 
 					case JINGBAO_ENUM:
 
-						// 短信警报功能开启
-						if (AppUtil.getPrefValue(context, "smsAlaram")) {
-							// 启动警报
-							AlarmServiceQuene_.intent(context).start();
-							//
-							// Message msg = handler.obtainMessage();
-							//
-							// msg.what = CONTENT_CHANGE;
-							// msg.obj = new SmsModel(body, id);
-							//
-							// handler.sendMessage(msg);
-						}
+						Intent intent = AlarmServiceQuene_.intent(context)
+								.get();
+						intent.putExtra(AlarmServiceQuene.EXTRA_TYPE,
+								Constant.Alarm.TYPE_COMMAND);
+
+						context.startService(intent);
+
+						// RingtoneService_.intent(context).start();
+						// // 启动桌面密码输入
+						// WindowAlarmService_.intent(context).start();
+						//
+						// // 短信警报功能开启
+						// // if (AppUtil.getPrefValue(context, "smsAlaram")) {
+						// // 启动警报
+						// AlarmServiceQuene_.intent(context).start();
+						//
+						// Message msg = handler.obtainMessage();
+						//
+						// msg.what = CONTENT_CHANGE;
+						// msg.obj = new SmsModel(body, id);
+						//
+						// handler.sendMessage(msg);
+						// }
 
 						break;
 
 					case JINGBAO_STOP_ENUM:
-
-						RingtoneService_.intent(context).stop();
-						// 启动桌面密码输入
+						AlarmServiceQuene_.intent(context).stop();
 						WindowAlarmService_.intent(context).stop();
+						RingtoneService_.intent(context).stop();
+
 						break;
 
 					case DINGWEI_ENUM:

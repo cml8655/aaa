@@ -3,7 +3,7 @@ package cn.com.cml.dbl.util;
 import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
-@SharedPref(value=SharedPref.Scope.UNIQUE)
+@SharedPref(value=SharedPref.Scope.APPLICATION_DEFAULT)
 public interface PrefUtil {
 	/**
 	 * 关机警报
