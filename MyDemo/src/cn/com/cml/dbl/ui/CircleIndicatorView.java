@@ -60,7 +60,7 @@ public class CircleIndicatorView extends View {
 
 		canvas.drawARGB(0, 0, 0, 0);
 
-		paint.setColor(Color.BLUE);
+		paint.setColor(Color.WHITE);
 		paint.setStyle(Style.STROKE);
 		canvas.drawCircle(cx, cy, radius, paint);
 
