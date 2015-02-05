@@ -100,6 +100,8 @@ public class MenuHelper {
 		transaction.setCustomAnimations(R.anim.right_in, R.anim.left_fadeout,
 				R.anim.right_fadein, R.anim.left_fadeout);
 
+		transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
 		Fragment fragment = retrieveFromCache(menuItem);
 
 		// fragment没有实例化过，new出一个添加到FragmentTransaction中，并且保存fragment的状态
@@ -120,7 +122,7 @@ public class MenuHelper {
 	}
 
 	private Fragment retrieveFromCache(MenuItems menuItem) {
-		//从fragmentManager中获取已有的fragment对象
+		// 从fragmentManager中获取已有的fragment对象
 		for (Fragment backFragment : fragmentManager.getFragments()) {
 			if (null != backFragment
 					&& menuItem.getClazz().equals(backFragment.getClass())) {
