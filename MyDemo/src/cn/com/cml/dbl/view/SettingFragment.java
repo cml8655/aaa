@@ -55,16 +55,6 @@ public class SettingFragment extends BaseFragment {
 
 	@AfterViews
 	public void afterViews() {
-		Log.d("SettingFragment", "afterviews");
-		Log.d("SettingFragment", "afterViews shoutdownAlarmItem:"
-				+ prefUtil.shoutdownAlarm().get());
-		Log.d("SettingFragment", "afterViews rememberPassItemView:"
-				+ prefUtil.rememberPass().get());
-		Log.d("SettingFragment", "afterViews smsAlarmView:"
-				+ prefUtil.smsAlaram().get());
-		Log.d("SettingFragment", "afterViews smsLocationView:"
-				+ prefUtil.smsLocation().get());
-
 		// 关机警报
 		shoutdownAlarmItem.setSwitchChecked(prefUtil.shoutdownAlarm().get());
 		shoutdownAlarmItem.setOnChangeListener(new OnCheckedChangeListener() {
