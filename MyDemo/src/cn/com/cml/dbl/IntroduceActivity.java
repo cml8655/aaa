@@ -53,6 +53,8 @@ public class IntroduceActivity extends FragmentActivity {
 		circleViews.add(secondCircleView);
 		circleViews.add(thirdCircleView);
 
+		pager.setOffscreenPageLimit(0);
+
 		pager.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override

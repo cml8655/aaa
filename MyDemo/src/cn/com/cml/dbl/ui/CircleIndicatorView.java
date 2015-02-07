@@ -25,11 +25,11 @@ public class CircleIndicatorView extends View {
 	public CircleIndicatorView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		this.paint = new Paint();
-		paint.setAntiAlias(true);
+
 	}
 
 	public CircleIndicatorView(Context context, AttributeSet attrs) {
-		this(context, attrs, -1);
+		this(context, attrs, 0);
 	}
 
 	public boolean isSelected() {
@@ -49,6 +49,9 @@ public class CircleIndicatorView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 
+		paint.setAntiAlias(true);
+		paint.setFilterBitmap(true);
+
 		int width = this.getWidth();
 		int height = this.getHeight();
 
@@ -67,7 +70,7 @@ public class CircleIndicatorView extends View {
 		if (selected) {
 			paint.setStyle(Style.FILL);
 			paint.setColor(getContext().getResources().getColor(
-					R.color.default_color));
+					R.color.md_amber_a200));
 		}
 
 		canvas.drawCircle(cx, cy, radius - 5, paint);
