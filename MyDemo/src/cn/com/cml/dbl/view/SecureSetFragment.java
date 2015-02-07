@@ -14,6 +14,7 @@ import cn.com.cml.dbl.ModalActivity_;
 import cn.com.cml.dbl.R;
 import cn.com.cml.dbl.contant.Constant;
 import cn.com.cml.dbl.util.AppUtil;
+import cn.com.cml.dbl.util.DialogUtil;
 
 @EFragment(R.layout.fragment_secure)
 public class SecureSetFragment extends BaseFragment {
@@ -54,26 +55,26 @@ public class SecureSetFragment extends BaseFragment {
 			app360Button.setVisibility(View.VISIBLE);
 		}
 
-		// 百度卫士
-		if (installedApps.contains(AppUtil.APP_BAIDU_MOBILE)) {
-			appBaiduButton.setVisibility(View.VISIBLE);
-		}
-		// QQ手机管家
-		if (installedApps.contains(AppUtil.APP_TENCENT_MOBILE)) {
-			appTencentButton.setVisibility(View.VISIBLE);
-		}
-		// 金山
-		if (installedApps.contains(AppUtil.APP_JINSHAN_MOBILE)) {
-			appJinshanButton.setVisibility(View.VISIBLE);
-		}
-		// 猎豹
-		if (installedApps.contains(AppUtil.APP_LIEBAO_MOBILE)) {
-			appLiebaoButton.setVisibility(View.VISIBLE);
-		}
-		// 猎豹大师
-		if (installedApps.contains(AppUtil.APP_LIEBAO_CLEAN_MASTER)) {
-			appLiebaoButton.setVisibility(View.VISIBLE);
-		}
+		// // 百度卫士
+		// if (installedApps.contains(AppUtil.APP_BAIDU_MOBILE)) {
+		// appBaiduButton.setVisibility(View.VISIBLE);
+		// }
+		// // QQ手机管家
+		// if (installedApps.contains(AppUtil.APP_TENCENT_MOBILE)) {
+		// appTencentButton.setVisibility(View.VISIBLE);
+		// }
+		// // 金山
+		// if (installedApps.contains(AppUtil.APP_JINSHAN_MOBILE)) {
+		// appJinshanButton.setVisibility(View.VISIBLE);
+		// }
+		// // 猎豹
+		// if (installedApps.contains(AppUtil.APP_LIEBAO_MOBILE)) {
+		// appLiebaoButton.setVisibility(View.VISIBLE);
+		// }
+		// // 猎豹大师
+		// if (installedApps.contains(AppUtil.APP_LIEBAO_CLEAN_MASTER)) {
+		// appLiebaoButton.setVisibility(View.VISIBLE);
+		// }
 
 	}
 
@@ -83,7 +84,9 @@ public class SecureSetFragment extends BaseFragment {
 			R.id.secure_miui })
 	public void onClicked(View v) {
 
-		// TODO 进行清理引导
+		DialogUtil.showTip(getActivity(), "点击：" + v.getId() + ","
+				+ R.id.secure_miui);
+
 		final int id = v.getId();
 
 		Bundle extra = new Bundle();
@@ -98,10 +101,17 @@ public class SecureSetFragment extends BaseFragment {
 			break;
 
 		case R.id.secure_miui:
+			
+
+			DialogUtil.showTip(getActivity(), "点击：" + v.getId() + ","
+					+ R.id.secure_miui);
 
 			ModalActivity_.intent(getActivity())
 					.fragmentTitle(R.string.menu_secure)
 					.container(MiuiToturialFragment_.class).start();
+			break;
+		default:
+			DialogUtil.toast(getActivity(), R.string.agreement);
 			break;
 		}
 

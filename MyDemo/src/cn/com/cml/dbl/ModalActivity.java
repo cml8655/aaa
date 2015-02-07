@@ -27,8 +27,6 @@ public class ModalActivity extends BaseActivity {
 	@AfterViews
 	void afterViews() {
 
-		Log.d("SettingFragment", "modal==============>afterviews");
-
 		try {
 
 			actionBar.setDisplayShowTitleEnabled(true);
@@ -38,18 +36,10 @@ public class ModalActivity extends BaseActivity {
 			FragmentTransaction transaction = getSupportFragmentManager()
 					.beginTransaction();
 
-			Fragment cacheFragment = getSupportFragmentManager()
-					.findFragmentByTag(container.getCanonicalName());
-
-			if (null != cacheFragment) {
-				transaction.replace(R.id.modal_container, cacheFragment,
-						container.getCanonicalName());
-			} else {
-				Fragment fragment = container.newInstance();
-				fragment.setArguments(extraArguments);
-				transaction.replace(R.id.modal_container, fragment,
-						container.getCanonicalName());
-			}
+			Fragment fragment = container.newInstance();
+			fragment.setArguments(extraArguments);
+			transaction.replace(R.id.modal_container, fragment,
+					container.getCanonicalName());
 
 			transaction.commit();
 

@@ -134,7 +134,6 @@
         <activity
             android:name="cn.com.cml.dbl.ModalActivity_"
             android:label="@string/back"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/ModalStyle" >
         </activity>
