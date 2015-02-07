@@ -71,29 +71,16 @@ public class SmsContentObserver extends ContentObserver {
 
 					case JINGBAO_ENUM:
 
-						Intent intent = AlarmServiceQuene_.intent(context)
-								.get();
-						intent.putExtra(AlarmServiceQuene.EXTRA_TYPE,
-								Constant.Alarm.TYPE_COMMAND);
+						// 允许开启短信警报
+						if (AppUtil.getPrefValue(context, "smsAlaram")) {
+							
+							Intent intent = AlarmServiceQuene_.intent(context)
+									.get();
+							intent.putExtra(AlarmServiceQuene.EXTRA_TYPE,
+									Constant.Alarm.TYPE_COMMAND);
 
-						context.startService(intent);
-
-						// RingtoneService_.intent(context).start();
-						// // 启动桌面密码输入
-						// WindowAlarmService_.intent(context).start();
-						//
-						// // 短信警报功能开启
-						// // if (AppUtil.getPrefValue(context, "smsAlaram")) {
-						// // 启动警报
-						// AlarmServiceQuene_.intent(context).start();
-						//
-						// Message msg = handler.obtainMessage();
-						//
-						// msg.what = CONTENT_CHANGE;
-						// msg.obj = new SmsModel(body, id);
-						//
-						// handler.sendMessage(msg);
-						// }
+							context.startService(intent);
+						}
 
 						break;
 
