@@ -1,8 +1,10 @@
 package cn.com.cml.dbl.receiver;
 
 import org.androidannotations.annotations.EReceiver;
+import org.androidannotations.annotations.SystemService;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +22,9 @@ public class ShoutdownReceiver extends BroadcastReceiver {
 
 	@Pref
 	PrefUtil_ pref;
+
+	@SystemService
+	KeyguardManager keyguardManager;
 
 	@Override
 	public void onReceive(final Context context, Intent intent) {
@@ -51,7 +56,8 @@ public class ShoutdownReceiver extends BroadcastReceiver {
 
 			String reason = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY);
 
-			if (reason != null && reason.equals("globalactions")) {
+			if (reason != null && reason.equals("globalactions")
+					&& keyguardManager.inKeyguardRestrictedInputMode()) {
 				RingtoneService_.intent(context).start();
 				notifyHelper.addRingtoneStartNotify(context,
 						ACTION_SHOUT_CANCEL);

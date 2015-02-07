@@ -55,7 +55,7 @@
     <cn.com.cml.dbl.ui.MenuItemView_
         android:id="@+id/menu_home"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/menu_height"
         menu:icon="@string/icon_home"
         menu:text="@string/menu_home" >
     </cn.com.cml.dbl.ui.MenuItemView_>
@@ -67,7 +67,7 @@
     <cn.com.cml.dbl.ui.MenuItemView_
         android:id="@+id/menu_alarm"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/menu_height"
         menu:icon="@string/icon_alarm"
         menu:text="@string/menu_alarm" />
 
@@ -77,7 +77,7 @@
     <cn.com.cml.dbl.ui.MenuItemView_
         android:id="@+id/menu_monitor"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/menu_height"
         menu:icon="@string/icon_location"
         menu:text="@string/menu_monitor" >
     </cn.com.cml.dbl.ui.MenuItemView_>
@@ -87,7 +87,7 @@
     <cn.com.cml.dbl.ui.MenuItemView_
         android:id="@+id/menu_secure"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/menu_height"
         menu:icon="@string/icon_secure"
         menu:text="@string/menu_secure" >
     </cn.com.cml.dbl.ui.MenuItemView_>
@@ -97,7 +97,7 @@
     <cn.com.cml.dbl.ui.MenuItemView_
         android:id="@+id/menu_suggest"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/menu_height"
         menu:icon="@string/icon_suggest"
         menu:text="@string/menu_suggest" >
     </cn.com.cml.dbl.ui.MenuItemView_>
@@ -107,7 +107,7 @@
     <cn.com.cml.dbl.ui.MenuItemView_
         android:id="@+id/menu_setting"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/menu_height"
         menu:icon="@string/icon_setting"
         menu:text="@string/menu_setting" >
     </cn.com.cml.dbl.ui.MenuItemView_>
@@ -123,7 +123,7 @@
         <cn.com.cml.dbl.ui.MenuItemView_
             android:id="@+id/menu_logout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/menu_height"
             android:layout_alignParentBottom="true"
             android:background="@color/md_cyan_300"
             android:gravity="bottom"
