@@ -82,7 +82,7 @@
         <!-- activeAdriod 数据库配置 -->
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="pets.db" />
+            android:value="fangdao.db" />
         <meta-data
             android:name="AA_DB_VERSION"
             android:value="1" />

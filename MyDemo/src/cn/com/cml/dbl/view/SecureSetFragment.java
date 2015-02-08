@@ -84,9 +84,6 @@ public class SecureSetFragment extends BaseFragment {
 			R.id.secure_miui })
 	public void onClicked(View v) {
 
-		DialogUtil.showTip(getActivity(), "点击：" + v.getId() + ","
-				+ R.id.secure_miui);
-
 		final int id = v.getId();
 
 		Bundle extra = new Bundle();
@@ -102,10 +99,6 @@ public class SecureSetFragment extends BaseFragment {
 
 		case R.id.secure_miui:
 			
-
-			DialogUtil.showTip(getActivity(), "点击：" + v.getId() + ","
-					+ R.id.secure_miui);
-
 			ModalActivity_.intent(getActivity())
 					.fragmentTitle(R.string.menu_secure)
 					.container(MiuiToturialFragment_.class).start();
