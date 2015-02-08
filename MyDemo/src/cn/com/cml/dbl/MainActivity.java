@@ -21,6 +21,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -130,14 +131,20 @@ public class MainActivity extends BaseActivity {
 
 		String lastCheckingDateStr = user.getLastChecking();
 
+		Log.d(TAG, "lastChecking:" + lastCheckingDateStr);
+
 		// 没有签到记录
-		if (null == lastCheckingDateStr) {
+		if (null == lastCheckingDateStr
+				|| TextUtils.isEmpty(lastCheckingDateStr)) {
 			todayCheckingResult(false);
 			return;
 		}
 
 		Date lastCheckingDate = CommonUtils.parseDate(lastCheckingDateStr,
 				CommonUtils.FORMAT_YMD, new Date());
+
+		Log.d(TAG,
+				"lastChecking:" + CommonUtils.isDateBefore(lastCheckingDate, 0));
 
 		todayCheckingResult(CommonUtils.isDateBefore(lastCheckingDate, 0));
 
