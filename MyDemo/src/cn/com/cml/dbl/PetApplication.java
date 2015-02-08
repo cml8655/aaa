@@ -26,14 +26,17 @@ public class PetApplication extends Application {
 
 		deviceId = DeviceUtil.deviceImei(this);
 
-		Bmob.initialize(this, "8edefd1dfad9502b4a3be158d357ca30");
+		// Bmob.initialize(this, "8edefd1dfad9502b4a3be158d357ca30");
+		Bmob.initialize(this, "bb3d69f1a52d96b8439189844499ab9b");// 上线版
 
 		InstallationModel installation = new InstallationModel(this);
 		installation.setImei(deviceId);
 		installation.save(this);
 
+		// BmobPush.startWork(getApplicationContext(),
+		// "8edefd1dfad9502b4a3be158d357ca30");
 		BmobPush.startWork(getApplicationContext(),
-				"8edefd1dfad9502b4a3be158d357ca30");
+				"bb3d69f1a52d96b8439189844499ab9b");
 		// 初始化版本信息
 		BmobUpdateAgent.initAppVersion(getApplicationContext());
 
